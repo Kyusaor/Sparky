@@ -71,7 +71,7 @@ bot.on('guildDelete', guild => {
 
 
 //Gestion des commandes
-bot.on('message', async msg => {
+bot.on('messageCreate', async msg => {
 
     //Conditions pour exécuter le bloc
     await msg.author.fetch().catch(e => e);
@@ -135,7 +135,7 @@ bot.on('message', async msg => {
 })
 
 //Gestion des mp
-bot.on('message', async msg => {
+bot.on('messageCreate', async msg => {
     if(msg.channel.type != "dm" || msg.author.bot) return;
     
     let MsgFiles = [];
