@@ -91,7 +91,6 @@ bot.on('messageCreate', async msg => {
 
     //Envoie le préfixe lorsqu'il est mentionné
     if(msg.content.split(' ').length == 1 && msg.mentions.has(bot.user, { ignoreEveryone: true, ignoreRoles: true })){
-        let prefixe = gconfig[msg.guild.id].prefix;
         let embed = new Discord.MessageEmbed()
             .setColor([59,229,53])
             .setThumbnail('https://media.discordapp.net/attachments/659758501865717790/680102643519193089/help_sparky.png')
