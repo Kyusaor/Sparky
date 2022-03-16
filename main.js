@@ -13,7 +13,6 @@ const CommandManager = require('./modules/commandManager.js');
 const utils = require('./modules/utils.js');
 const ReactManager = require('./modules/reactManager.js');
 const Private = require('./data/private.js');
-const prefix = require('./modules/prefix.js');
 
 
 //Déclaration des fonctions utilisées
