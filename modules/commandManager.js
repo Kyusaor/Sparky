@@ -2,37 +2,34 @@
 const Config = require('../data/config.js');
 
 //Commandes admin
-const Prefix = require('./prefix.js');
-const Veilleur = require('./veilleur.js');
-const StopVeilleur = require('./stopVeilleur.js');
+const Veilleur = require('./commands/veilleur.js');
+const StopVeilleur = require('./commands/stopVeilleur.js');
 
 //Commandes pour tout le monde
-const SpeedUp = require('./speedup.js');
-const Compo = require('./compo.js');
-const UserInfos = require('./userInfo.js');
-const InfoServeur = require('./serverInfo.js');
-const Aide = require('./aide.js');
-const Contact = require('./contact.js');
-const Credits = require('./credits.js');
-const Lien = require('./lien.js');
-const InfoBot = require('./infobot.js');
-const Cycle = require('./cycle.js');
-//const Rotation = require('./rotation.js');
+const SpeedUp = require('./commands/speedup.js');
+const Compo = require('./commands/compo.js');
+const UserInfos = require('./commands/userInfo.js');
+const InfoServeur = require('./commands/serverInfo.js');
+const Aide = require('./commands/aide.js');
+const Contact = require('./commands/contact.js');
+const Credits = require('./commands/credits.js');
+const Lien = require('./commands/lien.js');
+const InfoBot = require('./commands/infobot.js');
+const Cycle = require('./commands/cycle.js');
+//const Rotation = require('./commands/rotation.js');
 
 //Commandes propriétaire du bot
-const ListeServeurs = require('./listeServeurs.js');
-const Data = require('./data.js');
-const createInvite = require('./createInvite.js');
-const Say = require('./say.js');
-const SetGlobalPing = require('./setGlobalPing.js');
-const InfosServ = require('./infosServ.js');
-const Refresh = require('./refresh.js');
-const LeaveServ = require('./leaveServ.js');
-const Reboot = require('./reboot.js');
-const Send = require('./send.js');
+const ListeServeurs = require('./commands/listeServeurs.js');
+const Data = require('./commands/data.js');
+const createInvite = require('./commands/createInvite.js');
+const Say = require('./commands/say.js');
+const SetGlobalPing = require('./commands/setGlobalPing.js');
+const InfosServ = require('./commands/infosServ.js');
+const Refresh = require('./commands/refresh.js');
+const LeaveServ = require('./commands/leaveServ.js');
+const Reboot = require('./commands/reboot.js');
+const Send = require('./commands/send.js');
 
-//EasterEggs
-//const EEkyu = require('./kyu.js');
 
 //Construction des commandes disponibles pour le membre donné
 module.exports = function (member) {
