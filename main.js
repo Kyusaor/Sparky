@@ -96,7 +96,7 @@ bot.on('messageCreate', async msg => {
             .setColor([59,229,53])
             .setThumbnail('https://media.discordapp.net/attachments/659758501865717790/680102643519193089/help_sparky.png')
             .setTitle("Perdu?")
-            .setDescription("Mon préfixe sur ce serveur est: `" + prefixe + "`\n\nPour obtenir la liste de mes commandes, faites **" + prefixe + "aide**")
+            .setDescription("Pour obtenir la liste de mes commandes, faites **/aide**")
             .setFooter("Développé par Kyusaki#9053", kyu.displayAvatarURL())
         msg.channel.send(embed)
         .catch(error => console.log(utils.displayConsoleHour() + "Impossible d'envoyer le préfixe. #" + msg.channel.name + ", " + msg.guild.name + " (" + msg.guild.id + ")"))
