@@ -1,8 +1,8 @@
 //Paramétrage global
 const Discord = require('discord.js');
-const bot = new Discord.Client();
-const fs = require('fs');
 const config = require('./data/config.js');
+const bot = new Discord.Client({ intents: config.intents});
+const fs = require('fs');
 var gconfig = JSON.parse(fs.readFileSync('./data/guild_config.json'));
 var gpconfig = JSON.parse(fs.readFileSync('./data/globalPing.json'));
 
