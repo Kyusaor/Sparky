@@ -1,3 +1,5 @@
+const Discord = require('discord.js');
+
 module.exports = {
     
     kyu: "370293090407153665",
@@ -12,5 +14,13 @@ module.exports = {
     gp_dashboard:"647042988358238208",
     logs_db:"784919405896400916",
 
-    botperm:"268757073"
+    botperm:"268757073",
+
+    intents:[
+        Discord.Intents.FLAGS.GUILDS,
+        Discord.Intents.FLAGS.GUILD_MESSAGES,
+        Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+        Discord.Intents.FLAGS.DIRECT_MESSAGES,
+        Discord.Intents.FLAGS.DIRECT_MESSAGE_REACTIONS
+],
 }
