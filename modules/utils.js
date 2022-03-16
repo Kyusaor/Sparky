@@ -240,10 +240,6 @@ module.exports = {
         chan ? chan.delete() : console.log(id + ": salon introuvable (" + serv.name + ", " + serv.id + ")")
     },
 
-    préfixe(guild, gconfig, bot) {
-        return gconfig[guild].prefix
-    },
-
     speed: {
         "1 minute": 1,
         "3 minutes": 3,
