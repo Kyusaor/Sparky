@@ -76,7 +76,7 @@ bot.on('messageCreate', async msg => {
     //Conditions pour exécuter le bloc
     await msg.author.fetch().catch(e => e);
 
-    if (msg.channel.type != 'text') return;
+    if (msg.channel.type != 'GUILD_TEXT') return;
     if (msg.author.bot) return;
     if(!gconfig[msg.guild.id]) {
         console.log(gconfig[msg.guild.id])
@@ -136,7 +136,7 @@ bot.on('messageCreate', async msg => {
 
 //Gestion des mp
 bot.on('messageCreate', async msg => {
-    if(msg.channel.type != "dm" || msg.author.bot) return;
+    if(msg.channel.type != "DM" || msg.author.bot) return;
     
     let MsgFiles = [];
     msg.attachments.forEach(e => {
