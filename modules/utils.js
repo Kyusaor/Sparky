@@ -1,5 +1,7 @@
 const config = require('../data/config.js');
 const fs = require('fs');
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
 
 module.exports = {
 
@@ -44,6 +46,20 @@ module.exports = {
             serrulule: "le Serrulule",
             wyrm: "Wyrm de Jade"
         }
+    },
+
+    async commandHandler() {
+
+        let commands = [];
+        let commandFiles = fs.readdirSync('./modules/').filter(file => !file.startsWith('utils' || 'commandManager' || 'ServersChanging'));
+        
+        for (const file of commandFiles) {
+            let commandFile = require(`./moduless/${file}`);
+            commands.push(commandFile.data.toJSON());
+        }
+
+        console.log(commands.length)
+
     },
 
     mob: {
