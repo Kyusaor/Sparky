@@ -1,6 +1,6 @@
-const config = require('../data/config.js');
+const config = require('../../data/config.js');
 const Discord = require('discord.js');
-const utils = require('./utils.js');
+const utils = require('../utils.js');
 
 module.exports = {
 

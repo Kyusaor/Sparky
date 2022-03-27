@@ -1,5 +1,5 @@
-const config = require('../data/config.js');
-const utils = require('./utils.js');
+const config = require('../../data/config.js');
+const utils = require('../utils.js');
 
 module.exports = {
 

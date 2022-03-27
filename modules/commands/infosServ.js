@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const fs = require('fs');
-const utils = require('./utils.js');
+const utils = require('../utils.js');
 
 module.exports = {
 
