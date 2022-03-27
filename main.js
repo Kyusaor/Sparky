@@ -1,11 +1,10 @@
 //Paramétrage global
 const Discord = require('discord.js');
-const config = require('./data/config.js');
+global.config = require('./data/config.js');
 const bot = new Discord.Client({ intents: config.intents});
 const fs = require('fs');
 var gconfig = JSON.parse(fs.readFileSync('./data/guild_config.json'));
 var gpconfig = JSON.parse(fs.readFileSync('./data/globalPing.json'));
-
 
 //Récupération des fichiers nécessaires
 const ServChang = require('./modules/ServersChanging.js');
@@ -27,6 +26,7 @@ bot.login(Private.token);
 bot.on('ready', async () => {
     utils.envoi_log(config.logs_connexions, bot, config.version)
     utils.statusLoop(bot);
+    await utils.commandHandler();
     kyu = await bot.users.fetch(config.kyu);
     chan_mp = await bot.channels.cache.get(config.logs_mp);
     let chanGP = await bot.channels.cache.get(config.gp_dashboard);
