@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const fs = require('fs');
-const utils = require('./utils');
-const config = require('../data/config.js');
+const config = require('../../data/config.js');
+const utils = require('../utils.js');
 
 module.exports = {
 
