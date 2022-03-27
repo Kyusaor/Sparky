@@ -2,6 +2,7 @@
 const Discord = require('discord.js');
 global.config = require('./data/config.js');
 const bot = new Discord.Client({ intents: config.intents});
+bot.commands = new Discord.Collection();
 const fs = require('fs');
 var gconfig = JSON.parse(fs.readFileSync('./data/guild_config.json'));
 var gpconfig = JSON.parse(fs.readFileSync('./data/globalPing.json'));
@@ -26,7 +27,7 @@ bot.login(Private.token);
 bot.on('ready', async () => {
     utils.envoi_log(config.logs_connexions, bot, config.version)
     utils.statusLoop(bot);
-    await utils.commandHandler();
+    await utils.commandHandler(bot);
     kyu = await bot.users.fetch(config.kyu);
     chan_mp = await bot.channels.cache.get(config.logs_mp);
     let chanGP = await bot.channels.cache.get(config.gp_dashboard);
@@ -131,6 +132,22 @@ bot.on('messageCreate', async msg => {
 
     }
 
+})
+
+//Gestion des / commandes
+bot.on('interactionCreate', async intera => {
+
+    if(!intera.isCommand()) return;
+
+    let command = bot.commands.get(intera.commandName)
+    if(!command) return console.log('pas de commande')
+
+    try {
+        await command.run(intera)
+    } catch {
+        await intera.reply({ content: 'Une erreur est survenue pendant l\'éxecution de la commande!', ephemeral: true });
+    }
+    
 })
 
 //Gestion des mp
