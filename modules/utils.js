@@ -48,18 +48,14 @@ module.exports = {
         }
     },
 
-    async commandHandler() {
+    async commandHandler(bot) {
 
-        let commands = [];
-        let commandFiles = fs.readdirSync('./modules/').filter(file => !file.startsWith('utils' || 'commandManager' || 'ServersChanging'));
-        
+        const commandFiles = fs.readdirSync('./modules/commands').filter(file => file.endsWith('1.js'));
+
         for (const file of commandFiles) {
-            let commandFile = require(`./moduless/${file}`);
-            commands.push(commandFile.data.toJSON());
+            const command = require(`./commands/${file}`);
+            bot.commands.set(command.data.name, command);
         }
-
-        console.log(commands.length)
-
     },
 
     mob: {
