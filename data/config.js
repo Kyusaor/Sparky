@@ -3,7 +3,6 @@ const Discord = require('discord.js');
 module.exports = {
     
     kyu: "370293090407153665",
-    devPrefix: "!",
 
     version: "1.6",
 
