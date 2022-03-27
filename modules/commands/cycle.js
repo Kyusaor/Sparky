@@ -1,5 +1,5 @@
-const defVal = require('../data/defaultValues.js');
-const utils = require('./utils.js');
+const defVal = require('../../data/defaultValues.js');
+const utils = require('../utils.js');
 
 module.exports = {
 
