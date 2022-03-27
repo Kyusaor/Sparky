@@ -11,6 +11,8 @@ module.exports = {
 
     run(args) {
 
+        args.msg.channel.send("Le cycle de monstres étant désormais aléatoire, cette commande a donc été malheureusement rendue obsolète")
+/*
         //Récupération des variables utiles
         let msg = args.msg;
         let Mobs = defVal.cycle;
@@ -43,5 +45,7 @@ module.exports = {
         liste += "\n\n**__Note:__ Les nouveaux monstres n'étant pas encore définis dans le cycle de monstres, celui-ci est amené à changer lorsqu'il y sera intégré**"
 
         msg.channel.send(liste)
+*/
     },
+
 }
