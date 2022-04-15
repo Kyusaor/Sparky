@@ -1,19 +1,18 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const utils = require('../utils.js');
 
 module.exports = {
 
-    name: "contact",
+    name: 'contact',
 
-    description: "Nous contacter (discord ou e-mail)",
+    data:
+        new SlashCommandBuilder()
+            .setName('contact')
+            .setDescription('Nous contacter (discord ou email)'),
+        
+    async run(intera) {
 
-    level: 1,
+        intera.reply("Besoin d'aide sur le bot, de signaler un bug ou simplement discuter avec des joueurs de Lords Mobile? Voilà le lien du serveur :wink: \n " + utils.link + "\n\nPour contacter le développeur, vous pouvez également envoyer un mail à __**sparky.botfr@gmail.com**__")
 
-    run: function(args){
-
-        //Récupération des variables nécessaires
-        let msg = args.msg;
-
-        //Envoi du message
-        msg.channel.send("Besoin d'aide sur le bot, de signaler un bug ou simplement discuter avec des joueurs de Lords Mobile? Voilà le lien du serveur :wink: \n " + utils.link + "\n\nPour contacter le développeur, vous pouvez également envoyer un mail à __**sparky.botfr@gmail.com**__")
     }
 }
