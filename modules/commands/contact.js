@@ -11,9 +11,10 @@ module.exports = {
             .setName('contact')
             .setDescription('Nous contacter (discord ou email)'),
         
-    async run(intera) {
+    async run(args) {
 
-        intera.reply("Besoin d'aide sur le bot, de signaler un bug ou simplement discuter avec des joueurs de Lords Mobile? Voilà le lien du serveur :wink: \n " + utils.link + "\n\nPour contacter le développeur, vous pouvez également envoyer un mail à __**sparky.botfr@gmail.com**__")
+        args.intera.reply("Besoin d'aide sur le bot, de signaler un bug ou simplement discuter avec des joueurs de Lords Mobile? Voilà le lien du serveur :wink: \n " + utils.link + "\n\nPour contacter le développeur, vous pouvez également envoyer un mail à __**sparky.botfr@gmail.com**__")
+        .catch(err => utils.errorSendReply('contact', args))
 
     }
 }
