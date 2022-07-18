@@ -140,8 +140,17 @@ bot.on('interactionCreate', async intera => {
     let command = bot.application.commands.fetch(intera.commandId)
     if(!command) return console.log('pas de commande')
     let commandFile = require('./modules/commands/' + intera.commandName + '.js')
+
+    let args = {
+        intera: intera,
+        bot: bot,
+        kyu: kyu,
+        gconfig: gconfig,
+        gpconfig: gpconfig,
+        userstatus: usersStatus,
+}
     try {
-        await commandFile.run(intera, bot)
+        await commandFile.run(args)
     } catch {
         await intera.reply({ content: 'Une erreur est survenue pendant l\'éxecution de la commande!', ephemeral: true });
     }
