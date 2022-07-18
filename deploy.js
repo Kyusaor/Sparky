@@ -9,14 +9,6 @@ const fs = require('fs');
 
 //listage des commmandes
 
-//Pas necessaire
-const command1 = [
-	new SlashCommandBuilder().setName('contact').setDescription('Nous contacter (discord ou email)'),
-    new SlashCommandBuilder().setName('test').setDescription('commande random 1'),
-    new SlashCommandBuilder().setName('lien').setDescription('Envoie le lien d\'ajout du bot'),
-]
-//A partir de la c'est bon
-
 let commands = []
 const commandFiles = fs.readdirSync('./modules/commands').filter(file => file.endsWith('.js'));
 
