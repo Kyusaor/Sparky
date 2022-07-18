@@ -4,7 +4,7 @@ module.exports = {
     
     kyu: "370293090407153665",
 
-    version: "1.6",
+    version: "2.0",
 
     logs_connexions: "656141877770321960",
     logs_users: "656141824590872576",
