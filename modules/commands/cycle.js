@@ -15,10 +15,10 @@ module.exports = {
             .setName('cycle')
             .setDescription('Envoie les prochaines rotations de monstres'),
 
-    run(intera) {
+    run(args) {
 
-        intera.reply("Le cycle de monstres étant désormais aléatoire, cette commande a donc été malheureusement rendue obsolète")
-        .catch(error => console.log(utils.displayConsoleHour() + "Impossible d'envoyer le cycle dans le salon " + intera.channel.id + " (Serveur " + intera.guild.name + ")"))
+        args.intera.reply("Le cycle de monstres étant désormais aléatoire, cette commande a donc été malheureusement rendue obsolète")
+        .catch(err => utils.errorSendReply('cycle', args))
 /*
         //Récupération des variables utiles
         let msg = intera.msg;
