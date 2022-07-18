@@ -4,6 +4,7 @@ const utils = require('../utils.js');
 module.exports = {
 
     name: 'contact',
+    description: 'Nous contacter (discord ou email)',
 
     data:
         new SlashCommandBuilder()
