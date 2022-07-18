@@ -14,9 +14,9 @@ module.exports = {
             .setName('lien')
             .setDescription('Envoie le lien pour m\'ajouter sur votre serveur'),
 
-    run(intera, bot){
+    run(args){
 
-        intera.reply("Voici le lien pour m'ajouter sur votre serveur:\n<https://discord.com/oauth2/authorize?client_id=" + bot.user.id + "&scope=bot&permissions=" + config.botperm + ">")
-        .catch(error => console.log(utils.displayConsoleHour() + "Impossible d'envoyer le lien dans le salon " + intera.channel.id + " (Serveur " + intera.guild.name + ")"))
+        args.intera.reply("Voici le lien pour m'ajouter sur votre serveur:\n<https://discord.com/oauth2/authorize?client_id=" + args.bot.user.id + "&scope=bot&permissions=" + config.botperm + ">")
+        .catch(error => console.log(utils.displayConsoleHour() + "Impossible d'envoyer le lien dans le salon " + args.intera.channel.id + " (Serveur " + args.intera.guild.name + ")"))
     }
 }
