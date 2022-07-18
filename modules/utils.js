@@ -50,11 +50,11 @@ module.exports = {
 
     async commandHandler(bot) {
 
-        const commandFiles = fs.readdirSync('./modules/commands').filter(file => file.endsWith('1.js'));
+        const commandFiles = fs.readdirSync('./modules/commands').filter(file => file.endsWith('.js'));
 
         for (const file of commandFiles) {
             const command = require(`./commands/${file}`);
-            bot.commands.set(command.data.name, command);
+            await bot.application.commands.create(command);
         }
     },
 
