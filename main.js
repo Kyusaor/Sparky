@@ -139,6 +139,7 @@ bot.on('interactionCreate', async intera => {
 
     let command = bot.application.commands.fetch(intera.commandId)
     if(!command) return console.log('pas de commande')
+    if(!intera.guildId) return intera.reply('Les commandes sont à réaliser sur un serveur !');
     let commandFile = require('./modules/commands/' + intera.commandName + '.js')
 
     let args = {
