@@ -1,4 +1,5 @@
 const defVal = require('../../data/defaultValues.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const utils = require('../utils.js');
 
 module.exports = {
@@ -9,12 +10,18 @@ module.exports = {
 
     level: 1,
 
-    run(args) {
+    data: 
+        new SlashCommandBuilder()
+            .setName('cycle')
+            .setDescription('Envoie les prochaines rotations de monstres'),
 
-        args.msg.channel.send("Le cycle de monstres étant désormais aléatoire, cette commande a donc été malheureusement rendue obsolète")
+    run(intera) {
+
+        intera.reply("Le cycle de monstres étant désormais aléatoire, cette commande a donc été malheureusement rendue obsolète")
+        .catch(error => console.log(utils.displayConsoleHour() + "Impossible d'envoyer le cycle dans le salon " + intera.channel.id + " (Serveur " + intera.guild.name + ")"))
 /*
         //Récupération des variables utiles
-        let msg = args.msg;
+        let msg = intera.msg;
         let Mobs = defVal.cycle;
 
         //Calcul du nombre de jours écoulés depuis la date origine
