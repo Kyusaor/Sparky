@@ -2,7 +2,6 @@
 const Discord = require('discord.js');
 global.config = require('./data/config.js');
 const bot = new Discord.Client({ intents: config.intents});
-bot.commands = new Discord.Collection();
 const fs = require('fs');
 var gconfig = JSON.parse(fs.readFileSync('./data/guild_config.json'));
 var gpconfig = JSON.parse(fs.readFileSync('./data/globalPing.json'));
@@ -139,11 +138,11 @@ bot.on('interactionCreate', async intera => {
 
     if(!intera.isCommand()) return;
 
-    let command = bot.commands.get(intera.commandName)
+    let command = bot.application.commands.fetch(intera.commandId)
     if(!command) return console.log('pas de commande')
-
+    let commandFile = require('./modules/commands/' + intera.commandName + '.js')
     try {
-        await command.run(intera)
+        await commandFile.run(intera, bot)
     } catch {
         await intera.reply({ content: 'Une erreur est survenue pendant l\'éxecution de la commande!', ephemeral: true });
     }
