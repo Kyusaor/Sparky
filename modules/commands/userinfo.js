@@ -19,6 +19,13 @@ module.exports = {
 
     run: async function(args) {
 
+        let user = args.intera.options.getUser('pseudo') || args.intera.user;
+
+        let pseudo = user.username;
+        
+        
+        let membre = await args.intera.guild.members.fetch(user.id);
+        
         
     }
 }
