@@ -13,7 +13,7 @@ module.exports = {
     data: 
         new SlashCommandBuilder()
             .setName('cycle')
-            .setDescription('Envoie les prochaines rotations de monstres'),
+            .setDescription('Envoie les prochaines rotations de monstres (obsolète)'),
 
     run(args) {
 
