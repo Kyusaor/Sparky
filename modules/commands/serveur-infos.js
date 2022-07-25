@@ -19,34 +19,22 @@ module.exports = {
     run: async function(args) {
 
         let creation = args.intera.guild.createdAt;
-        console.log(creation)
         let title = args.intera.guild.name;
-        console.log(title)
         let pdp = args.intera.guild.iconURL();
-        console.log(pdp)
         let ownerUser = await args.bot.users.fetch(args.intera.guild.ownerId);
         let owner = ownerUser.tag;
-        console.log(owner)
         let membercount = args.intera.guild.memberCount;
-        console.log(utils.zero(creation.getDate()) + "/" + utils.zero(creation.getMonth() + 1) + "/" + creation.getFullYear() + " à " + utils.zero(creation.getHours()) + ":" + utils.zero(creation.getMinutes()))
         
-        let embed = new Discord.MessageEmbed({
-            title: title,
-            color: [16, 231, 215],
-            thumbnail: pdp,
-            fields: {
-                owner: [,"__Propriétaire__", owner],
-                creationDate: ["__Serveur créé le__", utils.zero(creation.getDate()) + "/" + utils.zero(creation.getMonth() + 1) + "/" + creation.getFullYear() + " à " + utils.zero(creation.getHours()) + ":" + utils.zero(creation.getMinutes())],
-                memberCount: ["__Nombre de membres__", membercount]
-            },
-            footer: { text: "ID: " + args.intera.guild.id, iconURL: args.kyu.avatarURL}
-        })
+        let embed = new Discord.MessageEmbed()
+            .setTitle(title)
+            .setColor([16, 231, 215])
+            .setThumbnail(pdp)
+            .addField("__Propriétaire__", owner)
+            .addField("__Serveur créé le__", utils.zero(creation.getDate()) + "/" + utils.zero(creation.getMonth() + 1) + "/" + creation.getFullYear() + " à " + utils.zero(creation.getHours()) + ":" + utils.zero(creation.getMinutes()))
+            .addField("__Nombre de membres__", membercount.toString())
+            .setFooter({text: "ID: " + args.intera.guild.id, iconURL: args.kyu.displayAvatarURL()});
 
-        console.log(embed)
-        args.intera.channel.send(embed).catch(c => console.log("nope"))
-        console.log("2")
-        args.intera.reply(embed)
-        .catch(err => utils.errorSendReply('info', args))
-        console.log('3')
+        args.intera.reply({embeds: [embed]})
+        .catch(err => utils.errorSendReply('serveur-infos', args))
     }
 }
