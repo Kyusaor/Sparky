@@ -170,7 +170,7 @@ bot.on('messageCreate', async msg => {
     chan_mp.send("`" + msg.author.id + "`")
     chan_mp.send('__**' + msg.author.tag + ' a envoyé:**__')
 
-    chan_mp.send(msg.content, { files: MsgFiles });
+    chan_mp.send(msg.content, { files: MsgFiles }).catch(e => e);
 
     if(msg.content == "!aide") msg.channel.send("Vous devez exécuter la commande aide sur un serveur, pas en messages privés avec moi 😄").catch(e => e)
 })
