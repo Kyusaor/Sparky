@@ -25,3 +25,14 @@ const rest = new REST({ version: '9' }).setToken(token);
 rest.put(Routes.applicationCommands('746783550866456716'), { body: commands })
     .then(() => console.log("Commandes déployées avec succès"))
     .catch(console.error)
+
+//A run pour effacer les commandes
+/*rest.get(Routes.applicationCommands('746783550866456716'))
+    .then(data => {
+        const promises = [];
+        for (const command of data) {
+            const deleteUrl = `${Routes.applicationCommands('746783550866456716')}/${command.id}`;
+            promises.push(rest.delete(deleteUrl));
+        }
+        return Promise.all(promises);
+    });*/
