@@ -276,5 +276,5 @@ module.exports = {
         return x
     },
 
-    errorSendReply(command, args) {console.log(utils.displayConsoleHour() + "Impossible d'envoyer la commande [" + command + "] dans le salon " + args.intera.channel.id + " (Serveur " + args.intera.guild.name + ")")},
+    errorSendReply(command, args) {console.log(this.displayConsoleHour() + "Impossible d'envoyer la commande [" + command + "] dans le salon " + args.intera.channel.id + " (Serveur " + args.intera.guild.name + ")")},
 }
