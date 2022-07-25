@@ -36,3 +36,18 @@ rest.put(Routes.applicationCommands('746783550866456716'), { body: commands })
         }
         return Promise.all(promises);
     });*/
+
+let devCommands = []
+const devCommandFiles = fs.readdirSync('./modules/commands/dev').filter(file => file.endsWith('.js'));
+
+
+for(file of devCommandFiles) {
+    const commandData = require(`./modules/commands/dev/${file}`);
+    devCommands.push(commandData.data)
+}
+
+devCommands.map(command => command.toJSON());
+
+rest.put(Routes.applicationGuildCommands('746783550866456716', '632957557375500299'), { body: devCommands })
+    .then(() => console.log("Commandes dev déployées avec succès"))
+    .catch(console.error)
