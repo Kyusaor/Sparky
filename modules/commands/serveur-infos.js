@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
 const utils = require('../utils.js');
 
 
@@ -25,14 +25,16 @@ module.exports = {
         let owner = ownerUser.tag;
         let membercount = args.intera.guild.memberCount;
         
-        let embed = new Discord.MessageEmbed()
+        let embed = new EmbedBuilder()
             .setTitle(title)
             .setColor([16, 231, 215])
             .setThumbnail(pdp)
-            .addField("__Propriétaire__", owner)
-            .addField("__Serveur créé le__", utils.zero(creation.getDate()) + "/" + utils.zero(creation.getMonth() + 1) + "/" + creation.getFullYear() + " à " + utils.zero(creation.getHours()) + ":" + utils.zero(creation.getMinutes()))
-            .addField("__Nombre de membres__", membercount.toString())
-            .setFooter({text: "ID: " + args.intera.guild.id, iconURL: args.kyu.displayAvatarURL()});
+            .addFields([
+                {name: "__Propriétaire__", value: owner},
+                {name: "__Serveur créé le__", value: utils.zero(creation.getDate()) + "/" + utils.zero(creation.getMonth() + 1) + "/" + creation.getFullYear() + " à " + utils.zero(creation.getHours()) + ":" + utils.zero(creation.getMinutes())},
+                {name: "__Nombre de membres__", value: membercount.toString()}
+            ])
+            .setFooter({text: "ID: " + args.intera.guildId, iconURL: args.kyu.displayAvatarURL()});
 
         args.intera.reply({embeds: [embed]})
         .catch(err => utils.errorSendReply('serveur-infos', args))
