@@ -56,6 +56,7 @@ module.exports = {
             const command = require(`./commands/${file}`);
             await bot.application.commands.create(command);
         }
+        
     },
 
     mob: {
