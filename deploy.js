@@ -10,21 +10,29 @@ const fs = require('fs');
 //listage des commmandes
 
 let commands = []
-const commandFiles = fs.readdirSync('./modules/commands').filter(file => file.endsWith('.js'));
+let devCommands = []
 
+const commandFiles = fs.readdirSync('./modules/commands').filter(file => file.endsWith('.js'));
 
 for(file of commandFiles) {
     const commandData = require(`./modules/commands/${file}`);
-    commands.push(commandData.data)
+    if(commandData.isDev) devCommands.push(commandData.data)
+    else commands.push(commandData.data)
 }
 
 commands.map(command => command.toJSON());
+devCommands.map(command => command.toJSON());
 
 const rest = new REST({ version: '9' }).setToken(token);
 
 rest.put(Routes.applicationCommands('746783550866456716'), { body: commands })
     .then(() => console.log("Commandes déployées avec succès"))
     .catch(console.error)
+
+rest.put(Routes.applicationGuildCommands('746783550866456716', '632957557375500299'), { body: devCommands })
+    .then(() => console.log("Commandes dev déployées avec succès"))
+    .catch(console.error)
+
 
 //A run pour effacer les commandes
 /*rest.get(Routes.applicationCommands('746783550866456716'))
@@ -36,18 +44,3 @@ rest.put(Routes.applicationCommands('746783550866456716'), { body: commands })
         }
         return Promise.all(promises);
     });*/
-
-let devCommands = []
-const devCommandFiles = fs.readdirSync('./modules/commands/dev').filter(file => file.endsWith('.js'));
-
-
-for(file of devCommandFiles) {
-    const commandData = require(`./modules/commands/dev/${file}`);
-    devCommands.push(commandData.data)
-}
-
-devCommands.map(command => command.toJSON());
-
-rest.put(Routes.applicationGuildCommands('746783550866456716', '632957557375500299'), { body: devCommands })
-    .then(() => console.log("Commandes dev déployées avec succès"))
-    .catch(console.error)
