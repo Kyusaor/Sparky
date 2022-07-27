@@ -1,18 +1,20 @@
-const utils = require('../utils.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const utils = require('../../utils.js');
 
 module.exports = {
 
     name:'data',
-
     description:'Envoies la base de données du bot en mp',
+    isDev: true,
 
-    level: 3,
+    data: 
+        new SlashCommandBuilder()
+            .setName('data')
+            .setDescription('Envoie la base de donnée'),
 
     async run(args){
 
-        let msg = args.msg;
-
-        let mp = await msg.author.createDM();
+        let mp = await args.intera.user.createDM();
 
         mp.send({files:[
             {
