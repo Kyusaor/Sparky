@@ -1,7 +1,7 @@
 //Paramétrage global
 const Discord = require('discord.js');
 global.config = require('./data/config.js');
-const bot = new Discord.Client({ intents: config.intents});
+const bot = new Discord.Client({ intents: config.GatewayIntentBits});
 const fs = require('fs');
 var gconfig = JSON.parse(fs.readFileSync('./data/guild_config.json'));
 var gpconfig = JSON.parse(fs.readFileSync('./data/globalPing.json'));
@@ -11,6 +11,7 @@ const ServChang = require('./modules/ServersChanging.js');
 const utils = require('./modules/utils.js');
 const ReactManager = require('./modules/reactManager.js');
 const Private = require('./data/private.js');
+const { InteractionType } = require('discord.js');
 
 
 //Déclaration des fonctions utilisées
@@ -135,7 +136,7 @@ bot.on('messageCreate', async msg => {
 //Gestion des / commandes
 bot.on('interactionCreate', async intera => {
 
-    if(!intera.isCommand()) return;
+    if(!intera.type == InteractionType.ApplicationCommand) return;
 
     let command = bot.application.commands.fetch(intera.commandId)
     if(!command) return console.log('pas de commande')
