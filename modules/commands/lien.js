@@ -7,8 +7,6 @@ module.exports = {
     name: 'lien',
     description: 'Envoie le lien pour m\'ajouter sur votre serveur',
 
-    isDev: true,
-
     data: 
         new SlashCommandBuilder()
             .setName('lien')
