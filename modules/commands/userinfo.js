@@ -13,7 +13,8 @@ module.exports = {
         new Discord.SlashCommandBuilder()
             .setName('userinfo')
             .setDescription('Envoie les infos d\'un compte discord')
-            .addMentionableOption(opt => opt.setName('pseudo').setDescription('Le membre cible')),
+            .addMentionableOption(opt => opt.setName('pseudo').setDescription('Le membre cible'))
+            .setDMPermission(false),
 
     run: async function(args) {
 
