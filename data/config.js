@@ -15,8 +15,10 @@ module.exports = {
 
     botperm:"275146615889",
 
-    intents:[
-        Discord.Intents.FLAGS.GUILDS,
-        Discord.Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+    GatewayIntentBits:[
+        Discord.GatewayIntentBits.Guilds,
+        Discord.GatewayIntentBits.DirectMessages,
+        Discord.GatewayIntentBits.GuildMessageReactions,
+        Discord.GatewayIntentBits.DirectMessageReactions,
     ],
 }
