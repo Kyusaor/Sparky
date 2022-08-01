@@ -48,6 +48,13 @@ module.exports = {
         }
     },
 
+    daySince(date){
+        let mtn = Date.now();
+        let ecart = Math.floor((mtn - date) / 86400000);
+        return ecart
+    },
+
+
     async commandHandler(bot) {
 
         const commandFiles = fs.readdirSync('./modules/commands').filter(file => file.endsWith('.js'));
