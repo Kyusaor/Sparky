@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-const { SlashCommandBuilder, EmbedBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const utils = require('../utils.js');
 
 
