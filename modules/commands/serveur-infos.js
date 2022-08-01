@@ -31,7 +31,7 @@ module.exports = {
             .setThumbnail(pdp)
             .addFields([
                 {name: "__Propriétaire__", value: owner},
-                {name: "__Serveur créé le__", value: utils.zero(creation.getDate()) + "/" + utils.zero(creation.getMonth() + 1) + "/" + creation.getFullYear() + " à " + utils.zero(creation.getHours()) + ":" + utils.zero(creation.getMinutes())},
+                {name: "__Serveur créé le__", value: utils.zero(creation.getDate()) + "/" + utils.zero(creation.getMonth() + 1) + "/" + creation.getFullYear() + " à " + utils.zero(creation.getHours()) + ":" + utils.zero(creation.getMinutes()) + " (il y a " + utils.daySince(creation) + " jours)"},
                 {name: "__Nombre de membres__", value: membercount.toString()}
             ])
             .setFooter({text: "ID: " + args.intera.guildId, iconURL: args.kyu.displayAvatarURL()});
