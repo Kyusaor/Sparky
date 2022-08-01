@@ -27,7 +27,7 @@ module.exports = {
         if(user.bot) {profileType = "Bot"}
         let crea = user.createdAt;
         let creaTitle = "__" + profileType + " créé le__:";
-        let creaString = utils.zero(crea.getDate()) + "/" + utils.zero(crea.getMonth() + 1) + "/" + crea.getFullYear() + " à " + utils.zero(crea.getHours()) + ":" + utils.zero(crea.getMinutes());
+        let creaString = utils.zero(crea.getDate()) + "/" + utils.zero(crea.getMonth() + 1) + "/" + crea.getFullYear() + " à " + utils.zero(crea.getHours()) + ":" + utils.zero(crea.getMinutes()) + " (il y a " + utils.daySince(crea) + " jours)";
         let pdp = user.displayAvatarURL();
 
         //Création embed
@@ -43,7 +43,7 @@ module.exports = {
             
             if(membre.nickname) pseudo += " (" + membre.nickname + ")"
             let joinDate = membre.joinedAt;
-            let joinString = "Le " + utils.zero(joinDate.getDate()) + "/" + utils.zero(joinDate.getMonth() + 1) + "/" + joinDate.getFullYear() + " à " + utils.zero(joinDate.getHours()) + ":" + utils.zero(joinDate.getMinutes())
+            let joinString = "Le " + utils.zero(joinDate.getDate()) + "/" + utils.zero(joinDate.getMonth() + 1) + "/" + joinDate.getFullYear() + " à " + utils.zero(joinDate.getHours()) + ":" + utils.zero(joinDate.getMinutes()) + " (il y a " + utils.daySince(joinDate) + " jours)"
             let rolesList = membre.roles.cache.map(r=> r.name).slice(0, -1).join(', ');
             embed
                 .addFields([
