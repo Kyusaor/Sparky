@@ -11,6 +11,7 @@ const fs = require('fs');
 
 let commands = []
 let devCommands = []
+const rest = new REST({ version: '9' }).setToken(token);
 
 const commandFiles = fs.readdirSync('./modules/commands').filter(file => file.endsWith('.js'));
 
@@ -22,8 +23,6 @@ for(file of commandFiles) {
 
 commands.map(command => command.toJSON());
 devCommands.map(command => command.toJSON());
-
-const rest = new REST({ version: '9' }).setToken(token);
 
 rest.put(Routes.applicationCommands('746783550866456716'), { body: commands })
     .then(() => console.log("Commandes déployées avec succès"))
