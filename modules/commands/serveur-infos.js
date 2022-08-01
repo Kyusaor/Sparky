@@ -14,7 +14,8 @@ module.exports = {
     data: 
         new SlashCommandBuilder()
             .setName('serveur-infos')
-            .setDescription('Envoie les infos du serveur'),
+            .setDescription('Envoie les infos du serveur')
+            .setDMPermission(false),
 
     run: async function(args) {
 
