@@ -1,12 +1,11 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const { PermissionFlagsBits } = require('discord.js');
+const { PermissionFlagsBits, SlashCommandBuilder } = require('discord.js');
 const utils = require('../utils.js');
 
 module.exports = {
 
     name:'data',
     description:'Envoie la base de données du bot en mp',
-    isDev: true,
+    isDev: false,
 
     data: 
         new SlashCommandBuilder()
