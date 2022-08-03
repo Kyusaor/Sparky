@@ -14,7 +14,7 @@ module.exports = {
 
     run(args){
 
-        args.intera.reply("Voici le lien pour m'ajouter sur votre serveur:\n<https://discord.com/oauth2/authorize?client_id=" + args.bot.user.id + "&scope=bot&permissions=" + config.botperm + ">")
+        args.intera.reply("Voici le lien pour m'ajouter sur votre serveur:\n<https://discord.com/api/oauth2/authorize?client_id=" + args.bot.user.id + "&permissions=" + config.botperm + "&scope=bot%20applications.commands" + ">")
         .catch(error => utils.errorSendReply('lien', args))
     }
 }
