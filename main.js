@@ -26,7 +26,6 @@ bot.login(Private.token);
 bot.on('ready', async () => {
     utils.envoi_log(config.logs_connexions, bot, config.version)
     utils.statusLoop(bot);
-    await utils.commandHandler(bot);
     kyu = await bot.users.fetch(config.kyu);
     chan_mp = await bot.channels.cache.get(config.logs_mp);
     let chanGP = await bot.channels.cache.get(config.gp_dashboard);
@@ -138,10 +137,12 @@ bot.on('interactionCreate', async intera => {
 
     if(!intera.type == InteractionType.ApplicationCommand) return;
 
-    let command = bot.application.commands.fetch(intera.commandId)
-    if(!command) return console.log('pas de commande')
-    if(!intera.guildId) return intera.reply('Les commandes sont à réaliser sur un serveur !');
     let commandFile = require('./modules/commands/' + intera.commandName + '.js')
+    if(!commandFile) {
+        intera.reply({ content: 'Une erreur est survenue pendant l\'éxecution de la commande!', ephemeral: true });
+        return console.log('pas de commande')
+    }
+    if(!intera.guildId) return intera.reply('Les commandes sont à réaliser sur un serveur !');
 
     let args = {
         intera: intera,
