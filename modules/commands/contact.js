@@ -9,7 +9,8 @@ module.exports = {
     data:
         new SlashCommandBuilder()
             .setName('contact')
-            .setDescription('Nous contacter (discord ou email)'),
+            .setDescription('Nous contacter (discord ou email)')
+            .setDMPermission(false),
         
     async run(args) {
 
