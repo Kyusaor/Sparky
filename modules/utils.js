@@ -54,18 +54,6 @@ module.exports = {
         return ecart
     },
 
-
-    async commandHandler(bot) {
-
-        const commandFiles = fs.readdirSync('./modules/commands').filter(file => file.endsWith('.js'));
-
-        for (const file of commandFiles) {
-            const command = require(`./commands/${file}`);
-            await bot.application.commands.create(command);
-        }
-        
-    },
-
     mob: {
         abeille: ['abeille', 'reine', 'reine abeille', 'bee', 'queen', 'queen bee'],
         agivre: ['ailes de givre', 'agivre', 'givre', 'frostwing', 'frost'],
