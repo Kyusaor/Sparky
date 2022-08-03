@@ -5,13 +5,14 @@ module.exports = {
 
     name:'data',
     description:'Envoie la base de données du bot en mp',
-    isDev: false,
+    isDev: true,
 
     data: 
         new SlashCommandBuilder()
             .setName('data')
             .setDescription('Envoie la base de donnée')
-            .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+            .setDefaultMemberPermissions(0)
+            .setDMPermission(false),
 
     async run(args){
 
@@ -27,6 +28,7 @@ module.exports = {
                 name:'guild_config.json'
             }
         ]})
+        .then(e => args.intera.reply("Les logs vous ont été envoyées en mp"))
         .catch(error => console.log(utils.displayConsoleHour(new Date()) + "Impossible d'envoyer les logs à " + msg.author.tag))
         
     }
