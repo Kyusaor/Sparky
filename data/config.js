@@ -13,7 +13,7 @@ module.exports = {
     gp_dashboard:"647042988358238208",
     logs_db:"784919405896400916",
 
-    botperm:"275146615889",
+    botperm:"2416217169",
 
     GatewayIntentBits:[
         Discord.GatewayIntentBits.Guilds,
