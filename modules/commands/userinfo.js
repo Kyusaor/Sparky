@@ -4,10 +4,7 @@ const utils = require('../utils');
 module.exports = {
 
     name: "info",
-
     description: "Envoie les infos d\'un compte discord",
-
-    level: 1,
 
     data: 
         new Discord.SlashCommandBuilder()
