@@ -30,6 +30,6 @@ module.exports = {
             ])
 
         args.intera.reply({embeds: [embed]})
-        //.catch(err => utils.errorSendReply('credits', args))
+        .catch(err => utils.errorSendReply('credits', args))
     }
 }
