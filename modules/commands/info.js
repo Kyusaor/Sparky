@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const config = require('../../data/config.js');
 const utils = require('../utils.js');
 
 module.exports = {
@@ -42,9 +43,8 @@ module.exports = {
             let pseudo = user.username;
             let profileType = "Compte";
             if(user.bot) {profileType = "Bot"}
-            let crea = user.createdAt;
+            let crea = utils.stringifyDate(user.createdAt);
             let creaTitle = "__" + profileType + " créé le__:";
-            let creaString = utils.zero(crea.getDate()) + "/" + utils.zero(crea.getMonth() + 1) + "/" + crea.getFullYear() + " à " + utils.zero(crea.getHours()) + ":" + utils.zero(crea.getMinutes()) + " (il y a " + utils.daySince(crea) + " jours)";
             let pdp = user.displayAvatarURL();
     
             //Création embed
@@ -52,19 +52,18 @@ module.exports = {
                 .setThumbnail(pdp)
                 .setColor([13, 84, 236])
                 .setFooter({text: "ID: " + user.id})
-                .addFields([{name: creaTitle, value: creaString}])
+                .addFields([{name: creaTitle, value: crea}])
     
             //Récup infos membre
             let membre = await args.intera.guild.members.fetch(user.id);
             if(membre) {
                 
                 if(membre.nickname) pseudo += " (" + membre.nickname + ")"
-                let joinDate = membre.joinedAt;
-                let joinString = "Le " + utils.zero(joinDate.getDate()) + "/" + utils.zero(joinDate.getMonth() + 1) + "/" + joinDate.getFullYear() + " à " + utils.zero(joinDate.getHours()) + ":" + utils.zero(joinDate.getMinutes()) + " (il y a " + utils.daySince(joinDate) + " jours)"
+                let joinDate = utils.stringifyDate(membre.joinedAt);
                 let rolesList = membre.roles.cache.map(r=> r.name).slice(0, -1).join(', ');
                 embed
                     .addFields([
-                        {name: "__Date d\'arrivée sur le serveur:__", value: joinString},
+                        {name: "__Date d\'arrivée sur le serveur:__", value: joinDate},
                         {name: "__Rôles:__", value: rolesList}
                     ])
             }
@@ -78,7 +77,7 @@ module.exports = {
 
         //Infos serveur
         else if (sub == "serveur") {
-            let creation = args.intera.guild.createdAt;
+            let creation = utils.stringifyDate(args.intera.guild.createdAt);
             let title = args.intera.guild.name;
             let pdp = args.intera.guild.iconURL();
             let ownerUser = await args.bot.users.fetch(args.intera.guild.ownerId);
@@ -91,7 +90,7 @@ module.exports = {
                 .setThumbnail(pdp)
                 .addFields([
                     {name: "__Propriétaire__", value: owner},
-                    {name: "__Serveur créé le__", value: utils.zero(creation.getDate()) + "/" + utils.zero(creation.getMonth() + 1) + "/" + creation.getFullYear() + " à " + utils.zero(creation.getHours()) + ":" + utils.zero(creation.getMinutes()) + " (il y a " + utils.daySince(creation) + " jours)"},
+                    {name: "__Serveur créé le__", value: creation},
                     {name: "__Nombre de membres__", value: membercount.toString()}
                 ])
                 .setFooter({text: "ID: " + args.intera.guildId, iconURL: args.kyu.displayAvatarURL()});
@@ -104,6 +103,34 @@ module.exports = {
         //Infos bot
         else if (sub == "bot") {
 
+            let Color = [59,229,53];
+            let Title = args.bot.user.tag;
+            let Thumb = args.bot.user.displayAvatarURL();
+            let ID = args.bot.user.id;
+            let creaDate = utils.stringifyDate(args.bot.user.createdAt);
+            let joinDate = utils.stringifyDate(args.intera.guild.joinedAt);
+            let ServerCount = args.bot.guilds.cache.size;
+            let Version = config.version;
+            let Ping = Math.round(args.bot.ws.ping);
+            let inviteLink = "<https://discord.com/api/oauth2/authorize?client_id=" + args.bot.user.id + "&permissions=" + config.botperm + "&scope=bot%20applications.commands" + ">"
+            
+            let embed = new EmbedBuilder()
+                .setColor(Color)
+                .setTitle(Title)
+                .setThumbnail(Thumb)
+                .addFields([
+                    {name: "__ID:__", value: ID},
+                    {name: "__Date de création:__", value: creaDate},
+                    {name: "__Date d'ajout sur le serveur:__", value: joinDate},
+                    {name: "__Nombre de serveurs:__", value: ServerCount.toString()},
+                    {name: "__Version du bot:__", value: Version},
+                    {name: "__Ping:__", value: Ping + " ms"},
+                    {name: "__Lien d'ajout:__", value: inviteLink}
+                ])
+                .setFooter({text: "Développé par Kyusaki#9053", iconURL: args.kyu.displayAvatarURL()})
+           
+            args.intera.reply({embeds: [embed]})
+                .catch(err => utils.errorSendReply('info bot', args))        
         }
 
         else return console.log("Pas de subcommande valide")
