@@ -1,83 +1,92 @@
 const Discord = require('discord.js');
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const utils = require('./modules/utils.js');
-
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
+const utils = require('../utils.js');
 
 module.exports = {
 
-    name: "info",
+    name: "infos",
+    description: "Donne des infos sur un utilisateur, le serveur ou le bot",
 
-    description: "Envoie les infos d\'un compte discord ou du serveur",
-
-    level: 1,
-
-    data: 
+    data:
         new SlashCommandBuilder()
-            .setName('info')
-            .setDescription('Envoie les infos d\'un compte discord ou du serveur')
-            .addSubcommand(sub =>
-                sub
-                    .setName('utilisateur')
-                    .setDescription('Donne les infos d\'un utilisateur')
-                    .addUserOption(opt => opt.setName('pseudo').setDescription('Le membre cible')))
-            .addSubcommand(sub =>
-                sub
-                    .setName('serveur')
-                    .setDescription('Donne les infos du serveur')
+            .setName("info")
+            .setDescription("Donne des infos sur un utilisateur, le serveur ou le bot")
+            .setDMPermission(false)
+            .addSubcommand(sc => 
+                sc.setName("utilisateur")
+                .setDescription("Affiche les infos d'un compte discord")
+                .addMentionableOption(opt => opt.setName('pseudo').setDescription('Le membre cible'))
+            )
+            .addSubcommand(sc => 
+                sc.setName("serveur")
+                .setDescription("Affiche les infos du serveur")
+            )
+            .addSubcommand(sc => 
+                sc.setName("bot")
+                .setDescription("Affiche les infos du bot")
             ),
 
-    run: function(args) {
+    run: async function(args) {
 
+        let sub = args.intera.options.getSubcommand()
 
-        if(args.intera.options.getSubcommand() == 'serveur') {
+        //Infos user
+        if(sub == "utilisateur") {
 
-            let creation = args.intera.guild.createdAt;
-            let pdp = args.intera.guild.iconURL();
-            
-            let embed = new Discord.MessageEmbed()
-                .setTitle(args.intera.guild.name)
-                .setColor([16, 231, 215])
+            let parsedOption = args.intera.options.getMentionable('pseudo') || args.intera.user.id;
+            let user = await args.bot.users.fetch(parsedOption);
+            if(!user) return args.intera.reply("Cet utilisateur est introuvable")
+            let embed = new Discord.EmbedBuilder();
+    
+            //Récup infos user
+            let pseudo = user.username;
+            let profileType = "Compte";
+            if(user.bot) {profileType = "Bot"}
+            let crea = user.createdAt;
+            let creaTitle = "__" + profileType + " créé le__:";
+            let creaString = utils.zero(crea.getDate()) + "/" + utils.zero(crea.getMonth() + 1) + "/" + crea.getFullYear() + " à " + utils.zero(crea.getHours()) + ":" + utils.zero(crea.getMinutes()) + " (il y a " + utils.daySince(crea) + " jours)";
+            let pdp = user.displayAvatarURL();
+    
+            //Création embed
+            embed
                 .setThumbnail(pdp)
-                .addField("__Propriétaire__", args.intera.guild.owner.user.tag)
-                .addField("__Serveur créé le__", utils.zero(creation.getDate()) + "/" + utils.zero(creation.getMonth() + 1) + "/" + creation.getFullYear() + " à " + utils.zero(creation.getHours()) + ":" + utils.zero(creation.getMinutes()))
-                .addField("__Nombre de membres__", args.intera.guild.memberCount)
-                .setFooter({ text: "ID: " + args.intera.guild.id, iconURL: args.kyu})
-
-            args.intera.reply(embed)
-            .catch(err => utils.errorSendReply('info', args))
+                .setColor([13, 84, 236])
+                .setFooter({text: "ID: " + user.id})
+                .addFields([{name: creaTitle, value: creaString}])
+    
+            //Récup infos membre
+            let membre = await args.intera.guild.members.fetch(user.id);
+            if(membre) {
+                
+                if(membre.nickname) pseudo += " (" + membre.nickname + ")"
+                let joinDate = membre.joinedAt;
+                let joinString = "Le " + utils.zero(joinDate.getDate()) + "/" + utils.zero(joinDate.getMonth() + 1) + "/" + joinDate.getFullYear() + " à " + utils.zero(joinDate.getHours()) + ":" + utils.zero(joinDate.getMinutes()) + " (il y a " + utils.daySince(joinDate) + " jours)"
+                let rolesList = membre.roles.cache.map(r=> r.name).slice(0, -1).join(', ');
+                embed
+                    .addFields([
+                        {name: "__Date d\'arrivée sur le serveur:__", value: joinString},
+                        {name: "__Rôles:__", value: rolesList}
+                    ])
             }
-        //Déclaration des variables utiles
-        /*let membre = msg.mentions.members.first() || msg.member;
-        let liste_roles = membre.roles.cache.map(r=> r.name).slice(0, -1).join(', ');
-        if(membre.roles.cache.size == 1) liste_roles = "Aucun rôle";
-        let date_join = membre.joinedAt;
-        
+            
+            embed
+                .setAuthor({name: pseudo})
+    
+            args.intera.reply({embeds: [embed]})
+            .catch(err => utils.errorSendReply('userinfo', args))
+        }
 
-        let compte_discord = membre.user;
-        let date_creation = compte_discord.createdAt;
-        let pdp = compte_discord.displayAvatarURL();
+        //Infos serveur
+        else if (sub == "serveur") {
 
-        let auteur = compte_discord.username;
-        if(membre.nickname) auteur += " (" + membre.nickname + ")"
+        }
 
-        function utils.zero(variable) {
-            if(variable < 10){
-                variable = '0' + variable  
-            }
-            return variable
-        };
+        //Infos bot
+        else if (sub == "bot") {
 
-        //Création puis envoi de l'embed
-        let profileType = "Compte";
-        if(membre.user.bot) {profileType = "Bot"}
-        const embed = new Discord.MessageEmbed()
-            .setAuthor(auteur)
-            .setColor([13, 84, 236])
-            .setThumbnail(pdp)
-            .setFooter("ID: " + compte_discord.id)
-            .addField("__" + profileType + " créé le__:", utils.zero(date_creation.getDate()) + "/" + utils.zero(date_creation.getMonth() + 1) + "/" + date_creation.getFullYear() + " à " + utils.zero(date_creation.getHours()) + ":" + utils.zero(date_creation.getMinutes()))
-            .addField("__Date d'arrivée sur le serveur__:", "Le " + utils.zero(date_join.getDate()) + "/" + utils.zero(date_join.getMonth() + 1) + "/" + date_join.getFullYear() + " à " + utils.zero(date_join.getHours()) + ":" + utils.zero(date_join.getMinutes()))
-            .addField("__Rôles__", liste_roles)
-        msg.channel.send(embed)*/
+        }
+
+        else return console.log("Pas de subcommande valide")
     }
+            
 }
