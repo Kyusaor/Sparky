@@ -2,6 +2,7 @@ const config = require('../data/config.js');
 const fs = require('fs');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
+const { ActivityType } = require('discord.js');
 
 module.exports = {
 
@@ -54,6 +55,19 @@ module.exports = {
         return ecart
     },
 
+    stringifyDate(date) {
+
+        let day = this.zero(date.getDate());
+        let month = this.zero(date.getMonth() + 1);
+        let year = date.getFullYear();
+
+        let hour = this.zero(date.getHours());
+        let minute = this.zero(date.getMinutes());
+        let daysSince = this.daySince(date);
+
+        return day + "/" + month + "/" + year + " à " + hour + ":" + minute + " (il y a " + daysSince + " jours)"
+    },
+
     mob: {
         abeille: ['abeille', 'reine', 'reine abeille', 'bee', 'queen', 'queen bee'],
         agivre: ['ailes de givre', 'agivre', 'givre', 'frostwing', 'frost'],
@@ -96,8 +110,8 @@ module.exports = {
 
     statusLoop(bot){
         let server_count = bot.guilds.cache.size;
-        bot.user.setActivity(server_count + " serveurs", { type: 'WATCHING' });
-        setTimeout(()=>{bot.user.setActivity("mentionnez-moi pour avoir de l'aide")}, 20000)
+        bot.user.setPresence({activities: [{name: server_count + " serveurs", type: ActivityType.Watching}]})
+        setTimeout(()=>{bot.user.setPresence({activities: [{name: "Écrivez / pour obtenir la liste des commandes"}]})}, 20000)
         setTimeout(()=>{this.statusLoop(bot)}, 40000)
     },
 
