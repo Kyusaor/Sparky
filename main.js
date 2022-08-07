@@ -100,36 +100,6 @@ bot.on('messageCreate', async msg => {
         .catch(error => console.log(utils.displayConsoleHour() + "Impossible d'envoyer le préfixe. #" + msg.channel.name + ", " + msg.guild.name + " (" + msg.guild.id + ")"))
     }
 
-    //Vérifie que le messge est une commande
-    if (!(msg.content.trim().startsWith(gconfig[msg.guild.id].prefix) || ((msg.author.id === kyu.id) && msg.content.startsWith(config.devPrefix)))) return;
-
-    //Définit la liste des commandes accessibles au membre
-    let liste_commandes = new CommandManager(msg.member);
-
-    //Vérifie si la commande existe puis l'exécute
-    let command_caller = msg.content.trim().toLowerCase().split(' ')[0].slice(1);
-    if(Object.keys(liste_commandes.aliases).includes(command_caller)){command_caller = liste_commandes.aliases[command_caller]}
-    if (liste_commandes[command_caller]) {
-        let args = {
-            msg: msg,
-            kyu: kyu,
-            prefix: utils.préfixe(msg.guild.id, gconfig, bot),
-            command_caller: command_caller,
-            bot: bot,
-            gconfig: gconfig,
-            gpconfig: gpconfig,
-            userstatus: usersStatus,
-        }
-        await liste_commandes[command_caller].command.run(args);
-
-        //Envoi dans la console
-        utils.envoi_log(config.logs_users, bot, msg, command_caller);
-
-        fs.writeFileSync('./data/guild_config.json', JSON.stringify(gconfig));
-        fs.writeFileSync('./data/globalPing.json', JSON.stringify(gpconfig));
-
-    }
-
 })
 
 //Gestion des / commandes
@@ -157,6 +127,12 @@ bot.on('interactionCreate', async intera => {
     } catch {
         await intera.reply({ content: 'Une erreur est survenue pendant l\'éxecution de la commande!', ephemeral: true });
     }
+
+    //Envoi dans la console
+    utils.envoi_log(config.logs_users, bot, intera);
+
+    fs.writeFileSync('./data/guild_config.json', JSON.stringify(gconfig));
+    fs.writeFileSync('./data/globalPing.json', JSON.stringify(gpconfig));
     
 })
 
