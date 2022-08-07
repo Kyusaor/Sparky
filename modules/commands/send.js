@@ -45,7 +45,7 @@ module.exports = {
         else msgPayload.content = 'Envoyé avec succès à ' + user.tag + " (" + user.id.toString() + "):"
         
         return args.intera.reply(msgPayload)
-        .catch(err => utils.errorSendReply('info bot', args))        
+        .catch(err => utils.errorSendReply('send', args))        
         
     }
 }
