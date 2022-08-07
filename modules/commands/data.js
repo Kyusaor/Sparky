@@ -11,7 +11,7 @@ module.exports = {
         new SlashCommandBuilder()
             .setName('data')
             .setDescription('Envoie la base de donnée')
-            .setDefaultMemberPermissions(0)
+            .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
             .setDMPermission(false),
 
     async run(args){
