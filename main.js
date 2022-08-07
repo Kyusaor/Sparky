@@ -78,8 +78,6 @@ bot.on('messageCreate', async msg => {
     if (msg.channel.type != 'GUILD_TEXT') return;
     if (msg.author.bot) return;
     if(!gconfig[msg.guild.id]) {
-        console.log(gconfig[msg.guild.id])
-        console.log(msg.guild.name)
         gconfig[msg.guild.id] = {
             name : msg.guild.name,
             prefix : "!",
