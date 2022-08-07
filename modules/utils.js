@@ -121,33 +121,32 @@ module.exports = {
         return message
     },
 
-    async envoi_log(chan_log, bot, info1, info2) {
+    async envoi_log(chan_log, bot, data1) {
         let message_console = "";
         let date = new Date();
 
         switch (chan_log) {
             //Logs des commandes effectuées sur le bot
             /*
-            info1 = msg
-            info2 = commande effectuée
+            data1 = interaction
             */
             case config.logs_users:
-                bot.channels.cache.get(chan_log).send("`NOUVELLE COMMANDE:`\nUtilisateur: `" + info1.author.tag + "`\nID: `" + info1.author.id + "`\nCommande: `" + info2 + "`\n\nServeur: `" + info1.guild.name + "`\nID: `" + info1.guild.id + "`");
-                message_console = this.displayConsoleHour(date) + info1.author.tag + " (ID: " + info1.author.id + ") vient de faire la commande: " + info2;
+                bot.channels.cache.get(chan_log).send("`NOUVELLE COMMANDE:`\nUtilisateur: `" + data1.user.tag + "`\nID: `" + data1.user.id + "`\nCommande: `" + data1.commandName + "`\n\nServeur: `" + data1.guild.name + "`\nID: `" + data1.guild.id + "`");
+                message_console = this.displayConsoleHour(date) + data1.user.tag + " (ID: " + data1.user.id + ") vient de faire la commande: " + data1.commandName;
                 break;
 
             //logs des arrivées/départs du bot sur des serveurs
             case config.logs_serveurs:
                 /*
-                info1 = guild
+                data1 = guild
                 info2 = est défini si le bot rejoins un serveur
                 */
                 if (info2) { info2 = "📥 " } else { info2 = "📤 " }
-                bot.channels.cache.get(chan_log).send(info2 + info1.name + " (" + info1.id + ")\nMembres: " + info1.memberCount)
+                bot.channels.cache.get(chan_log).send(info2 + data1.name + " (" + data1.id + ")\nMembres: " + data1.memberCount)
                 if (info2 === "📥 ") { info2 = "(+) " } else { info2 = "(-) " }
-                message_console = this.displayConsoleHour(date) + info2 + info1.name + " (ID:" + info1.id + ")";
+                message_console = this.displayConsoleHour(date) + info2 + data1.name + " (ID:" + data1.id + ")";
                 if(info2 === "(+) "){
-                    let owner = await bot.users.fetch(info1.ownerID).catch(e => console.log('Fetch owner impossible'))
+                    let owner = await bot.users.fetch(data1.ownerID).catch(e => console.log('Fetch owner impossible'))
                     if(owner) {
                         message_console += "\nOwner: " + owner.tag + " (" + owner.id + ")";
                         bot.channels.cache.get(chan_log).send("\nOwner: " + owner.tag + " (" + owner.id + ")")
@@ -157,11 +156,11 @@ module.exports = {
 
             //logs des connexions du bot
             /*
-            info1 = version du bot
+            data1 = version du bot
             */
             case config.logs_connexions:
-                bot.channels.cache.get(chan_log).send(info1);
-                message_console = "\n\n             SPARKY\n\nBot discord Lords Mobile français\nDéveloppé par Kyusaki\n\nVersion:       " + info1 + "\nDate: " + this.displayConsoleHour(date) + "\n\nConsole:"; break;
+                bot.channels.cache.get(chan_log).send(data1);
+                message_console = "\n\n             SPARKY\n\nBot discord Lords Mobile français\nDéveloppé par Kyusaki\n\nVersion:       " + data1 + "\nDate: " + this.displayConsoleHour(date) + "\n\nConsole:"; break;
 
             default:
                 break;
