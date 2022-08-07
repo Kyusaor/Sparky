@@ -11,7 +11,7 @@ const ServChang = require('./modules/ServersChanging.js');
 const utils = require('./modules/utils.js');
 const ReactManager = require('./modules/reactManager.js');
 const Private = require('./data/private.js');
-const { InteractionType } = require('discord.js');
+const { InteractionType, ChannelType } = require('discord.js');
 const { EmbedBuilder } = require('@discordjs/builders');
 
 
@@ -76,7 +76,7 @@ bot.on('messageCreate', async msg => {
     //Conditions pour exécuter le bloc
     await msg.author.fetch().catch(e => e);
 
-    if (msg.channel.type !== 0 || (msg.channel.type == 1 && msg.content.toString() == "!aide")) return;
+    if (msg.channel.type == ChannelType.GuildText || (msg.channel.type == 1 && msg.content.toString() == "!aide")) return;
     if (msg.author.bot) return;
 
     //Envoie le préfixe lorsqu'il est mentionné
@@ -137,8 +137,8 @@ bot.on('interactionCreate', async intera => {
 
 //Gestion des mp
 bot.on('messageCreate', async msg => {
-    if(msg.channel.type != "DM" || msg.author.bot) return;
-    
+    if(msg.channel.type != ChannelType.DM || msg.author.bot) return;
+
     let MsgFiles = [];
     msg.attachments.forEach(e => {
         MsgFiles.push(e.url)
@@ -149,7 +149,7 @@ bot.on('messageCreate', async msg => {
 
     chan_mp.send(msg.content, { files: MsgFiles }).catch(e => e);
 
-    if(msg.content == "!aide") msg.channel.send("Vous devez exécuter la commande aide sur un serveur, pas en messages privés avec moi 😄").catch(e => e)
+    if(msg.content == "!aide") msg.channel.send("Vous devez exécuter la commande aide sur un serveur, pas en messages privés avec moi 😄\n\nDe plus, le bot a désormais un unique préfixe ``/`` au lieu de ``!`` sur tous les serveurs").catch(e => e)
 })
 
 //gestion réactions
