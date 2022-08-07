@@ -16,6 +16,7 @@ module.exports = {
     botperm:"2416217169",
 
     GatewayIntentBits:[
+        Discord.GatewayIntentBits.GuildMessages,
         Discord.GatewayIntentBits.Guilds,
         Discord.GatewayIntentBits.DirectMessages,
         Discord.GatewayIntentBits.GuildMessageReactions,
