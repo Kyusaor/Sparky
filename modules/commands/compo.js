@@ -44,7 +44,6 @@ module.exports = {
 
     run: async function (args) {
 
-        console.log(args.intera.options.getString('monstre'))
         args.intera.reply({files: [args.intera.options.getString('monstre')]})
         .catch(err => utils.errorSendReply('compo', args))        
     }
