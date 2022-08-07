@@ -12,6 +12,7 @@ const utils = require('./modules/utils.js');
 const ReactManager = require('./modules/reactManager.js');
 const Private = require('./data/private.js');
 const { InteractionType } = require('discord.js');
+const { EmbedBuilder } = require('@discordjs/builders');
 
 
 //Déclaration des fonctions utilisées
@@ -75,26 +76,18 @@ bot.on('messageCreate', async msg => {
     //Conditions pour exécuter le bloc
     await msg.author.fetch().catch(e => e);
 
-    if (msg.channel.type != 'GUILD_TEXT') return;
+    if (msg.channel.type !== 0 || (msg.channel.type == 1 && msg.content.toString() == "!aide")) return;
     if (msg.author.bot) return;
-    if(!gconfig[msg.guild.id]) {
-        gconfig[msg.guild.id] = {
-            name : msg.guild.name,
-            prefix : "!",
-            active : true,
-        }
-        return console.log(utils.displayConsoleHour() + " guild crée car inexistante: " + msg.guild.name + " (" + msg.guild.id + ")");
-    }
 
     //Envoie le préfixe lorsqu'il est mentionné
     if(msg.content.split(' ').length == 1 && msg.mentions.has(bot.user, { ignoreEveryone: true, ignoreRoles: true })){
-        let embed = new Discord.MessageEmbed()
+        let embed = new EmbedBuilder()
             .setColor([59,229,53])
             .setThumbnail('https://media.discordapp.net/attachments/659758501865717790/680102643519193089/help_sparky.png')
             .setTitle("Perdu?")
             .setDescription("Pour obtenir la liste de mes commandes, faites **/aide**")
-            .setFooter("Développé par Kyusaki#9053", kyu.displayAvatarURL())
-        msg.channel.send(embed)
+            .setFooter({text: "Développé par Kyusaki#9053", iconURL: kyu.displayAvatarURL()})
+        msg.channel.send({embeds: [embed]})
         .catch(error => console.log(utils.displayConsoleHour() + "Impossible d'envoyer le préfixe. #" + msg.channel.name + ", " + msg.guild.name + " (" + msg.guild.id + ")"))
     }
 
@@ -104,6 +97,14 @@ bot.on('messageCreate', async msg => {
 bot.on('interactionCreate', async intera => {
 
     if(!intera.type == InteractionType.ApplicationCommand) return;
+
+    if(!gconfig[intera.guild.id]) {
+        gconfig[intera.guild.id] = {
+            name : intera.guild.name,
+            active : true,
+        }
+        return console.log(utils.displayConsoleHour() + " guild crée car inexistante: " + intera.guild.name + " (" + intera.guild.id + ")");
+    }
 
     let commandFile = require('./modules/commands/' + intera.commandName + '.js')
     if(!commandFile) {
