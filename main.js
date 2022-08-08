@@ -96,7 +96,7 @@ bot.on('messageCreate', async msg => {
 //Gestion des / commandes
 bot.on('interactionCreate', async intera => {
 
-    if(!intera.type == InteractionType.ApplicationCommand) return;
+    if(intera.type !== InteractionType.ApplicationCommand) return;
 
     if(!gconfig[intera.guild.id]) {
         gconfig[intera.guild.id] = {
