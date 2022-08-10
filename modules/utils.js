@@ -1,7 +1,5 @@
 const config = require('../data/config.js');
 const fs = require('fs');
-const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
 const { ActivityType } = require('discord.js');
 
 module.exports = {
@@ -110,9 +108,9 @@ module.exports = {
 
     statusLoop(bot){
         let server_count = bot.guilds.cache.size;
-        bot.user.setPresence({activities: [{name: server_count + " serveurs", type: ActivityType.Watching}]})
-        setTimeout(()=>{bot.user.setPresence({activities: [{name: "Écrivez / pour obtenir la liste des commandes"}]})}, 20000)
-        setTimeout(()=>{this.statusLoop(bot)}, 40000)
+        bot.user.setPresence({activities: [{name: server_count + " serveurs", type: ActivityType.Watching}], status: 'online'})
+        setTimeout(()=>{bot.user.setPresence({activities: [{name: "Écrivez / pour obtenir la liste des commandes"}], status: 'online'})}, 10000)
+        setTimeout(()=>{this.statusLoop(bot)}, 20000)
     },
 
     displayConsoleHour(date) {
@@ -177,7 +175,7 @@ module.exports = {
         let serv = await bot.guilds.cache.get(guildId)
         if(!serv) return console.log(guildId + ": guilde introuvable")
         let role = await serv.roles.cache.get(id)
-        role ? role.delete() : console.log(id + ": role introuvable (serveur " + serv.name + ", " + serv.id)
+        role ? role.delete() : console.log(id + ": role introuvable (serveur " + serv.name + ", " + serv.id + ")")
     },
 
     async giveRole(bot, userId, guildId, roleId, chanReponse){
@@ -283,6 +281,22 @@ module.exports = {
             x = "0" + x;
         }
         return x
+    },
+
+    async interaReply(text, intera) {
+        try {
+            console.log('rep1')
+            let rep = await intera.fetchReply();
+            if(rep) {
+                await intera.editReply(text)
+            } else {
+                await intera.reply(text)
+            }
+        } catch {
+            console.log('rep2')
+            await intera.deleteReply().catch(e => e);
+            return intera = await intera.followUp(text)
+        }
     },
 
     errorSendReply(command, args) {console.log(this.displayConsoleHour() + "Impossible d'envoyer la commande [" + command + "] dans le salon " + args.intera.channel.id + " (Serveur " + args.intera.guild.name + ")")},
