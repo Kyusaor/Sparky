@@ -26,7 +26,7 @@ bot.login(Private.token);
 
 bot.on('ready', async () => {
     utils.envoi_log(config.logs_connexions, bot, config.version)
-    utils.statusLoop(bot);
+    //utils.statusLoop(bot);
     kyu = await bot.users.fetch(config.kyu);
     chan_mp = await bot.channels.cache.get(config.logs_mp);
     let chanGP = await bot.channels.cache.get(config.gp_dashboard);
@@ -124,7 +124,8 @@ bot.on('interactionCreate', async intera => {
     try {
         await commandFile.run(args)
     } catch {
-        await intera.reply({ content: 'Une erreur est survenue pendant l\'éxecution de la commande!', ephemeral: true });
+        intera.deleteReply().catch(e => e)
+        await intera.followUp({ content: 'Une erreur est survenue pendant l\'éxecution de la commande!', ephemeral: true });
     }
 
     //Envoi dans la console
