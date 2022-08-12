@@ -153,16 +153,3 @@ bot.on('messageCreate', async msg => {
 
     if(msg.content == "!aide") msg.channel.send("Vous devez exécuter la commande aide sur un serveur, pas en messages privés avec moi 😄\n\nDe plus, le bot a désormais un unique préfixe ``/`` au lieu de ``!`` sur tous les serveurs").catch(e => e)
 })
-
-//gestion réactions
-bot.on('messageReactionAdd', async (reaction, user) => {
-    await user.fetch().catch(e => console.log('Errreur fetch reactadd'));
-    if(!reaction) return;
-    ReactManager.selecter(reaction, user, bot, gpconfig, true);
-})
-
-bot.on('messageReactionRemove', async (reaction, user) => {
-    await user.fetch().catch(e => console.log('Errreur fetch reactremove'));
-    if(!reaction) return;
-    ReactManager.selecter(reaction, user, bot, gpconfig, false);
-})
