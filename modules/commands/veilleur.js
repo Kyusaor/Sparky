@@ -16,10 +16,8 @@ module.exports = {
 
         let intera = args.intera;
         intera.deferReply();
-        console.log(1)
         //Check perm admin/gérer salons
         if(!intera.memberPermissions.has([PermissionFlagsBits.ManageChannels])) return utils.interaReply("Vous devez avoir la permission de gérer les salons pour exécuter cette commande !", intera);
-        console.log(2)
 
         //Check perm du bot
         let botmember = await intera.guild.members.fetch(args.bot);
@@ -27,7 +25,6 @@ module.exports = {
         if(!botmember.permissions.has([PermissionFlagsBits.ManageRoles])) missingPermsString += "-`Gérer les rôles`\n";
         if(!botmember.permissions.has([PermissionFlagsBits.ManageChannels])) missingPermsString += "-`Gérer les salons`\n";
         if(!botmember.permissions.has([PermissionFlagsBits.ManageChannels, PermissionFlagsBits.ManageRoles])) return utils.interaReply(missingPermsString, intera);
-        console.log(3)
 
 
         //Confirmation puis réinitialisation des rôles
@@ -36,9 +33,7 @@ module.exports = {
             gpconfig = {}
         }
         
-        console.log(4)
         if(gpconfig.ping) {
-            console.log(4.1)
 
             //Création du message
             let boutons = new ActionRowBuilder()
@@ -54,7 +49,6 @@ module.exports = {
                         .setStyle(ButtonStyle.Secondary)
                 )
 
-            console.log(4.2)
             await utils.interaReply({ content: "Les notifications d'infernaux sont déjà définies, voulez-vous les reparamétrer?", components: [boutons]}, intera)
 
             //Collecteur du bouton
@@ -66,7 +60,6 @@ module.exports = {
             catch { return utils.interaReply({content: "Commande annulée", components: []}, intera)}
             
             if(coll.customId == 'reparam-non') return utils.interaReply({content: "Commande annulée", components: []}, intera)
-            console.log(4.3)
             await utils.deleteRole(args.bot, intera.guild.id, gpconfig.roles?.CDR);
             await utils.deleteRole(args.bot, intera.guild.id, gpconfig.roles?.CDT);
             await utils.deleteRole(args.bot, intera.guild.id, gpconfig.roles?.ID);
@@ -79,8 +72,6 @@ module.exports = {
             await utils.deleteChan(args.bot, intera.guild.id, gpconfig.chan_board);
 
         }
-
-        console.log(5)
 
         //Création des salons
         await utils.interaReply({content: "<a:loading:739785338347585598> Paramétrage en cours...", components: []}, intera)
@@ -105,7 +96,6 @@ module.exports = {
             reason: 'creation du salon d\'abonnement aux notifications'
         }).catch(e => utils.errorSendReply('veilleur - crea chan_board', args))
 
-        console.log(6)
 
         chan_notifs = await intera.guild.channels.create({
 
@@ -124,13 +114,12 @@ module.exports = {
             reason: 'creation du salon d\'abonnement aux notifications'
         }).catch(e => utils.errorSendReply('veilleur - crea chan_notifs', args))
 
-        console.log(7)
+
         if(!chan_board || !chan_notifs) {
             if(chan_board) intera.guild.delete(chan_board, 'crash bot')
             if(chan_notifs) intera.guild.delete(chan_notifs, 'crash bot')
             return utils.interaReply("Une erreur s'est produite lors de l'exécution de la commande", intera)
         }
-        console.log(8)
 
 
         //Envoi du message d'autorole
@@ -231,6 +220,27 @@ module.exports = {
 
         await chan_board.send({embeds: [autoRoleEmbed], components: [menu]});
 
+        //Création des rôles
+        async function creaRole (title) {
+            let role = await intera.guild.roles.create({
+                name: title,
+                hoist: false,
+                permissions: "0",
+                mentionnable: true,
+            })
+            return role
+        }
+
+        let IVR = await creaRole('Veilleur recherche');
+        let IV = await creaRole('Veilleur');
+        let IDR = await creaRole('Dragon recherche');
+        let ID = await creaRole('Dragon');
+        let OR = await creaRole('Orbes rouges');
+        let OJ = await creaRole('Orbes jaunes');
+        let CDR = await creaRole('Challenge dragon recherche');
+        let CDT = await creaRole('Challenge dragon troupes');
+
+
         await utils.interaReply("Terminé ! Les salons <#" + chan_board + "> et <#" + chan_notifs + "> ont bien été créés", intera)
 
         //Gestion de la db
@@ -239,7 +249,14 @@ module.exports = {
             chan_notifs: chan_notifs.id,
             ping: true,
             roles: {
-                
+                IVR: IVR.id,
+                IV: IV.id,
+                IDR: IDR.id,
+                ID: ID.id,
+                OR: OR.id,
+                OJ: OJ.id,
+                CDR: CDR.id,
+                CDT: CDT.id,
             }
         }
 
