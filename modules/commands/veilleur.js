@@ -1,5 +1,7 @@
 const { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
 const utils = require('../utils.js');
+const fs = require('fs');
+const { SelectMenuBuilder } = require('@discordjs/builders');
 
 module.exports = {
 
@@ -53,7 +55,7 @@ module.exports = {
                 )
 
             console.log(4.2)
-            utils.interaReply({ content: "Les notifications d'infernaux sont déjà définies, voulez-vous les reparamétrer?", components: [boutons]}, intera)
+            await utils.interaReply({ content: "Les notifications d'infernaux sont déjà définies, voulez-vous les reparamétrer?", components: [boutons]}, intera)
 
             //Collecteur du bouton
             let coll;
@@ -81,12 +83,7 @@ module.exports = {
         console.log(5)
 
         //Création des salons
-        utils.interaReply("<a:loading:739785338347585598> Paramétrage en cours...", intera)
-        /*try {
-            await intera.reply("<a:loading:739785338347585598> Paramétrage en cours...")
-        } catch {
-            await intera.followUp("<a:loading:739785338347585598> Paramétrage en cours...")
-        }*/
+        await utils.interaReply({content: "<a:loading:739785338347585598> Paramétrage en cours...", components: []}, intera)
         
         gpconfig = {};
         let chan_board, chan_notifs;
@@ -135,13 +132,116 @@ module.exports = {
         }
         console.log(8)
 
-        utils.interaReply("Les salons <#" + chan_board + "> et <#" + chan_notifs + "> ont été créés", intera)//à retirer plus tard
-        gpconfig.chan_board = chan_board.id;
-        gpconfig.chan_notifs = chan_notifs.id;
-        gpconfig.ping = true;
-        console.log(9)
 
         //Envoi du message d'autorole
+        let autoRoleEmbed = new EmbedBuilder()
+            .setTitle('__**Signalement des Veilleurs et Dragons**__')
+            .setDescription('Sélectionnez les évènements infernaux et les challenges qui vous intéressent. Les mentions seront faites dans le <#' + chan_notifs.id + ">")
+            .setThumbnail('https://media.discordapp.net/attachments/659758501865717790/1007676744330903602/infernaux.png')
+            .addFields(
+                {
+                    name: "__Comment ça marche?__",
+                    value: 'Cliquez sur le menu déroulant et sélectionnez les types d\'évènements pour lesquels vous voulez être notifiés. C\'est tout!'
+                }
+            )
+            .setFooter({text: 'Développé avec amour par ' + args.kyu.tag, iconURL: args.kyu.displayAvatarURL()})
+
+        let menu = new ActionRowBuilder()
+            .addComponents(
+                new SelectMenuBuilder()
+                    .setCustomId('autorole')
+                    .setPlaceholder('Choissez vos abonnements')
+                    .setMinValues(1)
+                    .setMaxValues(8)
+                    .addOptions(
+                        {
+                            value: 'IVR',
+                            label: 'Veilleur Recherche',
+                            emoji: {
+                                name: 'rechVeill',
+                                id: '660453261979025418'
+                            },
+                            description: 'Soyez notifié quand il y a un évènement infernal veilleur recherche'
+                        },
+                        {
+                            value: 'IV',
+                            label: 'Veilleur',
+                            emoji: {
+                                name: 'veilleur',
+                                id: '607194832271573024'
+                            },
+                            description: 'Soyez notifié quand il y a un évènement infernal veilleur'
+                        },
+                        {
+                            value: 'IDR',
+                            label: 'Dragon Recherche',
+                            emoji: {
+                                name: 'rechDrag',
+                                id: '660453599318638592'
+                            },
+                            description: 'Soyez notifié quand il y a un évènement infernal dragon recherche'
+                        },
+                        {
+                            value: 'ID',
+                            label: 'Dragon du Chaos',
+                            emoji: {
+                                name: 'dragonLM',
+                                id: '607194934759391242'
+                            },
+                            description: 'Soyez notifié quand il y a un évènement infernal dragon'
+                        },
+                        {
+                            value: 'CDR',
+                            label: 'Challenge Dragon Recherche',
+                            emoji: {
+                                name: 'academie',
+                                id: '607196986948452377'
+                            },
+                            description: 'Soyez notifié quand il y a un challenge dragon recherche'
+                        },
+                        {
+                            value: 'CDT',
+                            label: 'Challenge Dragon Entraînement',
+                            emoji: {
+                                name: 'fantassin',
+                                id: '607554773851570181'
+                            },
+                            description: 'Soyez notifié quand il y a un challenge dragon entraînement'
+                        },
+                        {
+                            value: 'OR',
+                            label: 'Orbes Rouges',
+                            emoji: {
+                                name: 'redorb',
+                                id: '740688906755768470'
+                            },
+                            description: 'Soyez notifié quand il y a un infernal orbes rouges'
+                        },
+                        {
+                            value: 'OJ',
+                            label: 'Orbes Jaunes',
+                            emoji: {
+                                name: 'yellorb',
+                                id: '740689133600768091'
+                            },
+                            description: 'Soyez notifié quand il y a un infernal orbes jaunes'
+                        },
+                    )
+            )
+
+        await chan_board.send({embeds: [autoRoleEmbed], components: [menu]});
+
+        await utils.interaReply("Terminé ! Les salons <#" + chan_board + "> et <#" + chan_notifs + "> ont bien été créés", intera)
+
+        //Gestion de la db
+        gpconfig = {
+            chan_board: chan_board.id,
+            chan_notifs: chan_notifs.id,
+            ping: true,
+            roles: {
+                
+            }
+        }
 
         args.gpconfig[intera.guildId] = gpconfig;
         fs.writeFileSync('./data/globalPing.json', JSON.stringify(args.gpconfig));
