@@ -108,7 +108,7 @@ bot.on('interactionCreate', async intera => {
 
     let commandFile = require('./modules/commands/' + intera.commandName + '.js')
     if(!commandFile) {
-        intera.reply({ content: 'Une erreur est survenue pendant l\'éxecution de la commande!', ephemeral: true });
+        intera.reply({ content: 'Une erreur est survenue pendant l\'éxecution de la commande!', ephemeral: true }).catch(e => e);
         return console.log('pas de commande')
     }
     if(!intera.guildId) return intera.reply('Les commandes sont à réaliser sur un serveur !');
@@ -123,7 +123,8 @@ bot.on('interactionCreate', async intera => {
 }
     try {
         await commandFile.run(args)
-    } catch {
+    } catch (error) {
+        console.log(error)
         intera.deleteReply().catch(e => e)
         await intera.followUp({ content: 'Une erreur est survenue pendant l\'éxecution de la commande!', ephemeral: true });
     }
