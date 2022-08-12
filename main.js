@@ -9,7 +9,6 @@ var gpconfig = JSON.parse(fs.readFileSync('./data/globalPing.json'));
 //Récupération des fichiers nécessaires
 const ServChang = require('./modules/ServersChanging.js');
 const utils = require('./modules/utils.js');
-const ReactManager = require('./modules/reactManager.js');
 const Private = require('./data/private.js');
 const { InteractionType, ChannelType } = require('discord.js');
 const { EmbedBuilder } = require('@discordjs/builders');
