@@ -4,49 +4,6 @@ const { ActivityType } = require('discord.js');
 
 module.exports = {
 
-    compos: {
-        morfalange: ["./images/mob/morfalange.png"],
-        titan: ["./images/mob/titan.png"],
-        abeille: ["./images/mob/abeille.png"],
-        agivre: ["./images/mob/ailes de givre.png"],
-        anoires: ["./images/mob/ailes noires.png"],
-        bete: ["./images/mob/bete.png"],
-        chaman: ["./images/mob/chaman.png"],
-        drider: ["./images/mob/drider.png"],
-        epinator: ["./images/mob/epinator.png"],
-        faucheuse: ["./images/mob/faucheuse.png"],
-        gargantua: ["./images/mob/gargantua.png"],
-        golem: ["./images/mob/golem.png"],
-        griffon: ["./images/mob/griffon.png"],
-        mecha: ["./images/mob/mecha.png"],
-        larve: ["./images/mob/larve.png"],
-        noceros: ["./images/mob/noceros.png"],
-        sabrecroc: ["./images/mob/sabrecroc.png"],
-        serrulule:["./images/mob/serrulule.png"],
-        wyrm: ["./images/mob/wyrm.png"],
-        noms: {
-            morfalange: "le Morfalange",
-            titan: "le Titan des Marées",
-            abeille: "la Reine Abeille",
-            agivre: "l'Ailes de Givre",
-            anoires: "les Ailes Noires",
-            bete: "la Bête des Neiges",
-            chaman: "le Chaman Vaudou",
-            drider: "le Drider de l'Enfer",
-            epinator: "l'Epinator",
-            faucheuse: "la Faucheuse",
-            gargantua: "le Gargantua",
-            golem: "le Golem Antique",
-            griffon: "le Griffon",
-            mecha: "le Mecha Troyen",
-            larve: "la Méga-Larve",
-            noceros: "le Nocéros",
-            sabrecroc: "Sabrecroc",
-            serrulule: "le Serrulule",
-            wyrm: "Wyrm de Jade"
-        }
-    },
-
     daySince(date){
         let mtn = Date.now();
         let ecart = Math.floor((mtn - date) / 86400000);
@@ -65,47 +22,7 @@ module.exports = {
 
         return day + "/" + month + "/" + year + " à " + hour + ":" + minute + " (il y a " + daysSince + " jours)"
     },
-
-    mob: {
-        abeille: ['abeille', 'reine', 'reine abeille', 'bee', 'queen', 'queen bee'],
-        agivre: ['ailes de givre', 'agivre', 'givre', 'frostwing', 'frost'],
-        anoires: ['ailes noires', 'noires', 'anoires', 'anoire'],
-        bete: ['bete', 'bete des neiges', 'bête', 'bête des neiges', 'snow beast', 'snow', 'beast'],
-        chaman: ['chaman', 'vaudou', 'chaman vaudou', 'voodoo', 'voodoo chaman'],
-        cottrage: ['cottrage', 'cott', 'cott-rage', 'cabane', 'cottageroar'],
-        drider: ['drider', 'drider de l\'enfer', 'drider infernal', 'hell drider', 'hell'],
-        epinator: ['epinator', 'épinator', 'terror', 'terrorthorn'],
-        faucheuse: ['faucheuse', 'grim', 'reaper', 'grim reaper'],
-        gargantua: ['gargantua', 'garg'],
-        golem: ['golem', 'golem antique', 'hardrox'],
-        gorzilla: ['gorzilla', 'gorilla', 'gorille', 'gawrilla'],
-        griffon: ['gryffon', 'griffon', 'grifon', 'gryfon'],
-        larve: ['larve', 'méga-larve', 'mega larve', 'mega', 'méga', 'mega-larve', 'megga maggot', 'maggot'],
-        mecha: ['mécha', 'mecha', 'mécha troyen', 'mécha-troyen', 'troyen', 'mecha troyen', 'mecha-troyen', 'mecha trojan', 'trojan'],
-        morfalange: ['morfalange', 'morfa', 'bon', 'bon appeti', 'morphalange'],
-        noceros: ['nocéros', 'noceros'],
-        sabrecroc: ['sabrecroc', 'saber', 'sabre', 'saberfang'],
-        serrulule: ['serru', 'seru', 'serulule', 'serrulule', 'hibou', 'chouette', 'hootclaw'],
-        titan: ['titan', 'titan des marées', 'titan des marees', 'tidal', 'tidal titan'],
-        wyrm: ['wyrm', 'wyrm de jade', 'jade'],
-    },
-    
-    embedFooter(kyu, embed) {
-        embed.setFooter("Développé avec amour par " + kyu.tag, kyu.displayAvatarURL());;
-    },
-
-    async fetchEveryone(bot){
-        let listguild = bot.guilds.cache.map(g => g.id);
-        console.log(listguild[0])
-        for(i = 0; i < bot.guilds.cache.size ; i++){
-            let guild = await bot.guilds.cache.get(listguild[i]);
-            console.log(guild.name + " (" + guild.memberCount + ")")
-            await guild.members.fetch();
-        }
-       
-
-    },
-
+           
     statusLoop(bot){
         let server_count = bot.guilds.cache.size;
         bot.user.setPresence({activities: [{name: server_count + " serveurs", type: ActivityType.Watching}], status: 'online'})
@@ -285,15 +202,16 @@ module.exports = {
 
     async interaReply(text, intera) {
         try {
-            console.log('rep1')
             let rep = await intera.fetchReply();
             if(rep) {
-                await intera.editReply(text)
+                console.log('rep1')
+                return await intera.editReply(text)
             } else {
-                await intera.reply(text)
+                console.log('rep2')
+                return await intera.reply(text)
             }
         } catch {
-            console.log('rep2')
+            console.log('rep3')
             await intera.deleteReply().catch(e => e);
             return intera = await intera.followUp(text)
         }
