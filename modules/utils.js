@@ -202,14 +202,11 @@ module.exports = {
         try {
             let rep = await intera.fetchReply();
             if(rep) {
-                console.log('rep1')
                 return await intera.editReply(text)
             } else {
-                console.log('rep2')
                 return await intera.reply(text)
             }
         } catch {
-            console.log('rep3')
             await intera.deleteReply().catch(e => e);
             return intera = await intera.followUp(text)
         }
