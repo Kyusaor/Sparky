@@ -86,8 +86,6 @@ module.exports = {
 
     link: "https://discord.gg/6Dtrzax",
 
-    VeilleurReac: ['660453261979025418', '660453599318638592', '607194832271573024', '607194934759391242', '607554773851570181', '607196986948452377', '740689133600768091', '740688906755768470'],
-
     async deleteRole(bot, guildId, id){
         let serv = await bot.guilds.cache.get(guildId)
         if(!serv) return console.log(guildId + ": guilde introuvable")
