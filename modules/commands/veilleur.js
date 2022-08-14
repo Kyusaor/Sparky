@@ -11,7 +11,8 @@ module.exports = {
 
     data: new SlashCommandBuilder()
         .setName('veilleur')
-        .setDescription('définit le panneau de notifications d\'évènement infernaux'),
+        .setDescription('définit le panneau de notifications d\'évènement infernaux')
+        .setDMPermission(false),
 
     run: async function (args) {
 
