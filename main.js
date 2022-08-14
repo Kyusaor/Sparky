@@ -102,7 +102,7 @@ bot.on('interactionCreate', async intera => {
             name : intera.guild.name,
             active : true,
         }
-        return console.log(utils.displayConsoleHour() + " guild crée car inexistante: " + intera.guild.name + " (" + intera.guild.id + ")");
+        console.log(utils.displayConsoleHour() + " guild crée car inexistante: " + intera.guild.name + " (" + intera.guild.id + ")");
     }
 
     let commandFile = require('./modules/commands/' + intera.commandName + '.js')
