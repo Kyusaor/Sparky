@@ -69,14 +69,12 @@ bot.on('guildDelete', guild => {
 })
 
 
-//Gestion des commandes
+//Gestion de la mention
 bot.on('messageCreate', async msg => {
 
     //Conditions pour exécuter le bloc
     await msg.author.fetch().catch(e => e);
-
-    if (msg.channel.type == ChannelType.GuildText || (msg.channel.type == 1 && msg.content.toString() == "!aide")) return;
-    if (msg.author.bot) return;
+    if(msg.author.bot) return;
 
     //Envoie le préfixe lorsqu'il est mentionné
     if(msg.content.split(' ').length == 1 && msg.mentions.has(bot.user, { ignoreEveryone: true, ignoreRoles: true })){
@@ -89,7 +87,7 @@ bot.on('messageCreate', async msg => {
         msg.channel.send({embeds: [embed]})
         .catch(error => console.log(utils.displayConsoleHour() + "Impossible d'envoyer le préfixe. #" + msg.channel.name + ", " + msg.guild.name + " (" + msg.guild.id + ")"))
     }
-
+    
 })
 
 //Gestion des / commandes
@@ -138,7 +136,7 @@ bot.on('interactionCreate', async intera => {
 
 //Gestion des mp
 bot.on('messageCreate', async msg => {
-    if(msg.channel.type != ChannelType.DM || msg.author.bot) return;
+    if(msg.channel.type !== ChannelType.DM || msg.author.bot) return;
 
     let MsgFiles = [];
     msg.attachments.forEach(e => {
@@ -148,7 +146,8 @@ bot.on('messageCreate', async msg => {
     chan_mp.send("`" + msg.author.id + "`")
     chan_mp.send('__**' + msg.author.tag + ' a envoyé:**__')
 
-    chan_mp.send(msg.content, { files: MsgFiles }).catch(e => e);
+    if(msg.stickers.size == 1) chan_mp.send('{sticker}').catch(e => e)
+    else chan_mp.send({ content: msg.content, files: MsgFiles }).catch(e => e);
 
     if(msg.content == "!aide") msg.channel.send("Vous devez exécuter la commande aide sur un serveur, pas en messages privés avec moi 😄\n\nDe plus, le bot a désormais un unique préfixe ``/`` au lieu de ``!`` sur tous les serveurs").catch(e => e)
 })
