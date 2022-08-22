@@ -1,7 +1,7 @@
 //Paramétrage global
 const Discord = require('discord.js');
-global.config = require('./data/config.js');
-const bot = new Discord.Client({ intents: config.GatewayIntentBits});
+const config = require('./data/config.js');
+const bot = new Discord.Client(config.clientParam);
 const fs = require('fs');
 var gconfig = JSON.parse(fs.readFileSync('./data/guild_config.json'));
 var gpconfig = JSON.parse(fs.readFileSync('./data/globalPing.json'));
@@ -10,7 +10,7 @@ var gpconfig = JSON.parse(fs.readFileSync('./data/globalPing.json'));
 const ServChang = require('./modules/ServersChanging.js');
 const utils = require('./modules/utils.js');
 const Private = require('./data/private.js');
-const { InteractionType, ChannelType } = require('discord.js');
+const { InteractionType, ChannelType, PermissionFlagsBits } = require('discord.js');
 const { EmbedBuilder } = require('@discordjs/builders');
 
 
@@ -90,44 +90,65 @@ bot.on('messageCreate', async msg => {
     
 })
 
-//Gestion des / commandes
 bot.on('interactionCreate', async intera => {
 
-    if(intera.type !== InteractionType.ApplicationCommand) return;
+    intera.deferReply();
 
-    if(!gconfig[intera.guild.id]) {
-        gconfig[intera.guild.id] = {
-            name : intera.guild.name,
-            active : true,
+//Gestion des / commandes
+    if(intera.type == InteractionType.ApplicationCommand) {
+
+        if(!gconfig[intera.guild.id]) {
+            gconfig[intera.guild.id] = {
+                name : intera.guild.name,
+                active : true,
+            }
+            console.log(utils.displayConsoleHour() + " guild crée car inexistante: " + intera.guild.name + " (" + intera.guild.id + ")");
         }
-        console.log(utils.displayConsoleHour() + " guild crée car inexistante: " + intera.guild.name + " (" + intera.guild.id + ")");
+    
+        let commandFile = require('./modules/commands/' + intera.commandName + '.js')
+        if(!commandFile) {
+            intera.reply({ content: 'Une erreur est survenue pendant l\'éxecution de la commande!', ephemeral: true }).catch(e => e);
+            return console.log('pas de commande')
+        }
+        if(!intera.guildId) return intera.reply('Les commandes sont à réaliser sur un serveur !');
+    
+        let args = {
+            intera: intera,
+            bot: bot,
+            kyu: kyu,
+            gconfig: gconfig,
+            gpconfig: gpconfig,
+            userstatus: usersStatus,
+    }
+        try {
+            await commandFile.run(args)
+        } catch (error) {
+            console.log(error)
+            intera.deleteReply().catch(e => e)
+            await intera.followUp({ content: 'Une erreur est survenue pendant l\'éxecution de la commande!', ephemeral: true });
+        }
+    
+        //Envoi dans la console
+        utils.envoi_log(config.logs_users, bot, intera);
+    
     }
 
-    let commandFile = require('./modules/commands/' + intera.commandName + '.js')
-    if(!commandFile) {
-        intera.reply({ content: 'Une erreur est survenue pendant l\'éxecution de la commande!', ephemeral: true }).catch(e => e);
-        return console.log('pas de commande')
-    }
-    if(!intera.guildId) return intera.reply('Les commandes sont à réaliser sur un serveur !');
+//Gestion de l'autorole
+    if(intera.isSelectMenu()) {
+        if(intera.customId !== 'autorole') return;
+        if(!intera.memberPermissions.has(PermissionFlagsBits.ManageRoles)) return intera.reply({content: "Il me manque la permission de gérer les rôles", ephemeral: true})
+        if(!gpconfig[intera.guildId].roles) return console.log(utils.displayConsoleHour() + "Impossible de récupérer gpconfig de la guilde" + intera.guild.name + " (" + intera.guildId + ")");
 
-    let args = {
-        intera: intera,
-        bot: bot,
-        kyu: kyu,
-        gconfig: gconfig,
-        gpconfig: gpconfig,
-        userstatus: usersStatus,
-}
-    try {
-        await commandFile.run(args)
-    } catch (error) {
-        console.log(error)
-        intera.deleteReply().catch(e => e)
-        await intera.followUp({ content: 'Une erreur est survenue pendant l\'éxecution de la commande!', ephemeral: true });
-    }
+        let membre = await intera.member.fetch();
 
-    //Envoi dans la console
-    utils.envoi_log(config.logs_users, bot, intera);
+        for(rol of Object.keys(gpconfig[intera.guildId].roles)) {
+            let role = await intera.guild.roles.fetch(gpconfig[intera.guildId].roles[rol])
+            if(!role) return console.log(utils.displayConsoleHour() + "Impossible de trouver le rôle " + rol + "(serveur " + intera.guild.name + " - " + intera.guildId + ")");
+            if(intera.values.includes(rol)) await membre.roles.add(role, "Autorole sparky").catch(e => e)
+            else await membre.roles.remove(role, "Autorole sparky").catch(e => e)
+        }
+        await intera.reply({content: "Vos rôles ont été mis à jour", ephemeral: true})
+    }
 
     fs.writeFileSync('./data/guild_config.json', JSON.stringify(gconfig));
     fs.writeFileSync('./data/globalPing.json', JSON.stringify(gpconfig));
