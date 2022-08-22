@@ -135,8 +135,16 @@ bot.on('interactionCreate', async intera => {
 
 //Gestion de l'autorole
     if(intera.isSelectMenu()) {
+        if(intera.message.partial) {
+            try {
+                await reaction.fetch();
+            } catch (error) {
+                console.error('Une erreur est survenue en récupérant le message:', error);
+                return;
+            }
+        }
         if(intera.customId !== 'autorole') return;
-        if(!intera.memberPermissions.has(PermissionFlagsBits.ManageRoles)) return intera.reply({content: "Il me manque la permission de gérer les rôles", ephemeral: true})
+        if(!intera.memberPermissions.has(PermissionFlagsBits.ManageRoles)) return utils.interaReply({content: "Il me manque la permission de gérer les rôles", ephemeral: true}, intera)
         if(!gpconfig[intera.guildId].roles) return console.log(utils.displayConsoleHour() + "Impossible de récupérer gpconfig de la guilde" + intera.guild.name + " (" + intera.guildId + ")");
 
         let membre = await intera.member.fetch();
@@ -147,7 +155,7 @@ bot.on('interactionCreate', async intera => {
             if(intera.values.includes(rol)) await membre.roles.add(role, "Autorole sparky").catch(e => e)
             else await membre.roles.remove(role, "Autorole sparky").catch(e => e)
         }
-        await intera.reply({content: "Vos rôles ont été mis à jour", ephemeral: true})
+        await utils.interaReply({content: "Vos rôles ont été mis à jour", ephemeral: true}, intera)
     }
 
     fs.writeFileSync('./data/guild_config.json', JSON.stringify(gconfig));
