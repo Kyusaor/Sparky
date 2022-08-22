@@ -1,4 +1,4 @@
-const Discord = require('discord.js');
+const { GatewayIntentBits, Partials } = require('discord.js');
 
 module.exports = {
     
@@ -15,11 +15,17 @@ module.exports = {
 
     botperm:"2416217169",
 
-    GatewayIntentBits:[
-        Discord.GatewayIntentBits.GuildMessages,
-        Discord.GatewayIntentBits.Guilds,
-        Discord.GatewayIntentBits.DirectMessages,
-        Discord.GatewayIntentBits.GuildMessageReactions,
-        Discord.GatewayIntentBits.DirectMessageReactions,
-    ],
+    clientParam: {
+        intents :[
+            GatewayIntentBits.GuildMessages,
+            GatewayIntentBits.Guilds,
+            GatewayIntentBits.DirectMessages,
+            GatewayIntentBits.GuildMessageReactions,
+            GatewayIntentBits.DirectMessageReactions,
+        ],
+        partials: [
+            Partials.Channel,
+            Partials.Message
+        ]
+    },
 }
