@@ -1,7 +1,6 @@
-const { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
+const { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, SelectMenuBuilder } = require('discord.js');
 const utils = require('../utils.js');
 const fs = require('fs');
-const { SelectMenuBuilder } = require('@discordjs/builders');
 
 module.exports = {
 
@@ -17,7 +16,6 @@ module.exports = {
     run: async function (args) {
 
         let intera = args.intera;
-        intera.deferReply();
         //Check perm admin/gérer salons
         if(!intera.memberPermissions.has([PermissionFlagsBits.ManageChannels])) return utils.interaReply("Vous devez avoir la permission de gérer les salons pour exécuter cette commande !", intera);
 
@@ -85,31 +83,31 @@ module.exports = {
 
             name: 'tableau-veilleur-dragon',
             topic: 'Abonnez-vous aux notifications d\'évènements infernaux et challenge !',
-            permissionsOverwrites: [
+            permissionOverwrites: [
                 {
                     id: intera.guild.id,
                     deny:[PermissionFlagsBits.SendMessages, PermissionFlagsBits.AddReactions, PermissionFlagsBits.ManageMessages]
                 },
                 {
-                    id: args.bot.user.id,
-                    allow:[PermissionFlagsBits.SendMessages, PermissionFlagsBits.AddReactions, PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.ViewChannel]
+                    id: intera.applicationId,
+                    allow:[PermissionFlagsBits.SendMessages, PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.ManageMessages]
                 }
             ],
             reason: 'creation du salon d\'abonnement aux notifications'
-        }).catch(e => utils.errorSendReply('veilleur - crea chan_board', args))
+        }).catch(console.error)
 
 
         chan_notifs = await intera.guild.channels.create({
 
             name: 'notifs-veilleurs-dragons',
-            topic: 'Abonnez-vous aux notifications d\'évènements infernaux et challenge sur le salon <#' + chan_board.id + '>!',
-            permissionsOverwrites: [
+            topic: 'Abonnez-vous aux notifications d\'évènements infernaux et challenge pour recevoir les mentions!',
+            permissionOverwrites: [
                 {
                     id: intera.guild.id,
                     deny:[PermissionFlagsBits.SendMessages, PermissionFlagsBits.AddReactions, PermissionFlagsBits.ManageMessages]
                 },
                 {
-                    id: args.bot.user.id,
+                    id: intera.applicationId,
                     allow:[PermissionFlagsBits.SendMessages, PermissionFlagsBits.AddReactions, PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.ViewChannel]
                 }
             ],
@@ -243,7 +241,7 @@ module.exports = {
         let CDT = await creaRole('Challenge dragon troupes');
 
 
-        await utils.interaReply("Terminé ! Les salons <#" + chan_board + "> et <#" + chan_notifs + "> ont bien été créés", intera)
+        await utils.interaReply("Terminé ! Les salons <#" + chan_board + "> et <#" + chan_notifs + "> ont bien été créés\nFaites `/stopveilleur` pour les supprimer", intera)
 
         //Gestion de la db
         gpconfig = {
