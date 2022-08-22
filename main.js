@@ -33,28 +33,6 @@ bot.on('ready', async () => {
 })
 
 
-//Event raw, pour récupérer les réactions dans les messages non-cachés
-bot.on('raw', async packet => {
-    if (!['MESSAGE_REACTION_ADD', 'MESSAGE_REACTION_REMOVE'].includes(packet.t)) return;
-    const channel = bot.channels.cache.get(packet.d.channel_id);
-    if (channel.messages.cache.has(packet.d.message_id)) return;
-    let message = await channel.messages.fetch(packet.d.message_id).catch(e => e);
-    let user = await bot.users.fetch(packet.d.user_id).catch(e => e);
-    let emoji = packet.d.emoji.name;
-    if(packet.d.emoji.id) {emoji += ":" + packet.d.emoji.id}
-    if(!message.reactions || !message.reactions.cache) return;
-    const reaction = await message.reactions.cache.get(emoji);
-    if (reaction) await reaction.users.cache.set(packet.d.user_id, user)
-    if (packet.t === 'MESSAGE_REACTION_ADD') {
-        bot.emit('messageReactionAdd', reaction, user);
-    }
-    if (packet.t === 'MESSAGE_REACTION_REMOVE') {
-        bot.emit('messageReactionRemove', reaction, user);
-    }
-})
-
-
-
 //Actions effectuée lorsque le bot rejoins un serveur
 bot.on('guildCreate', guild => {
     ServChang.join(guild, bot, kyu, gpconfig, gconfig);
