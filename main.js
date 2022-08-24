@@ -70,7 +70,6 @@ bot.on('messageCreate', async msg => {
 
 bot.on('interactionCreate', async intera => {
 
-    intera.deferReply();
 
 //Gestion des / commandes
     if(intera.type == InteractionType.ApplicationCommand) {
