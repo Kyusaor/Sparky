@@ -103,7 +103,7 @@ bot.on('interactionCreate', async intera => {
         } catch (error) {
             console.log(error)
             intera.deleteReply().catch(e => e)
-            await intera.followUp({ content: 'Une erreur est survenue pendant l\'éxecution de la commande!', ephemeral: true });
+            await intera.followUp({ content: 'Une erreur est survenue pendant l\'éxecution de la commande!', ephemeral: true }).catch(e => e);
         }
     
         //Envoi dans la console
