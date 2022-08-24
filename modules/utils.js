@@ -200,8 +200,7 @@ module.exports = {
 
     async interaReply(text, intera) {
         try {
-            let rep = await intera.fetchReply();
-            if(rep) {
+            if(intera.replied) {
                 return await intera.editReply(text)
             } else {
                 return await intera.reply(text)
