@@ -5,7 +5,7 @@ const fs = require('fs');
 module.exports = {
 
     name: 'veilleur',
-    description: 'définit le panneau de notifications d\'évènement infernaux',
+    description: 'Définit le panneau de notifications d\'évènement infernaux',
     admin: true,
 
     data: new SlashCommandBuilder()
