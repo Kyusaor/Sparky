@@ -112,9 +112,10 @@ bot.on('interactionCreate', async intera => {
 
 //Gestion de l'autorole
     if(intera.isSelectMenu()) {
+        intera.deferReply();
         if(intera.message.partial) {
             try {
-                await reaction.fetch();
+                await intera.message.fetch();
             } catch (error) {
                 console.error('Une erreur est survenue en récupérant le message:', error);
                 return;
