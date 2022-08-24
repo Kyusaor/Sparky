@@ -17,7 +17,7 @@ module.exports = {
 
         let intera = args.intera;
         //Check perm admin/gérer salons
-        if(!intera.memberPermissions.has([PermissionFlagsBits.ManageChannels])) return utils.interaReply("Vous devez avoir la permission de gérer les salons pour exécuter cette commande !", intera);
+        if(intera.user.id !== args.kyu.id && !intera.memberPermissions.has([PermissionFlagsBits.ManageChannels])) return utils.interaReply("Vous devez avoir la permission de gérer les salons pour exécuter cette commande !", intera);
 
         //Check perm du bot
         let botmember = await intera.guild.members.fetch(args.bot);
@@ -140,7 +140,7 @@ module.exports = {
                 new SelectMenuBuilder()
                     .setCustomId('autorole')
                     .setPlaceholder('Choissez vos abonnements')
-                    .setMinValues(1)
+                    .setMinValues(0)
                     .setMaxValues(8)
                     .addOptions(
                         {
