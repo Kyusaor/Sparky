@@ -103,16 +103,17 @@ module.exports = {
         //Infos bot
         else if (sub == "bot") {
 
+            let bot = await args.bot.users.fetch(args.bot.user);
             let Color = [59,229,53];
-            let Title = args.bot.user.tag;
-            let Thumb = args.bot.user.displayAvatarURL();
-            let ID = args.bot.user.id;
-            let creaDate = utils.stringifyDate(args.bot.user.createdAt);
+            let Title = bot.tag;
+            let Thumb = bot.displayAvatarURL();
+            let ID = bot.id;
+            let creaDate = utils.stringifyDate(bot.createdAt);
             let joinDate = utils.stringifyDate(args.intera.guild.joinedAt);
             let ServerCount = args.bot.guilds.cache.size;
             let Version = config.version;
             let Ping = Math.round(args.bot.ws.ping);
-            let inviteLink = "<https://discord.com/api/oauth2/authorize?client_id=" + args.bot.user.id + "&permissions=" + config.botperm + "&scope=bot%20applications.commands" + ">"
+            let inviteLink = "<https://discord.com/api/oauth2/authorize?client_id=" + bot.id + "&permissions=" + config.botperm + "&scope=bot%20applications.commands" + ">"
             
             let embed = new EmbedBuilder()
                 .setColor(Color)
