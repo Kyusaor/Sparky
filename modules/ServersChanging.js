@@ -1,3 +1,4 @@
+const { ActivityType } = require('discord.js');
 const Discord = require('discord.js');
 const fs = require('fs');
 const config = require('../data/config.js');
@@ -7,13 +8,12 @@ module.exports = {
 
         //Actualise l'activité du bot
         let server_count = bot.guilds.cache.size
-        bot.user.setActivity(server_count + " serveurs", { type : 'WATCHING'});
+        bot.user.setActivity({ name: server_count + " serveurs", type : ActivityType.Watching});
 
         //Enregistre le serveur ou le redéfinit comme actif
         if(!gconfig[guild.id]){
             gconfig[guild.id] = {
             name : guild.name,
-            prefix : "!",
             active : true,
             }
             gpconfig[guild.id] = {ping: false}
@@ -21,20 +21,20 @@ module.exports = {
         else {gconfig[guild.id].active = true}
 
         //Envoi d'un message privé au propriétaire du serveur
-        let owner = await bot.users.fetch(guild.ownerID)
-        let embed = new Discord.MessageEmbed()
-        .setTitle("Bonjour " + owner.username + "!")
-        .setDescription("Je me présente: je suis un bot discord Lords Mobile, conçu pour les serveurs de guilde.\n\nPar défaut mon préfixe est `!`, vous pourrez le modifier ultérieurement. La liste de mes commandes se trouve en faisant `!aide` sur votre serveur\n\nMerci de m'avoir ajouté!")
-        .setColor([59,229,53])
-        .setFooter("Développé par Kyusaki#9053", kyu.displayAvatarURL())
-        owner.send(embed)
+        let owner = await bot.users.fetch(guild.ownerId)
+        let embed = new Discord.EmbedBuilder()
+            .setTitle("Bonjour " + owner.username + "!")
+            .setDescription("Je me présente: je suis Sparky, un bot discord Lords Mobile, conçu pour les serveurs de guilde.\n\nLa liste de mes commandes se trouve en faisant **`/aide`** sur votre serveur\n\nMerci de m'avoir ajouté!")
+            .setColor([59,229,53])
+            .setFooter({ text: "Développé par Kyusaki#9053", iconURL: kyu.displayAvatarURL()})
+        owner.send({embeds: [embed]})
         .catch(e => console.log("owner incontactable"))
 
         //Applique les changements au fichier de config des serveurs
         fs.writeFileSync('./data/guild_config.json', JSON.stringify(gconfig), "UTF-8")
 
-        let logdb = await bot.channels.cache.get(config.logs_db);
-        if(!logdb) return console.log(utils.displayConsoleHour + " Chan log db introuvable")
+        let logdb = await bot.channels.fetch(config.logs_db);
+        if(!logdb) return console.log(utils.displayConsoleHour() + " Chan log db introuvable")
 
         logdb.send("Nouveau serveur " + guild.name + "\nid: " + guild.id + "\nOwner: " + owner.username + " (id: " + owner.id + ")",{files:[
             {
@@ -57,7 +57,7 @@ module.exports = {
 
         //Actualise l'activité du bot
         let server_count = bot.guilds.cache.size
-        bot.user.setActivity(server_count + " serveurs", { type : 'WATCHING'})
+        bot.user.setActivity({ name: server_count + " serveurs", type : ActivityType.Watching})
 
         //Enregistre le serveur comme quitté
         gconfig[guild.id].active = false;
@@ -66,10 +66,10 @@ module.exports = {
         fs.writeFileSync('./data/guild_config.json', JSON.stringify(gconfig), "UTF-8")
 
         //envoi logs db
-        let logdb = await bot.channels.cache.get(config.logs_db);
-        if(!logdb) return console.log(utils.displayConsoleHour + " Chan log db introuvable")
+        let logdb = await bot.channels.fetch(config.logs_db);
+        if(!logdb) return console.log(utils.displayConsoleHour() + " Chan log db introuvable")
 
-        let owner = await bot.users.fetch(guild.ownerID)
+        let owner = await bot.users.fetch(guild.ownerId)
         if(!owner) return console.log("Owner introuvable")
 
         logdb.send("Retrait serveur " + guild.name + "\nid: " + guild.id + "\nOwner: " + owner.username + " (id: " + owner.id + ")",{files:[
