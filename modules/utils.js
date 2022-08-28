@@ -25,9 +25,24 @@ module.exports = {
            
     statusLoop(bot){
         let server_count = bot.guilds.cache.size;
-        bot.user.setActivity({name: server_count + " serveurs", type: ActivityType.Watching, status: 'online'})
-        setTimeout(()=>{bot.user.setActivity({name: "Écrivez / pour obtenir la liste des commandes", status: 'online'})}, 10000)
+        try { bot.user.setActivity({name: server_count + " serveurs", type: ActivityType.Watching, status: 'online'}) }
+        catch {}
+        setTimeout(()=>{
+            try {bot.user.setActivity({name: "Écrivez / pour obtenir la liste des commandes", status: 'online'})}
+            catch {}
+        }, 10000)
         setTimeout(()=>{this.statusLoop(bot)}, 20000)
+    },
+
+    createHellEventMessage(type) {
+        let currentHour = new Date();
+        let nextEventHour = new Date();
+        nextEventHour.setMinutes(55);
+
+        let minutesRemaining = nextEventHour.getMinutes() - currentHour.getMinutes();
+        if(minutesRemaining < 1) minutesRemaining += 60
+
+        return ", un évènement " + type + " est en cours !\nIl reste **" + minutesRemaining + "** minutes!"
     },
 
     displayConsoleHour(date) {
