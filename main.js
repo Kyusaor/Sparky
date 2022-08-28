@@ -10,14 +10,14 @@ var gpconfig = JSON.parse(fs.readFileSync('./data/globalPing.json'));
 const ServChang = require('./modules/ServersChanging.js');
 const utils = require('./modules/utils.js');
 const Private = require('./data/private.js');
-const { InteractionType, ChannelType, PermissionFlagsBits } = require('discord.js');
-const { EmbedBuilder } = require('@discordjs/builders');
+const { InteractionType, ChannelType, PermissionFlagsBits, ButtonStyle } = require('discord.js');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('@discordjs/builders');
 
 
 //Déclaration des fonctions utilisées
 var kyu = [];
 var usersStatus = [];
-var chan_mp;
+var chan_mp, chan_logInf;
 
 
 //Démarrage du bot
@@ -29,6 +29,7 @@ bot.on('ready', async () => {
     kyu = await bot.users.fetch(config.kyu);
     chan_mp = await bot.channels.cache.get(config.logs_mp);
     let chanGP = await bot.channels.cache.get(config.gp_dashboard);
+    chan_logInf = await bot.channels.cache.get(config.logs_inf);
     chanGP.messages.fetch();
 })
 
@@ -134,6 +135,85 @@ bot.on('interactionCreate', async intera => {
             else await membre.roles.remove(role, "Autorole sparky").catch(e => e)
         }
         await utils.interaReply({content: "Vos rôles ont été mis à jour", ephemeral: true}, intera)
+    }
+
+//Gestion des pings infernaux
+    if(intera.isButton()) {
+        if(intera.message.id !== gpconfig.settings.msg_annonce) return;
+
+        let type = "";
+
+        switch(intera.customId) {
+
+            case 'Veilleur':
+                type = "infernal veilleur";
+
+                let veillboutons = new ActionRowBuilder()
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId('VeillRech')
+                            .setEmoji('660453261979025418')
+                            .setStyle(ButtonStyle.Secondary),
+
+                        new ButtonBuilder()
+                            .setCustomId('VeillConstru')
+                            .setEmoji('607559564535267348')
+                            .setStyle(ButtonStyle.Secondary),
+                            
+                        new ButtonBuilder()
+                            .setCustomId('VeillFusion')
+                            .setEmoji('607554115416883200')
+                            .setStyle(ButtonStyle.Secondary),
+                            
+                        new ButtonBuilder()
+                            .setCustomId('VeillLaby')
+                            .setEmoji('607561368421400576')
+                            .setStyle(ButtonStyle.Secondary),
+                            
+                        new ButtonBuilder()
+                            .setCustomId('VeillRdp')
+                            .setEmoji('607559484486844436')
+                            .setStyle(ButtonStyle.Secondary),
+                            
+                        new ButtonBuilder()
+                            .setCustomId('VeillChasse')
+                            .setEmoji('614816781420199937')
+                            .setStyle(ButtonStyle.Secondary),
+                            
+                    )
+                intera.reply({content: "__Choisis le type d'évènement Veilleur:__\n<:academie:607196986948452377>-Recherche\n<:batiment:607559564535267348>-Construction\n<:pacte:607554115416883200>-Fusion\n<:labyrinthe:607561368421400576>-Laby\n<:royaume_pouvoir:607559484486844436>-Royaume du pouvoir\n<:chasse:614816781420199937>: Chasse\n\n:warning: *Ignorez pour annuler*", components: [veillboutons]});
+
+                break;
+
+            case 'Dragon':
+                type = "infernal dragon recherche";
+                break;
+
+            case 'OR':
+                type = "orbes rouges";
+                break;
+
+            case 'OJ':
+                type = "orbes jaunes";
+                break;
+
+            default:
+                console.log("esh c'est pas normal ça hein")
+                break;
+        }
+
+        let mess = utils.createHellEventMessage(type);
+
+        for(serv of Object.keys(gpconfig)) {
+            if(!gpconfig[serv].ping) continue;
+            let chan_notifs = await bot.channels.fetch(gpconfig[serv].chan_notifs).catch(e => e);
+            if(!chan_notifs) {console.log("salon introuvable: " + gpconfig[serv].chan_notifs + " (serveur " + serv); continue}
+            
+            await chan_notifs.send("<@&" + gpconfig[serv].roles[intera.customId] + ">" + mess);
+        }
+
+        console.log("Un " + type + " a été signalé par " + intera.user.username + " (" + intera.user.id + ")")
+        chan_logInf.send("Un " + type + " a été signalé par " + intera.user.username + " (" + intera.user.id + ")")
     }
 
     fs.writeFileSync('./data/guild_config.json', JSON.stringify(gconfig));
