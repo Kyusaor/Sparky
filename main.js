@@ -25,7 +25,7 @@ bot.login(Private.token);
 
 bot.on('ready', async () => {
     utils.envoi_log(config.logs_connexions, bot, config.version)
-    //utils.statusLoop(bot);
+    utils.statusLoop(bot);
     kyu = await bot.users.fetch(config.kyu);
     chan_mp = await bot.channels.cache.get(config.logs_mp);
     let chanGP = await bot.channels.cache.get(config.gp_dashboard);
