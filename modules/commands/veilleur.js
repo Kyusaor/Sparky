@@ -86,11 +86,11 @@ module.exports = {
             permissionOverwrites: [
                 {
                     id: intera.guild.id,
-                    deny:[PermissionFlagsBits.SendMessages, PermissionFlagsBits.AddReactions, PermissionFlagsBits.ManageMessages]
+                    deny:[PermissionFlagsBits.SendMessages, PermissionFlagsBits.AddReactions]
                 },
                 {
                     id: intera.applicationId,
-                    allow:[PermissionFlagsBits.SendMessages, PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.ManageMessages]
+                    allow:[PermissionFlagsBits.SendMessages, PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.ViewChannel]
                 }
             ],
             reason: 'creation du salon d\'abonnement aux notifications'
@@ -104,11 +104,11 @@ module.exports = {
             permissionOverwrites: [
                 {
                     id: intera.guild.id,
-                    deny:[PermissionFlagsBits.SendMessages, PermissionFlagsBits.AddReactions, PermissionFlagsBits.ManageMessages]
+                    deny:[PermissionFlagsBits.SendMessages, PermissionFlagsBits.AddReactions]
                 },
                 {
                     id: intera.applicationId,
-                    allow:[PermissionFlagsBits.SendMessages, PermissionFlagsBits.AddReactions, PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.ViewChannel]
+                    allow:[PermissionFlagsBits.SendMessages, PermissionFlagsBits.ReadMessageHistory, PermissionFlagsBits.ViewChannel]
                 }
             ],
             reason: 'creation du salon d\'abonnement aux notifications'
