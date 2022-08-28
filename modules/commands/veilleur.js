@@ -94,7 +94,7 @@ module.exports = {
                 }
             ],
             reason: 'creation du salon d\'abonnement aux notifications'
-        }).catch(console.error)
+        }).catch(e => e)
 
 
         chan_notifs = await intera.guild.channels.create({
