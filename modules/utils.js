@@ -25,8 +25,8 @@ module.exports = {
            
     statusLoop(bot){
         let server_count = bot.guilds.cache.size;
-        bot.user.setPresence({activities: [{name: server_count + " serveurs", type: ActivityType.Watching}], status: 'online'})
-        setTimeout(()=>{bot.user.setPresence({activities: [{name: "Écrivez / pour obtenir la liste des commandes"}], status: 'online'})}, 10000)
+        bot.user.setActivity({name: server_count + " serveurs", type: ActivityType.Watching, status: 'online'})
+        setTimeout(()=>{bot.user.setActivity({name: "Écrivez / pour obtenir la liste des commandes", status: 'online'})}, 10000)
         setTimeout(()=>{this.statusLoop(bot)}, 20000)
     },
 
@@ -36,7 +36,7 @@ module.exports = {
         return message
     },
 
-    async envoi_log(chan_log, bot, data1) {
+    async envoi_log(chan_log, bot, data1, info2) {
         let message_console = "";
         let date = new Date();
 
@@ -60,13 +60,11 @@ module.exports = {
                 bot.channels.cache.get(chan_log).send(info2 + data1.name + " (" + data1.id + ")\nMembres: " + data1.memberCount)
                 if (info2 === "📥 ") { info2 = "(+) " } else { info2 = "(-) " }
                 message_console = this.displayConsoleHour(date) + info2 + data1.name + " (ID:" + data1.id + ")";
-                if(info2 === "(+) "){
-                    let owner = await bot.users.fetch(data1.ownerID).catch(e => console.log('Fetch owner impossible'))
-                    if(owner) {
-                        message_console += "\nOwner: " + owner.tag + " (" + owner.id + ")";
-                        bot.channels.cache.get(chan_log).send("\nOwner: " + owner.tag + " (" + owner.id + ")")
-                    };
-                }
+                let owner = await bot.users.fetch(data1.ownerId).catch(e => console.log('Fetch owner impossible'))
+                if(owner) {
+                    message_console += "\nOwner: " + owner.tag + " (" + owner.id + ")";
+                    bot.channels.cache.get(chan_log).send("\nOwner: " + owner.tag + " (" + owner.id + ")")
+                };
                 break;
 
             //logs des connexions du bot
