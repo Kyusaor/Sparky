@@ -11,7 +11,7 @@ const ServChang = require('./modules/ServersChanging.js');
 const utils = require('./modules/utils.js');
 const Private = require('./data/private.js');
 const { InteractionType, ChannelType, PermissionFlagsBits, ButtonStyle } = require('discord.js');
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder } = require('@discordjs/builders');
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ComponentType } = require('discord.js');
 
 
 //Déclaration des fonctions utilisées
@@ -142,6 +142,7 @@ bot.on('interactionCreate', async intera => {
         if(intera.message.id !== gpconfig.settings.msg_annonce) return;
 
         let type = "";
+        let roleping = intera.customId;
 
         switch(intera.customId) {
 
@@ -151,38 +152,76 @@ bot.on('interactionCreate', async intera => {
                 let veillboutons = new ActionRowBuilder()
                     .addComponents(
                         new ButtonBuilder()
-                            .setCustomId('VeillRech')
+                            .setCustomId('recherche')
                             .setEmoji('660453261979025418')
                             .setStyle(ButtonStyle.Secondary),
 
                         new ButtonBuilder()
-                            .setCustomId('VeillConstru')
+                            .setCustomId('construction')
                             .setEmoji('607559564535267348')
                             .setStyle(ButtonStyle.Secondary),
                             
                         new ButtonBuilder()
-                            .setCustomId('VeillFusion')
+                            .setCustomId('fusion')
                             .setEmoji('607554115416883200')
                             .setStyle(ButtonStyle.Secondary),
-                            
+
                         new ButtonBuilder()
-                            .setCustomId('VeillLaby')
+                            .setCustomId('labyrinthe')
                             .setEmoji('607561368421400576')
                             .setStyle(ButtonStyle.Secondary),
                             
                         new ButtonBuilder()
-                            .setCustomId('VeillRdp')
+                            .setCustomId('royaume')
                             .setEmoji('607559484486844436')
                             .setStyle(ButtonStyle.Secondary),
-                            
+
+                    )
+                let veillboutons2 = new ActionRowBuilder()
+                    .addComponents(                                
                         new ButtonBuilder()
-                            .setCustomId('VeillChasse')
+                            .setCustomId('chasse')
                             .setEmoji('614816781420199937')
                             .setStyle(ButtonStyle.Secondary),
-                            
+                                
                     )
-                intera.reply({content: "__Choisis le type d'évènement Veilleur:__\n<:academie:607196986948452377>-Recherche\n<:batiment:607559564535267348>-Construction\n<:pacte:607554115416883200>-Fusion\n<:labyrinthe:607561368421400576>-Laby\n<:royaume_pouvoir:607559484486844436>-Royaume du pouvoir\n<:chasse:614816781420199937>: Chasse\n\n:warning: *Ignorez pour annuler*", components: [veillboutons]});
+                intera.reply({content: "__Choisis le type d'évènement Veilleur:__\n<:academie:607196986948452377>-Recherche\n<:batiment:607559564535267348>-Construction\n<:pacte:607554115416883200>-Fusion\n<:labyrinthe:607561368421400576>-Laby\n<:royaume_pouvoir:607559484486844436>-Royaume du pouvoir\n<:chasse:614816781420199937>: Chasse\n\n:warning: *Ignorez pour annuler*", components: [veillboutons, veillboutons2], ephemeral: true});
+                
+                let collVType;
+                try {
+                    const filter = (i) => i.user.id == intera.user.id && ['recherche', 'construction', 'fusion', 'labyrinthe', 'royaume', 'chasse'].includes(i.customId)
+                    collVType = await intera.channel.awaitMessageComponent({ filter, time: 30000, componentType: ComponentType.Button}) 
+                }
+                catch { return await utils.interaReply({content: "Commande annulée", components: [], ephemeral: true}, intera)}
+    
+                let confirmVeilleur = new ActionRowBuilder()
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId('confirmv-oui')
+                            .setEmoji('✅')
+                            .setStyle(ButtonStyle.Secondary),
+                        
+                        new ButtonBuilder()
+                            .setCustomId('confirmv-non')
+                            .setEmoji('❌')
+                            .setStyle(ButtonStyle.Secondary)
+                    )
+                
+                await utils.interaReply({ content: "Voulez vous signaler un infernal veilleur " + collVType.customId + "?", components: [confirmVeilleur], ephemeral: true}, intera)
 
+                let collVconfirm;
+                try {
+                    const filter = (i) => i.user.id == intera.user.id && ['confirmv-non', 'confirmv-oui'].includes(i.customId)
+                    collVconfirm = await intera.channel.awaitMessageComponent({ filter, time: 30000, componentType: ComponentType.Button}) 
+                }
+                catch { return utils.interaReply({content: "Commande annulée", components: [], ephemeral: true}, intera)}
+
+                if(collVconfirm.customId == 'confirmv-non') return await utils.interaReply({content: "Commande annulée", components: [], ephemeral: true}, intera)
+                await utils.interaReply({content: "Signalé!", ephemeral: true, components: []}, intera)
+                
+                type = "veilleur " + collVType.customId
+                if(collVType.customId == "recherche") roleping = "IVR"
+                else roleping = "IV"
                 break;
 
             case 'Dragon':
@@ -209,7 +248,7 @@ bot.on('interactionCreate', async intera => {
             let chan_notifs = await bot.channels.fetch(gpconfig[serv].chan_notifs).catch(e => e);
             if(!chan_notifs) {console.log("salon introuvable: " + gpconfig[serv].chan_notifs + " (serveur " + serv); continue}
             
-            await chan_notifs.send("<@&" + gpconfig[serv].roles[intera.customId] + ">" + mess);
+            await chan_notifs.send("<@&" + gpconfig[serv].roles[roleping] + ">" + mess);
         }
 
         console.log("Un " + type + " a été signalé par " + intera.user.username + " (" + intera.user.id + ")")
