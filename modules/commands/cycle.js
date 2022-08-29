@@ -1,4 +1,3 @@
-const defVal = require('../../data/defaultValues.js');
 const { SlashCommandBuilder } = require('discord.js');
 const utils = require('../utils.js');
 
