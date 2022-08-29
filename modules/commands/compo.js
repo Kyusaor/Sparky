@@ -46,6 +46,6 @@ module.exports = {
     run: async function (args) {
 
         args.intera.reply({files: [args.intera.options.getString('monstre')]})
-        .catch(console.error)        
+        .catch(err => utils.errorSendReply('compo', args))        
     }
 }
