@@ -26,7 +26,7 @@ module.exports = {
                     { name: 'Faucheuse', value: './images/mob/faucheuse.png'},
                     { name: 'Flipper Arctique', value: './images/mob/flipper.png'},
                     { name: 'Gargantua', value: './images/mob/gargantua.png'},
-                    {name: 'Gladiateur Serpent', value: './images/mob/serpent'},
+                    { name: 'Gladiateur Serpent', value: './images/mob/serpent'},
                     { name: 'Golem Antique', value: './images/mob/golem.png'},
                     { name: 'Gorzilla', value: './images/mob/gorzilla.png'},
                     { name: 'Griffon', value: './images/mob/griffon.png'},
