@@ -225,15 +225,154 @@ bot.on('interactionCreate', async intera => {
                 break;
 
             case 'Dragon':
-                type = "infernal dragon recherche";
+                let dragonboutons = new ActionRowBuilder()
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId('recherche')
+                            .setEmoji('660453599318638592')
+                            .setStyle(ButtonStyle.Secondary),
+
+                        new ButtonBuilder()
+                            .setCustomId('construction')
+                            .setEmoji('607559564535267348')
+                            .setStyle(ButtonStyle.Secondary),
+                            
+                        new ButtonBuilder()
+                            .setCustomId('labyrinthe')
+                            .setEmoji('607561368421400576')
+                            .setStyle(ButtonStyle.Secondary),
+                            
+                        new ButtonBuilder()
+                            .setCustomId('royaume')
+                            .setEmoji('607559484486844436')
+                            .setStyle(ButtonStyle.Secondary),
+
+                        new ButtonBuilder()
+                            .setCustomId('chasse')
+                            .setEmoji('614816781420199937')
+                            .setStyle(ButtonStyle.Secondary),
+                    )
+                let dragonboutons2 = new ActionRowBuilder()
+                    .addComponents(                                
+                        new ButtonBuilder()
+                            .setCustomId('crech')
+                            .setEmoji('🇷')
+                            .setStyle(ButtonStyle.Secondary),
+                                
+                        new ButtonBuilder()
+                            .setCustomId('ctrou')
+                            .setEmoji('🇪')
+                            .setStyle(ButtonStyle.Secondary),
+)
+                intera.reply({content: "__Choisis le type d'évènement Dragon:__\n<:academie:607196986948452377>-Recherche\n<:batiment:607559564535267348>-Construction-Fusion\n<:labyrinthe:607561368421400576>-Laby\n<:royaume_pouvoir:607559484486844436>-Royaume du pouvoir\n<:chasse:614816781420199937>: Chasse\n\nChallenge:\n-🇷:Challenge recherche\n-🇪:Challenge entraînement\n\n:warning: *Ignorez pour annuler*", components: [dragonboutons, dragonboutons2], ephemeral: true});
+                
+                let collDType;
+                try {
+                    const filter = (i) => i.user.id == intera.user.id && ['recherche', 'construction', 'labyrinthe', 'royaume', 'chasse', 'crech', 'ctrou'].includes(i.customId)
+                    collDType = await intera.channel.awaitMessageComponent({ filter, time: 30000, componentType: ComponentType.Button}) 
+                }
+                catch { return await utils.interaReply({content: "Commande annulée", components: [], ephemeral: true}, intera)}
+    
+                let confirmDragon = new ActionRowBuilder()
+                    .addComponents(
+                        new ButtonBuilder()
+                            .setCustomId('confirmd-oui')
+                            .setEmoji('✅')
+                            .setStyle(ButtonStyle.Secondary),
+                        
+                        new ButtonBuilder()
+                            .setCustomId('confirmd-non')
+                            .setEmoji('❌')
+                            .setStyle(ButtonStyle.Secondary)
+                    )
+                
+                switch(collDType.customId) {
+                    case 'recherche':
+                        roleping = 'IDR'
+                        type = "infernal dragon " + collDType.customId;
+                        break;
+                    
+                    case 'crech':
+                        roleping = 'CDR'
+                        type = 'Challenge Dragon Recherche'
+                        break;
+
+                    case 'ctrou':
+                        roleping = 'CDT'
+                        type = 'Challenge Dragon Entrainement';
+                        break;
+
+                    default:
+                        roleping = 'ID'
+                        type = "infernal dragon " + collDType.customId;
+                        break;
+                }
+
+                await utils.interaReply({ content: "Voulez vous signaler un " + type + "?", components: [confirmDragon], ephemeral: true}, intera)
+
+                let collDconfirm;
+                try {
+                    const filter = (i) => i.user.id == intera.user.id && ['confirmd-non', 'confirmd-oui'].includes(i.customId)
+                    collDconfirm = await intera.channel.awaitMessageComponent({ filter, time: 30000, componentType: ComponentType.Button}) 
+                }
+                catch { return utils.interaReply({content: "Commande annulée", components: [], ephemeral: true}, intera)}
+
+                if(collDconfirm.customId == 'confirmd-non') return await utils.interaReply({content: "Commande annulée", components: [], ephemeral: true}, intera)
+                await utils.interaReply({content: "Signalé!", ephemeral: true, components: []}, intera)
                 break;
 
             case 'OR':
                 type = "orbes rouges";
+                let confirmOR = new ActionRowBuilder()
+                .addComponents(
+                    new ButtonBuilder()
+                        .setCustomId('confirmor-oui')
+                        .setEmoji('✅')
+                        .setStyle(ButtonStyle.Secondary),
+                    
+                    new ButtonBuilder()
+                        .setCustomId('confirmor-non')
+                        .setEmoji('❌')
+                        .setStyle(ButtonStyle.Secondary)
+                )
+
+                await utils.interaReply({content: "Voulez-vous signaler un infernal orbes rouges?", ephemeral: true, components: [confirmOR]}, intera)
+
+                let collOR;
+                try {
+                    const filter = (i) => i.user.id == intera.user.id && ['confirmor-non', 'confirmor-oui'].includes(i.customId)
+                    collOR = await intera.channel.awaitMessageComponent({ filter, time: 30000, componentType: ComponentType.Button}) 
+                }
+                catch { return utils.interaReply({content: "Commande annulée", components: [], ephemeral: true}, intera)}
+                if(collOR.customId == 'confirmor-non') return await utils.interaReply({content: "Commande annulée", components: [], ephemeral: true}, intera)
+                await utils.interaReply({content: "Signalé!", ephemeral: true, components: []}, intera)
                 break;
 
             case 'OJ':
                 type = "orbes jaunes";
+                let confirmOJ = new ActionRowBuilder()
+                .addComponents(
+                    new ButtonBuilder()
+                        .setCustomId('confirmoj-oui')
+                        .setEmoji('✅')
+                        .setStyle(ButtonStyle.Secondary),
+                    
+                    new ButtonBuilder()
+                        .setCustomId('confirmoj-non')
+                        .setEmoji('❌')
+                        .setStyle(ButtonStyle.Secondary)
+                )
+
+                await utils.interaReply({content: "Voulez-vous signaler un infernal orbes jaunes?", ephemeral: true, components: [confirmOJ]}, intera)
+
+                let collOJ;
+                try {
+                    const filter = (i) => i.user.id == intera.user.id && ['confirmoj-non', 'confirmoj-oui'].includes(i.customId)
+                    collOJ = await intera.channel.awaitMessageComponent({ filter, time: 30000, componentType: ComponentType.Button}) 
+                }
+                catch { return utils.interaReply({content: "Commande annulée", components: [], ephemeral: true}, intera)}
+                if(collOJ.customId == 'confirmoj-non') return await utils.interaReply({content: "Commande annulée", components: [], ephemeral: true}, intera)
+                await utils.interaReply({content: "Signalé!", ephemeral: true, components: []}, intera)
                 break;
 
             default:
