@@ -387,7 +387,9 @@ bot.on('interactionCreate', async intera => {
             let chan_notifs = await bot.channels.fetch(gpconfig[serv].chan_notifs).catch(e => e);
             if(!chan_notifs) {console.log("salon introuvable: " + gpconfig[serv].chan_notifs + " (serveur " + serv); continue}
             
-            await chan_notifs.send("<@&" + gpconfig[serv].roles[roleping] + ">" + mess).catch(e => console.log("Impossible d'envoyer la notif serveur " + serv));
+            try {
+                await chan_notifs.send("<@&" + gpconfig[serv].roles[roleping] + ">" + mess);
+            } catch { console.log("Impossible d'envoyer la notif serveur " + serv) }
         }
 
         console.log("Un " + type + " a été signalé par " + intera.user.username + " (" + intera.user.id + ")")
