@@ -16,7 +16,6 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ComponentType } = require
 
 //Déclaration des fonctions utilisées
 var kyu = [];
-var usersStatus = [];
 var chan_mp, chan_logInf;
 
 
@@ -75,7 +74,9 @@ bot.on('interactionCreate', async intera => {
 //Gestion des / commandes
     if(intera.type == InteractionType.ApplicationCommand) {
 
-        if(!gconfig[intera.guild.id]) {
+        if(!intera.guildId && intera.commandName !== 'lien') return intera.reply('Les commandes sont à réaliser sur un serveur !');
+        
+        if(intera.channel.type !== ChannelType.DM && !gconfig[intera.guild.id]) {
             gconfig[intera.guild.id] = {
                 name : intera.guild.name,
                 active : true,
@@ -88,7 +89,6 @@ bot.on('interactionCreate', async intera => {
             intera.reply({ content: 'Une erreur est survenue pendant l\'éxecution de la commande!', ephemeral: true }).catch(e => e);
             return console.log('pas de commande')
         }
-        if(!intera.guildId) return intera.reply('Les commandes sont à réaliser sur un serveur !');
     
         let args = {
             intera: intera,
@@ -96,18 +96,17 @@ bot.on('interactionCreate', async intera => {
             kyu: kyu,
             gconfig: gconfig,
             gpconfig: gpconfig,
-            userstatus: usersStatus,
     }
         try {
             await commandFile.run(args)
         } catch (error) {
             console.log(error)
             intera.deleteReply().catch(e => e)
-            await intera.followUp({ content: 'Une erreur est survenue pendant l\'éxecution de la commande!', ephemeral: true }).catch(e => e);
+            await utils.interaReply({ content: 'Une erreur est survenue pendant l\'éxecution de la commande!', ephemeral: true }, intera).catch(e => e);
         }
     
         //Envoi dans la console
-        utils.envoi_log(config.logs_users, bot, intera);
+        if(intera.channel.type !== ChannelType.DM) utils.envoi_log(config.logs_users, bot, intera);
     
     }
 
