@@ -106,7 +106,7 @@ bot.on('interactionCreate', async intera => {
         }
     
         //Envoi dans la console
-        if(intera.channel.type !== ChannelType.DM) utils.envoi_log(config.logs_users, bot, intera);
+        if(intera.channel?.type !== ChannelType.DM) utils.envoi_log(config.logs_users, bot, intera);
     
     }
 
