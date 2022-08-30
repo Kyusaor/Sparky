@@ -56,6 +56,13 @@ module.exports = {
         bot.user.setActivity({ name: server_count + " serveurs", type : ActivityType.Watching})
 
         //Enregistre le serveur comme quitté
+        if(!gconfig[guild.id]) {
+            gconfig[guild.id] = {
+                name : guild.name,
+                active : true,
+            }
+            gpconfig[guild.id] = {ping: false}
+        }
         gconfig[guild.id].active = false;
 
         //Applique les changements au fichier de config des serveurs
