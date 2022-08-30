@@ -241,7 +241,8 @@ module.exports = {
         let CDT = await creaRole('Challenge dragon troupes');
 
 
-        await utils.interaReply("Terminé ! Les salons <#" + chan_board + "> et <#" + chan_notifs + "> ont bien été créés\nFaites `/stopveilleur` pour les supprimer", intera)
+        try { await utils.interaReply("Terminé ! Les salons <#" + chan_board + "> et <#" + chan_notifs + "> ont bien été créés\nVous êtes libres de renommer ou déplacer les salons et rôles, du moment que vous ne supprimez rien :wink:\nFaites `/stopveilleur` pour les supprimer", intera) }
+        catch {}
 
         //Gestion de la db
         gpconfig = {
