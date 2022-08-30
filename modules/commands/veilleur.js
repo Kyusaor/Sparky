@@ -74,7 +74,7 @@ module.exports = {
         }
 
         //Création des salons
-        await utils.interaReply({content: "<a:loading:739785338347585598> Paramétrage en cours...", components: []}, intera)
+        await utils.interaReply({content: "<a:loading:739785338347585598> Paramétrage en cours...", components: []}, intera).catch(e => e)
         
         gpconfig = {};
         let chan_board, chan_notifs;
