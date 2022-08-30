@@ -6,10 +6,6 @@ const config = require('../data/config.js');
 module.exports = {
     join: async function (guild, bot, kyu, gpconfig, gconfig){
 
-        //Actualise l'activité du bot
-        let server_count = bot.guilds.cache.size
-        bot.user.setActivity({ name: server_count + " serveurs", type : ActivityType.Watching});
-
         //Enregistre le serveur ou le redéfinit comme actif
         if(!gconfig[guild.id]){
             gconfig[guild.id] = {
