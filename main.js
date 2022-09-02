@@ -409,7 +409,7 @@ bot.on('messageCreate', async msg => {
         MsgFiles.push(e.url)
     });
 
-    chan_mp.send("`" + msg.author.id + "`")
+    chan_mp.send("" + msg.author.id + "")
     chan_mp.send('__**' + msg.author.tag + ' a envoyé:**__')
 
     if(msg.stickers.size == 1) chan_mp.send('{sticker}').catch(e => e)
