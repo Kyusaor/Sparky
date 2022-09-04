@@ -1,5 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const fs = require("fs");
+const { interaReply } = require("../utils");
 
 module.exports = {
 
@@ -24,6 +25,8 @@ module.exports = {
         ),
 
     run: async function (args) {
+
+        args.intera.deferReply()
 
         //Classement des serveurs
         let servliste = [];
@@ -81,7 +84,7 @@ module.exports = {
         let filelist = JSON.parse(fs.readFileSync('./data/sortedguilds.json'))
         filelist[args.intera.options.getString('type')] = servliste;
         fs.writeFileSync('./data/sortedguilds.json', JSON.stringify(filelist))
-        await args.intera.reply({ embeds: [embed], components: [boutons]})
+        await interaReply({ embeds: [embed], components: [boutons]}, args.intera)
     },
 
     defile(args){
