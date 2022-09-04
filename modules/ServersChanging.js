@@ -51,10 +51,6 @@ module.exports = {
 
     leave: async function(guild, bot, gconfig){
 
-        //Actualise l'activité du bot
-        let server_count = bot.guilds.cache.size
-        bot.user.setActivity({ name: server_count + " serveurs", type : ActivityType.Watching})
-
         //Enregistre le serveur comme quitté
         if(!gconfig[guild.id]) {
             gconfig[guild.id] = {
