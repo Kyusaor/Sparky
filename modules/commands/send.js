@@ -31,17 +31,21 @@ module.exports = {
 
     run: async function (args) {
 
-        let user = args.intera.options.getUser('user') || await args.bot.users.fetch(args.intera.options.getString('id'));
+        let entries = args.intera.options;
+
+        if(!entries.getUser('user') && !entries.getString('id')) return args.intera.reply('Merci de spécifier un user cible');
+
+        let user = await entries.getUser('user') || await args.bot.users.fetch(entries.getString('id'));
         if(!user) return args.intera.reply('User introuvable')
         
         let msgPayload = {};
-        if(args.intera.options.getString('message')) msgPayload.content = args.intera.options.getString('message').toString()
-        if(args.intera.options.getAttachment('fichier')) msgPayload.files = [args.intera.options.getAttachment('fichier')]
+        msgPayload.content = await entries.getString('message') || ""
+        if(entries.getAttachment('fichier')) msgPayload.files = [entries.getAttachment('fichier')]
 
         try { await user.send(msgPayload) }
         catch { return args.intera.reply('Echec d\'envoi du message') }
 
-        if(args.intera.options.getString('message')) msgPayload.content = 'Envoyé avec succès à ' + user.tag + " (" + user.id.toString() + "):\n" + args.intera.options.getString('message').toString()
+        if(entries.getString('message')) msgPayload.content = "Envoyé avec succès à " + user.tag + " (" + user.id.toString() + "):\n" + msgPayload.content;
         else msgPayload.content = 'Envoyé avec succès à ' + user.tag + " (" + user.id.toString() + "):"
         
         return args.intera.reply(msgPayload)
