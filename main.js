@@ -16,7 +16,7 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ComponentType } = require
 
 //Déclaration des fonctions utilisées
 var kyu = [];
-var chan_mp, chan_logInf;
+var chan_mp, chan_logInf, chan_errors;
 
 
 //Démarrage du bot
@@ -27,6 +27,7 @@ bot.on('ready', async () => {
     utils.statusLoop(bot);
     kyu = await bot.users.fetch(config.kyu);
     chan_mp = await bot.channels.cache.get(config.logs_mp);
+    chan_errors = await bot.channels.cache.get(config.logs_errors);
     let chanGP = await bot.channels.cache.get(config.gp_dashboard);
     chan_logInf = await bot.channels.cache.get(config.logs_inf);
     chanGP.messages.fetch();
@@ -101,6 +102,7 @@ bot.on('interactionCreate', async intera => {
             await commandFile.run(args)
         } catch (error) {
             console.log(error)
+            await chan_errors.send(error.stack.toString()).catch(e => console.log("trop long à envoyer"))
             intera.deleteReply().catch(e => e)
             await utils.interaReply({ content: 'Une erreur est survenue pendant l\'éxecution de la commande!', ephemeral: true }, intera).catch(e => e);
         }
