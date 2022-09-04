@@ -71,7 +71,8 @@ module.exports = {
                 new ButtonBuilder()
                     .setCustomId(args.intera.options.getString('type') + '-previous')
                     .setStyle(ButtonStyle.Primary)
-                    .setEmoji('◀️'),
+                    .setEmoji('◀️')
+                    .setDisabled(true),
 
                 new ButtonBuilder()
                     .setCustomId(args.intera.options.getString('type') + '-next')
