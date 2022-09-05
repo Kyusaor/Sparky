@@ -142,7 +142,6 @@ bot.on('interactionCreate', async intera => {
     if(intera.isButton()) {
 
         if(intera.customId.endsWith('previous') || intera.customId.endsWith('next')) {
-            intera.deferReply();
             let commande = require('./modules/commands/listeserveurs.js');
             return await commande.defile(intera);
         }
