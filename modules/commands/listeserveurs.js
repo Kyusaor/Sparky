@@ -132,6 +132,7 @@ module.exports = {
         if(nextpage == 1) boutons.components[0].setDisabled(true)
         else if (nextpage == Math.ceil(liste.length / 25)) boutons.components[1].setDisabled(true)
 
-        await intera.editReply({ embeds: [embed], components: [boutons]}).catch(console.error)
+        intera.deleteReply();
+        await intera.message.edit({ embeds: [embed], components: [boutons]}).catch(console.error)
     }
 }
