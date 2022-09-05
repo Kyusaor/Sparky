@@ -61,7 +61,7 @@ module.exports = {
             .setFooter({ text: "Page [1/" + Math.ceil(servliste.length / 25) + "] | " + membres + " utilisateurs théoriques"})
 
         for(let i = 0; i < 25 && servliste[i]; i++) {
-            embed.addFields({ name: (i + 1) + ". **" + servliste[i].name + "**", value: "__id__: " + servliste[i].id + "\n__Owner__: " + owner.tag + " (" + owner.id + ")\n__Membres__: " + servliste[i].membersCount })
+            embed.addFields({ name: (i + 1) + ". **" + servliste[i].name + "**", value: "__id__: " + servliste[i].id + "\n__Membres__: " + servliste[i].membersCount })
         }
 
         //Création des boutons
@@ -130,7 +130,6 @@ module.exports = {
         if(nextpage == 1) boutons.components[0].setDisabled(true)
         else if (nextpage == Math.ceil(liste.length / 25)) boutons.components[1].setDisabled(true)
 
-        intera.deleteReply();
-        await intera.message.edit({ embeds: [embed], components: [boutons]}).catch(console.error)
+        await intera.update({ embeds: [embed], components: [boutons]}).catch(console.error)
     }
 }
