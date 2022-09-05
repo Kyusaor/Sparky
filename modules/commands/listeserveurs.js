@@ -29,8 +29,9 @@ module.exports = {
         args.intera.deferReply()
 
         //Classement des serveurs
-        let servliste = [];
+        let membres = 0, servliste = [];
         for(serv of args.bot.guilds.cache){
+            membres += serv[1].memberCount
             servliste.push({id: serv[0], name: serv[1].name, owner: serv[1].ownerId, membersCount: serv[1].memberCount})
         }
         
@@ -57,7 +58,7 @@ module.exports = {
             .setTitle("__**Liste des serveurs du bot**__")
             .setDescription("*filtre: " + filtre + "*")
             .setColor([59, 229, 53])
-            .setFooter({ text: "Page [1/" + Math.ceil(servliste.length / 25) + "]"})
+            .setFooter({ text: "Page [1/" + Math.ceil(servliste.length / 25) + "] | " + membres + " utilisateurs théoriques"})
 
         for(let i = 0; i < 25 && servliste[i]; i++) {
             let owner = await args.bot.users.fetch(servliste[i].owner);
