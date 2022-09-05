@@ -144,7 +144,7 @@ bot.on('interactionCreate', async intera => {
         if(intera.customId.endsWith('previous') || intera.customId.endsWith('next')) {
             intera.deferReply();
             let commande = require('./modules/commands/listeserveurs.js');
-            return await commande.defile(intera, bot);
+            return await commande.defile(intera);
         }
         else if(intera.message.id !== gpconfig.settings.msg_annonce) return;
 
