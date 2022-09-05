@@ -141,8 +141,8 @@ bot.on('interactionCreate', async intera => {
 //Gestion des pings infernaux
     if(intera.isButton()) {
 
-        console.log(intera.customId)
         if(intera.customId.endsWith('previous') || intera.customId.endsWith('next')) {
+            intera.deferReply();
             let commande = require('./modules/commands/listeserveurs.js');
             return await commande.defile(intera, bot);
         }
