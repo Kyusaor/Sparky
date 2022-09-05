@@ -140,7 +140,13 @@ bot.on('interactionCreate', async intera => {
 
 //Gestion des pings infernaux
     if(intera.isButton()) {
-        if(intera.message.id !== gpconfig.settings.msg_annonce) return;
+
+        console.log(intera.customId)
+        if(intera.customId.endsWith('previous') || intera.customId.endsWith('next')) {
+            let commande = require('./modules/commands/listeserveurs.js');
+            return await commande.defile(intera, bot);
+        }
+        else if(intera.message.id !== gpconfig.settings.msg_annonce) return;
 
         let type = "";
         let roleping = intera.customId;
