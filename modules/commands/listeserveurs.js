@@ -61,8 +61,6 @@ module.exports = {
             .setFooter({ text: "Page [1/" + Math.ceil(servliste.length / 25) + "] | " + membres + " utilisateurs théoriques"})
 
         for(let i = 0; i < 25 && servliste[i]; i++) {
-            let owner = await args.bot.users.fetch(servliste[i].owner);
-            if(!owner?.id || !owner?.tag) owner = { tag: "Introuvable", id: "Indisponible" }
             embed.addFields({ name: (i + 1) + ". **" + servliste[i].name + "**", value: "__id__: " + servliste[i].id + "\n__Owner__: " + owner.tag + " (" + owner.id + ")\n__Membres__: " + servliste[i].membersCount })
         }
 
