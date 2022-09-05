@@ -89,7 +89,7 @@ module.exports = {
         await interaReply({ embeds: [embed], components: [boutons]}, args.intera)
     },
 
-    async defile(intera, bot){
+    async defile(intera){
 
         //Récupération de la liste de serveurs triée
         let type, nextpage, filtre;
@@ -112,9 +112,7 @@ module.exports = {
             .setFooter({ text: "Page [" + nextpage + "/" + Math.ceil(liste.length / 25) + "]"})
 
         for(let i = 25 * (nextpage - 1); i < (25 * nextpage) && liste[i]; i++) {
-            let owner = await bot.users.fetch(liste[i].owner);
-            if(!owner?.id || !owner?.tag) owner = { tag: "Introuvable", id: "Indisponible" }
-            embed.addFields({ name: (i + 1) + ". **" + liste[i].name + "**", value: "__id__: " + liste[i].id + "\n__Owner__: " + owner.tag + " (" + owner.id + ")\n__Membres__: " + liste[i].membersCount })
+            embed.addFields({ name: (i + 1) + ". **" + liste[i].name + "**", value: "__id__: " + liste[i].id + "\n__Membres__: " + liste[i].membersCount })
         }
 
         //Création des boutons
