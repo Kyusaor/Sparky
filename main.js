@@ -12,6 +12,7 @@ const utils = require('./modules/utils.js');
 const Private = require('./data/private.js');
 const { InteractionType, ChannelType, PermissionFlagsBits, ButtonStyle } = require('discord.js');
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ComponentType } = require('discord.js');
+const { rootCertificates } = require('tls');
 
 
 //Déclaration des fonctions utilisées
@@ -114,7 +115,7 @@ bot.on('interactionCreate', async intera => {
 
 //Gestion de l'autorole
     if(intera.isSelectMenu()) {
-        intera.deferReply();
+        intera.deferReply({ephemeral: true});
         if(intera.message.partial) {
             try {
                 await intera.message.fetch();
@@ -129,13 +130,23 @@ bot.on('interactionCreate', async intera => {
 
         let membre = await intera.member.fetch();
 
+        let roleUpdateMessage = "Vos abonnements ont été mis à jour:\n";
+
         for(rol of Object.keys(gpconfig[intera.guildId].roles)) {
+            let oldroles = membre.roles.cache.map(role => role.name);
             let role = await intera.guild.roles.fetch(gpconfig[intera.guildId].roles[rol])
             if(!role) return console.log(utils.displayConsoleHour() + "Impossible de trouver le rôle " + rol + "(serveur " + intera.guild.name + " - " + intera.guildId + ")");
-            if(intera.values.includes(rol)) await membre.roles.add(role, "Autorole sparky").catch(e => e)
-            else await membre.roles.remove(role, "Autorole sparky").catch(e => e)
+            if(intera.values.includes(rol) && !oldroles.includes(role.name)) {
+                roleUpdateMessage += "(+) " + role.name + "\n";
+                await membre.roles.add(role, "Autorole sparky").catch(e => e)
+            }
+            else if (!intera.values.includes(rol) && oldroles.includes(role.name)){
+                roleUpdateMessage += "(-) " + role.name + "\n";
+                await membre.roles.remove(role, "Autorole sparky").catch(e => e)
+            }
         }
-        await utils.interaReply({content: "Vos rôles ont été mis à jour", ephemeral: true}, intera)
+        if(roleUpdateMessage == "Vos abonnements ont été mis à jour:\n") roleUpdateMessage = "Vous n'avez pas effectué de changement d'abonnement";
+        await utils.interaReply({content: roleUpdateMessage, ephemeral: true}, intera)
     }
 
 //Gestion des pings infernaux
