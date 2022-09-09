@@ -76,7 +76,7 @@ module.exports = {
         args.gpconfig[intera.guildId] = gpconfig;
         fs.writeFileSync('./data/globalPing.json', JSON.stringify(args.gpconfig));
 
-        await utils.interaReply({content: 'Les salons de signalements d\'évènements infernaux ont été supprimés!\nPour les redéfinir, faites `/veilleur`', components: []}, intera);
+        await utils.interaReply({content: 'Les salons de signalements d\'évènements infernaux ont été supprimés!\nPour les redéfinir, faites `/veilleur`', components: []}, intera).catch(e => e);
 
         //Envoi d'une backup
         let logdb = await args.bot.channels.fetch(config.logs_db);
