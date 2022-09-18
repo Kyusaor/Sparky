@@ -439,4 +439,5 @@ bot.on('messageCreate', async msg => {
     else chan_mp.send({ content: msg.content, files: MsgFiles }).catch(e => e);
 
     if(msg.content == "!aide") msg.channel.send("Vous devez exécuter la commande aide sur un serveur, pas en messages privés avec moi 😄\n\nDe plus, le bot a désormais un unique préfixe ``/`` au lieu de ``!`` sur tous les serveurs").catch(e => e)
+    if(msg.content.includes('discord.gg/')) msg.channel.send("Bonjour, pour m'ajouter sur votre serveur utilisez plutôt ce lien: <https://discord.com/api/oauth2/authorize?client_id=632956109136855060&permissions=2416217169&scope=bot%20applications.commands>")
 })
