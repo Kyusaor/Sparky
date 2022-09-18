@@ -1,4 +1,4 @@
-const { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
+const { EmbedBuilder, SlashCommandBuilder, PermissionFlagsBits, ChannelType } = require('discord.js');
 const fs = require('fs');
 const utils = require('../utils');
 
@@ -9,10 +9,11 @@ module.exports = {
 
     data: new SlashCommandBuilder()
         .setName('aide')
-        .setDescription('Envoie la liste des commandes du bot')
-        .setDMPermission(false),
+        .setDescription('Envoie la liste des commandes du bot'),
 
     run: async function(args) {
+
+        if(args.intera.channel.type == ChannelType.DM) return args.intera.reply("Les commandes ne fonctionnent pas en messages privés, il faut les effectuer sur un serveur.\nVous pouvez m'ajouter à votre serveur grâce à la commande **/lien** qui est la seule à fonctionner en messages privés !").catch(e => e);
 
         //Selection thumbnail en fx des perms
         let thumb = ""
