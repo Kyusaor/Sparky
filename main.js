@@ -44,7 +44,7 @@ bot.on('guildCreate', guild => {
 
 //Actions effectuées lorsque le bot quitte un serveur
 bot.on('guildDelete', guild => {
-    ServChang.leave(guild, bot, gconfig);
+    ServChang.leave(guild, bot, gconfig, gpconfig);
     utils.envoi_log(config.logs_serveurs, bot, guild);
 })
 
