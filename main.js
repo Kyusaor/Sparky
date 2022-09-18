@@ -272,6 +272,11 @@ bot.on('interactionCreate', async intera => {
                 let dragonboutons2 = new ActionRowBuilder()
                     .addComponents(                                
                         new ButtonBuilder()
+                            .setCustomId('fusion')
+                            .setEmoji('607554115416883200')
+                            .setStyle(ButtonStyle.Secondary),
+
+                        new ButtonBuilder()
                             .setCustomId('crech')
                             .setEmoji('🇷')
                             .setStyle(ButtonStyle.Secondary),
@@ -281,11 +286,11 @@ bot.on('interactionCreate', async intera => {
                             .setEmoji('🇪')
                             .setStyle(ButtonStyle.Secondary),
 )
-                intera.reply({content: "__Choisis le type d'évènement Dragon:__\n<:academie:607196986948452377>-Recherche\n<:batiment:607559564535267348>-Construction-Fusion\n<:labyrinthe:607561368421400576>-Laby\n<:royaume_pouvoir:607559484486844436>-Royaume du pouvoir\n<:chasse:614816781420199937>: Chasse\n\nChallenge:\n-🇷:Challenge recherche\n-🇪:Challenge entraînement\n\n:warning: *Ignorez pour annuler*", components: [dragonboutons, dragonboutons2], ephemeral: true});
+                intera.reply({content: "__Choisis le type d'évènement Dragon:__\n<:academie:607196986948452377>-Recherche\n<:batiment:607559564535267348>-Construction\n<:pacte:607554115416883200>-Fusion\n<:labyrinthe:607561368421400576>-Laby\n<:royaume_pouvoir:607559484486844436>-Royaume du pouvoir\n<:chasse:614816781420199937>: Chasse\n\nChallenge:\n-🇷:Challenge recherche\n-🇪:Challenge entraînement\n\n:warning: *Ignorez pour annuler*", components: [dragonboutons, dragonboutons2], ephemeral: true});
                 
                 let collDType;
                 try {
-                    const filter = (i) => i.user.id == intera.user.id && ['recherche', 'construction', 'labyrinthe', 'royaume', 'chasse', 'crech', 'ctrou'].includes(i.customId)
+                    const filter = (i) => i.user.id == intera.user.id && ['recherche', 'construction', 'fusion', 'labyrinthe', 'royaume', 'chasse', 'crech', 'ctrou'].includes(i.customId)
                     collDType = await intera.channel.awaitMessageComponent({ filter, time: 30000, componentType: ComponentType.Button}) 
                 }
                 catch { return await utils.interaReply({content: "Commande annulée", components: [], ephemeral: true}, intera)}
