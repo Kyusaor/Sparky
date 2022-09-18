@@ -49,7 +49,7 @@ module.exports = {
         fs.writeFileSync('./data/guild_config.json', JSON.stringify(gconfig), "UTF-8")
     },
 
-    leave: async function(guild, bot, gconfig){
+    leave: async function(guild, bot, gconfig, gpconfig){
 
         //Enregistre le serveur comme quitté
         if(!gconfig[guild.id]) {
