@@ -76,7 +76,7 @@ bot.on('interactionCreate', async intera => {
 //Gestion des / commandes
     if(intera.type == InteractionType.ApplicationCommand) {
 
-        if(!intera.guildId && intera.commandName !== 'lien') return intera.reply('Les commandes sont à réaliser sur un serveur !');
+        if(!intera.guildId && !['lien', 'aide'].includes(intera.commandName)) return intera.reply('Les commandes sont à réaliser sur un serveur !');
         
         if(intera.channel.type !== ChannelType.DM && !gconfig[intera.guild.id]) {
             gconfig[intera.guild.id] = {
@@ -98,7 +98,7 @@ bot.on('interactionCreate', async intera => {
             kyu: kyu,
             gconfig: gconfig,
             gpconfig: gpconfig,
-    }
+        }
         try {
             await commandFile.run(args)
         } catch (error) {
