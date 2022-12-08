@@ -56,6 +56,6 @@ module.exports = {
             embed.addFields(devcommands);
         }
 
-        await utils.interaReply({embeds: [embed]}, args.intera)
+        await args.intera.reply({embeds: [embed]})
     }
 }
