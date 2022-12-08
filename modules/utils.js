@@ -25,10 +25,10 @@ module.exports = {
            
     statusLoop(bot){
         let server_count = bot.guilds.cache.size;
-        try { bot.user.setActivity({name: server_count + " serveurs", type: ActivityType.Watching, status: 'online'}) }
+        try { bot.user.setPresence({activities:[{name: server_count + " serveurs", type:ActivityType.Watching}], status:'online'}) }
         catch {}
         setTimeout(()=>{
-            try {bot.user.setActivity({name: "Écrivez / pour obtenir la liste des commandes", status: 'online'})}
+            try {bot.user.setPresence({activities:[{name: "Écrivez / pour obtenir la liste des commandes"}], status:'online'})}
             catch {}
         }, 10000)
         setTimeout(()=>{this.statusLoop(bot)}, 20000)
