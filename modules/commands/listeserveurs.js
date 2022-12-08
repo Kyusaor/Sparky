@@ -98,7 +98,7 @@ module.exports = {
         let listefile = JSON.parse(fs.readFileSync('./data/sortedguilds.json'));
         let liste = listefile[type];
 
-        let page = Number(intera.message.embeds[0].footer.text[6])
+        let page = Number(intera.message.embeds[0].footer.text.split('[')[1].split('/')[0])
         if(intera.customId.endsWith('next')) nextpage = page + 1
         else nextpage = page - 1
         
