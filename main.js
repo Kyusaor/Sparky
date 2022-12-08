@@ -403,6 +403,7 @@ bot.on('interactionCreate', async intera => {
         }
 
         let mess = utils.createHellEventMessage(type);
+        if(type.startsWith('Challenge')) mess = mess.split('\n')[0];
 
         for(serv of Object.keys(gpconfig)) {
             if(!gpconfig[serv].ping) continue;
