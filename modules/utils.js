@@ -99,11 +99,11 @@ module.exports = {
 
     link: "https://discord.gg/6Dtrzax",
 
-    async deleteRole(bot, guildId, id){
+    async deleteRole(bot, guildId, id, chan){
         let serv = await bot.guilds.cache.get(guildId)
         if(!serv) return console.log(guildId + ": guilde introuvable")
         let role = await serv.roles.cache.get(id)
-        role ? role.delete() : console.log(id + ": role introuvable (serveur " + serv.name + ", " + serv.id + ")")
+        role ? role.delete().catch(e => chan.send("Mon rôle est inférieur au rôle <@&" + id + "> (le plus haut des deux roles avec le même nom), vous devrez le supprimer manuellement")) : console.log(id + ": role introuvable (serveur " + serv.name + ", " + serv.id + ")")
     },
 
     async giveRole(bot, userId, guildId, roleId, chanReponse){

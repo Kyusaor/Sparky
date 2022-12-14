@@ -60,16 +60,16 @@ module.exports = {
             catch { return utils.interaReply({content: "Commande annulée", components: []}, intera)}
             
             if(coll.customId == 'reparam-non') return utils.interaReply({content: "Commande annulée", components: []}, intera)
-            await utils.deleteRole(args.bot, intera.guild.id, gpconfig.roles?.CDR);
-            await utils.deleteRole(args.bot, intera.guild.id, gpconfig.roles?.CDT);
-            await utils.deleteRole(args.bot, intera.guild.id, gpconfig.roles?.ID);
-            await utils.deleteRole(args.bot, intera.guild.id, gpconfig.roles?.IVR);
-            await utils.deleteRole(args.bot, intera.guild.id, gpconfig.roles?.IV);
-            await utils.deleteRole(args.bot, intera.guild.id, gpconfig.roles?.IDR);
-            await utils.deleteRole(args.bot, intera.guild.id, gpconfig.roles?.OJ);
-            await utils.deleteRole(args.bot, intera.guild.id, gpconfig.roles?.OR);
-            await utils.deleteChan(args.bot, intera.guild.id, gpconfig.chan_notifs);
-            await utils.deleteChan(args.bot, intera.guild.id, gpconfig.chan_board);
+            await utils.deleteRole(args.bot, intera.guild.id, gpconfig.roles?.CDR, args.intera.channel);
+            await utils.deleteRole(args.bot, intera.guild.id, gpconfig.roles?.CDT, args.intera.channel);
+            await utils.deleteRole(args.bot, intera.guild.id, gpconfig.roles?.ID, args.intera.channel);
+            await utils.deleteRole(args.bot, intera.guild.id, gpconfig.roles?.IVR, args.intera.channel);
+            await utils.deleteRole(args.bot, intera.guild.id, gpconfig.roles?.IV, args.intera.channel);
+            await utils.deleteRole(args.bot, intera.guild.id, gpconfig.roles?.IDR, args.intera.channel);
+            await utils.deleteRole(args.bot, intera.guild.id, gpconfig.roles?.OJ, args.intera.channel);
+            await utils.deleteRole(args.bot, intera.guild.id, gpconfig.roles?.OR, args.intera.channel);
+            await utils.deleteChan(args.bot, intera.guild.id, gpconfig.chan_notifs, args.intera.channel);
+            await utils.deleteChan(args.bot, intera.guild.id, gpconfig.chan_board, args.intera.channel);
 
         }
 
