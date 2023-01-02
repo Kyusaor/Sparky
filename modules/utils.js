@@ -76,6 +76,56 @@ module.exports = {
         },
     },
 
+    stringifyDuration(duree) {
+        let days = Math.floor(duree / 1440);
+        let hours = Math.floor((duree - days * 1440) / 60);
+        let minutes = duree % 60;
+
+        let string = Math.floor(minutes) + " minutes";
+        if(hours > 0) string = hours + " heures et " + string;
+        if(days > 0) string = days + " jours, " + string;
+        
+        return string
+    },
+
+    troupes: {
+        1: {
+            time: 15,
+            might: 2,
+            gold: 0,
+            rss: 50
+        },
+        2: {
+            time: 30,
+            might: 8,
+            gold: 5,
+            rss: 100
+        },
+        3: {
+            time: 60,
+            might: 24,
+            gold: 10,
+            rss: 150
+        },
+        4: {
+            time: 120,
+            might: 2,
+            gold: 500,
+            rss: 1000
+        },
+        inf: ["ble", "bois", "minerai"],
+        snipe: ["ble", "pierre", "bois"],
+        cav: ["ble", "pierre", "minerai"],
+        engin: ["ble", "pierre", "bois", "minerai"],
+        subv: {
+            1: [0, 0.5, 1, 1.5, 2.5, 3.5, 4.5, 7, 10, 16, 40],
+            2: [0, 0.5, 1, 1.5, 2.5, 3.5, 4.5, 7, 10, 16, 40],
+            3: [0, 0.5, 1, 1.5, 2, 3, 4, 5, 7, 11, 30],
+            4: [0, 0.5, 1, 1.5, 2, 3, 4, 5, 7, 11, 30]
+        },
+        type: {inf: "infanterie", snip: "archers", cav: "cavaliers", engin: "engins de siège"}
+    },
+
     stringifyDate(date) {
 
         let day = this.zero(date.getDate());
