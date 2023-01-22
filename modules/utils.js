@@ -139,7 +139,8 @@ module.exports = {
         return day + "/" + month + "/" + year + " à " + hour + ":" + minute + " (il y a " + daysSince + " jours)"
     },
            
-    statusLoop(bot){
+    async statusLoop(bot){
+        await bot.guilds.fetch();
         let server_count = bot.guilds.cache.size;
         try { bot.user.setPresence({activities:[{name: server_count + " serveurs", type:ActivityType.Watching}], status:'online'}) }
         catch {}
