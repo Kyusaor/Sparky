@@ -1,5 +1,5 @@
 package-lock.json
 package.json
-private.js
+data/private.js
 
 node_modules/
