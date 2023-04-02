@@ -114,7 +114,7 @@ bot.on('interactionCreate', async intera => {
     }
 
 //Gestion de l'autorole
-    if(intera.isSelectMenu()) {
+    if(intera.isStringSelectMenu()) {
         intera.deferReply({ephemeral: true});
         if(intera.message.partial) {
             try {
