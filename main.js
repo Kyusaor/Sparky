@@ -126,7 +126,7 @@ bot.on('interactionCreate', async intera => {
         }
         if(intera.customId !== 'autorole') return;
         if(!intera.appPermissions.has(PermissionFlagsBits.ManageRoles)) return utils.interaReply({content: "Il me manque la permission de gérer les rôles", ephemeral: true}, intera)
-        if(!gpconfig[intera.guildId].roles) return console.log(utils.displayConsoleHour() + "Impossible de récupérer gpconfig de la guilde" + intera.guild.name + " (" + intera.guildId + ")");
+        if(!gpconfig[intera.guildId]?.roles) return console.log(utils.displayConsoleHour() + "Impossible de récupérer gpconfig de la guilde" + intera.guild.name + " (" + intera.guildId + ")");
 
         let membre = await intera.member.fetch();
 
