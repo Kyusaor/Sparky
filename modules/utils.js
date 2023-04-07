@@ -140,7 +140,7 @@ module.exports = {
     },
            
     async statusLoop(bot){
-        let server_count = (await bot.guilds.fetch()).size;
+        let server_count = bot.guilds.cache.size;
         try { bot.user.setPresence({activities:[{name: server_count + " serveurs", type:ActivityType.Watching}], status:'online'}) }
         catch {}
         setTimeout(()=>{
