@@ -2,8 +2,8 @@
   "compilerOptions": {
 
     "target": "ES2022",
-    "module": "NodeNext",
-    "moduleResolution": "nodenext",
+    "module": "ES2022",
+    "moduleResolution": "node",
     "resolveJsonModule": true,
     "noResolve": false,
     "lib": ["ES2022"],
