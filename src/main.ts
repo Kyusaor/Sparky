@@ -7,16 +7,18 @@ require('console-stamp')(console, {
     format: ":date(dd/mm/yyyy - HH:MM:ss)"
 })
 
-bot.login(Config.BOT_TOKEN_TEST)
+bot.login(Config.CURRENT_TOKEN)
 
 
 //Executed when the bot starts
 bot.on('ready', async () => {
     try {
-        console.log(`\n\n             SPARKY\n\nBot discord Lords Mobile français\nDéveloppé par Kyusaki\n\nVersion: ${VERSION}\nConsole:`)
+        console.log(`\n\n             SPARKY\n\nBot discord Lords Mobile français\nDéveloppé par Kyusaki\n\nVersion: ${VERSION}\nClient: ${bot.user?.username}\nConsole:`)
     }
     catch (err) {
         console.error(err);
         process.exit(1);
     }
 })
+
+export { bot };
