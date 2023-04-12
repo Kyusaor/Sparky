@@ -1,0 +1,31 @@
+{
+  "name": "sparkv2",
+  "version": "alpha",
+  "description": "",
+  "type": "module",
+  "main": "main.js",
+  "scripts": {
+    "test": "node dist/src/main",
+    "build": "tsc -w",
+    "deploy": "node dist/src/deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kyusakick/Sparkv2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kyusakick/Sparkv2/issues"
+  },
+  "homepage": "https://github.com/Kyusakick/Sparkv2#readme",
+  "dependencies": {
+    "console-stamp": "3.1.1",
+    "discord.js": "14.9.0",
+    "fs": "0.0.1-security",
+    "yesno": "0.4.0"
+  },
+  "devDependencies": {
+    "typescript": "5.0.4"
+  }
+}
