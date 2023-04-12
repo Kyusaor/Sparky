@@ -1,9 +1,10 @@
 import { Client } from 'discord.js';
-import { Config } from '../data/config';
-const VERSION = require('../../package.json').version; // app version
-const bot = new Client(Config.clientParam);
+import { readFileSync } from 'fs';
+import { Config } from '../data/config.js';
+import consoleStamp from 'console-stamp';
+import { Utils } from './core/utils.js';
 
-require('console-stamp')(console, {
+consoleStamp(console, {
     format: ":date(dd/mm/yyyy - HH:MM:ss)"
 })
 
@@ -19,8 +20,7 @@ bot.on('ready', async () => {
         console.log(`\n\n             SPARKY\n\nBot discord Lords Mobile français\nDéveloppé par Kyusaki\n\nVersion: ${VERSION}\nClient: ${bot.user?.username}\nConsole:`)
     }
     catch (err) {
-        console.error(err);
-        process.exit(1);
+        Utils.logErrors(err, true);
     }
 })
 
