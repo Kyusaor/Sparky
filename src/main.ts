@@ -7,6 +7,9 @@ require('console-stamp')(console, {
     format: ":date(dd/mm/yyyy - HH:MM:ss)"
 })
 
+const VERSION = JSON.parse(readFileSync('./package.json', 'utf-8')).version; // app version
+const bot = new Client(Config.clientParam);
+
 bot.login(Config.CURRENT_TOKEN)
 
 
