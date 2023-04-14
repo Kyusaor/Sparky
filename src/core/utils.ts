@@ -28,8 +28,9 @@ export class ConsoleLogger {
         }
 
         //Log into file
-        const output = createWriteStream( dir + `/stdout-${formatDate.day}-${formatDate.month}-${formatDate.year}.log`, { flags: 'a' }) as any;
-        const errorOutput = createWriteStream(dir + `/stderr-${formatDate.day}-${formatDate.month}-${formatDate.year}.log`, { flags: 'a' }) as any;
+        let logDir =  dir + `/logs-${formatDate.day}-${formatDate.month}-${formatDate.year}.log`
+        const output = createWriteStream(logDir, { flags: 'a' }) as any;
+        const errorOutput = createWriteStream(logDir, { flags: 'a' }) as any;
         this.logger = new console.Console(output, errorOutput);
 
         consoleStamp(this.logger, {
