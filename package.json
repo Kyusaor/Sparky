@@ -20,9 +20,11 @@
   },
   "homepage": "https://github.com/Kyusakick/Sparkv2#readme",
   "dependencies": {
+    "@types/node-cron": "3.0.7",
     "console-stamp": "3.1.1",
     "discord.js": "14.9.0",
     "fs": "0.0.1-security",
+    "node-cron": "3.0.2",
     "yesno": "0.4.0"
   },
   "devDependencies": {
