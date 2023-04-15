@@ -1,5 +1,6 @@
 import consoleStamp from "console-stamp";
 import { createWriteStream, existsSync, mkdirSync } from "fs";
+import { Console } from "../main.js";
 
 export abstract class Utils {
 
