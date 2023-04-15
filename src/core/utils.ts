@@ -1,9 +1,28 @@
 import consoleStamp from "console-stamp";
-import { ActivityType, Client } from "discord.js";
+import { ActivityType, Channel, Client, TextBasedChannel } from "discord.js";
 import { createWriteStream, existsSync, mkdirSync } from "fs";
-import { Console } from "../main.js";
+import { bot, Console } from "../main.js";
+import { DiscordValues } from "./constants/values.js";
 
 export abstract class Utils {
+
+    static async fetchChannelsAtBoot() {
+        let list:{[key: string]: Channel} = {};
+
+        let i = 0;
+        for(let chanName in DiscordValues.channels) {
+            let id = DiscordValues.channels[chanName as keyof typeof DiscordValues.channels];
+            let chan = await bot.channels.cache.get(id);
+            if(chan === undefined)
+                Console.error(`Echec de récupération du salon ${chanName}`);
+            else
+                list[chanName] = chan;
+            i++;
+        }
+
+        return list;
+        
+    }
 
     static format2DigitsNumber(num: number) {
         return num.toString().padStart(2, '0');

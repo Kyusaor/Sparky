@@ -1,4 +1,4 @@
-import { Client } from 'discord.js';
+import { Channel, Client } from 'discord.js';
 import { readFileSync } from 'fs';
 import { Config } from '../data/config.js';
 import { ConsoleLogger, Utils } from './core/utils.js';
@@ -13,12 +13,13 @@ cron.schedule('0 0 * * *', () => {
 })
 
 bot.login(Config.CURRENT_TOKEN)
-
+let chanList;
 
 //Executed when the bot starts
 bot.on('ready', async () => {
     try {
         Utils.statusLoop(bot);
+        chanList = await Utils.fetchChannelsAtBoot();
         Console.log(`\n\n             SPARKY\n\nBot discord Lords Mobile français\nDéveloppé par Kyusaki\n\nVersion: ${VERSION}\nClient: ${bot.user?.username}\nConsole:`)
     }
     catch (err) {
@@ -26,4 +27,4 @@ bot.on('ready', async () => {
     }
 })
 
-export { bot, Console };
+export { bot, Console, chanList };
