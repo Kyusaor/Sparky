@@ -13,6 +13,7 @@ bot.login(Config.CURRENT_TOKEN)
 //Executed when the bot starts
 bot.on('ready', async () => {
     try {
+        Utils.statusLoop(bot);
         Console.log(`\n\n             SPARKY\n\nBot discord Lords Mobile français\nDéveloppé par Kyusaki\n\nVersion: ${VERSION}\nClient: ${bot.user?.username}\nConsole:`)
     }
     catch (err) {
