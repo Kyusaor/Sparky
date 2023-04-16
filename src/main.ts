@@ -1,8 +1,9 @@
-import { Channel, Client } from 'discord.js';
+import {  Client } from 'discord.js';
 import { readFileSync } from 'fs';
 import { Config } from '../data/config.js';
 import { ConsoleLogger, Utils } from './core/utils.js';
 import cron from 'node-cron';
+import { fetchedChannelsAtBoot } from './core/constants/types.js';
 
 let Console = new ConsoleLogger();
 const VERSION = JSON.parse(readFileSync('./package.json', 'utf-8')).version; // app version
@@ -13,7 +14,7 @@ cron.schedule('0 0 * * *', () => {
 })
 
 bot.login(Config.CURRENT_TOKEN)
-let chanList;
+let chanList:fetchedChannelsAtBoot;
 
 //Executed when the bot starts
 bot.on('ready', async () => {

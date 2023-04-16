@@ -1,27 +1,29 @@
 import consoleStamp from "console-stamp";
-import { ActivityType, Channel, Client, TextBasedChannel } from "discord.js";
+import { ActivityType, Client, TextChannel } from "discord.js";
 import { createWriteStream, existsSync, mkdirSync } from "fs";
 import { bot, Console } from "../main.js";
+import { fetchedChannelsAtBoot } from "./constants/types.js";
 import { DiscordValues } from "./constants/values.js";
 
 export abstract class Utils {
 
-    static async fetchChannelsAtBoot() {
-        let list:{[key: string]: Channel} = {};
+    static async fetchChannelsAtBoot(): Promise<fetchedChannelsAtBoot> {
+        let list: any = {};
 
         let i = 0;
-        for(let chanName in DiscordValues.channels) {
+        for (let chanName in DiscordValues.channels) {
+
             let id = DiscordValues.channels[chanName as keyof typeof DiscordValues.channels];
-            let chan = await bot.channels.cache.get(id);
-            if(chan === undefined)
+            let chan = await bot.channels.cache.get(id) as TextChannel;
+            list[chanName] = chan;
+            if (chan === undefined)
                 Console.error(`Echec de récupération du salon ${chanName}`);
-            else
-                list[chanName] = chan;
+
             i++;
         }
 
         return list;
-        
+
     }
 
     static format2DigitsNumber(num: number) {
@@ -38,7 +40,7 @@ export abstract class Utils {
 
         setTimeout(() => {
             try {
-                bot.user?.setPresence({ activities: [{name: "Perdu? Faites /aide !", type: ActivityType.Watching}]})
+                bot.user?.setPresence({ activities: [{ name: "Perdu? Faites /aide !", type: ActivityType.Watching }] })
             } catch (err) {
                 Console.error(err);
             }
