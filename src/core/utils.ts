@@ -26,11 +26,11 @@ export abstract class Utils {
 
     }
 
-    static format2DigitsNumber(num: number) {
+    static format2DigitsNumber(num: number): string {
         return num.toString().padStart(2, '0');
     };
 
-    static statusLoop(bot: Client) {
+    static statusLoop(bot: Client): void {
         let serversCount = bot.guilds.cache.size;
         try {
             bot.user?.setActivity(`${serversCount} serveurs`, { type: ActivityType.Watching })
