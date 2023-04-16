@@ -1,7 +1,7 @@
 import consoleStamp from "console-stamp";
 import { ActivityType, Client, TextChannel } from "discord.js";
 import { createWriteStream, existsSync, mkdirSync } from "fs";
-import { bot, Console } from "../main.js";
+import { bot, chanList, Console } from "../main.js";
 import { fetchedChannelsAtBoot } from "./constants/types.js";
 import { DiscordValues } from "./constants/values.js";
 
@@ -92,8 +92,11 @@ export class ConsoleLogger {
     error(input: any, crash?: boolean) {
         console.error(input);
         this.logger.error(input);
-        if (crash)
-            process.exit(1);
+        chanList.LOGS_ERRORS?.send(input.stack)
+        .then(() => {
+            if (crash)
+                process.exit(1);
+        })
     };
 
     log(input: any) {
