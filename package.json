@@ -29,6 +29,7 @@
     "yesno": "0.4.0"
   },
   "devDependencies": {
+    "@types/mysql": "^2.15.21",
     "typescript": "5.0.4"
   }
 }
