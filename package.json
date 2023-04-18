@@ -24,6 +24,7 @@
     "console-stamp": "3.1.1",
     "discord.js": "14.9.0",
     "fs": "0.0.1-security",
+    "mysql": "2.18.1",
     "node-cron": "3.0.2",
     "yesno": "0.4.0"
   },
