@@ -24,6 +24,7 @@ bot.on('ready', async () => {
     try {
         Utils.statusLoop(bot);
         chanList = await Utils.fetchChannelsAtBoot();
+        Utils.statusLoop(bot);
         dev = await bot.users.fetch(DiscordValues.DEV_DISCORD_ID);
         if (!dev)
             Console.error("Compte discord dev introuvable", true);
