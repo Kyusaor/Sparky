@@ -31,6 +31,7 @@ bot.on('ready', async () => {
             Console.error("Compte discord dev introuvable", true);
         Console.log(`\n\n             SPARKY\n\nBot discord Lords Mobile français\nDéveloppé par Kyusaki\n\nVersion: ${VERSION}\nClient: ${bot.user?.username}\nConsole:`);
         db = new DBManager(Config.DBConfig);
+        chanList.LOGS_CONNEXIONS?.send(VERSION);
     }
     catch (err) {
         Console.error(err, true);
