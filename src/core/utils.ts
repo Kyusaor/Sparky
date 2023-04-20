@@ -61,7 +61,7 @@ export class ConsoleLogger {
 
         let formatDate = {
             day: Utils.format2DigitsNumber(new Date().getDate()),
-            month: Utils.format2DigitsNumber(new Date().getMonth()),
+            month: Utils.format2DigitsNumber(new Date().getMonth() + 1),
             year: Utils.format2DigitsNumber(new Date().getFullYear())
         };
 
