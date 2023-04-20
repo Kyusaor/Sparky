@@ -4,6 +4,7 @@ import { Console } from '../../main.js';
 import { Utils } from '../utils.js';
 import mysqldump from 'mysqldump';
 import { Config } from '../../../data/config.js';
+import { queryArgs } from '../constants/types.js';
 
 
 export class DBManager {
@@ -19,6 +20,8 @@ export class DBManager {
 
     }
 
+
+    //Static methods
     static createAndDisplayBackupPath() {
         let date = new Date();
 
@@ -44,5 +47,20 @@ export class DBManager {
             },
             dumpToFile: DBManager.createAndDisplayBackupPath()
         })
+    }
+
+
+
+    //Instance methods
+    query<T>(sql: string, args?: queryArgs): Promise<T> {
+        return new Promise((resolve, reject) => {
+            this.pool.query(sql, args, (err, rows) => {
+                if (err){
+                    Console.error(err);
+                    return reject(err);
+                }
+                resolve(rows);
+            });
+        });
     }
 }
