@@ -90,14 +90,19 @@ export class ConsoleLogger {
     };
 
     error(input: any, crash?: boolean) {
-        console.error(input);
-        this.logger.error(input);
+        console.error(`[ERROR] ${input}`);
+        this.logger.error(`[ERROR] ${input}`);
         chanList.LOGS_ERRORS?.send(input.stack)
-        .then(() => {
-            if (crash)
-                process.exit(1);
-        })
+            .then(() => {
+                if (crash)
+                    process.exit(1);
+            })
     };
+
+    info(input: any) {
+        console.log(`[INFO] ${input}`);
+        this.logger.log(`[INFO] ${input}`);
+    }
 
     log(input: any) {
         console.log(input);
