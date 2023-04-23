@@ -5,6 +5,7 @@ import { Utils } from '../utils.js';
 import mysqldump from 'mysqldump';
 import { Config } from '../../../data/config.js';
 import { queryArgs } from '../constants/types.js';
+import { Guild } from 'discord.js';
 
 
 export class DBManager {
@@ -37,17 +38,6 @@ export class DBManager {
         return dir + `/backup-${day}-${month}.sql`;
     }
 
-    static generateBackup() {
-        mysqldump({
-            connection: {
-                host: Config.DBConfig.host,
-                user: Config.DBConfig.user,
-                password: Config.DBConfig.password,
-                database: 'guilds'
-            },
-            dumpToFile: DBManager.createAndDisplayBackupPath()
-        })
-    }
 
 
 
@@ -62,5 +52,25 @@ export class DBManager {
                 resolve(rows);
             });
         });
+    }
+
+
+    async checkIfServerIsPresent(guild: Guild): Promise<boolean> {
+        let server = await this.query<any[]>(`SELECT * FROM config WHERE id = ?`, guild.id);
+        if(server.length > 1)
+            Console.info(`Plus d'une instance du serveur ${guild.id} est présente dans la base de donnée`)
+        return server.length > 0;
+    }
+
+    generateBackup() {
+        mysqldump({
+            connection: {
+                host: Config.DBConfig.host,
+                user: Config.DBConfig.user,
+                password: Config.DBConfig.password,
+                database: 'guilds'
+            },
+            dumpToFile: DBManager.createAndDisplayBackupPath()
+        })
     }
 }
