@@ -1,4 +1,4 @@
-import { Client, User } from 'discord.js';
+import { Client, Guild, User } from 'discord.js';
 import { readFileSync } from 'fs';
 import { Config } from '../data/config.js';
 import { ConsoleLogger, Utils } from './core/utils.js';
@@ -33,6 +33,7 @@ bot.on('ready', async () => {
         Console.log(`\n\n             SPARKY\n\nBot discord Lords Mobile français\nDéveloppé par Kyusaki\n\nVersion: ${VERSION}\nClient: ${bot.user?.username}\nConsole:`);
         db = new DBManager(Config.DBConfig);
         chanList.LOGS_CONNEXIONS?.send(VERSION);
+        await test();
     }
     catch (err) {
         Console.error(err, true);
@@ -48,3 +49,9 @@ bot.on('guildCreate', guild => {
 
 
 export { bot, Console, chanList, dev, db };
+
+
+async function test() {
+    let guild = await bot.guilds.cache.get(DiscordValues.MAIN_GUILD) as Guild
+    bot.emit('guildCreate', guild);
+}
