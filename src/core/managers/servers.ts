@@ -17,7 +17,7 @@ export class ServerManager {
     }
 
     async checklistNewServers() {
-        let dbPresence = await this.isPresent();
+        let dbPresence = await this.isPresentInDatabase();
         if(!dbPresence) 
             await db.createServer(this.guild.id, this.guild.name);
         else if(await this.isActive()){
@@ -35,7 +35,7 @@ export class ServerManager {
         return isActive;
     }
 
-    async isPresent(): Promise<boolean> {
+    async isPresentInDatabase(): Promise<boolean> {
         let isPresent = await db.checkIfServerIsPresent(this.guild);
         return isPresent;
     }
