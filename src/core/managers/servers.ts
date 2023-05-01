@@ -1,12 +1,12 @@
 import { Guild } from "discord.js";
-import { Console, bot, db } from "../../main.js";
-import { Server } from "../constants/types.js";
+import { bot, db } from "../../main.js";
+import { PartialServer, Server } from "../constants/types.js";
 
 export class ServerManager {
-    guildObject: Guild;
+    guild: Guild;
 
-    constructor (guild: Guild) {
-        this.guildObject = guild;
+    constructor (providedGuild: Guild) {
+        this.guild = providedGuild;
     }
 
     static async buildBaseServerObject(serverId: string): Promise<Server> {
@@ -19,12 +19,24 @@ export class ServerManager {
     async checklistNewServers() {
         let dbPresence = await this.isPresent();
         if(!dbPresence) 
-            await db.createServer(this.guildObject.id, this.guildObject.name);
-        
+            await db.createServer(this.guild.id, this.guild.name);
+        else if(await this.isActive()){
+            this.editServerData({active: true});
+        }
+        //Finir ajouts (mp admin etc)
+    }
+
+    async editServerData(edits: PartialServer): Promise<void> {
+
+    }
+
+    async isActive(): Promise<boolean> {
+        let isActive = await db.checkIfServerIsActive(this.guild.id);
+        return isActive;
     }
 
     async isPresent(): Promise<boolean> {
-        let isPresent = await db.checkIfServerIsPresent(this.guildObject);
+        let isPresent = await db.checkIfServerIsPresent(this.guild);
         return isPresent;
     }
 }
