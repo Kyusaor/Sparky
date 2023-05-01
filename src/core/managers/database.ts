@@ -67,8 +67,14 @@ export class DBManager {
     }
 
     async createServer(guildId: string, guildName: string): Promise<void> {
-        await this.query<void>(`INSERT INTO config VALUES (?,?,?,?)`, [guildId, guildName, true, "fr"]);
+        await this.query<void>(`INSERT INTO config VALUES (?,?,?,?)`, [guildId, guildName, 1, "fr"]);
         Console.log(`Serveur ${guildName} (${guildId}) ajouté avec succès à la DB`);
+        this.generateBackup();
+    }
+
+    async editServerDatabase(serverData:Server): Promise<void> {
+        await this.query<void>(`UPDATE config SET id = ?, name = ?, active = ?, language = ? WHERE id = ?`, [serverData.id, serverData.name, serverData.active, serverData.language, serverData.id])
+        Console.log(`Serveur ${serverData.name} (${serverData.id}) modifié avec succès`)
     }
 
     async fetchServerData(guildId: string): Promise<Server | undefined> {
