@@ -6,3 +6,5 @@ export type fetchedChannelsAtBoot = {
 }
 
 export type queryArgs = string | number | boolean | null | queryArgs[] | undefined;
+
+export type Server = { id: string, name: string, active: boolean, language: "fr" | "en" };
