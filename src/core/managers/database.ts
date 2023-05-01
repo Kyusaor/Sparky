@@ -73,4 +73,9 @@ export class DBManager {
             dumpToFile: DBManager.createAndDisplayBackupPath()
         })
     }
+
+    async returnServerLanguage(guildId: string): Promise<"fr" | "en"> {
+        let rows = await this.query<any[]>(`SELECT language FROM config WHERE id = ?`, guildId)
+        return rows[0].language
+    }
 }
