@@ -4,7 +4,7 @@ import { Console } from '../../main.js';
 import { Utils } from '../utils.js';
 import mysqldump from 'mysqldump';
 import { Config } from '../../../data/config.js';
-import { queryArgs } from '../constants/types.js';
+import { Server, queryArgs } from '../constants/types.js';
 import { Guild } from 'discord.js';
 
 
@@ -12,7 +12,7 @@ export class DBManager {
 
     pool: Pool;
 
-    constructor (config: PoolConfig) {
+    constructor(config: PoolConfig) {
         this.pool = createPool(config);
 
         this.pool.on('connection', (stream) => {
@@ -45,7 +45,7 @@ export class DBManager {
     query<T>(sql: string, args?: queryArgs): Promise<T> {
         return new Promise((resolve, reject) => {
             this.pool.query(sql, args, (err, rows) => {
-                if (err){
+                if (err) {
                     Console.error(err);
                     return reject(err);
                 }
@@ -61,21 +61,21 @@ export class DBManager {
 
     async checkIfServerIsPresent(guild: Guild): Promise<boolean> {
         let server = await this.query<any[]>(`SELECT * FROM config WHERE id = ?`, guild.id);
-        if(server.length > 1)
+        if (server.length > 1)
             Console.info(`Plus d'une instance du serveur ${guild.id} est présente dans la base de donnée`)
         return server.length > 0;
     }
 
-    async createServer(guildId: string, guildName: string):Promise<void> {
-        try {
-            await this.query<void>(`INSERT INTO config VALUES (?,?,?,?)`, [guildId, guildName, true, "fr"]);
-            Console.log(`Serveur ${guildName} (${guildId}) ajouté avec succès à la DB`);
-        }
-        catch (e) {
-            Console.error('DB error:' + e)
-        }
+    async createServer(guildId: string, guildName: string): Promise<void> {
+        await this.query<void>(`INSERT INTO config VALUES (?,?,?,?)`, [guildId, guildName, true, "fr"]);
+        Console.log(`Serveur ${guildName} (${guildId}) ajouté avec succès à la DB`);
     }
-    
+
+    async fetchServerData(guildId: string): Promise<Server | undefined> {
+        let rows = await this.query<Server[]>(`SELECT * FROM config WHERE id =?`, guildId);
+        return rows[0];
+    }
+
     generateBackup() {
         mysqldump({
             connection: {
