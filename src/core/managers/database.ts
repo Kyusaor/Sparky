@@ -54,6 +54,10 @@ export class DBManager {
         });
     }
 
+    async checkIfServerIsActive(guildId: string): Promise<boolean> {
+        let rows = await this.query<any[]>(`SELECT active FROM config WHERE id = ?`, guildId);
+        return rows[0].active == 1;
+    }
 
     async checkIfServerIsPresent(guild: Guild): Promise<boolean> {
         let server = await this.query<any[]>(`SELECT * FROM config WHERE id = ?`, guild.id);
