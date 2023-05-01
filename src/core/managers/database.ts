@@ -62,6 +62,16 @@ export class DBManager {
         return server.length > 0;
     }
 
+    async createServer(guildId: string, guildName: string):Promise<void> {
+        try {
+            await this.query<void>(`INSERT INTO config VALUES (?,?,?,?)`, [guildId, guildName, true, "fr"]);
+            Console.log(`Serveur ${guildName} (${guildId}) ajouté avec succès à la DB`);
+        }
+        catch (e) {
+            Console.error('DB error:' + e)
+        }
+    }
+    
     generateBackup() {
         mysqldump({
             connection: {
