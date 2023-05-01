@@ -6,6 +6,7 @@ import cron from 'node-cron';
 import { fetchedChannelsAtBoot } from './core/constants/types.js';
 import { DiscordValues } from './core/constants/values.js';
 import { DBManager } from './core/managers/database.js';
+import  { ServerManager } from './core/managers/servers.js'
 
 let Console = new ConsoleLogger();
 const VERSION = JSON.parse(readFileSync('./package.json', 'utf-8')).version; // app version
@@ -41,7 +42,8 @@ bot.on('ready', async () => {
 
 //Discord events listeners
 bot.on('guildCreate', guild => {
-    
+    let server = new ServerManager(guild);
+    server.checklistNewServers();
 });
 
 
