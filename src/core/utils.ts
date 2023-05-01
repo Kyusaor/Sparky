@@ -91,7 +91,9 @@ export class ConsoleLogger {
 
     error(input: any, crash?: boolean) {
         console.error(`[ERROR] ${input}`);
+        console.trace()
         this.logger.error(`[ERROR] ${input}`);
+        this.logger.trace();
         chanList.LOGS_ERRORS?.send(input.stack)
             .then(() => {
                 if (crash)
