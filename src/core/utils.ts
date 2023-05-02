@@ -1,12 +1,23 @@
 import consoleStamp from "console-stamp";
-import { ActivityType, Client, TextChannel } from "discord.js";
-import { createWriteStream, existsSync, mkdirSync } from "fs";
+import { ActivityType, Client, EmbedBuilder, EmbedFooterData, TextChannel } from "discord.js";
+import { createWriteStream, existsSync, mkdirSync, readFileSync } from "fs";
 import { bot, chanList, Console } from "../main.js";
-import { fetchedChannelsAtBoot } from "./constants/types.js";
+import { fetchedChannelsAtBoot, textLanguage } from "./constants/types.js";
 import { DiscordValues } from "./constants/values.js";
 import { Translations } from "./constants/translations.js";
 
 export abstract class Utils {
+
+    static EmbedBaseBuilder(language: textLanguage):EmbedBuilder {
+        let text = Translations.getServerLanguage(language);
+        let rdmFooter:EmbedFooterData = text.global.tipsFooter[Math.floor(Math.random() * text.global.tipsFooter.length)]
+
+        let embed = new EmbedBuilder()
+            .setColor(DiscordValues.embedColor)
+            .setFooter(rdmFooter)
+
+        return embed;
+    }
 
     static async fetchChannelsAtBoot(): Promise<fetchedChannelsAtBoot> {
         let list: any = {};
