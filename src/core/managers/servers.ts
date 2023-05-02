@@ -17,23 +17,25 @@ export class ServerManager {
 
     async checklistNewServers() {
         let dbPresence = await this.isPresentInDatabase();
-        if(!dbPresence) 
+        if(!dbPresence) {
             await db.createServer(this.guild.id, this.guild.name);
-        else if(await this.isActive()){
-            this.editServerData({active: 0});
+        }
+        else if(!await this.isActive()){
+            this.editServerData({active: 1});
         }
         //Finir ajouts (mp admin etc)
-        //Changer format donnée "active" en autre chose que 0
     }
 
     async editServerData(edits: PartialServer): Promise<void> {
         let oldData = await db.fetchServerData(this.guild.id);
         if(!oldData)
             oldData = await ServerManager.buildBaseServerObject(this.guild.id);
+        let active:0 | 1;
+        edits.active === 0 ? active = 0 : active = 1;
         let data:Server = {
             id: edits.id || oldData.id,
             name: edits.name || oldData.name,
-            active: edits.active || oldData.active,
+            active: active,
             language: edits.language || oldData.language
         }
         await db.editServerDatabase(data);
