@@ -4,6 +4,7 @@ import { createWriteStream, existsSync, mkdirSync } from "fs";
 import { bot, chanList, Console } from "../main.js";
 import { fetchedChannelsAtBoot } from "./constants/types.js";
 import { DiscordValues } from "./constants/values.js";
+import { Translations } from "./constants/translations.js";
 
 export abstract class Utils {
 
@@ -24,6 +25,13 @@ export abstract class Utils {
 
         return list;
 
+    }
+
+    static getLanguageTexts(language: textLanguage) {
+        let text = JSON.parse(readFileSync(`./dist/core/constants/text/${language}.json`, 'utf-8'));
+        if(!text)
+            throw `Impossible de récupérer le fichier langue: ${language}`
+        return text;
     }
 
     static format2DigitsNumber(num: number): string {

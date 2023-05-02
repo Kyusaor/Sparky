@@ -7,6 +7,7 @@ import { fetchedChannelsAtBoot } from './core/constants/types.js';
 import { DiscordValues } from './core/constants/values.js';
 import { DBManager } from './core/managers/database.js';
 import  { ServerManager } from './core/managers/servers.js'
+import { Translations } from './core/constants/translations.js';
 
 let Console = new ConsoleLogger();
 const VERSION = JSON.parse(readFileSync('./package.json', 'utf-8')).version; // app version

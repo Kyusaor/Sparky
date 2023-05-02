@@ -4,7 +4,7 @@ import { Console } from '../../main.js';
 import { Utils } from '../utils.js';
 import mysqldump from 'mysqldump';
 import { Config } from '../../../data/config.js';
-import { Server, queryArgs } from '../constants/types.js';
+import { Server, queryArgs, textLanguage } from '../constants/types.js';
 import { Guild } from 'discord.js';
 
 
