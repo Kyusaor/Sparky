@@ -13,4 +13,6 @@ export abstract class DiscordValues {
         LOGS_HELL_EVENTS: "1013478125004398683",
         HELL_EVENTS_BOARD: "647042988358238208"
     };
+
+    static readonly embedColor: [59, 229, 53];
 }
