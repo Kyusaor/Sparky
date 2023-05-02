@@ -7,6 +7,8 @@ export type fetchedChannelsAtBoot = {
 
 export type queryArgs = string | number | boolean | null | queryArgs[] | undefined;
 
-export type Server = { id: string, name: string, active: 0 | 1, language: "fr" | "en" };
+export type textLanguage = "fr" | "en";
 
-export type PartialServer = { id?: string, name?: string, active?: 0 | 1, language?: "fr" | "en" };
+export type Server = { id: string, name: string, active: 0 | 1, language: textLanguage };
+
+export type PartialServer = { id?: string, name?: string, active?: 0 | 1, language?: textLanguage };

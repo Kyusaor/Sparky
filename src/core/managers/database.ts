@@ -94,7 +94,7 @@ export class DBManager {
         })
     }
 
-    async returnServerLanguage(guildId: string): Promise<"fr" | "en"> {
+    async returnServerLanguage(guildId: string): Promise<textLanguage> {
         let rows = await this.query<any[]>(`SELECT language FROM config WHERE id = ?`, guildId)
         return rows[0].language
     }
