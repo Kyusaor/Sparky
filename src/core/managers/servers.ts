@@ -30,7 +30,6 @@ export class ServerManager {
 
         this.sendDmToServerOwner(owner);
         this.logServerUpdate("add", owner);
-        //Finir ajouts (mp admin etc)
     }
 
     async editServerData(edits: PartialServer): Promise<void> {
