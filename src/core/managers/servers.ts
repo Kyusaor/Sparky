@@ -18,7 +18,7 @@ export class ServerManager {
         return data
     }
 
-    async checklistNewServers() {
+    async checklistNewServers():Promise<void> {
         let dbPresence = await this.isPresentInDatabase();
         if(!dbPresence) {
             await db.createServer(this.guild.id, this.guild.name);
@@ -30,6 +30,12 @@ export class ServerManager {
 
         this.sendDmToServerOwner(owner);
         this.logServerUpdate("add", owner);
+    }
+
+    async checkListRemoveServer():Promise<void> {
+        this.editServerData({active: 0});
+        let owner = await bot.users.fetch(this.guild.ownerId);
+        this.logServerUpdate("remove", owner);
     }
 
     async editServerData(edits: PartialServer): Promise<void> {

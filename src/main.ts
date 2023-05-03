@@ -48,11 +48,15 @@ bot.on('guildCreate', guild => {
     server.checklistNewServers();
 });
 
+bot.on('guildDelete', guild => {
+    let server = new ServerManager(guild);
+    server.checkListRemoveServer();
+})
 
 export { bot, Console, chanList, dev, db };
 
 
 async function test() {
     let guild = await bot.guilds.cache.get(DiscordValues.MAIN_GUILD) as Guild
-    bot.emit('guildCreate', guild);
+    //bot.emit('guildCreate', guild);
 }
