@@ -74,6 +74,7 @@ export class DBManager {
 
     async editServerDatabase(serverData:Server): Promise<void> {
         await this.query<void>(`UPDATE config SET id = ?, name = ?, active = ?, language = ? WHERE id = ?`, [serverData.id, serverData.name, serverData.active, serverData.language, serverData.id])
+        this.generateBackup();
         Console.log(`Serveur ${serverData.name} (${serverData.id}) modifié avec succès`)
     }
 
