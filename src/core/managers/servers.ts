@@ -1,6 +1,9 @@
 import { Guild } from "discord.js";
 import { Console, bot, db } from "../../main.js";
 import { PartialServer, Server } from "../constants/types.js";
+import { Utils } from "../utils.js";
+import { Translations } from "../constants/translations.js";
+import { DiscordValues } from "../constants/values.js";
 
 export class ServerManager {
     guild: Guild;
@@ -23,6 +26,8 @@ export class ServerManager {
         else if(!await this.isActive()){
             this.editServerData({active: 1});
         }
+
+        this.sendDmToServerOwner();
         //Finir ajouts (mp admin etc)
     }
 
@@ -53,5 +58,23 @@ export class ServerManager {
     async isPresentInDatabase(): Promise<boolean> {
         let isPresent = await db.checkIfServerIsPresent(this.guild);
         return isPresent;
+    }
+
+    async sendDmToServerOwner(): Promise<void> {
+        let owner = await bot.users.fetch(this.guild.ownerId);
+
+        let embed = Utils.EmbedBaseBuilder("fr")
+            .setTitle(`:flag_fr: Bonjour ${owner.username} !`)
+            .setDescription(Translations.displayText().fr.global.welcomeMsg)
+            .addFields([
+                {name: `:flag_gb: Hello ${owner.username} !`, value: Translations.displayText().en.global.welcomeMsg}
+            ])
+            .setThumbnail(DiscordValues.botIcon.base)
+
+        
+        owner.send({embeds: [embed]})
+        .catch(e => {
+            Console.error(`Impossible d'envoyer un mp de bienvenue à l'utilisateur ${owner.tag} (${owner.id})`)
+        })
     }
 }
