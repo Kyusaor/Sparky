@@ -12,7 +12,7 @@ export class Translations {
         return {
             fr: {
                 global: {
-                    welcomeMsg: `Je me présente: je suis Sparky, un bot discord Lords Mobile, conçu pour les serveurs de guilde.\n\nLa liste de mes commandes se trouve en faisant **'/aide'** sur votre serveur\n\nMerci de m'avoir ajouté!`,
+                    welcomeMsg: `Je me présente: je suis Sparky, un bot discord Lords Mobile, conçu pour les serveurs de guilde.\n\nLa liste de mes commandes se trouve en faisant **\`\`/aide\`\`** sur votre serveur\n\nMerci de m'avoir ajouté!`,
                     tipsFooter: [
                         {text: "Faites la commande /aide pour obtenir de l'aide !"},
                         {text: `Développé avec amour par ${dev.tag}`, iconURL: dev.displayAvatarURL()},
