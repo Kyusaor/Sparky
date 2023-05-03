@@ -108,6 +108,12 @@ export class ConsoleLogger {
         this.logger.info("Console paramétrée avec succès")
     };
 
+
+    logDb(input: any) {
+        console.log(`[DATA] ${input}`);
+        this.logger.log(`[DATA] ${input}`);
+    };
+
     error(input: any, crash?: boolean) {
         console.error(`[ERROR] ${input}`);
         console.trace()
@@ -123,10 +129,10 @@ export class ConsoleLogger {
     info(input: any) {
         console.log(`[INFO] ${input}`);
         this.logger.log(`[INFO] ${input}`);
-    }
+    };
 
     log(input: any) {
-        console.log(input);
-        this.logger.log(input);
+        console.log(`[LOGS] ${input}`);
+        this.logger.log(`[LOGS] ${input}`);
     };
 }

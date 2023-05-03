@@ -16,7 +16,7 @@ export class DBManager {
         this.pool = createPool(config);
 
         this.pool.on('connection', (stream) => {
-            Console.log('Connected to database')
+            Console.logDb('Connected to database')
         });
 
     }
@@ -68,14 +68,14 @@ export class DBManager {
 
     async createServer(guildId: string, guildName: string): Promise<void> {
         await this.query<void>(`INSERT INTO config VALUES (?,?,?,?)`, [guildId, guildName, 1, "fr"]);
-        Console.log(`Serveur ${guildName} (${guildId}) ajouté avec succès à la DB`);
+        Console.logDb(`Serveur ${guildName} (${guildId}) ajouté avec succès à la DB`);
         this.generateBackup();
     }
 
     async editServerDatabase(serverData:Server): Promise<void> {
         await this.query<void>(`UPDATE config SET id = ?, name = ?, active = ?, language = ? WHERE id = ?`, [serverData.id, serverData.name, serverData.active, serverData.language, serverData.id])
         this.generateBackup();
-        Console.log(`Serveur ${serverData.name} (${serverData.id}) modifié avec succès`)
+        Console.logDb(`Serveur ${serverData.name} (${serverData.id}) modifié avec succès`)
     }
 
     async fetchServerData(guildId: string): Promise<Server | undefined> {
