@@ -1,3 +1,5 @@
+import { ColorResolvable } from "discord.js";
+
 export abstract class DiscordValues {
 
     static readonly MAIN_GUILD = "632957557375500299";
@@ -14,5 +16,10 @@ export abstract class DiscordValues {
         HELL_EVENTS_BOARD: "647042988358238208"
     };
 
-    static readonly embedColor: [59, 229, 53];
+    static readonly embedColor:ColorResolvable = [59, 229, 53];
+    static readonly botIcon = {
+        base: 'https://media.discordapp.net/attachments/659758501865717790/1070365617997221940/sparky.png',
+        help: 'https://media.discordapp.net/attachments/659758501865717790/680102643519193089/help_sparky.png',
+        helpAdmin: 'https://media.discordapp.net/attachments/659758501865717790/680168774468763671/PicsArt_02-20-10.39.20.png'
+    }
 }
