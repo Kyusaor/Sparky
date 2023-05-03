@@ -113,7 +113,7 @@ export class ConsoleLogger {
         console.trace()
         this.logger.error(`[ERROR] ${input}`);
         this.logger.trace();
-        chanList.LOGS_ERRORS?.send(input.stack)
+        chanList.LOGS_ERRORS?.send(input.stack || input)
             .then(() => {
                 if (crash)
                     process.exit(1);
