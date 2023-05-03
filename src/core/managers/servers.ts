@@ -1,5 +1,5 @@
-import { Guild } from "discord.js";
-import { Console, bot, db } from "../../main.js";
+import { Guild, User } from "discord.js";
+import { Console, bot, chanList, db } from "../../main.js";
 import { PartialServer, Server } from "../constants/types.js";
 import { Utils } from "../utils.js";
 import { Translations } from "../constants/translations.js";
@@ -26,8 +26,10 @@ export class ServerManager {
         else if(!await this.isActive()){
             this.editServerData({active: 1});
         }
+        let owner = await bot.users.fetch(this.guild.ownerId);
 
-        this.sendDmToServerOwner();
+        this.sendDmToServerOwner(owner);
+        this.logServerUpdate("add", owner);
         //Finir ajouts (mp admin etc)
     }
 
@@ -60,9 +62,23 @@ export class ServerManager {
         return isPresent;
     }
 
-    async sendDmToServerOwner(): Promise<void> {
-        let owner = await bot.users.fetch(this.guild.ownerId);
+    logServerUpdate(type: "add" | "remove", owner: User):void {
+        let text = {
+            add: {
+                symbol: "(+)",
+                emote: "📥",
+            },
+            remove: {
+                symbol: "(-)",
+                emote: "📤",
+            }
+        }
 
+        Console.info(`${text[type].symbol} ${this.guild.name} (${this.guild.id})`);
+        chanList.LOGS_SERVERS?.send(`${text[type].emote} ${this.guild.name} (${this.guild.id})\nMembres: ${this.guild.memberCount}\nOwner: ${owner.username} (${owner.id})`);
+    }
+
+    async sendDmToServerOwner(owner: User): Promise<void> {
         let embed = Utils.EmbedBaseBuilder("fr")
             .setTitle(`:flag_fr: Bonjour ${owner.username} !`)
             .setDescription(Translations.displayText().fr.global.welcomeMsg)
