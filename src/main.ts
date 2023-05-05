@@ -62,6 +62,15 @@ bot.on('guildDelete', guild => {
     }
 })
 
+bot.on('messageCreate', msg => {
+    try {
+        Utils.MessageCreateHandler(msg);
+    }
+    catch (err) {
+        Console.error(err);
+    }
+})
+
 export { bot, Console, chanList, dev, db };
 
 
