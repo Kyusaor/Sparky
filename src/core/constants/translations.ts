@@ -1,10 +1,11 @@
-import { dev } from "../../main.js";
+import { db, dev } from "../../main.js";
 import { textLanguage } from "./types";
 
 export class Translations {
 
-    static getServerLanguage(language: textLanguage) {
-        let text = this.displayText().fr
+    static getServerLanguage(serverId:string) {
+        let language = db.returnServerLanguage(serverId);
+        let text = {language: language, text:this.displayText().fr}
         return text
     }
 
@@ -20,6 +21,10 @@ export class Translations {
                         {text: `Faites /veilleur pour avoir les notifications d'évènements infernaux`},
                         {text: `Fun fact: je suis le meilleur bot du monde`},
                     ]
+                },
+                helpMention: {
+                    title: "Perdu?",
+                    description: "",
                 }
             },
         
@@ -27,13 +32,18 @@ export class Translations {
                 global: {
                     welcomeMsg: `{english}`,
                     tipsFooter: [
-                        {text: ""},
-                        {text: ""},
-                        {text: ""},
-                        {text: ""},
-                        {text: ""},
+                        {text: "{english}"},
+                        {text: "{english}"},
+                        {text: "{english}"},
+                        {text: "{english}"},
+                        {text: "{english}"},
                     ]
+                },
+                helpMention: {
+                    title: "{english}",
+                    description: "{english}",
                 }
+
             }
         }
     }
