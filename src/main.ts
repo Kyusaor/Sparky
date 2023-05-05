@@ -7,7 +7,6 @@ import { fetchedChannelsAtBoot } from './core/constants/types.js';
 import { DiscordValues } from './core/constants/values.js';
 import { DBManager } from './core/managers/database.js';
 import  { ServerManager } from './core/managers/servers.js'
-import { Translations } from './core/constants/translations.js';
 
 let Console = new ConsoleLogger();
 const VERSION = JSON.parse(readFileSync('./package.json', 'utf-8')).version; // app version
@@ -44,13 +43,23 @@ bot.on('ready', async () => {
 
 //Discord events listeners
 bot.on('guildCreate', guild => {
-    let server = new ServerManager(guild);
-    server.checklistNewServers();
+    try {
+        let server = new ServerManager(guild);
+        server.checklistNewServers();
+    }
+    catch (err) {
+        Console.error(err);
+    }
 });
 
 bot.on('guildDelete', guild => {
-    let server = new ServerManager(guild);
-    server.checkListRemoveServer();
+    try {
+        let server = new ServerManager(guild);
+        server.checkListRemoveServer();
+    }
+    catch (err) {
+        Console.error(err);
+    }
 })
 
 export { bot, Console, chanList, dev, db };
