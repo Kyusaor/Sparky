@@ -1,5 +1,4 @@
 import { db, dev } from "../../main.js";
-import { textLanguage } from "./types";
 
 export class Translations {
 
