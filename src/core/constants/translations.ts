@@ -24,7 +24,7 @@ export class Translations {
                 },
                 helpMention: {
                     title: "Perdu?",
-                    description: "",
+                    description: "Pour obtenir la liste de mes commandes, faites **/aide**",
                 }
             },
         
