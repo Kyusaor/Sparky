@@ -1,16 +1,12 @@
 import consoleStamp from "console-stamp";
-import { ActivityType, ChannelType, Client, EmbedBuilder, EmbedFooterData, Message, TextChannel } from "discord.js";
+import { ActivityType, Client, EmbedBuilder, EmbedFooterData, TextChannel } from "discord.js";
 import { createWriteStream, existsSync, mkdirSync, readFileSync } from "fs";
-import { bot, chanList, Console, db } from "../main.js";
+import { bot, chanList, Console } from "../main.js";
 import { fetchedChannelsAtBoot, textLanguage } from "./constants/types.js";
 import { DiscordValues } from "./constants/values.js";
 import { Translations } from "./constants/translations.js";
 
 export abstract class Utils {
-
-    static DmToBotHandler(msg:Message):void {
-
-    }
 
     static async EmbedBaseBuilder(language: textLanguage):Promise<EmbedBuilder> {
         let translation = await Translations.displayText()[language];
@@ -52,26 +48,6 @@ export abstract class Utils {
     static format2DigitsNumber(num: number): string {
         return num.toString().padStart(2, '0');
     };
-
-    static MessageCreateHandler(msg:Message<boolean>):void {
-        if(msg.author.bot) return;
-
-        msg.channel.type === ChannelType.DM ? this.DmToBotHandler(msg) : this.MessageInServerHandler(msg);
-    };
-
-    static async MessageInServerHandler(msg:Message):Promise<void> {
-        if(!msg.guild) return;
-        let translation = await Translations.getServerTranslation(msg.guild.id);
-        if(!translation)
-            throw `Impossible de récupérer la traduction du serveur ${msg.guild.id}`;
-
-        let embed = (await this.EmbedBaseBuilder(translation.language))
-            .setThumbnail(DiscordValues.botIcon.help)
-            .setTitle(translation.text.helpMention.title)
-            .setDescription(translation.text.helpMention.description)
-
-        msg.channel.send({embeds: [embed]})
-    }
 
     static statusLoop(bot: Client): void {
         let serversCount = bot.guilds.cache.size;

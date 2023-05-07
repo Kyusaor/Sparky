@@ -7,6 +7,7 @@ import { fetchedChannelsAtBoot } from './core/constants/types.js';
 import { DiscordValues } from './core/constants/values.js';
 import { DBManager } from './core/managers/database.js';
 import  { ServerManager } from './core/managers/servers.js'
+import { EventManager } from './core/managers/events.js';
 
 let Console = new ConsoleLogger();
 const VERSION = JSON.parse(readFileSync('./package.json', 'utf-8')).version; // app version
@@ -64,7 +65,7 @@ bot.on('guildDelete', guild => {
 
 bot.on('messageCreate', msg => {
     try {
-        Utils.MessageCreateHandler(msg);
+        EventManager.MessageCreateHandler(msg);
     }
     catch (err) {
         Console.error(err);
