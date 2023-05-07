@@ -8,6 +8,10 @@ import { Translations } from "./constants/translations.js";
 
 export abstract class Utils {
 
+    static displayBotLink():string {
+        return `https://discord.com/api/oauth2/authorize?client_id=${bot.user?.id}&permissions=${DiscordValues.BOT_PERMISSIONS_BITFIELD}&scope=bot%20applications.commands`
+    }
+
     static async EmbedBaseBuilder(language: textLanguage):Promise<EmbedBuilder> {
         let translation = await Translations.displayText()[language];
         let rdmFooter:EmbedFooterData = translation.global.tipsFooter[Math.floor(Math.random() * translation.global.tipsFooter.length)]
