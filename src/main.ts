@@ -72,6 +72,15 @@ bot.on('messageCreate', msg => {
     }
 })
 
+bot.on('interactionCreate', intera => {
+    try {
+        EventManager.interactionHandler(intera);
+    }
+    catch (err) {
+        Console.error(err);
+    }
+})
+
 export { bot, Console, chanList, dev, db };
 
 
