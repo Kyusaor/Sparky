@@ -21,7 +21,7 @@ export class Translations {
                         {text: `Faites /veilleur pour avoir les notifications d'évènements infernaux`},
                         {text: `Fun fact: je suis le meilleur bot du monde`},
                     ],
-                    noLinkInDm: "Bonjour, pour m'ajouter à votre serveur utilisez plutôt ce lien!"
+                    noLinkInDm: ":flag_fr: Bonjour, pour m'ajouter à votre serveur utilisez plutôt ce lien!"
                 },
                 helpMention: {
                     title: "Perdu?",
