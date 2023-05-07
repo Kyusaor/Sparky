@@ -2,6 +2,7 @@ import { ChannelType, Message } from "discord.js";
 import { Translations } from "../constants/translations.js";
 import { Utils } from "../utils.js";
 import { DiscordValues } from "../constants/values.js";
+import { bot } from "../../main.js";
 
 export abstract class EventManager {
 
@@ -12,7 +13,7 @@ export abstract class EventManager {
     };
 
     static async MessageInServerHandler(msg:Message):Promise<void> {
-        if(!msg.guild) return;
+        if(!msg.guild || !msg.mentions.has(bot.user!.id, { ignoreRoles: true, ignoreEveryone: true, ignoreRepliedUser: true })) return;
         let translation = await Translations.getServerTranslation(msg.guild.id);
         if(!translation)
             throw `Impossible de récupérer la traduction du serveur ${msg.guild.id}`;
