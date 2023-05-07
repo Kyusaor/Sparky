@@ -84,7 +84,7 @@ export class ServerManager {
     }
 
     async sendDmToServerOwner(owner: User): Promise<void> {
-        let embed = Utils.EmbedBaseBuilder("fr")
+        let embed = (await Utils.EmbedBaseBuilder("fr"))
             .setTitle(`:flag_fr: Bonjour ${owner.username} !`)
             .setDescription(Translations.displayText().fr.global.welcomeMsg)
             .addFields([
