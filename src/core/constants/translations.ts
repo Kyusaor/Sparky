@@ -3,8 +3,8 @@ import { textLanguage } from "./types";
 
 export class Translations {
 
-    static getServerLanguage(serverId:string) {
-        let language = db.returnServerLanguage(serverId);
+    static async getServerTranslation(serverId:string) {
+        let language = await db.returnServerLanguage(serverId);
         let text = {language: language, text:this.displayText().fr}
         return text
     }
