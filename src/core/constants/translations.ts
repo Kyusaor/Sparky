@@ -20,7 +20,8 @@ export class Translations {
                         {text: `Faites la commande /langage pour passer le bot en anglais !`},
                         {text: `Faites /veilleur pour avoir les notifications d'évènements infernaux`},
                         {text: `Fun fact: je suis le meilleur bot du monde`},
-                    ]
+                    ],
+                    noLinkInDm: "Bonjour, pour m'ajouter à votre serveur utilisez plutôt ce lien!"
                 },
                 helpMention: {
                     title: "Perdu?",
@@ -37,7 +38,8 @@ export class Translations {
                         {text: "{english}"},
                         {text: "{english}"},
                         {text: "{english}"},
-                    ]
+                    ],
+                    noLinkInDm: "{english}"
                 },
                 helpMention: {
                     title: "{english}",
