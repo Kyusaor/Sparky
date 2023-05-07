@@ -20,7 +20,8 @@ export class Translations {
                         {text: `Faites /veilleur pour avoir les notifications d'évènements infernaux`},
                         {text: `Fun fact: je suis le meilleur bot du monde`},
                     ],
-                    noLinkInDm: ":flag_fr: Bonjour, pour m'ajouter à votre serveur utilisez plutôt ce lien!"
+                    noLinkInDm: ":flag_fr: Bonjour, pour m'ajouter à votre serveur utilisez plutôt ce lien!",
+                    noCommandOffServer: ":flag_fr: Les commandes sont à réaliser sur un serveur !"
                 },
                 helpMention: {
                     title: "Perdu?",
@@ -38,7 +39,8 @@ export class Translations {
                         {text: "{english}"},
                         {text: "{english}"},
                     ],
-                    noLinkInDm: "{english}"
+                    noLinkInDm: "{english}",
+                    noCommandOffServer: "{english}"
                 },
                 helpMention: {
                     title: "{english}",
