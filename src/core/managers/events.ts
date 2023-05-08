@@ -1,15 +1,15 @@
-import { CacheType, ChannelType, ChatInputCommandInteraction, Interaction, Message } from "discord.js";
+import { CacheType, ChannelType, Interaction, Message } from "discord.js";
 import { Translations } from "../constants/translations.js";
 import { Utils } from "../utils.js";
 import { DiscordValues } from "../constants/values.js";
-import { Console, bot, chanList, db } from "../../main.js";
-import { ServerManager } from "./servers.js";
+import { bot, chanList } from "../../main.js";
+import { CommandManager } from "./commands.js";
 
 export abstract class EventManager {
 
     static interactionHandler(intera: Interaction<CacheType>): void {
         if(intera.isChatInputCommand())
-            this.slashCommandManager(intera);
+            CommandManager.slashCommandManager(intera);
     }
 
     static MessageCreateHandler(msg: Message<boolean>): void {
@@ -32,15 +32,6 @@ export abstract class EventManager {
         msg.channel.send({ embeds: [embed] })
     };
 
-    static async slashCommandManager(intera: ChatInputCommandInteraction) {
-        if(!intera.guildId && !['lien', 'aide'].includes(intera.commandName))
-            return intera.reply(`${Translations.displayText().fr.global.noCommandOffServer}\n\n${Translations.displayText().en.global.noCommandOffServer}`);
-
-        if(intera.guild && !await db.checkIfServerIsPresent(intera.guild))
-            await db.createServer(intera.guild.id, intera.guild.name);
-
-        
-    }
 
     static DmToBotHandler(msg: Message): void {
         if (msg.author.bot || msg.channel.type !== ChannelType.DM) return;
