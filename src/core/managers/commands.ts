@@ -10,17 +10,6 @@ export abstract class CommandManager {
         return command
     };
 
-    static async replyToInteraction(data: string | MessagePayload | InteractionReplyOptions, intera: ChatInputCommandInteraction) {
-        if (!intera.deferred && !intera.replied) return intera.reply(data);
-        try {
-            intera.editReply(data);
-        }
-        catch {
-            await intera.deleteReply().catch(e => e)
-            return intera.followUp(data).catch(e => Console.log(e))
-        }
-    };
-
     static async slashCommandManager(intera: ChatInputCommandInteraction) {
         if (!intera.guildId && !['lien', 'aide'].includes(intera.commandName))
             return intera.reply(`${Translations.displayText().fr.global.noCommandOffServer}\n\n${Translations.displayText().en.global.noCommandOffServer}`);
@@ -46,8 +35,22 @@ export abstract class CommandManager {
         }
         catch (err) {
             intera.deleteReply().catch(e => e);
-            this.replyToInteraction(translation.text.global.CommandExecutionError, intera);
+            BaseCommand.prototype.reply(translation.text.global.CommandExecutionError, intera);
             Console.error(err);
+        }
+    };
+}
+
+export abstract class BaseCommand {
+
+    async reply(data: string | MessagePayload | InteractionReplyOptions, intera: ChatInputCommandInteraction) {
+        if (!intera.deferred && !intera.replied) return intera.reply(data);
+        try {
+            intera.editReply(data);
+        }
+        catch {
+            await intera.deleteReply().catch(e => e)
+            return intera.followUp(data).catch(e => Console.log(e))
         }
     };
 }
