@@ -22,7 +22,8 @@ export class Translations {
                         {text: `Fun fact: je suis le meilleur bot du monde`},
                     ],
                     noLinkInDm: ":flag_fr: Bonjour, pour m'ajouter à votre serveur utilisez plutôt ce lien!",
-                    noCommandOffServer: ":flag_fr: Les commandes sont à réaliser sur un serveur !"
+                    noCommandOffServer: ":flag_fr: Les commandes sont à réaliser sur un serveur !",
+                    CommandExecutionError: "Une erreur est survenue pendant l\'éxecution de la commande!",
                 },
                 helpMention: {
                     title: "Perdu?",
@@ -41,7 +42,8 @@ export class Translations {
                         {text: "{english}"},
                     ],
                     noLinkInDm: "{english}",
-                    noCommandOffServer: "{english}"
+                    noCommandOffServer: "{english}",
+                    CommandExecutionError: "{english}",
                 },
                 helpMention: {
                     title: "{english}",
