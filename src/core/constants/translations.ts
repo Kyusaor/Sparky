@@ -28,7 +28,13 @@ export class Translations {
                 helpMention: {
                     title: "Perdu?",
                     description: "Pour obtenir la liste de mes commandes, faites **/aide**",
-                }
+                },
+                commands: {
+                    contact: {
+                        name: "contact",
+                        description: "Nous contacter (discord ou mail)"
+                    }
+                },
             },
         
             en: {
@@ -48,7 +54,13 @@ export class Translations {
                 helpMention: {
                     title: "{english}",
                     description: "{english}",
-                }
+                },
+                commands: {
+                    contact: {
+                        name: "contact",
+                        description: "{english}"
+                    }
+                },
 
             }
         }
