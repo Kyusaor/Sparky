@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, TextChannel } from "discord.js";
+import { ChatInputCommandInteraction, SlashCommandBuilder, TextChannel } from "discord.js";
 import { DiscordValues } from "./values.js";
 
 export type fetchedChannelsAtBoot = {
@@ -13,4 +13,10 @@ export type Server = { id: string, name: string, active: 0 | 1, language: textLa
 
 export type PartialServer = { id?: string, name?: string, active?: 0 | 1, language?: textLanguage };
 
-export type CommandArgs = { intera: ChatInputCommandInteraction, translation: { language: textLanguage, text: any } }
+export type CommandArgs = { intera: ChatInputCommandInteraction, translation: { language: textLanguage, text: any } };
+
+export interface BaseCommandInterface {
+    name:string;
+    permissionLevel:1 | 2 | 3;
+    commandStructure:SlashCommandBuilder;
+}
