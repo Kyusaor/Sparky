@@ -1,9 +1,10 @@
 import { db, dev } from "../../main.js";
+import { DiscordValues } from "./values.js";
 
 export class Translations {
 
-    static async getServerTranslation(serverId:string) {
-        let language = await db.returnServerLanguage(serverId);
+    static async getServerTranslation(serverId:string | null) {
+        let language = await db.returnServerLanguage(serverId || DiscordValues.MAIN_GUILD);
         let text = {language: language, text:this.displayText().fr}
         return text
     }
