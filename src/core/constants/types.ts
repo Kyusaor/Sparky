@@ -1,4 +1,4 @@
-import { TextChannel } from "discord.js";
+import { ChatInputCommandInteraction, TextChannel } from "discord.js";
 import { DiscordValues } from "./values.js";
 
 export type fetchedChannelsAtBoot = {
@@ -12,3 +12,5 @@ export type textLanguage = "fr" | "en";
 export type Server = { id: string, name: string, active: 0 | 1, language: textLanguage };
 
 export type PartialServer = { id?: string, name?: string, active?: 0 | 1, language?: textLanguage };
+
+export type CommandArgs = { intera: ChatInputCommandInteraction, translation: { language: textLanguage, text: any } }
