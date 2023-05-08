@@ -1,9 +1,29 @@
-import { ChatInputCommandInteraction, InteractionReplyOptions, MessagePayload } from "discord.js";
+import { ChatInputCommandInteraction, InteractionReplyOptions, MessagePayload, SlashCommandBuilder } from "discord.js";
 import { Console, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
 import { CommandArgs } from "../constants/types.js";
 
 export abstract class CommandManager {
+
+    static baseSlashCommandBuilder(name: string, perm: "member" | "admin" | "dev"): SlashCommandBuilder {
+        let defaultText = Translations.displayText();
+        let text = {
+            fr: defaultText.fr.commands[name as keyof typeof defaultText.fr.commands],
+            en: defaultText.en.commands[name as keyof typeof defaultText.en.commands],
+        };
+
+        let build = new SlashCommandBuilder()
+            .setDMPermission(false)
+            .setName(text.en.name)
+            .setNameLocalization("fr", text.fr.name)
+            .setDescription(text.en.description)
+            .setDescriptionLocalization("fr", text.fr.description);
+
+        if (perm !== "member")
+            build.setDefaultMemberPermissions(0);
+
+        return build;
+    }
 
     static async fetchCommand(name: string): Promise<any> {
         let command = await import(`../commands/${name}.js`);
@@ -25,9 +45,9 @@ export abstract class CommandManager {
             throw `Impossible de récupérer la commande ${intera.commandName}`;
         }
 
-        let args:CommandArgs = { 
-            intera, 
-            translation 
+        let args: CommandArgs = {
+            intera,
+            translation
         };
 
         try {
