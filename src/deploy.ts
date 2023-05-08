@@ -1,16 +1,20 @@
-import { REST, RestOrArray, Routes, SlashCommandBuilder } from "discord.js";
+import { REST, RESTPostAPIChatInputApplicationCommandsJSONBody, RestOrArray, Routes, SlashCommandBuilder } from "discord.js";
 import { readdirSync } from "fs";
 import yesno from "yesno";
 import { Config } from "../data/config.js";
 import { DiscordValues } from "./core/constants/values";
-import { bot } from "./main.js";
+import { Console, bot } from "./main.js";
+import { BaseCommandInterface } from "./core/constants/types.js";
 
-let commands = [];
+let globalCommands:RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
+let devCommands:RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
 let commandsFiles = readdirSync('./src/core/commands/')
 
 for(const file of commandsFiles){
-    const command = await import(`./core/commands/${file.slice(0, -3)}.js`);
-    commands.push(command.CommandBuilder.toJSON())
+    const command = await import(`./core/commands/${file.slice(0, -3)}.js`) as BaseCommandInterface;
+    command.permissionLevel == 3 ?
+        devCommands.push(command.commandStructure.toJSON()) :
+        globalCommands.push(command.commandStructure.toJSON())
 }
 
 const rest = new REST({version: '10'}).setToken(Config.CURRENT_TOKEN);
@@ -23,26 +27,26 @@ const todo = await yesno({
 if(todo) {
 
     try {
-		console.log(`Recharge ${commands.length} /commandes`);
+		console.log(`Recharge ${devCommands.length + globalCommands.length} /commandes`);
 
 		const dataGuild = await rest.put(
 			Routes.applicationGuildCommands(bot.user?.id as string, DiscordValues.MAIN_GUILD),
-			{ body: commands },
+			{ body: devCommands },
 		) as RestOrArray<SlashCommandBuilder>;
 
-		console.log(`${dataGuild.length} commandes serveur rechargées avec succès`);
+		console.log(`${dataGuild.length} commandes dev rechargées avec succès`);
 
 
         const dataGlobal = await rest.put(
 			Routes.applicationCommands(bot.user?.id as string),
-			{ body: commands },
+			{ body: globalCommands },
 		) as RestOrArray<SlashCommandBuilder>;
 
-		console.log(`${dataGlobal.length} commandes globales rechargées avec succès`);
+		Console.log(`${dataGlobal.length} commandes globales rechargées avec succès`);
 
     } 
     catch (e) {
-        console.error("erreur de déploiement:\n" + e)
+        Console.error("erreur de déploiement:\n" + e)
     }
 }
 
@@ -71,6 +75,6 @@ else {
         console.log(`${promises.length} commandes supprimées avec succès`);
     }
     catch (e) {
-        console.error("erreur de déploiement:\n" + e)
+        Console.error("erreur de déploiement:\n" + e)
     }
 }
