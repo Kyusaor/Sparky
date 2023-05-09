@@ -1,16 +1,16 @@
-import { SlashCommandBuilder } from "discord.js";
-import { BaseCommandInterface, CommandArgs } from "../constants/types.js";
-import { BaseCommand, CommandManager } from "../managers/commands.js";
+import { CommandInterface } from "../constants/types.js";
+import { CommandManager } from "../managers/commands.js";
 import { Console } from "../../main.js";
 
-export abstract class Command extends BaseCommand implements BaseCommandInterface {
+async function run() {
+    Console.log("Ca marche yolo")
+}
 
-    readonly name = "contact";
-    readonly permissionLevel = 1;
+export const command:CommandInterface = {
 
-    readonly commandStructure = CommandManager.baseSlashCommandBuilder(this.name, "member");
+    permissionLevel: 1,
+
+    commandStructure: CommandManager.baseSlashCommandBuilder("contact", "member"),
     
-    run(args:CommandArgs) {
-        Console.log("Ca marche yolo")
-    }
+    run
 }
