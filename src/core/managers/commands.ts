@@ -25,6 +25,24 @@ export abstract class CommandManager {
         return build;
     }
 
+    static async buildBotCommands(): Promise<Command[]> {
+        let commandsFiles = readdirSync('./src/core/commands/');
+        let Commands:Command[] = [];
+
+        for(const file of commandsFiles){
+            const commandData = await import(`../commands/${file.slice(0, -3)}.js`);
+            if(!commandData) {
+                Console.error(`Impossible de récupérer le fichier ${file}`);
+                continue;
+            }
+            let command = new Command(commandData.command);
+            Commands.push(command);
+        }
+
+        Console.log(`${Commands.length} commandes chargées avec succès`);
+        return Commands;
+    };
+
     static async fetchCommand(name: string): Promise<any> {
         let command = await import(`../commands/${name}.js`);
         return command
