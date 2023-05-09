@@ -1,5 +1,5 @@
 import { ChatInputCommandInteraction, InteractionReplyOptions, MessagePayload, SlashCommandBuilder } from "discord.js";
-import { Console, db } from "../../main.js";
+import { Console, botCommands, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
 import {  CommandArgs, CommandInterface } from "../constants/types.js";
 import { readdirSync } from "fs";
@@ -45,11 +45,6 @@ export abstract class CommandManager {
         return Commands;
     };
 
-    static async fetchCommand(name: string): Promise<any> {
-        let command = await import(`../commands/${name}.js`);
-        return command
-    };
-
     static async slashCommandManager(intera: ChatInputCommandInteraction) {
         if (!intera.guildId && !['link', 'help'].includes(intera.commandName))
             return intera.reply(`${Translations.displayText("fr").global.noCommandOffServer}\n\n${Translations.displayText("en").global.noCommandOffServer}`);
@@ -59,10 +54,10 @@ export abstract class CommandManager {
 
         let translation = await Translations.getServerTranslation(intera.guildId);
 
-        let command = await this.fetchCommand(intera.commandName);
+        let command = botCommands.find(com => com.commandStructure.name == intera.commandName);
         if (!command) {
             intera.reply({ content: translation.text.global.CommandExecutionError, ephemeral: true });
-            Console.info(`Impossible de récupérer la commande ${intera.commandName}`);
+            return Console.info(`Impossible de récupérer la commande ${intera.commandName}`);
         }
 
         let args: CommandArgs = {
