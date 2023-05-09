@@ -1,16 +1,17 @@
 import { db, dev } from "../../main.js";
+import { textLanguage } from "./types.js";
 import { DiscordValues } from "./values.js";
 
 export class Translations {
 
     static async getServerTranslation(serverId:string | null) {
         let language = await db.returnServerLanguage(serverId || DiscordValues.MAIN_GUILD);
-        let text = {language: language, text:this.displayText().fr}
+        let text = {language: language, text:this.displayText("fr")}
         return text
     }
 
-    static displayText() {
-        return {
+    static displayText(language: textLanguage) {
+        let text = {
             fr: {
                 global: {
                     welcomeMsg: `Je me présente: je suis Sparky, un bot discord Lords Mobile, conçu pour les serveurs de guilde.\n\nLa liste de mes commandes se trouve en faisant **\`\`/aide\`\`** sur votre serveur\n\nMerci de m'avoir ajouté!`,
@@ -23,6 +24,7 @@ export class Translations {
                     ],
                     noLinkInDm: ":flag_fr: Bonjour, pour m'ajouter à votre serveur utilisez plutôt ce lien!",
                     noCommandOffServer: ":flag_fr: Les commandes sont à réaliser sur un serveur !",
+                    defaultCommandReply: "Impossible d'exécuter la commande :confused:",
                     CommandExecutionError: "Une erreur est survenue pendant l\'éxecution de la commande!",
                 },
                 helpMention: {
@@ -33,7 +35,7 @@ export class Translations {
                     contact: {
                         name: "contact",
                         description: "Nous contacter (discord ou mail)"
-                    }
+                    },
                 },
             },
         
@@ -50,6 +52,7 @@ export class Translations {
                     noLinkInDm: "{english}",
                     noCommandOffServer: "{english}",
                     CommandExecutionError: "{english}",
+                    defaultCommandReply: "{english}"
                 },
                 helpMention: {
                     title: "{english}",
@@ -59,10 +62,12 @@ export class Translations {
                     contact: {
                         name: "contact",
                         description: "{english}"
-                    }
+                    },
                 },
 
             }
-        }
+        };
+
+        return text[language]
     }
 }
