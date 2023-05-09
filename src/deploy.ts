@@ -2,19 +2,18 @@ import { REST, RESTPostAPIChatInputApplicationCommandsJSONBody, RestOrArray, Rou
 import { readdirSync } from "fs";
 import yesno from "yesno";
 import { Config } from "../data/config.js";
-import { DiscordValues } from "./core/constants/values";
+import { DiscordValues } from "./core/constants/values.js";
 import { Console, bot } from "./main.js";
-import { BaseCommandInterface } from "./core/constants/types.js";
 
 let globalCommands:RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
 let devCommands:RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
 let commandsFiles = readdirSync('./src/core/commands/')
 
 for(const file of commandsFiles){
-    const command = await import(`./core/commands/${file.slice(0, -3)}.js`) as BaseCommandInterface;
+    const command = await import(`./core/commands/${file.slice(0, -3)}.js`);
     command.permissionLevel == 3 ?
         devCommands.push(command.commandStructure.toJSON()) :
-        globalCommands.push(command.commandStructure.toJSON())
+        globalCommands.push(command.Command.commandStructure.toJSON())
 }
 
 const rest = new REST({version: '10'}).setToken(Config.CURRENT_TOKEN);
