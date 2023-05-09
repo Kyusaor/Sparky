@@ -10,10 +10,11 @@ let devCommands:RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
 let commandsFiles = readdirSync('./src/core/commands/')
 
 for(const file of commandsFiles){
-    const command = await import(`./core/commands/${file.slice(0, -3)}.js`);
+    const commandName = file.slice(0, -3);
+    const command = await import(`./core/commands/${commandName}.js`);
     command.permissionLevel == 3 ?
-        devCommands.push(command.commandStructure.toJSON()) :
-        globalCommands.push(command.Command.commandStructure.toJSON())
+        devCommands.push(command[commandName].commandStructure.toJSON()) :
+        globalCommands.push(command[commandName].commandStructure.toJSON())
 }
 
 const rest = new REST({version: '10'}).setToken(Config.CURRENT_TOKEN);
@@ -33,7 +34,7 @@ if(todo) {
 			{ body: devCommands },
 		) as RestOrArray<SlashCommandBuilder>;
 
-		console.log(`${dataGuild.length} commandes dev rechargées avec succès`);
+		Console.log(`${dataGuild.length} commandes dev rechargées avec succès`);
 
 
         const dataGlobal = await rest.put(
