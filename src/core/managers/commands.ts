@@ -31,12 +31,13 @@ export abstract class CommandManager {
         let Commands:Command[] = [];
 
         for(const file of commandsFiles){
-            const commandData = await import(`../commands/${file.slice(0, -3)}.js`);
+            const commandName = file.slice(0, -3);
+            const commandData = await import(`../commands/${commandName}.js`);
             if(!commandData) {
                 Console.error(`Impossible de récupérer le fichier ${file}`);
                 continue;
             }
-            let command = new Command(commandData.command);
+            let command = new Command(commandData[commandName]);
             Commands.push(command);
         }
 
@@ -50,7 +51,7 @@ export abstract class CommandManager {
     };
 
     static async slashCommandManager(intera: ChatInputCommandInteraction) {
-        if (!intera.guildId && !['lien', 'aide'].includes(intera.commandName))
+        if (!intera.guildId && !['link', 'help'].includes(intera.commandName))
             return intera.reply(`${Translations.displayText("fr").global.noCommandOffServer}\n\n${Translations.displayText("en").global.noCommandOffServer}`);
 
         if (intera.guild && !await db.checkIfServerIsPresent(intera.guild))
@@ -82,13 +83,11 @@ export abstract class CommandManager {
 
 export class Command implements CommandInterface {
 
-    name: string;
     permissionLevel: 1 | 2 | 3;
     commandStructure: SlashCommandBuilder;
     run:(args: CommandArgs) => Promise<void>;
 
     constructor(args: CommandInterface) {
-        this.name = args.commandStructure.name;
         this.permissionLevel = args.permissionLevel;
         this.commandStructure = args.commandStructure;
         this.run = args.run;

@@ -17,7 +17,6 @@ export type PartialServer = { id?: string, name?: string, active?: 0 | 1, langua
 export type CommandArgs = { intera: ChatInputCommandInteraction, translation: { language: textLanguage, text: ReturnType<typeof Translations.displayText> } };
 
 export interface CommandInterface {
-    name?: string;
     permissionLevel:1 | 2 | 3;
     commandStructure:SlashCommandBuilder;
     run: (args: CommandArgs) => Promise<void>
