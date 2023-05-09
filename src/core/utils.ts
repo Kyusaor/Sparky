@@ -13,7 +13,7 @@ export abstract class Utils {
     }
 
     static async EmbedBaseBuilder(language: textLanguage):Promise<EmbedBuilder> {
-        let translation = await Translations.displayText()[language];
+        let translation = await Translations.displayText(language);
         let rdmFooter:EmbedFooterData = translation.global.tipsFooter[Math.floor(Math.random() * translation.global.tipsFooter.length)]
 
         let embed = new EmbedBuilder()
@@ -119,9 +119,9 @@ export class ConsoleLogger {
     };
 
     error(input: any, crash?: boolean) {
-        console.error(`[ERROR] ${input}`);
+        console.error(`[ERROR] ${input.stack || input}`);
         console.trace()
-        this.logger.error(`[ERROR] ${input}`);
+        this.logger.error(`[ERROR] ${input.stack || input}`);
         this.logger.trace();
         chanList.LOGS_ERRORS?.send(input.stack || input)
             .then(() => {
