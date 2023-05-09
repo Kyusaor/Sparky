@@ -1,5 +1,6 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder, TextChannel } from "discord.js";
 import { DiscordValues } from "./values.js";
+import { Translations } from "./translations.js";
 
 export type fetchedChannelsAtBoot = {
     [Value in keyof typeof DiscordValues.channels]: TextChannel | undefined;
@@ -13,10 +14,11 @@ export type Server = { id: string, name: string, active: 0 | 1, language: textLa
 
 export type PartialServer = { id?: string, name?: string, active?: 0 | 1, language?: textLanguage };
 
-export type CommandArgs = { intera: ChatInputCommandInteraction, translation: { language: textLanguage, text: any } };
+export type CommandArgs = { intera: ChatInputCommandInteraction, translation: { language: textLanguage, text: ReturnType<typeof Translations.displayText> } };
 
-export interface BaseCommandInterface {
-    name:string;
+export interface CommandInterface {
+    name?: string;
     permissionLevel:1 | 2 | 3;
     commandStructure:SlashCommandBuilder;
-}
+    run: (args: CommandArgs) => Promise<void>
+};
