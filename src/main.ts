@@ -1,4 +1,4 @@
-import { Client, Guild, User } from 'discord.js';
+import { Client, User } from 'discord.js';
 import { readFileSync } from 'fs';
 import { Config } from '../data/config.js';
 import { ConsoleLogger, Utils } from './core/utils.js';
@@ -8,6 +8,8 @@ import { DiscordValues } from './core/constants/values.js';
 import { DBManager } from './core/managers/database.js';
 import  { ServerManager } from './core/managers/servers.js'
 import { EventManager } from './core/managers/events.js';
+import { Command, CommandManager } from './core/managers/commands.js';
+import { Translations } from './core/constants/translations.js';
 
 let Console = new ConsoleLogger();
 const VERSION = JSON.parse(readFileSync('./package.json', 'utf-8')).version; // app version
@@ -17,7 +19,8 @@ cron.schedule('0 0 * * *', () => {
     Console.log("Refresh des logs effectué avec succès")
 });
 
-bot.login(Config.CURRENT_TOKEN)
+bot.login(Config.CURRENT_TOKEN);
+let botCommands:Command[];
 let chanList: fetchedChannelsAtBoot;
 let dev: User;
 let db:DBManager;
@@ -33,6 +36,7 @@ bot.on('ready', async () => {
             Console.error("Compte discord dev introuvable", true);
         Console.log(`\n\n             SPARKY\n\nBot discord Lords Mobile français\nDéveloppé par Kyusaki\n\nVersion: ${VERSION}\nClient: ${bot.user?.username}\nConsole:`);
         db = new DBManager(Config.DBConfig);
+        botCommands = await CommandManager.buildBotCommands();
         chanList.LOGS_CONNEXIONS?.send(VERSION);
         await test();
     }
@@ -81,10 +85,9 @@ bot.on('interactionCreate', intera => {
     }
 })
 
-export { bot, Console, chanList, dev, db };
+export { bot, Console, chanList, dev, db, botCommands };
 
 
 async function test() {
-    let guild = await bot.guilds.cache.get(DiscordValues.MAIN_GUILD) as Guild
-    //bot.emit('guildCreate', guild);
+    console.log(typeof Translations.displayText("fr"))
 }
