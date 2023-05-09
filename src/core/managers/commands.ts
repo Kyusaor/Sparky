@@ -79,7 +79,19 @@ export abstract class CommandManager {
     };
 }
 
-export abstract class BaseCommand {
+export class Command implements CommandInterface {
+
+    name: string;
+    permissionLevel: 1 | 2 | 3;
+    commandStructure: SlashCommandBuilder;
+    run:(args: CommandArgs) => Promise<void>;
+
+    constructor(args: CommandInterface) {
+        this.name = args.commandStructure.name;
+        this.permissionLevel = args.permissionLevel;
+        this.commandStructure = args.commandStructure;
+        this.run = args.run;
+    }
 
     async reply(data: string | MessagePayload | InteractionReplyOptions, intera: ChatInputCommandInteraction) {
         if (!intera.deferred && !intera.replied) return intera.reply(data);
