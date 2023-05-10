@@ -70,4 +70,19 @@ export class Translations {
 
         return text[language]
     }
+
+    static displayFullText() {
+        return {fr: this.displayText("fr"), en: this.displayText("en")}
+    }
+
+    static displayCommandText(command:string) {
+        let textFr = this.displayText("fr").commands;
+        if(!Object.keys(textFr).includes(command))
+            throw `Impossible de récupérer le texte de la commande ${command}`;
+
+        return {
+            fr: this.displayText("fr").commands[command as keyof typeof textFr],
+            en: this.displayText("en").commands[command as keyof typeof textFr],
+        }
+    }
 }
