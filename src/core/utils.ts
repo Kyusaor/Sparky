@@ -133,6 +133,7 @@ export class ConsoleLogger {
     info(input: any) {
         console.log(`[INFO] ${input}`);
         this.logger.log(`[INFO] ${input}`);
+        chanList.LOGS_ERRORS?.send(`[INFO] ${input}`)
     };
 
     log(input: any) {
