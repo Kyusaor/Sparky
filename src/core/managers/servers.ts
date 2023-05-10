@@ -86,9 +86,9 @@ export class ServerManager {
     async sendDmToServerOwner(owner: User): Promise<void> {
         let embed = (await Utils.EmbedBaseBuilder("fr"))
             .setTitle(`:flag_fr: Bonjour ${owner.username} !`)
-            .setDescription(Translations.displayText().fr.global.welcomeMsg)
+            .setDescription(Translations.displayText("fr").global.welcomeMsg)
             .addFields([
-                {name: `:flag_gb: Hello ${owner.username} !`, value: Translations.displayText().en.global.welcomeMsg}
+                {name: `:flag_gb: Hello ${owner.username} !`, value: Translations.displayText("en").global.welcomeMsg}
             ])
             .setThumbnail(DiscordValues.botIcon.base)
 

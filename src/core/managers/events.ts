@@ -54,6 +54,6 @@ export abstract class EventManager {
             chanDM.send({ content: msg.content, files: msgFiles });
 
         if(msg.content.includes('discord.gg/'))
-            msg.channel.send(`${Translations.displayText().fr.global.noLinkInDm}\n\n${Translations.displayText().en.global.noLinkInDm}\n\n${Utils.displayBotLink()}`)
+            msg.channel.send(`${Translations.displayText("fr").global.noLinkInDm}\n\n${Translations.displayText("en").global.noLinkInDm}\n\n${Utils.displayBotLink()}`)
     };
 }
