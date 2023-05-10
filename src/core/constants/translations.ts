@@ -34,7 +34,13 @@ export class Translations {
                 commands: {
                     contact: {
                         name: "contact",
-                        description: "Nous contacter (discord ou mail)"
+                        description: "Nous contacter (discord ou mail)",
+                        text: {
+                            content: [
+                                "Besoin d'aide sur le bot, de signaler un bug ou simplement discuter avec des joueurs de Lords Mobile? Voilà le lien du serveur :wink:\n",
+                                "\n\nPour contacter le développeur, vous pouvez également envoyer un mail à __**"
+                            ],
+                        },
                     },
                 },
             },
@@ -61,7 +67,13 @@ export class Translations {
                 commands: {
                     contact: {
                         name: "contact",
-                        description: "{english}"
+                        description: "{english}",
+                        text: {
+                            content: [
+                                "{english}",
+                                "{english}"
+                            ]
+                        },
                     },
                 },
 
