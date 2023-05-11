@@ -6,10 +6,9 @@ import cron from 'node-cron';
 import { fetchedChannelsAtBoot } from './core/constants/types.js';
 import { DiscordValues } from './core/constants/values.js';
 import { DBManager } from './core/managers/database.js';
-import  { ServerManager } from './core/managers/servers.js'
+import { ServerManager } from './core/managers/servers.js'
 import { EventManager } from './core/managers/events.js';
 import { Command, CommandManager } from './core/managers/commands.js';
-import { Translations } from './core/constants/translations.js';
 
 let Console = new ConsoleLogger();
 const VERSION = JSON.parse(readFileSync('./package.json', 'utf-8')).version; // app version
@@ -20,10 +19,10 @@ cron.schedule('0 0 * * *', () => {
 });
 
 bot.login(Config.CURRENT_TOKEN);
-let botCommands:Command[];
+let botCommands: Command[];
 let chanList: fetchedChannelsAtBoot;
 let dev: User;
-let db:DBManager;
+let db: DBManager;
 
 
 //Executed when the bot starts
@@ -89,5 +88,4 @@ export { bot, Console, chanList, dev, db, botCommands };
 
 
 async function test() {
-    console.log(typeof Translations.displayText("fr"))
 }
