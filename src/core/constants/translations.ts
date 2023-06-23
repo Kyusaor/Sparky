@@ -29,6 +29,33 @@ export class Translations {
         }
     }
 
+    static mobs = {
+        abeille: { fr: `Reine Abeille`, en: `Queen Bee` },
+        agivre: { fr: `Aile de Givre`, en: `Frostwing` },
+        anoires: { fr: `Ailes Noires`, en: `Blackwing` },
+        bete: { fr: `Bête des Neiges`, en: `Snow Beast` },
+        chaman: { fr: `Chaman Vaudou`, en: `Voodoo Shaman` },
+        cottrage: { fr: `Cott-rage`, en: `Cottageroar` },
+        drider: { fr: `Drider de l'Enfer`, en: `Hell Drider` },
+        epinator: { fr: `Epinator`, en: `Terrorthorn` },
+        faucheuse: { fr: `Faucheuse`, en: `Grim Reaper` },
+        flipper: { fr: `Flipper Arctique`, en: `Arctic Flipper` },
+        gargantua: { fr: `Gargantua`, en: `Gargantua` },
+        golem: { fr: `Golem Antique`, en: `Hardrox` },
+        gorzilla: { fr: `Gorzilla`, en: `Gawrilla` },
+        griffon: { fr: `Griffon`, en: `Gryphon` },
+        larve: { fr: `Méga-Larve`, en: `Mega Maggot` },
+        mecha: { fr: `Mecha-Troyen`, en: `Mecha Trojan` },
+        morfalange: { fr: `Morfalange`, en: `Bon Appeti` },
+        necrose: { fr: `Nécrose`, en: `Necrosis` },
+        noceros: { fr: `Nocéros`, en: `Noceros` },
+        sabrecroc: { fr: `Sabrecroc`, en: `Saberfang` },
+        serpent: { fr: `Gladiateur Serpent`, en: `Serpent Gladiator` },
+        serrulule: { fr: `Serrulule`, en: `Hootclaw` },
+        titan: { fr: `Titan des Marées`, en: `Tidal Titan` },
+        wyrm: { fr: `Wyrm de Jade`, en: `Jade Wyrm` },
+    }
+
     static text = {
         fr: {
             global: {
