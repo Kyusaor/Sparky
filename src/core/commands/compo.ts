@@ -1,5 +1,5 @@
-import { CommandInterface } from "../constants/types";
-import { CommandManager } from "../managers/commands";
+import { CommandInterface } from "../constants/types.js";
+import { CommandManager } from "../managers/commands.js";
 
 export const compo:CommandInterface = {
 
