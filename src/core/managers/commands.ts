@@ -1,8 +1,9 @@
-import { ChatInputCommandInteraction, InteractionReplyOptions, MessagePayload, SlashCommandBuilder } from "discord.js";
-import { Console, botCommands, db } from "../../main.js";
+import { ChatInputCommandInteraction, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, SlashCommandBuilder, TextChannel } from "discord.js";
+import { Console, bot, botCommands, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
 import {  CommandArgs, CommandInterface } from "../constants/types.js";
 import { readdirSync } from "fs";
+import { ServerManager } from "./servers.js";
 
 export abstract class CommandManager {
 
@@ -89,6 +90,7 @@ export class Command implements CommandInterface {
     }
 
     async reply(data: string | MessagePayload | InteractionReplyOptions, intera: ChatInputCommandInteraction) {
+        await checkReplyPermissions(data, intera);
         if (!intera.deferred && !intera.replied) return intera.reply(data);
         try {
             intera.editReply(data);
@@ -98,4 +100,26 @@ export class Command implements CommandInterface {
             return intera.followUp(data).catch(e => Console.log(e))
         }
     };
+}
+
+
+async function checkReplyPermissions(data: string | MessagePayload | InteractionReplyOptions, intera: ChatInputCommandInteraction) {
+    let channel = intera.channel as TextChannel
+    let botPermissions = channel.permissionsFor(bot.user!.id);
+    let missingPermissions = [];
+    if(Object.keys(data).includes("attachment") && !botPermissions?.has(PermissionFlagsBits.AttachFiles)) {
+        missingPermissions.push("AttachFiles")
+    }
+    if(Object.keys(data).includes("embeds") && !botPermissions?.has(PermissionFlagsBits.EmbedLinks)) {
+        missingPermissions.push("EmbedLinks")
+    }
+    if(missingPermissions.length > 0) {
+        let language = await db.returnServerLanguage(intera.guild!.id);
+        let translation = Translations.displayText(language).permissions;
+        let missingPermErrorReply:string = translation.MissingPermissions;
+        for(let permission of missingPermissions) {
+            missingPermErrorReply += translation.flags[permission as keyof typeof translation.flags]
+        }
+        data = missingPermErrorReply;
+    }
 }

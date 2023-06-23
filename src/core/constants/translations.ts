@@ -72,6 +72,17 @@ export class Translations {
                 defaultCommandReply: "Impossible d'exécuter la commande :confused:",
                 CommandExecutionError: "Une erreur est survenue pendant l\'éxecution de la commande!",
             },
+            permissions: {
+                MissingPermissions: "Oups, il semblerait qu'il me manque les permissions suivantes:\n",
+                flags: {
+                    AddReactions: "Ajouter des réactions",
+                    AttachFiles: "Joindre des fichiers",
+                    EmbedLinks: "Intégrer des liens",
+                    ManageRoles: "Gérer les rôles",
+                    ManageChannels: "Gérer les salons",
+                    UseExternalEmojis: "Utiliser des emojis externes",
+                }
+            },
             helpMention: {
                 title: "Perdu?",
                 description: "Pour obtenir la liste de mes commandes, faites **/aide**",
@@ -104,6 +115,17 @@ export class Translations {
                 noCommandOffServer: "{english}",
                 CommandExecutionError: "{english}",
                 defaultCommandReply: "{english}"
+            },
+            permissions: {
+                MissingPermissions: "{english}",
+                flags: {
+                    AddReactions: "{english}",
+                    AttachFiles: "{english}",
+                    EmbedLinks: "{english}",
+                    ManageRoles: "{english}",
+                    ManageChannels: "{english}",
+                    UseExternalEmojis: "{english}",
+                }
             },
             helpMention: {
                 title: "{english}",
