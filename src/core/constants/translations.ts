@@ -53,6 +53,10 @@ export class Translations {
                             ],
                         },
                     },
+                    compo: {
+                        name: "compo",
+                        description: "Obtenez les meilleurs compos pour la chasse aux monstres"
+                    },
                 },
             },
         
@@ -96,6 +100,10 @@ export class Translations {
                                 "{english}"
                             ]
                         },
+                    },
+                    compo: {
+                        name: "lineup",
+                        description: "{english}"
                     },
                 },
     
