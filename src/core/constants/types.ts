@@ -18,6 +18,6 @@ export type CommandArgs = { intera: ChatInputCommandInteraction, translation: { 
 
 export interface CommandInterface {
     permissionLevel:1 | 2 | 3;
-    commandStructure:SlashCommandBuilder;
+    commandStructure:Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
     run: (args: CommandArgs) => Promise<void>
 };

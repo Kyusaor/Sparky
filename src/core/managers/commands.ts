@@ -80,7 +80,7 @@ export abstract class CommandManager {
 export class Command implements CommandInterface {
 
     permissionLevel: 1 | 2 | 3;
-    commandStructure: SlashCommandBuilder;
+    commandStructure: Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
     run:(args: CommandArgs) => Promise<void>;
 
     constructor(args: CommandInterface) {
