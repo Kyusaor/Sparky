@@ -115,8 +115,12 @@ export class ConsoleLogger {
         console.trace()
         this.logger.error(`[ERROR] ${input.stack || input}`);
         this.logger.trace();
-        chanList.LOGS_ERRORS?.send(input.stack || input)
+        chanList?.LOGS_ERRORS?.send(input.stack || input)
             .then(() => {
+                if (crash)
+                    process.exit(1);
+            })
+            .catch(() => {
                 if (crash)
                     process.exit(1);
             })
@@ -125,7 +129,7 @@ export class ConsoleLogger {
     info(input: any) {
         console.log(`[INFO] ${input}`);
         this.logger.log(`[INFO] ${input}`);
-        chanList.LOGS_ERRORS?.send(`[INFO] ${input}`)
+        chanList?.LOGS_ERRORS?.send(`[INFO] ${input}`)
     };
 
     log(input: any) {
