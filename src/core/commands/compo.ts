@@ -1,7 +1,7 @@
 import { APIApplicationCommandOptionChoice } from "discord.js";
 import { CommandInterface, TranslationCacheType, TranslationObject } from "../constants/types.js";
-import { CommandManager } from "../managers/commands.js";
-import { readFileSync } from "fs";
+import { Command, CommandManager } from "../managers/commands.js";
+import { existsSync, readFileSync } from "fs";
 import { Translations } from "../constants/translations.js";
 
 export const compo:CommandInterface = {
@@ -18,7 +18,9 @@ export const compo:CommandInterface = {
 
     async run({ intera, language }): Promise<void> {
         let imagePath = `./ressources/images/mob/${language}/${intera.options.getString('mob')}.png`;
-        
+        if(!existsSync(imagePath))
+            throw `Fichier ./ressources/images/mob/${language}/${intera.options.getString('mob')}.png introuvable`
+        await Command.prototype.reply({ files: [ imagePath] }, intera);
     }
 }
 
