@@ -1,7 +1,7 @@
-import { ChannelType, ChatInputCommandInteraction, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, SlashCommandBuilder, TextChannel } from "discord.js";
+import { ChannelType, ChatInputCommandInteraction, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, SlashCommandBuilder, SlashCommandSubcommandsOnlyBuilder, TextChannel } from "discord.js";
 import { Console, TranslationsCache, bot, botCommands, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
-import {  CommandArgs, CommandInterface, TranslationCacheType } from "../constants/types.js";
+import {  CommandArgs, CommandInterface, SingleLanguageCommandTranslation, TranslationCacheType, textLanguage } from "../constants/types.js";
 import { readFileSync, readdirSync } from "fs";
 
 export abstract class CommandManager {
@@ -87,7 +87,7 @@ export abstract class CommandManager {
 export class Command implements CommandInterface {
 
     permissionLevel: 1 | 2 | 3;
-    commandStructure: Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
+    commandStructure: SlashCommandSubcommandsOnlyBuilder | SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
     run:(args: CommandArgs) => Promise<void>;
 
     constructor(args: CommandInterface) {
