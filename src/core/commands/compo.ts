@@ -17,9 +17,9 @@ export const compo:CommandInterface = {
         ),
 
     async run({ intera, language }): Promise<void> {
-        let imagePath = `./ressources/images/mob/${language}/${intera.options.getString('mob')}.png`;
+        let imagePath = `./ressources/images/mob/${language}/${intera.options.getString('monster')}.png`;
         if(!existsSync(imagePath))
-            throw `Fichier ./ressources/images/mob/${language}/${intera.options.getString('mob')}.png introuvable`
+            throw `Fichier ./ressources/images/mob/${language}/${intera.options.getString('monster')}.png introuvable`
         await Command.prototype.reply({ files: [ imagePath] }, intera);
     }
 }
