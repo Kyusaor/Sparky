@@ -107,6 +107,20 @@ export class Command implements CommandInterface {
             return intera.followUp(data).catch(e => Console.log(e))
         }
     };
+
+    static getSubcommandTranslations(command: string, subcommand: string, type: "name" | "description") {
+        if(!Object.keys(TranslationsCache.fr.commands).includes(command))
+            throw "Erreur: infos de localisation indisponibles (commande introuvable)"
+
+        let data:Record<string, string> = {};
+        for(let language of Object.keys(TranslationsCache)) {
+            if(language == 'en')
+                continue;
+            let translationData:SingleLanguageCommandTranslation = TranslationsCache[language as textLanguage].commands[command as keyof typeof TranslationsCache.fr.commands];
+            data[language] = translationData.subcommand![subcommand as keyof typeof translationData.subcommand][type]
+        }
+        return data;
+    }
 }
 
 
