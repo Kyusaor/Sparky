@@ -2,7 +2,7 @@ import { CacheType, ChannelType, Interaction, Message } from "discord.js";
 import { Translations } from "../constants/translations.js";
 import { Utils } from "../utils.js";
 import { DiscordValues } from "../constants/values.js";
-import { bot, chanList } from "../../main.js";
+import { TranslationsCache, bot, chanList } from "../../main.js";
 import { CommandManager } from "./commands.js";
 
 export abstract class EventManager {
@@ -20,14 +20,14 @@ export abstract class EventManager {
 
     static async MessageInServerHandler(msg: Message): Promise<void> {
         if (!msg.guild || !msg.mentions.has(bot.user!.id, { ignoreRoles: true, ignoreEveryone: true, ignoreRepliedUser: true })) return;
-        let translation = await Translations.getServerTranslation(msg.guild.id);
-        if (!translation)
-            throw `Impossible de récupérer la traduction du serveur ${msg.guild.id}`;
+        let language = await Translations.getServerLanguage(msg.guild.id);
+        if (!language)
+            throw `Impossible de récupérer la langue du serveur ${msg.guild.id}`;
 
-        let embed = (await Utils.EmbedBaseBuilder(translation.language))
+        let embed = (await Utils.EmbedBaseBuilder(language))
             .setThumbnail(DiscordValues.botIcon.help)
-            .setTitle(translation.text.helpMention.title)
-            .setDescription(translation.text.helpMention.description)
+            .setTitle(TranslationsCache[language].helpMention.title)
+            .setDescription(TranslationsCache[language].helpMention.description)
 
         msg.channel.send({ embeds: [embed] })
     };
@@ -54,6 +54,6 @@ export abstract class EventManager {
             chanDM.send({ content: msg.content, files: msgFiles });
 
         if(msg.content.includes('discord.gg/'))
-            msg.channel.send(`${Translations.displayText("fr").global.noLinkInDm}\n\n${Translations.displayText("en").global.noLinkInDm}\n\n${Utils.displayBotLink()}`)
+            msg.channel.send(`${TranslationsCache.fr.global.noLinkInDm}\n\n${TranslationsCache.en.global.noLinkInDm}\n\n${Utils.displayBotLink()}`)
     };
 }

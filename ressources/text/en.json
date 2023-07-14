@@ -1,0 +1,72 @@
+{
+    "global": {
+        "welcomeMsg": "english",
+        "tipsFooter": [
+            {"text": "english"},
+            {"text": "english", "iconURL": "english"},
+            {"text": "english"},
+            {"text": "english"},
+            {"text": "english"}
+        ],
+        "noLinkInDm": "english",
+        "noCommandOffServer": "english",
+        "CommandExecutionError": "english",
+        "defaultCommandReply": "english"
+    },
+    "permissions": {
+        "MissingPermissions": "english",
+        "flags": {
+            "AddReactions": "english",
+            "AttachFiles": "english",
+            "EmbedLinks": "english",
+            "ManageRoles": "english",
+            "ManageChannels": "english",
+            "UseExternalEmojis": "english"
+        }
+    },
+    "helpMention": {
+        "title": "english",
+        "description": "english"
+    },
+    "commands": {
+        "contact": {
+            "name": "contact",
+            "description": "english",
+            "text": {
+                "content": "english"
+            }
+        },
+        "compo": {
+            "name": "lineup",
+            "description": "english",
+            "text": {}
+        }
+    },
+    "mobs": {
+        "abeille": "Queen Bee",
+        "agivre": "Frostwing",
+        "anoires": "Blackwing",
+        "bete": "Snow Beast",
+        "chaman": "Voodoo Shaman",
+        "cottrage": "Cottageroar",
+        "drider": "Hell Drider",
+        "epinator": "Terrorthorn",
+        "faucheuse": "Grim Reaper",
+        "flipper": "Arctic Flipper",
+        "gargantua": "Gargantua",
+        "golem": "Hardrox",
+        "gorzilla": "Gawrilla",
+        "griffon": "Gryphon",
+        "larve": "Mega Maggot",
+        "mecha": "Mecha Trojan",
+        "morfalange": "Bon Appeti",
+        "necrose": "Necrosis",
+        "noceros": "Noceros",
+        "sabrecroc": "Saberfang",
+        "serpent": "Serpent Gladiator",
+        "serrulule": "Hootclaw",
+        "titan": "Tidal Titan",
+        "wyrm": "Jade Wyrm"
+    }
+
+}

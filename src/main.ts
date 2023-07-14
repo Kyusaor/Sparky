@@ -3,12 +3,13 @@ import { readFileSync } from 'fs';
 import { Config } from '../data/config.js';
 import { ConsoleLogger, Utils } from './core/utils.js';
 import cron from 'node-cron';
-import { fetchedChannelsAtBoot } from './core/constants/types.js';
+import { TranslationCacheType, fetchedChannelsAtBoot } from './core/constants/types.js';
 import { DiscordValues } from './core/constants/values.js';
 import { DBManager } from './core/managers/database.js';
 import { ServerManager } from './core/managers/servers.js'
 import { EventManager } from './core/managers/events.js';
 import { Command, CommandManager } from './core/managers/commands.js';
+import { Translations } from './core/constants/translations.js';
 
 let Console = new ConsoleLogger();
 const VERSION = JSON.parse(readFileSync('./package.json', 'utf-8')).version; // app version
@@ -23,6 +24,7 @@ let botCommands: Command[];
 let chanList: fetchedChannelsAtBoot;
 let dev: User;
 let db: DBManager;
+let TranslationsCache: TranslationCacheType;
 
 
 //Executed when the bot starts
@@ -33,6 +35,7 @@ bot.on('ready', async () => {
         dev = await bot.users.fetch(DiscordValues.DEV_DISCORD_ID);
         if (!dev)
             Console.error("Compte discord dev introuvable", true);
+        TranslationsCache = await Translations.generateTranslationsCache();
         Console.log(`\n\n             SPARKY\n\nBot discord Lords Mobile français\nDéveloppé par Kyusaki\n\nVersion: ${VERSION}\nClient: ${bot.user?.username}\nConsole:`);
         db = new DBManager(Config.DBConfig);
         botCommands = await CommandManager.buildBotCommands();
@@ -84,7 +87,7 @@ bot.on('interactionCreate', intera => {
     }
 })
 
-export { bot, Console, chanList, dev, db, botCommands };
+export { bot, Console, chanList, dev, db, botCommands, TranslationsCache };
 
 
 async function test() {

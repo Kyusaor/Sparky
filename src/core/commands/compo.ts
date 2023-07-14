@@ -1,7 +1,8 @@
 import { APIApplicationCommandOptionChoice } from "discord.js";
-import { Translations } from "../constants/translations.js";
-import { CommandInterface } from "../constants/types.js";
+import { CommandInterface, TranslationCacheType, TranslationObject } from "../constants/types.js";
 import { CommandManager } from "../managers/commands.js";
+import { readFileSync } from "fs";
+import { Translations } from "../constants/translations.js";
 
 export const compo:CommandInterface = {
 
@@ -9,23 +10,26 @@ export const compo:CommandInterface = {
 
     commandStructure: CommandManager.baseSlashCommandBuilder("compo", "member")
         .addStringOption(monster =>
-            monster.setName(`Monster`)
+            monster.setName(`monster`)
                 .setDescription('The monster you want the lineup for')
                 .setRequired(true)
                 .addChoices(...getMobsChoicesList())
         ),
 
-    async run({ intera, translation }): Promise<void> {
-        let imagePath = `./ressources/images/mob/${translation.language}/${intera.options.getString('mob')}.png`;
+    async run({ intera, language }): Promise<void> {
+        let imagePath = `./ressources/images/mob/${language}/${intera.options.getString('mob')}.png`;
         
     }
 }
 
 function getMobsChoicesList():APIApplicationCommandOptionChoice<string>[] {
+    const frJSON:TranslationObject = JSON.parse(readFileSync(`./ressources/text/fr.json`, 'utf-8'), Translations.reviver);
+    const enJSON:TranslationObject = JSON.parse(readFileSync(`./ressources/text/en.json`, 'utf-8'), Translations.reviver);
+    let translations:TranslationCacheType = { fr: frJSON, en: enJSON };
+
     let list = []
-    let translations = Translations.mobs;
-    for(let mob of Object.keys(translations)) {
-        list.push({ name: translations[mob as keyof typeof translations].en, name_localizations: { fr: translations[mob as keyof typeof translations].fr}, value: mob})
+    for(let mob of Object.keys(translations.fr.mobs)) {
+        list.push({ name: translations.en.mobs[mob as keyof typeof translations.fr.mobs], name_localizations: { fr: translations.fr.mobs[mob as keyof typeof translations.fr.mobs]}, value: mob})
     }
     return list;
 }

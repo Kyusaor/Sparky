@@ -1,0 +1,71 @@
+{
+    "global": {
+        "welcomeMsg": "Je me présente: je suis Sparky, un bot discord Lords Mobile, conçu pour les serveurs de guilde.\n\nLa liste de mes commandes se trouve en faisant **\\/aide\\** sur votre serveur\n\nMerci de m'avoir ajouté!",
+        "tipsFooter": [
+            {"text": "Faites la commande /aide pour obtenir de l'aide !"},
+            {"text": "Développé avec amour par {dev_username}", "iconURL": "{dev_avatar_url}"},
+            {"text": "Faites la commande /langage pour passer le bot en anglais !"},
+            {"text": "Faites /veilleur pour avoir les notifications d'évènements infernaux"},
+            {"text": "Fun fact: je suis le meilleur bot du monde"}
+        ],
+        "noLinkInDm": ":flag_fr: Bonjour, pour m'ajouter à votre serveur utilisez plutôt ce lien! \n{bot_invite}",
+        "noCommandOffServer": ":flag_fr: Les commandes sont à réaliser sur un serveur !",
+        "CommandExecutionError": "Une erreur est survenue pendant l'éxecution de la commande!",
+        "defaultCommandReply": "Impossible d'exécuter la commande :confused:"
+    },
+    "permissions": {
+        "MissingPermissions": "Oups, il semblerait qu'il me manque les permissions suivantes:\n",
+        "flags": {
+            "AddReactions": "Ajouter des réactions",
+            "AttachFiles": "Joindre des fichiers",
+            "EmbedLinks": "Intégrer des liens",
+            "ManageRoles": "Gérer les rôles",
+            "ManageChannels": "Gérer les salons",
+            "UseExternalEmojis": "Utiliser des emojis externes"
+        }
+    },
+    "helpMention": {
+        "title": "Perdu?",
+        "description": "Pour obtenir la liste de mes commandes, faites **/aide**"
+    },
+    "commands": {
+        "contact": {
+            "name": "contact",
+            "description": "Nous contacter (discord ou mail)",
+            "text": {
+                "content": "Besoin d'aide sur le bot, de signaler un bug ou simplement discuter avec des joueurs de Lords Mobile? Voilà le lien du serveur :wink:\n{support_server_invite}\n\nPour contacter le développeur, vous pouvez également envoyer un mail à __**{support_email}**__"
+            }
+        },
+        "compo": {
+            "name": "compo",
+            "description": "Obtenez les meilleurs compos pour la chasse aux monstres",
+            "text": {}
+        }
+    },
+    "mobs": {
+        "abeille": "Reine Abeille",
+        "agivre": "Aile de Givre",
+        "anoires": "Ailes Noires",
+        "bete": "Bête des Neiges",
+        "chaman": "Chaman Vaudou",
+        "cottrage": "Cott-rage",
+        "drider": "Drider de l'Enfer",
+        "epinator": "Epinator",
+        "faucheuse": "Grim Reaper",
+        "flipper": "Flipper Arctique",
+        "gargantua": "Gargantua",
+        "golem": "Golem Antique",
+        "gorzilla": "Gorzilla",
+        "griffon": "Griffon",
+        "larve": "Méga-Larve",
+        "mecha": "Mecha-Troyen",
+        "morfalange": "Morfalange",
+        "necrose": "Nécrose",
+        "noceros": "Nocéros",
+        "sabrecroc": "Sabrecroc",
+        "serpent": "Gladiateur Serpent",
+        "serrulule": "Serrulule",
+        "titan": "Titan des Marées",
+        "wyrm": "Wyrm de Jade"
+    }
+}

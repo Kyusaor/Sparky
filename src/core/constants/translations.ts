@@ -1,157 +1,123 @@
-import { db, dev } from "../../main.js";
-import { textLanguage } from "./types.js";
+import { Console, TranslationsCache, db, dev } from "../../main.js";
+import { CommandTranslation, ReplacerList, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, textLanguage } from "./types.js";
+import { readFileSync } from 'fs';
 import { DiscordValues } from "./values.js";
+import { Utils } from "../utils.js";
+
 
 export class Translations {
 
-    static async getServerTranslation(serverId:string | null) {
+    static async generateTranslationsCache(): Promise<TranslationCacheType> {
+        const frJSON = JSON.parse(readFileSync(`./ressources/text/fr.json`, 'utf-8'), this.reviver);
+        const enJSON = JSON.parse(readFileSync(`./ressources/text/en.json`, 'utf-8'), this.reviver);
+
+        await this.checkMissingTranslation(frJSON, enJSON);
+
+        Console.log("Traductions chargées avec succès");
+
+        return { fr: frJSON, en: enJSON }
+    }
+
+    static async getServerLanguage(serverId: string | null):Promise<textLanguage> {
         let language = await db.returnServerLanguage(serverId || DiscordValues.MAIN_GUILD);
-        let text = {language: language, text:this.displayText("fr")}
-        return text
+        return language;
     }
 
-    static displayText(language: textLanguage) {
-        let text = {
-            fr: {
-                global: {
-                    welcomeMsg: `Je me présente: je suis Sparky, un bot discord Lords Mobile, conçu pour les serveurs de guilde.\n\nLa liste de mes commandes se trouve en faisant **\`\`/aide\`\`** sur votre serveur\n\nMerci de m'avoir ajouté!`,
-                    tipsFooter: [
-                        {text: "Faites la commande /aide pour obtenir de l'aide !"},
-                        {text: `Développé avec amour par ${dev?.username || `<@${DiscordValues.DEV_DISCORD_ID}>`}`, iconURL: dev?.displayAvatarURL()},
-                        {text: `Faites la commande /langage pour passer le bot en anglais !`},
-                        {text: `Faites /veilleur pour avoir les notifications d'évènements infernaux`},
-                        {text: `Fun fact: je suis le meilleur bot du monde`},
-                    ],
-                    noLinkInDm: ":flag_fr: Bonjour, pour m'ajouter à votre serveur utilisez plutôt ce lien!",
-                    noCommandOffServer: ":flag_fr: Les commandes sont à réaliser sur un serveur !",
-                    defaultCommandReply: "Impossible d'exécuter la commande :confused:",
-                    CommandExecutionError: "Une erreur est survenue pendant l\'éxecution de la commande!",
-                },
-                permissions: {
-                    MissingPermissions: "Oups, il semblerait qu'il me manque les permissions suivantes:\n",
-                    flags: {
-                        AddReactions: "Ajouter des réactions",
-                        AttachFiles: "Joindre des fichiers",
-                        EmbedLinks: "Intégrer des liens",
-                        ManageRoles: "Gérer les rôles",
-                        ManageChannels: "Gérer les salons",
-                        UseExternalEmojis: "Utiliser des emojis externes",
-                    }
-                },
-                helpMention: {
-                    title: "Perdu?",
-                    description: "Pour obtenir la liste de mes commandes, faites **/aide**",
-                },
-                commands: {
-                    contact: {
-                        name: "contact",
-                        description: "Nous contacter (discord ou mail)",
-                        text: {
-                            content: [
-                                "Besoin d'aide sur le bot, de signaler un bug ou simplement discuter avec des joueurs de Lords Mobile? Voilà le lien du serveur :wink:\n",
-                                "\n\nPour contacter le développeur, vous pouvez également envoyer un mail à __**"
-                            ],
-                        },
-                    },
-                    compo: {
-                        name: "compo",
-                        description: "Obtenez les meilleurs compos pour la chasse aux monstres"
-                    },
-                },
-            },
-        
-            en: {
-                global: {
-                    welcomeMsg: `{english}`,
-                    tipsFooter: [
-                        {text: "{english}"},
-                        {text: "{english}"},
-                        {text: "{english}"},
-                        {text: "{english}"},
-                        {text: "{english}"},
-                    ],
-                    noLinkInDm: "{english}",
-                    noCommandOffServer: "{english}",
-                    CommandExecutionError: "{english}",
-                    defaultCommandReply: "{english}"
-                },
-                permissions: {
-                    MissingPermissions: "{english}",
-                    flags: {
-                        AddReactions: "{english}",
-                        AttachFiles: "{english}",
-                        EmbedLinks: "{english}",
-                        ManageRoles: "{english}",
-                        ManageChannels: "{english}",
-                        UseExternalEmojis: "{english}",
-                    }
-                },
-                helpMention: {
-                    title: "{english}",
-                    description: "{english}",
-                },
-                commands: {
-                    contact: {
-                        name: "contact",
-                        description: "{english}",
-                        text: {
-                            content: [
-                                "{english}",
-                                "{english}"
-                            ]
-                        },
-                    },
-                    compo: {
-                        name: "lineup",
-                        description: "{english}"
-                    },
-                },
-    
-            }
-        };
+    static getCommandText(command: string): CommandTranslation {
+        if (!Object.keys(TranslationsCache.fr.commands).includes(command))
+            Console.error("Traduction de commande introuvable");
 
-        return text[language];
+        let fr = TranslationsCache.fr.commands[command as keyof typeof TranslationsCache.fr.commands] as SingleLanguageCommandTranslation;
+        let en = TranslationsCache.en.commands[command as keyof typeof TranslationsCache.en.commands] as SingleLanguageCommandTranslation;
+
+        return { fr, en }
     }
 
-    static displayFullText() {
-        return {fr: this.displayText("fr"), en: this.displayText("en")}
-    }
+    static displayText(text: string, replacer: ReplacerList): string {
+        if (!text.includes('{')) return text;
 
-    static displayCommandText(command:string) {
-        let textFr = this.displayText("fr").commands;
-        if(!Object.keys(textFr).includes(command))
-            throw `Impossible de récupérer le texte de la commande ${command}`;
-
-        return {
-            fr: this.displayText("fr").commands[command as keyof typeof textFr],
-            en: this.displayText("en").commands[command as keyof typeof textFr],
+        for (let replacerElem of Object.keys(replacer)) {
+            console.log(`replace: ${replacerElem}`)
+            let split = text.split(`{${replacerElem}}`);
+            let replacement = replacer[replacerElem as keyof ReplacerList];
+            text = split.join(replacement);
         }
+
+        return text;
     }
 
-    static mobs = {
-        abeille: { fr: `Reine Abeille`, en: `Queen Bee` },
-        agivre: { fr: `Aile de Givre`, en: `Frostwing` },
-        anoires: { fr: `Ailes Noires`, en: `Blackwing` },
-        bete: { fr: `Bête des Neiges`, en: `Snow Beast` },
-        chaman: { fr: `Chaman Vaudou`, en: `Voodoo Shaman` },
-        cottrage: { fr: `Cott-rage`, en: `Cottageroar` },
-        drider: { fr: `Drider de l'Enfer`, en: `Hell Drider` },
-        epinator: { fr: `Epinator`, en: `Terrorthorn` },
-        faucheuse: { fr: `Faucheuse`, en: `Grim Reaper` },
-        flipper: { fr: `Flipper Arctique`, en: `Arctic Flipper` },
-        gargantua: { fr: `Gargantua`, en: `Gargantua` },
-        golem: { fr: `Golem Antique`, en: `Hardrox` },
-        gorzilla: { fr: `Gorzilla`, en: `Gawrilla` },
-        griffon: { fr: `Griffon`, en: `Gryphon` },
-        larve: { fr: `Méga-Larve`, en: `Mega Maggot` },
-        mecha: { fr: `Mecha-Troyen`, en: `Mecha Trojan` },
-        morfalange: { fr: `Morfalange`, en: `Bon Appeti` },
-        necrose: { fr: `Nécrose`, en: `Necrosis` },
-        noceros: { fr: `Nocéros`, en: `Noceros` },
-        sabrecroc: { fr: `Sabrecroc`, en: `Saberfang` },
-        serpent: { fr: `Gladiateur Serpent`, en: `Serpent Gladiator` },
-        serrulule: { fr: `Serrulule`, en: `Hootclaw` },
-        titan: { fr: `Titan des Marées`, en: `Tidal Titan` },
-        wyrm: { fr: `Wyrm de Jade`, en: `Jade Wyrm` },
+    static reviver = function (key: string, value: string) {
+        if (typeof value !== 'string') return value;
+        let text = value;
+        if (value.includes("{")) {
+            for (let variable of Object.keys(reviverVariables)) {
+                let replacement = reviverVariables[variable as keyof typeof reviverVariables]();
+                text = value.split(`{${variable}}`).join(replacement);
+            }
+        }
+
+        if (text == undefined)
+            text = 'Text not found';
+
+        return text;
+    }
+
+    static async getTranslationDeepKeys(text: Object): Promise<string[]> {
+        let keys: string[] = [];
+        for (const key of Object.keys(text)) {
+            keys.push(key);
+            if (typeof text[key as keyof Object] == 'object') {
+                const subKeys = await this.getTranslationDeepKeys(text[key as keyof Object] as Object)
+                keys = keys.concat(subKeys.map(function (subKeys) {
+                    return `${key}.${subKeys}`;
+                }));
+            }
+        }
+        return keys;
+    }
+
+    static async checkMissingTranslation(fr: TranslationObject, en: TranslationObject) {
+        let frKeys = await this.getTranslationDeepKeys(fr);
+        let enKeys = await this.getTranslationDeepKeys(en);
+
+        const enDiff = frKeys.filter(key => enKeys.indexOf(key) === -1);
+        const frDiff = enKeys.filter(key => frKeys.indexOf(key) === -1);
+        
+        for (const diff of enDiff) {
+			Console.info(`"${diff}" n'est pas présent dans la traduction anglaise`);
+		}
+		for (const diff of frDiff) {
+			Console.info(`"${diff}" n'est pas présent dans la traduction française`);
+		}
+
+        if(frDiff.length == 0 && enDiff.length == 0)
+            return Console.log("Traductions entières");
+
+        throw "Traductions manquantes, arrêt du bot"
+    }
+}
+
+
+const reviverVariables = {
+    dev_username: function () {
+        let value = dev?.username || `<@${DiscordValues.DEV_DISCORD_ID}>`;
+        return value;
+    },
+
+    dev_avatar_url: function () {
+        let value = dev?.displayAvatarURL() || dev?.defaultAvatarURL
+        return value;
+    },
+
+    support_server_invite: function () {
+        return DiscordValues.MAIN_GUILD_INVITE;
+    },
+
+    bot_invite: function () {
+        return Utils.displayBotLink();
+    },
+
+    support_email: function () {
+        return DiscordValues.BOT_EMAIL_CONTACT;
     }
 }

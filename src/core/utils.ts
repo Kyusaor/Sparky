@@ -1,10 +1,9 @@
 import consoleStamp from "console-stamp";
 import { ActivityType, Client, EmbedBuilder, EmbedFooterData, TextChannel } from "discord.js";
 import { createWriteStream, existsSync, mkdirSync, readFileSync } from "fs";
-import { bot, chanList, Console } from "../main.js";
+import { bot, chanList, Console, TranslationsCache } from "../main.js";
 import { fetchedChannelsAtBoot, textLanguage } from "./constants/types.js";
 import { DiscordValues } from "./constants/values.js";
-import { Translations } from "./constants/translations.js";
 
 export abstract class Utils {
 
@@ -13,7 +12,7 @@ export abstract class Utils {
     }
 
     static async EmbedBaseBuilder(language: textLanguage):Promise<EmbedBuilder> {
-        let translation = await Translations.displayText(language);
+        let translation = TranslationsCache[language];
         let rdmFooter:EmbedFooterData = translation.global.tipsFooter[Math.floor(Math.random() * translation.global.tipsFooter.length)]
 
         let embed = new EmbedBuilder()
@@ -40,13 +39,6 @@ export abstract class Utils {
 
         return list;
 
-    };
-
-    static getLanguageTexts(language: textLanguage) {
-        let text = JSON.parse(readFileSync(`./dist/core/constants/text/${language}.json`, 'utf-8'));
-        if(!text)
-            throw `Impossible de récupérer le fichier langue: ${language}`
-        return text;
     };
 
     static format2DigitsNumber(num: number): string {

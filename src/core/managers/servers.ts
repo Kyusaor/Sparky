@@ -1,8 +1,7 @@
 import { Guild, User } from "discord.js";
-import { Console, bot, chanList, db } from "../../main.js";
+import { Console, TranslationsCache, bot, chanList, db } from "../../main.js";
 import { PartialServer, Server } from "../constants/types.js";
 import { Utils } from "../utils.js";
-import { Translations } from "../constants/translations.js";
 import { DiscordValues } from "../constants/values.js";
 
 export class ServerManager {
@@ -86,9 +85,9 @@ export class ServerManager {
     async sendDmToServerOwner(owner: User): Promise<void> {
         let embed = (await Utils.EmbedBaseBuilder("fr"))
             .setTitle(`:flag_fr: Bonjour ${owner.username} !`)
-            .setDescription(Translations.displayText("fr").global.welcomeMsg)
+            .setDescription(TranslationsCache.fr.global.welcomeMsg)
             .addFields([
-                {name: `:flag_gb: Hello ${owner.username} !`, value: Translations.displayText("en").global.welcomeMsg}
+                {name: `:flag_gb: Hello ${owner.username} !`, value: TranslationsCache.en.global.welcomeMsg}
             ])
             .setThumbnail(DiscordValues.botIcon.base)
 

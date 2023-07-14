@@ -1,14 +1,20 @@
 import { ChatInputCommandInteraction, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, SlashCommandBuilder, TextChannel } from "discord.js";
-import { Console, bot, botCommands, db } from "../../main.js";
+import { Console, TranslationsCache, bot, botCommands, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
-import {  CommandArgs, CommandInterface } from "../constants/types.js";
-import { readdirSync } from "fs";
-import { ServerManager } from "./servers.js";
+import {  CommandArgs, CommandInterface, TranslationCacheType } from "../constants/types.js";
+import { readFileSync, readdirSync } from "fs";
 
 export abstract class CommandManager {
 
     static baseSlashCommandBuilder(name: string, perm: "member" | "admin" | "dev"): SlashCommandBuilder {
-        let defaultText = [Translations.displayText("fr").commands, Translations.displayText("en").commands];
+        let translations:TranslationCacheType = TranslationsCache;
+        if(translations == undefined){
+            const frJSON = JSON.parse(readFileSync(`./ressources/text/fr.json`, 'utf-8'), Translations.reviver);
+            const enJSON = JSON.parse(readFileSync(`./ressources/text/en.json`, 'utf-8'), Translations.reviver);
+
+            translations = { fr: frJSON, en: enJSON };
+        }
+        let defaultText = [translations.fr.commands, translations.en.commands];
         let text = {
             fr: defaultText[0][name as keyof typeof defaultText[0]],
             en: defaultText[1][name as keyof typeof defaultText[1]],
@@ -48,22 +54,22 @@ export abstract class CommandManager {
 
     static async slashCommandManager(intera: ChatInputCommandInteraction) {
         if (!intera.guildId && !['link', 'help'].includes(intera.commandName))
-            return intera.reply(`${Translations.displayText("fr").global.noCommandOffServer}\n\n${Translations.displayText("en").global.noCommandOffServer}`);
+            return intera.reply(`${TranslationsCache.fr.global.noCommandOffServer}\n\n${TranslationsCache.en.global.noCommandOffServer}`);
 
         if (intera.guild && !await db.checkIfServerIsPresent(intera.guild))
             await db.createServer(intera.guild.id, intera.guild.name);
 
-        let translation = await Translations.getServerTranslation(intera.guildId);
+        let language = await Translations.getServerLanguage(intera.guildId);
 
         let command = botCommands.find(com => com.commandStructure.name == intera.commandName);
         if (!command) {
-            intera.reply({ content: translation.text.global.CommandExecutionError, ephemeral: true });
+            intera.reply({ content: TranslationsCache[language].global.CommandExecutionError, ephemeral: true });
             return Console.info(`Impossible de récupérer la commande ${intera.commandName}`);
         }
 
         let args: CommandArgs = {
             intera,
-            translation
+            language
         };
 
         try {
@@ -71,7 +77,7 @@ export abstract class CommandManager {
         }
         catch (err) {
             intera.deleteReply().catch(e => e);
-            Command.prototype.reply(translation.text.global.CommandExecutionError, intera);
+            Command.prototype.reply(TranslationsCache[language].global.CommandExecutionError, intera);
             Console.error(err);
         }
     };
@@ -115,7 +121,7 @@ async function checkReplyPermissions(data: string | MessagePayload | Interaction
     }
     if(missingPermissions.length > 0) {
         let language = await db.returnServerLanguage(intera.guild!.id);
-        let translation = Translations.displayText(language).permissions;
+        let translation = TranslationsCache[language].permissions;
         let missingPermErrorReply:string = translation.MissingPermissions;
         for(let permission of missingPermissions) {
             missingPermErrorReply += translation.flags[permission as keyof typeof translation.flags]
