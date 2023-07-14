@@ -5,7 +5,7 @@
   "type": "module",
   "main": "main.js",
   "scripts": {
-    "test": "node dist/src/main",
+    "test": "node --no-warnings dist/src/main",
     "build": "tsc -w",
     "deploy": "node dist/src/deploy"
   },
