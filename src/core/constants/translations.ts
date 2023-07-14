@@ -51,8 +51,10 @@ export class Translations {
         let text = value;
         if (value.includes("{")) {
             for (let variable of Object.keys(reviverVariables)) {
+                if(!value.includes(`{${variable}}`))
+                    continue;
                 let replacement = reviverVariables[variable as keyof typeof reviverVariables]();
-                text = value.split(`{${variable}}`).join(replacement);
+                text = text.split(`{${variable}}`).join(replacement);
             }
         }
 
