@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, SlashCommandBuilder, TextChannel } from "discord.js";
+import { ChannelType, ChatInputCommandInteraction, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, SlashCommandBuilder, TextChannel } from "discord.js";
 import { Console, TranslationsCache, bot, botCommands, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
 import {  CommandArgs, CommandInterface, TranslationCacheType } from "../constants/types.js";
@@ -74,6 +74,7 @@ export abstract class CommandManager {
 
         try {
             command.run(args);
+            Console.log(userCommandLogString(intera));
         }
         catch (err) {
             intera.deleteReply().catch(e => e);
@@ -128,4 +129,13 @@ async function checkReplyPermissions(data: string | MessagePayload | Interaction
         }
         data = missingPermErrorReply;
     }
+}
+
+function userCommandLogString(intera: ChatInputCommandInteraction):string {
+    let baseText = `${intera.user.username} (${intera.user.id}) a executé la commande ${intera.commandName} `;
+    let chanText:string = "";
+    intera.channel!.type == ChannelType.GuildText ?
+        chanText = `sur le salon ${intera.channel?.name} (${intera.channel?.id}), serveur ${intera.guild?.name} (${intera.guild?.id})` :
+        chanText = ` en mp`;
+    return baseText + chanText
 }
