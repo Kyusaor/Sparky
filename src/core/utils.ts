@@ -8,6 +8,14 @@ import { Translations } from "./constants/translations.js";
 
 export abstract class Utils {
 
+    static daySince(date: Date | number) {
+        if(date instanceof Date)
+            date = date.getTime();
+        let mtn = Date.now();
+        let ecart = Math.floor((mtn - date) / 86400000);
+        return ecart    
+    }
+
     static displayBotLink():string {
         return `https://discord.com/api/oauth2/authorize?client_id=${bot.user?.id}&permissions=${DiscordValues.BOT_PERMISSIONS_BITFIELD}&scope=bot%20applications.commands`
     }
@@ -72,6 +80,21 @@ export abstract class Utils {
             this.statusLoop(bot)
         }, 20000);
     };
+
+    static stringifyDate(date:number | Date):string {
+        if(typeof date == 'number')
+            date = new Date(date);
+
+            let day = this.format2DigitsNumber(date.getDate());
+            let month = this.format2DigitsNumber(date.getMonth() + 1);
+            let year = date.getFullYear();
+    
+            let hour = this.format2DigitsNumber(date.getHours());
+            let minute = this.format2DigitsNumber(date.getMinutes());
+            let daysSince = this.daySince(date);
+    
+            return day + "/" + month + "/" + year + " à " + hour + ":" + minute + " (il y a " + daysSince + " jours)"    
+    }
 
 }
 
