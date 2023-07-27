@@ -8,7 +8,7 @@
             {"text": "Faites /veilleur pour avoir les notifications d'évènements infernaux"},
             {"text": "Fun fact: je suis le meilleur bot du monde"}
         ],
-        "noLinkInDm": ":flag_fr: Bonjour, pour m'ajouter à votre serveur utilisez plutôt ce lien! \n{bot_invite}",
+        "noLinkInDm": ":flag_fr: Bonjour, pour m'ajouter à votre serveur utilisez plutôt ce lien!",
         "noCommandOffServer": ":flag_fr: Les commandes sont à réaliser sur un serveur !",
         "CommandExecutionError": "Une erreur est survenue pendant l'éxecution de la commande!",
         "defaultCommandReply": "Impossible d'exécuter la commande :confused:"
@@ -39,7 +39,27 @@
         "compo": {
             "name": "compo",
             "description": "Obtenez les meilleurs compos pour la chasse aux monstres",
-            "text": {}
+            "text": {},
+            "options": {
+                "monster": {
+                    "name": "monstre",
+                    "description": "Le monstre dont vous voulez la compo"
+                }
+            }
+        },
+        "info": {
+            "name": "info",
+            "description": "Obtenez des infos sur un utilisateur discord, le serveur ou le bot",
+            "subcommand": {
+                "user": { 
+                    "name": "utilisateur", 
+                    "description": "Obtenez des infos sur un compte discord", 
+                    "options": { 
+                        "name": "utilisateur", 
+                        "description": "Le compte discord dont vous voulez les informations"
+                        } 
+                    }
+            }
         }
     },
     "mobs": {

@@ -39,7 +39,27 @@
         "compo": {
             "name": "lineup",
             "description": "english",
-            "text": {}
+            "text": {},
+            "options": {
+                "monster": {
+                    "name": "monster",
+                    "description": "english"
+                }
+            }
+        },
+        "info": {
+            "name": "info",
+            "description": "english",
+            "subcommand": {
+                "user": {
+                    "name": "user", 
+                    "description": "english", 
+                    "options": {
+                        "name": "user", 
+                        "description": "english"
+                    } 
+                }
+            }
         }
     },
     "mobs": {
