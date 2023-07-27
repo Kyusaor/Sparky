@@ -1,17 +1,15 @@
-import { APIApplicationCommandOptionChoice } from "discord.js";
+import { APIApplicationCommandOptionChoice, SlashCommandStringOption } from "discord.js";
 import { CommandInterface, TranslationCacheType, TranslationObject } from "../constants/types.js";
 import { Command, CommandManager } from "../managers/commands.js";
 import { existsSync, readFileSync } from "fs";
-import { Translations } from "../constants/translations.js";
 
 export const compo:CommandInterface = {
 
     permissionLevel: 1,
 
     commandStructure: CommandManager.baseSlashCommandBuilder("compo", "member")
-        .addStringOption(monster =>
-            monster.setName(`monster`)
-                .setDescription('The monster you want the lineup for')
+        .addStringOption(
+            (Command.generateCommandOptionBuilder("compo", "monster", "string") as SlashCommandStringOption)
                 .setRequired(true)
                 .addChoices(...getMobsChoicesList())
         ),
@@ -25,8 +23,8 @@ export const compo:CommandInterface = {
 }
 
 function getMobsChoicesList():APIApplicationCommandOptionChoice<string>[] {
-    const frJSON:TranslationObject = JSON.parse(readFileSync(`./ressources/text/fr.json`, 'utf-8'), Translations.reviver);
-    const enJSON:TranslationObject = JSON.parse(readFileSync(`./ressources/text/en.json`, 'utf-8'), Translations.reviver);
+    const frJSON:TranslationObject = JSON.parse(readFileSync(`./ressources/text/fr.json`, 'utf-8'));
+    const enJSON:TranslationObject = JSON.parse(readFileSync(`./ressources/text/en.json`, 'utf-8'));
     let translations:TranslationCacheType = { fr: frJSON, en: enJSON };
 
     let list = []

@@ -1,19 +1,18 @@
-import { ChannelType, ChatInputCommandInteraction, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, SlashCommandBuilder, SlashCommandSubcommandsOnlyBuilder, TextChannel } from "discord.js";
+import { ChannelType, ChatInputCommandInteraction, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, SlashCommandBuilder, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextChannel } from "discord.js";
 import { Console, TranslationsCache, bot, botCommands, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
 import {  CommandArgs, CommandInterface, SingleLanguageCommandTranslation, TranslationCacheType, textLanguage } from "../constants/types.js";
 import { readFileSync, readdirSync } from "fs";
+//import { DeployTranslationCache } from "../../deploy.js";
 
 export abstract class CommandManager {
 
     static baseSlashCommandBuilder(name: string, perm: "member" | "admin" | "dev"): SlashCommandBuilder {
-        let translations:TranslationCacheType = TranslationsCache;
-        if(translations == undefined){
-            const frJSON = JSON.parse(readFileSync(`./ressources/text/fr.json`, 'utf-8'), Translations.reviver);
-            const enJSON = JSON.parse(readFileSync(`./ressources/text/en.json`, 'utf-8'), Translations.reviver);
+        const frJSON = JSON.parse(readFileSync(`./ressources/text/fr.json`, 'utf-8'));
+        const enJSON = JSON.parse(readFileSync(`./ressources/text/en.json`, 'utf-8'));
 
-            translations = { fr: frJSON, en: enJSON };
-        }
+        let translations:TranslationCacheType = { fr: frJSON, en: enJSON };
+
         let defaultText = [translations.fr.commands, translations.en.commands];
         let text = {
             fr: defaultText[0][name as keyof typeof defaultText[0]],
@@ -108,16 +107,73 @@ export class Command implements CommandInterface {
         }
     };
 
-    static getSubcommandTranslations(command: string, subcommand: string, type: "name" | "description") {
+    static generateSubcommandBuilder(command:string, name: string): SlashCommandSubcommandBuilder {
         if(!Object.keys(TranslationsCache.fr.commands).includes(command))
             throw "Erreur: infos de localisation indisponibles (commande introuvable)"
 
+        let sub = new SlashCommandSubcommandBuilder;
+        sub.setName(name)
+            .setNameLocalizations(this.getSubcommandTranslations(command, name, "name", "sub"))
+            .setDescription(this.getSubcommandTranslations(command, name, "description", "sub")['en-US'])
+            .setDescriptionLocalizations(this.getSubcommandTranslations(command, name, "description", "sub"))
+
+        return sub
+    }
+
+    static generateCommandOptionBuilder(command:string, name: string, option:"user" | "number" | "string", isSubOption?: true | undefined) {
+        if(!Object.keys(TranslationsCache.fr.commands).includes(command))
+            throw "Erreur: infos de localisation indisponibles (commande introuvable)"
+
+        let sub;
+        switch(option) {
+            case 'string':
+                sub = new SlashCommandStringOption();
+                break;
+
+            case 'number':
+                sub = new SlashCommandNumberOption();
+                break;
+
+            case 'user':
+                sub = new SlashCommandUserOption();
+                break;
+
+            default:
+                throw "Type de subcommande non reconnu";
+        }
+
+        sub.setName(name)
+            .setNameLocalizations(this.getSubcommandTranslations(command, name, "name", (isSubOption ? "sub-option" : "option")))
+            .setDescription(this.getSubcommandTranslations(command, name, "description", (isSubOption ? "sub-option" : "option"))['en-US'])
+            .setDescriptionLocalizations(this.getSubcommandTranslations(command, name, "description", (isSubOption ? "sub-option" : "option")))
+
+        return sub
+    };
+
+    static getSubcommandTranslations(command: string, subcommand: string, type: "name" | "description", optionType: "sub" | "option" | "sub-option"):Record<string, string> {
+
         let data:Record<string, string> = {};
-        for(let language of Object.keys(TranslationsCache)) {
+        for(let lang of Object.keys(TranslationsCache)) {
+            let language = lang;
             if(language == 'en')
-                continue;
-            let translationData:SingleLanguageCommandTranslation = TranslationsCache[language as textLanguage].commands[command as keyof typeof TranslationsCache.fr.commands];
-            data[language] = translationData.subcommand![subcommand as keyof typeof translationData.subcommand][type]
+                language = 'en-US';
+            let translationData:SingleLanguageCommandTranslation = TranslationsCache[lang as textLanguage].commands[command as keyof typeof TranslationsCache.fr.commands];
+            switch(optionType) {
+                case 'option':
+                    data[language] = translationData.options![subcommand as keyof typeof translationData.subcommand][type]
+                    break;
+
+                case 'sub':
+                    data[language] = translationData.subcommand![subcommand as keyof typeof translationData.subcommand][type]
+                    break;
+
+                case 'sub-option':
+                    data[language] = translationData.subcommand![subcommand as keyof typeof translationData.subcommand].options![type];
+                    break;
+
+                default:
+                    break;
+            }
         }
         return data;
     }
