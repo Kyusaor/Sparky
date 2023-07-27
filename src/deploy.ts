@@ -3,11 +3,11 @@ import { readdirSync } from "fs";
 import yesno from "yesno";
 import { Config } from "../data/config.js";
 import { DiscordValues } from "./core/constants/values.js";
-import { Console, bot } from "./main.js";
+import { bot } from "./main.js";
 
 let globalCommands:RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
 let devCommands:RESTPostAPIChatInputApplicationCommandsJSONBody[] = [];
-let commandsFiles = readdirSync('./src/core/commands/')
+let commandsFiles = readdirSync('./src/core/commands/');
 
 for(const file of commandsFiles){
     const commandName = file.slice(0, -3);
@@ -15,7 +15,7 @@ for(const file of commandsFiles){
     command.permissionLevel == 3 ?
         devCommands.push(command[commandName].commandStructure.toJSON()) :
         globalCommands.push(command[commandName].commandStructure.toJSON())
-}
+    }
 
 const rest = new REST({version: '10'}).setToken(Config.CURRENT_TOKEN);
 
@@ -34,7 +34,7 @@ if(todo) {
 			{ body: devCommands },
 		) as RestOrArray<SlashCommandBuilder>;
 
-		Console.log(`${dataGuild.length} commandes dev rechargées avec succès`);
+		console.log(`${dataGuild.length} commandes dev rechargées avec succès`);
 
 
         const dataGlobal = await rest.put(
@@ -42,11 +42,11 @@ if(todo) {
 			{ body: globalCommands },
 		) as RestOrArray<SlashCommandBuilder>;
 
-		Console.log(`${dataGlobal.length} commandes globales rechargées avec succès`);
+		console.log(`${dataGlobal.length} commandes globales rechargées avec succès`);
 
     } 
     catch (e) {
-        Console.error("erreur de déploiement:\n" + e)
+        console.error("erreur de déploiement:\n" + e)
     }
 }
 
@@ -75,6 +75,6 @@ else {
         console.log(`${promises.length} commandes supprimées avec succès`);
     }
     catch (e) {
-        Console.error("erreur de déploiement:\n" + e)
+        console.error("erreur de déploiement:\n" + e)
     }
 }
