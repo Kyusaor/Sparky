@@ -51,7 +51,9 @@ export type ReplacerList = {
     username?: string, 
     avatar?: string, 
     dev_username?: string, 
-    dev_avatar_url?: string 
+    dev_avatar_url?: string,
+    support_email?: string,
+    support_server_invite?: string
 }
 
 
