@@ -10,9 +10,19 @@ export type fetchedChannelsAtBoot = {
 
 export type queryArgs = string | number | boolean | null | queryArgs[] | undefined;
 
-export type Server = { id: string, name: string, active: 0 | 1, language: textLanguage };
+export type Server = { 
+    id: string, 
+    name: string, 
+    active: 0 | 1, 
+    language: textLanguage 
+};
 
-export type PartialServer = { id?: string, name?: string, active?: 0 | 1, language?: textLanguage };
+export type PartialServer = { 
+    id?: string, 
+    name?: string, 
+    active?: 0 | 1, 
+    language?: textLanguage 
+};
 
 
 //Translations
@@ -23,20 +33,33 @@ export interface TranslationCacheType {
     en: TranslationObject;
 }
 
-export type SingleLanguageCommandTranslation = { name: string, description: string, subcommand?: Record<string, { name:string, description: string }>, text?: Record<any, string[] | string> };
+export type SingleLanguageCommandTranslation = { 
+    name: string, 
+    description: string, 
+    options?:Record<string, CommandOptionData>, 
+    subcommand?: Record<string, { name: string, description: string, options?: CommandOptionData }>, 
+    text?: Record<any, string[] | string> 
+};
+
+export type CommandOptionData = { name: string, description: string }
 
 export type CommandTranslation = { fr: SingleLanguageCommandTranslation, en: SingleLanguageCommandTranslation };
 
 export type TranslationObject = typeof frTranslationJSON;
 
-export type ReplacerList = { username?: string, avatar?: string }
+export type ReplacerList = { 
+    username?: string, 
+    avatar?: string, 
+    dev_username?: string, 
+    dev_avatar_url?: string 
+}
 
 
 //Commands
 export type CommandArgs = { intera: ChatInputCommandInteraction, language: textLanguage };
 
 export interface CommandInterface {
-    permissionLevel:1 | 2 | 3;
-    commandStructure:SlashCommandSubcommandsOnlyBuilder | SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
+    permissionLevel: 1 | 2 | 3;
+    commandStructure: SlashCommandSubcommandsOnlyBuilder | SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
     run: (args: CommandArgs) => Promise<void>
 };
