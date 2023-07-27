@@ -1,9 +1,10 @@
 import consoleStamp from "console-stamp";
 import { ActivityType, Client, EmbedBuilder, EmbedFooterData, TextChannel } from "discord.js";
 import { createWriteStream, existsSync, mkdirSync, readFileSync } from "fs";
-import { bot, chanList, Console, TranslationsCache } from "../main.js";
+import { bot, chanList, Console, dev, TranslationsCache } from "../main.js";
 import { fetchedChannelsAtBoot, textLanguage } from "./constants/types.js";
 import { DiscordValues } from "./constants/values.js";
+import { Translations } from "./constants/translations.js";
 
 export abstract class Utils {
 
@@ -13,7 +14,13 @@ export abstract class Utils {
 
     static async EmbedBaseBuilder(language: textLanguage):Promise<EmbedBuilder> {
         let translation = TranslationsCache[language];
-        let rdmFooter:EmbedFooterData = translation.global.tipsFooter[Math.floor(Math.random() * translation.global.tipsFooter.length)]
+        let rdmNumber = Math.floor(Math.random() * translation.global.tipsFooter.length)
+        let rdmFooter:EmbedFooterData = translation.global.tipsFooter[rdmNumber];
+        if(rdmNumber == 1)
+            rdmFooter = {
+                text: Translations.displayText(rdmFooter.text, { dev_username: dev.username }),
+                iconURL: Translations.displayText(rdmFooter.iconURL!, { dev_avatar_url: dev.displayAvatarURL() })
+            }
 
         let embed = new EmbedBuilder()
             .setColor(DiscordValues.embedColor)

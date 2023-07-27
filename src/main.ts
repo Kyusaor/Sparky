@@ -18,13 +18,13 @@ cron.schedule('0 0 * * *', () => {
     Console = new ConsoleLogger();
     Console.log("Refresh des logs effectué avec succès")
 });
+let TranslationsCache: TranslationCacheType = await Translations.generateTranslationsCache();
 
 bot.login(Config.CURRENT_TOKEN);
 let botCommands: Command[];
 let chanList: fetchedChannelsAtBoot;
 let dev: User;
 let db: DBManager;
-let TranslationsCache: TranslationCacheType;
 
 
 //Executed when the bot starts
@@ -35,7 +35,6 @@ bot.on('ready', async () => {
         dev = await bot.users.fetch(DiscordValues.DEV_DISCORD_ID);
         if (!dev)
             Console.error("Compte discord dev introuvable", true);
-        TranslationsCache = await Translations.generateTranslationsCache();
         Console.log(`\n\n             SPARKY\n\nBot discord Lords Mobile français\nDéveloppé par Kyusaki\n\nVersion: ${VERSION}\nClient: ${bot.user?.username}\nConsole:`);
         db = new DBManager(Config.DBConfig);
         botCommands = await CommandManager.buildBotCommands();

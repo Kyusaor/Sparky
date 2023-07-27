@@ -1,15 +1,14 @@
-import { Console, TranslationsCache, db, dev } from "../../main.js";
+import { Console, TranslationsCache, db } from "../../main.js";
 import { CommandTranslation, ReplacerList, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, textLanguage } from "./types.js";
 import { readFileSync } from 'fs';
 import { DiscordValues } from "./values.js";
-import { Utils } from "../utils.js";
 
 
 export class Translations {
 
     static async generateTranslationsCache(): Promise<TranslationCacheType> {
-        const frJSON = JSON.parse(readFileSync(`./ressources/text/fr.json`, 'utf-8'), this.reviver);
-        const enJSON = JSON.parse(readFileSync(`./ressources/text/en.json`, 'utf-8'), this.reviver);
+        const frJSON = JSON.parse(readFileSync(`./ressources/text/fr.json`, 'utf-8'));
+        const enJSON = JSON.parse(readFileSync(`./ressources/text/en.json`, 'utf-8'));
 
         await this.checkMissingTranslation(frJSON, enJSON);
 
@@ -37,29 +36,10 @@ export class Translations {
         if (!text.includes('{')) return text;
 
         for (let replacerElem of Object.keys(replacer)) {
-            console.log(`replace: ${replacerElem}`)
             let split = text.split(`{${replacerElem}}`);
             let replacement = replacer[replacerElem as keyof ReplacerList];
             text = split.join(replacement);
         }
-
-        return text;
-    }
-
-    static reviver = function (key: string, value: string) {
-        if (typeof value !== 'string') return value;
-        let text = value;
-        if (value.includes("{")) {
-            for (let variable of Object.keys(reviverVariables)) {
-                if(!value.includes(`{${variable}}`))
-                    continue;
-                let replacement = reviverVariables[variable as keyof typeof reviverVariables]();
-                text = text.split(`{${variable}}`).join(replacement);
-            }
-        }
-
-        if (text == undefined)
-            text = 'Text not found';
 
         return text;
     }
@@ -96,30 +76,5 @@ export class Translations {
             return Console.log("Traductions entières");
 
         throw "Traductions manquantes, arrêt du bot"
-    }
-}
-
-
-const reviverVariables = {
-    dev_username: function () {
-        let value = dev?.username || `<@${DiscordValues.DEV_DISCORD_ID}>`;
-        return value;
-    },
-
-    dev_avatar_url: function () {
-        let value = dev?.displayAvatarURL() || dev?.defaultAvatarURL
-        return value;
-    },
-
-    support_server_invite: function () {
-        return DiscordValues.MAIN_GUILD_INVITE;
-    },
-
-    bot_invite: function () {
-        return Utils.displayBotLink();
-    },
-
-    support_email: function () {
-        return DiscordValues.BOT_EMAIL_CONTACT;
     }
 }
