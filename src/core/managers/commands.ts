@@ -72,7 +72,7 @@ export abstract class CommandManager {
         };
 
         try {
-            command.run(args);
+            await command.run(args);
             Console.log(userCommandLogString(intera));
         }
         catch (err) {
