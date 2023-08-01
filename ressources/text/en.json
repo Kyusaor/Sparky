@@ -61,6 +61,10 @@
                         "name": "user", 
                         "description": "english"
                     } 
+                },
+                "bot": {
+                    "name": "bot",
+                    "description": "english"
                 }
             },
             "text": {
@@ -75,7 +79,11 @@
                 "nicknameField": "english",
                 "joinDateField": "english",
                 "rolesField": "english",
-                "isPresentField": "english"
+                "guildCountField": "english",
+                "idField": "english",
+                "versionField": "english",
+                "isPresentField": "english",
+                "botInviteField": "english"
             }
         }
     },

@@ -1,9 +1,10 @@
-import { ColorResolvable, EmbedBuilder, EmbedFooterOptions, GuildMember, SlashCommandUserOption, User } from "discord.js";
+import { ColorResolvable, EmbedBuilder, EmbedFooterOptions, GuildMember, SlashCommandUserOption, User, embedLength } from "discord.js";
 import { CommandInterface } from "../constants/types";
 import { CommandManager, Command } from "../managers/commands.js";
-import { Console, TranslationsCache } from "../../main.js";
+import { Console, TranslationsCache, bot } from "../../main.js";
 import { Utils } from "../utils.js";
 import { Translations } from "../constants/translations.js";
+import { readFileSync } from "fs";
 
 export const info:CommandInterface = {
     permissionLevel: 1,
@@ -14,6 +15,9 @@ export const info:CommandInterface = {
             .addUserOption(
                 Command.generateCommandOptionBuilder("info", "user", "user", true) as SlashCommandUserOption
             )
+        )
+        .addSubcommand(
+            Command.generateSubcommandBuilder("info", "bot")
         ),
 
     async run(args) {
@@ -27,7 +31,7 @@ export const info:CommandInterface = {
                 let user:User = args.intera.options.getUser('user') || args.intera.user;
                 if(!user)
                     return Console.log(`Impossible de récupérer l'utilisateur`);
-                let embed = new EmbedBuilder();
+                let userEmbed = new EmbedBuilder();
 
                 //Fetching data
                 let username:string = user.username;
@@ -42,14 +46,13 @@ export const info:CommandInterface = {
                 let bannerColor:ColorResolvable = user.hexAccentColor || [13, 84, 236];
                 let footer:EmbedFooterOptions = { text: `ID: ${user.id}`}
                 
-                embed
+                userEmbed
                     .setTitle(globalUsername)
                     .setColor(bannerColor)
                     .setFooter(footer)
                     .setThumbnail(pdp)
                     .addFields([
                         { name: `__${text.usernameField}__:`, value: username, inline: true },
-                        //{ name: `__${text.globalUsernameField}__:`, value: globalUsername, inline: true },
                         { name: `__${text.profileTypeField}__:`, value: profileType, inline: true },
                         { name: `__${text.accountCreationDateField}__:`, value: accountCreationDate, inline: true }
                     ])
@@ -62,7 +65,7 @@ export const info:CommandInterface = {
                     let joinDate:string = Utils.stringifyDate(member.joinedAt!, args.language);
                     let roles:string = member.roles.cache.map(r => r.name).slice(0, -1).join(", ");
     
-                    embed
+                    userEmbed
                         .addFields([
                             { name: `__${text.isPresentField}__:`, value: TranslationsCache[args.language].global.yes},
                             { name: `__${text.nicknameField}__:`, value: nickname, inline: true },
@@ -72,14 +75,37 @@ export const info:CommandInterface = {
                 }
                 
                 catch {
-                    embed.addFields([{ name: `__${text.isPresentField}__:`, value: TranslationsCache[args.language].global.no}])
+                    userEmbed.addFields([{ name: `__${text.isPresentField}__:`, value: TranslationsCache[args.language].global.no}])
                  }
 
-                Command.prototype.reply({embeds: [embed]}, args.intera);
+                Command.prototype.reply({embeds: [userEmbed]}, args.intera);
 
                 break;
 
             case 'bot':
+                let botUser:User = bot.user!;
+                let botMember:GuildMember = await args.intera.guild?.members.fetch(botUser)!;
+                
+                let botPdp:string = botUser.displayAvatarURL();
+                let botData:Record<string, string> = {
+                    usernameField: botUser.username,
+                    nicknameField: botMember.nickname || text.noNickname,
+                    idField: botUser.id,
+                    accountCreationDateField: Utils.stringifyDate(botUser.createdTimestamp, args.language),
+                    joinDateField: Utils.stringifyDate(botMember.joinedAt!, args.language),
+                    guildCountField: bot.guilds.cache.size.toString(),
+                    versionField: JSON.parse(readFileSync('./package.json', 'utf-8')).version,
+                    botInviteField: Utils.displayBotLink()
+                };
+
+                let botEmbed:EmbedBuilder = Utils.EmbedBaseBuilder(args.language)
+                    .setThumbnail(botPdp)
+                
+                for(let field of Object.keys(botData)) {
+                    botEmbed.addFields([{ name: text[field], value: botData[field as keyof typeof botData]}])
+                }
+
+                Command.prototype.reply({embeds: [botEmbed]}, args.intera);
                 break;
 
             case 'server':

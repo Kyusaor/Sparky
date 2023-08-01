@@ -61,7 +61,11 @@
                         "name": "utilisateur", 
                         "description": "Le compte discord dont vous voulez les informations"
                         } 
-                    }
+                },
+                "bot": {
+                    "name": "bot",
+                    "description": "Obtenez des infos sur le bot"
+                }
             },
             "text": {
                 "bot": "Bot",
@@ -75,7 +79,11 @@
                 "nicknameField": "Surnom",
                 "joinDateField": "Date d'arrivée sur le serveur",
                 "rolesField": "Rôles",
-                "isPresentField": "Membre du serveur"
+                "guildCountField": "Nombre de serveurs",
+                "idField": "Id",
+                "versionField": "Version du bot",
+                "isPresentField": "Membre du serveur",
+                "botInviteField": "Lien d'invitation"
             }
         }
     },
