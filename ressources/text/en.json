@@ -11,7 +11,8 @@
         "noLinkInDm": "english",
         "noCommandOffServer": "english",
         "CommandExecutionError": "english",
-        "defaultCommandReply": "english"
+        "defaultCommandReply": "english",
+        "stringifyDate": "<t:{timestamp}> ({daysSince} days ago)"
     },
     "permissions": {
         "MissingPermissions": "english",

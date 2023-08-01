@@ -11,7 +11,8 @@
         "noLinkInDm": ":flag_fr: Bonjour, pour m'ajouter à votre serveur utilisez plutôt ce lien!",
         "noCommandOffServer": ":flag_fr: Les commandes sont à réaliser sur un serveur !",
         "CommandExecutionError": "Une erreur est survenue pendant l'éxecution de la commande!",
-        "defaultCommandReply": "Impossible d'exécuter la commande :confused:"
+        "defaultCommandReply": "Impossible d'exécuter la commande :confused:",
+        "stringifyDate": "<t:{timestamp}> (il y a {daysSince} jours)"
     },
     "permissions": {
         "MissingPermissions": "Oups, il semblerait qu'il me manque les permissions suivantes:\n",
