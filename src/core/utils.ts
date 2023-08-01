@@ -81,19 +81,13 @@ export abstract class Utils {
         }, 20000);
     };
 
-    static stringifyDate(date:number | Date):string {
-        if(typeof date == 'number')
-            date = new Date(date);
+    static stringifyDate(date:number | Date, language: textLanguage):string {
+        if(typeof date !== 'number')
+            date = new Date(date).getTime();
 
-            let day = this.format2DigitsNumber(date.getDate());
-            let month = this.format2DigitsNumber(date.getMonth() + 1);
-            let year = date.getFullYear();
+        let daysSince = this.daySince(date).toString();
     
-            let hour = this.format2DigitsNumber(date.getHours());
-            let minute = this.format2DigitsNumber(date.getMinutes());
-            let daysSince = this.daySince(date);
-    
-            return day + "/" + month + "/" + year + " à " + hour + ":" + minute + " (il y a " + daysSince + " jours)"    
+        return Translations.displayText(TranslationsCache[language].global.stringifyDate, { timestamp: date, daysSince })
     }
 
 }

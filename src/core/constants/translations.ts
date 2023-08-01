@@ -38,7 +38,7 @@ export class Translations {
         for (let replacerElem of Object.keys(replacer)) {
             let split = text.split(`{${replacerElem}}`);
             let replacement = replacer[replacerElem as keyof ReplacerList];
-            text = split.join(replacement);
+            text = split.join(replacement?.toString());
         }
 
         return text;
