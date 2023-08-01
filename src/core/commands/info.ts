@@ -102,7 +102,7 @@ export const info:CommandInterface = {
                     .setThumbnail(botPdp)
                 
                 for(let field of Object.keys(botData)) {
-                    botEmbed.addFields([{ name: text[field], value: botData[field as keyof typeof botData]}])
+                    botEmbed.addFields([{ name: text[field], value: botData[field as keyof typeof botData], inline: true}])
                 }
 
                 Command.prototype.reply({embeds: [botEmbed]}, args.intera);
