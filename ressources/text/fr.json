@@ -12,7 +12,9 @@
         "noCommandOffServer": ":flag_fr: Les commandes sont à réaliser sur un serveur !",
         "CommandExecutionError": "Une erreur est survenue pendant l'éxecution de la commande!",
         "defaultCommandReply": "Impossible d'exécuter la commande :confused:",
-        "stringifyDate": "<t:{timestamp}> (il y a {daysSince} jours)"
+        "stringifyDate": "<t:{timestamp}> (il y a {daysSince} jours)",
+        "yes": "Oui",
+        "no": "Non"
     },
     "permissions": {
         "MissingPermissions": "Oups, il semblerait qu'il me manque les permissions suivantes:\n",
@@ -60,6 +62,20 @@
                         "description": "Le compte discord dont vous voulez les informations"
                         } 
                     }
+            },
+            "text": {
+                "bot": "Bot",
+                "account": "Utilisateur",
+                "noNickname": "Pas de surnom",
+                "accountCreation": " créé le {date}",
+                "usernameField": "Nom d'utilisateur",
+                "globalUsernameField": "Pseudo",
+                "profileTypeField": "Type de compte discord",
+                "accountCreationDateField": "Date de création du compte",
+                "nicknameField": "Surnom",
+                "joinDateField": "Date d'arrivée sur le serveur",
+                "rolesField": "Rôles",
+                "isPresentField": "Membre du serveur"
             }
         }
     },

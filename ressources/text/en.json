@@ -12,7 +12,9 @@
         "noCommandOffServer": "english",
         "CommandExecutionError": "english",
         "defaultCommandReply": "english",
-        "stringifyDate": "<t:{timestamp}> ({daysSince} days ago)"
+        "stringifyDate": "<t:{timestamp}> ({daysSince} days ago)",
+        "yes": "english",
+        "no": "english"
     },
     "permissions": {
         "MissingPermissions": "english",
@@ -60,6 +62,20 @@
                         "description": "english"
                     } 
                 }
+            },
+            "text": {
+                "bot": "english",
+                "account": "english",
+                "noNickname": "english",
+                "accountCreation": "english",
+                "usernameField": "english",
+                "globalUsernameField": "english",
+                "profileTypeField": "english",
+                "accountCreationDateField": "english",
+                "nicknameField": "english",
+                "joinDateField": "english",
+                "rolesField": "english",
+                "isPresentField": "english"
             }
         }
     },
