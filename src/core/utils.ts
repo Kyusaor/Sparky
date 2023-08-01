@@ -20,7 +20,7 @@ export abstract class Utils {
         return `https://discord.com/api/oauth2/authorize?client_id=${bot.user?.id}&permissions=${DiscordValues.BOT_PERMISSIONS_BITFIELD}&scope=bot%20applications.commands`
     }
 
-    static async EmbedBaseBuilder(language: textLanguage):Promise<EmbedBuilder> {
+    static EmbedBaseBuilder(language: textLanguage):EmbedBuilder {
         let translation = TranslationsCache[language];
         let rdmNumber = Math.floor(Math.random() * translation.global.tipsFooter.length)
         let rdmFooter:EmbedFooterData = translation.global.tipsFooter[rdmNumber];
