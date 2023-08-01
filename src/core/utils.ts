@@ -1,6 +1,6 @@
 import consoleStamp from "console-stamp";
 import { ActivityType, Client, EmbedBuilder, EmbedFooterData, TextChannel } from "discord.js";
-import { createWriteStream, existsSync, mkdirSync, readFileSync } from "fs";
+import { createWriteStream, existsSync, mkdirSync } from "fs";
 import { bot, chanList, Console, dev, TranslationsCache } from "../main.js";
 import { fetchedChannelsAtBoot, textLanguage } from "./constants/types.js";
 import { DiscordValues } from "./constants/values.js";
@@ -87,7 +87,7 @@ export abstract class Utils {
 
         let daysSince = this.daySince(date).toString();
     
-        return Translations.displayText(TranslationsCache[language].global.stringifyDate, { timestamp: date, daysSince })
+        return Translations.displayText(TranslationsCache[language].global.stringifyDate, { timestamp: Math.floor(date/1000), daysSince })
     }
 
 }

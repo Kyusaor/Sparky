@@ -55,7 +55,8 @@ export type ReplacerList = {
     support_email?: string,
     support_server_invite?: string,
     daysSince?: string,
-    timestamp?: number
+    timestamp?: number,
+    date?: string,
 }
 
 
