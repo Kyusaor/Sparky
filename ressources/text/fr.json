@@ -65,6 +65,10 @@
                 "bot": {
                     "name": "bot",
                     "description": "Obtenez des infos sur le bot"
+                },
+                "server": {
+                    "name": "serveur",
+                    "description": "Obtenez des infos sur le serveur"
                 }
             },
             "text": {
@@ -83,7 +87,11 @@
                 "idField": "Id",
                 "versionField": "Version du bot",
                 "isPresentField": "Membre du serveur",
-                "botInviteField": "Lien d'invitation"
+                "botInviteField": "Lien d'invitation",
+                "guildCreationField": "Date de création",
+                "guildOwnerField": "Propriétaire",
+                "guildMemberCountField": "Nombre de membres",
+                "clicHere": "Cliquez ici!"
             }
         }
     },
