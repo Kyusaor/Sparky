@@ -60,6 +60,8 @@ else {
             for (const command of data as any) {
                 const deleteUrl = `/${Routes.applicationGuildCommands(bot.user?.id as string, DiscordValues.MAIN_GUILD)}/${command.id}`;
                 promises.push(rest.delete(deleteUrl as `/${string}`));
+                await Promise.all(promises);
+                console.log(`${promises.length} commandes dev supprimées avec succès`);
             }
         });
 
@@ -70,9 +72,10 @@ else {
                 const deleteUrl = `/${Routes.applicationCommands(bot.user?.id as string)}/${command.id}`;
                 promises.push(rest.delete(deleteUrl as `/${string}`));
             }
+            await Promise.all(promises);
+            console.log(`${promises.length} commandes globales supprimées avec succès`);
         });
-        await Promise.all(promises);
-        console.log(`${promises.length} commandes supprimées avec succès`);
+
     }
     catch (e) {
         console.error("erreur de déploiement:\n" + e)
