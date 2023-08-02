@@ -206,6 +206,6 @@ function userCommandLogString(intera: ChatInputCommandInteraction):string {
     let chanText:string = "";
     intera.channel!.type == ChannelType.GuildText ?
         chanText = `sur le salon ${intera.channel?.name} (${intera.channel?.id}), serveur ${intera.guild?.name} (${intera.guild?.id})` :
-        chanText = ` en mp`;
+        chanText = `en mp`;
     return baseText + chanText
 }
