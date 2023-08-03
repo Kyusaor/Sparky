@@ -1,13 +1,12 @@
 import { ChannelType, ChatInputCommandInteraction, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, SlashCommandBuilder, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextChannel } from "discord.js";
 import { Console, TranslationsCache, bot, botCommands, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
-import {  CommandArgs, CommandInterface, SingleLanguageCommandTranslation, TranslationCacheType, textLanguage } from "../constants/types.js";
+import {  CommandArgs, CommandInterface, SingleLanguageCommandTranslation, TranslationCacheType, perksType, textLanguage } from "../constants/types.js";
 import { readFileSync, readdirSync } from "fs";
-//import { DeployTranslationCache } from "../../deploy.js";
 
 export abstract class CommandManager {
 
-    static baseSlashCommandBuilder(name: string, perm: "member" | "admin" | "dev"): SlashCommandBuilder {
+    static baseSlashCommandBuilder(name: string, perm: perksType): SlashCommandBuilder {
         const frJSON = JSON.parse(readFileSync(`./ressources/text/fr.json`, 'utf-8'));
         const enJSON = JSON.parse(readFileSync(`./ressources/text/en.json`, 'utf-8'));
 

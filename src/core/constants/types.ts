@@ -68,3 +68,5 @@ export interface CommandInterface {
     commandStructure: SlashCommandSubcommandsOnlyBuilder | SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
     run: (args: CommandArgs) => Promise<void>
 };
+
+export type perksType = "member" | "admin" | "dev";
