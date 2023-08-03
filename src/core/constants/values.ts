@@ -26,5 +26,7 @@ export abstract class DiscordValues {
         base: 'https://media.discordapp.net/attachments/659758501865717790/1070365617997221940/sparky.png',
         help: 'https://media.discordapp.net/attachments/659758501865717790/680102643519193089/help_sparky.png',
         helpAdmin: 'https://media.discordapp.net/attachments/659758501865717790/680168774468763671/PicsArt_02-20-10.39.20.png'
-    }
+    };
+    static readonly emptyEmbedField = { name: "** **", value: "** **" };
+    static readonly emptyEmbedFieldValue = "** **";
 }
