@@ -1,6 +1,9 @@
 {
     "global": {
-        "languageFullName": "français",
+        "languagesFullName":{
+            "fr": "français",
+            "en": "anglais"
+        },
         "welcomeMsg": "Je me présente: je suis Sparky, un bot discord Lords Mobile, conçu pour les serveurs de guilde.\n\nLa liste de mes commandes se trouve en faisant **\\/aide\\** sur votre serveur\n\nMerci de m'avoir ajouté!",
         "tipsFooter": [
             {"text": "Faites la commande /aide pour obtenir de l'aide !"},
@@ -13,6 +16,7 @@
         "noCommandOffServer": ":flag_fr: Les commandes sont à réaliser sur un serveur !",
         "CommandExecutionError": "Une erreur est survenue pendant l'éxecution de la commande!",
         "defaultCommandReply": "Impossible d'exécuter la commande :confused:",
+        "cancelledCommand": "Commande annulée",
         "stringifyDate": "<t:{timestamp}> (il y a {daysSince} jours)",
         "yes": "Oui",
         "no": "Non"
@@ -105,6 +109,21 @@
                 "guildOwnerField": "Propriétaire",
                 "guildMemberCountField": "Nombre de membres",
                 "clicHere": "Cliquez ici!"
+            }
+        },
+        "language" : {
+            "name": "language",
+            "description": "Change la langue du bot",
+            "options": {
+                "language": {
+                    "name": "langue",
+                    "description": "La langue que vous souhaitez"
+                }
+            },
+            "text": {
+                "alreadySelectedLanguage": "Le bot est déjà paramétré en français!",
+                "changeLanguageConfirmation": "Voulez-vous changer la langue du bot en `{text}`?",
+                "success": "Le bot parlera désormais en français sur ce serveur !"
             }
         }
     },

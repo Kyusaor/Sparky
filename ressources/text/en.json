@@ -1,6 +1,9 @@
 {
     "global": {
-        "languageFullName": "english",
+        "languagesFullName":{
+            "fr": "français",
+            "en": "anglais"
+        },
         "welcomeMsg": "english",
         "tipsFooter": [
             {"text": "english"},
@@ -13,6 +16,7 @@
         "noCommandOffServer": "english",
         "CommandExecutionError": "english",
         "defaultCommandReply": "english",
+        "cancelledCommand": "Commande annulée",
         "stringifyDate": "<t:{timestamp}> ({daysSince} days ago)",
         "yes": "english",
         "no": "english"
@@ -105,6 +109,21 @@
                 "guildOwnerField": "english",
                 "guildMemberCountField": "english",
                 "clicHere": "english"
+            }
+        },
+        "language" : {
+            "name": "language",
+            "description": "english",
+            "options": {
+                "language": {
+                    "name": "langue",
+                    "description": "english"
+                }
+            },
+            "text": {
+                "alreadySelectedLanguage": "english",
+                "changeLanguageConfirmation": "english",
+                "success": "english"
             }
         }
     },
