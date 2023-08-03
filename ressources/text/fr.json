@@ -32,13 +32,6 @@
         "description": "Pour obtenir la liste de mes commandes, faites **/aide**"
     },
     "commands": {
-        "contact": {
-            "name": "contact",
-            "description": "Nous contacter (discord ou mail)",
-            "text": {
-                "content": "Besoin d'aide sur le bot, de signaler un bug ou simplement discuter avec des joueurs de Lords Mobile? Voilà le lien du serveur :wink:\n{support_server_invite}\n\nPour contacter le développeur, vous pouvez également envoyer un mail à __**{support_email}**__"
-            }
-        },
         "compo": {
             "name": "compo",
             "description": "Obtenez les meilleurs compos pour la chasse aux monstres",
@@ -48,6 +41,25 @@
                     "name": "monstre",
                     "description": "Le monstre dont vous voulez la compo"
                 }
+            }
+        },
+        "contact": {
+            "name": "contact",
+            "description": "Nous contacter (discord ou mail)",
+            "text": {
+                "content": "Besoin d'aide sur le bot, de signaler un bug ou simplement discuter avec des joueurs de Lords Mobile? Voilà le lien du serveur :wink:\n{support_server_invite}\n\nPour contacter le développeur, vous pouvez également envoyer un mail à __**{support_email}**__"
+            }
+        },
+        "help": {
+            "name": "aide",
+            "description": "Obtenez la liste des commandes",
+            "text": {
+                "commandInDM": ":flag_fr: Les commandes ne fonctionnent pas en messages privés, il faut les effectuer sur un serveur.\nVous pouvez m'ajouter à votre serveur grâce à la commande **/lien** qui est la seule à fonctionner en messages privés !",
+                "embedDescription": "*Voici les commandes auxquelles tu as accès {username}!*",
+                "memberFieldTitle": "__Commandes générales__:",
+                "adminFieldTitle": "__Commandes administrateur__:",
+                "memberNotAdminWarning": ":warning: *Vous n'avez pas la permission d'utiliser ces commandes. Demandez à un administrateur du serveur de les exécuter*",
+                "devFieldTitle": "__Commandes développeur__:"
             }
         },
         "info": {

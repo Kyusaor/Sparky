@@ -32,13 +32,6 @@
         "description": "english"
     },
     "commands": {
-        "contact": {
-            "name": "contact",
-            "description": "english",
-            "text": {
-                "content": "english"
-            }
-        },
         "compo": {
             "name": "lineup",
             "description": "english",
@@ -48,6 +41,25 @@
                     "name": "monster",
                     "description": "english"
                 }
+            }
+        },
+        "contact": {
+            "name": "contact",
+            "description": "english",
+            "text": {
+                "content": "english"
+            }
+        },
+        "help": {
+            "name": "help",
+            "description": "english",
+            "text": {
+                "commandInDM": "english",
+                "embedDescription": "english",
+                "memberFieldTitle": "english",
+                "adminFieldTitle": "english",
+                "memberNotAdminWarning": "english",
+                "devFieldTitle": "english"
             }
         },
         "info": {
