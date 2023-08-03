@@ -1,5 +1,6 @@
 {
     "global": {
+        "languageFullName": "english",
         "welcomeMsg": "english",
         "tipsFooter": [
             {"text": "english"},

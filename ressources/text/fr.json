@@ -1,5 +1,6 @@
 {
     "global": {
+        "languageFullName": "français",
         "welcomeMsg": "Je me présente: je suis Sparky, un bot discord Lords Mobile, conçu pour les serveurs de guilde.\n\nLa liste de mes commandes se trouve en faisant **\\/aide\\** sur votre serveur\n\nMerci de m'avoir ajouté!",
         "tipsFooter": [
             {"text": "Faites la commande /aide pour obtenir de l'aide !"},
