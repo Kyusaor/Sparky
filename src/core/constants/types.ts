@@ -70,3 +70,5 @@ export interface CommandInterface {
 };
 
 export type perksType = "member" | "admin" | "dev";
+
+export type CommandName = keyof typeof frTranslationJSON.commands

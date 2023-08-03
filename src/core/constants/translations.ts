@@ -1,5 +1,5 @@
 import { Console, TranslationsCache, db } from "../../main.js";
-import { CommandTranslation, ReplacerList, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, textLanguage } from "./types.js";
+import { CommandName, CommandTranslation, ReplacerList, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, textLanguage } from "./types.js";
 import { readFileSync } from 'fs';
 import { DiscordValues } from "./values.js";
 
@@ -22,7 +22,7 @@ export class Translations {
         return language;
     }
 
-    static getCommandText(command: keyof typeof TranslationsCache.fr.commands): CommandTranslation {
+    static getCommandText(command: CommandName): CommandTranslation {
         let fr = TranslationsCache.fr.commands[command as keyof typeof TranslationsCache.fr.commands] as SingleLanguageCommandTranslation;
         let en = TranslationsCache.en.commands[command as keyof typeof TranslationsCache.en.commands] as SingleLanguageCommandTranslation;
 
