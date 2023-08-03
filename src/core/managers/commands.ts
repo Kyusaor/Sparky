@@ -86,7 +86,7 @@ export class Command implements CommandInterface {
 
     permissionLevel: 1 | 2 | 3;
     commandStructure: SlashCommandSubcommandsOnlyBuilder | SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
-    run:(args: CommandArgs) => Promise<void>;
+    run:(args: CommandArgs) => unknown;
 
     constructor(args: CommandInterface) {
         this.permissionLevel = args.permissionLevel;

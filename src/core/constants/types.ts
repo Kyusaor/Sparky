@@ -66,7 +66,7 @@ export type CommandArgs = { intera: ChatInputCommandInteraction, language: textL
 export interface CommandInterface {
     permissionLevel: 1 | 2 | 3;
     commandStructure: SlashCommandSubcommandsOnlyBuilder | SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
-    run: (args: CommandArgs) => Promise<void>
+    run: (args: CommandArgs) => unknown
 };
 
 export type perksType = "member" | "admin" | "dev";
