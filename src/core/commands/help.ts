@@ -1,4 +1,4 @@
-import { APIEmbedField, ChannelType, GuildMember, PermissionFlagsBits, RestOrArray } from "discord.js";
+import { APIEmbedField, ApplicationCommandOptionType, ChannelType, GuildMember, PermissionFlagsBits, RestOrArray } from "discord.js";
 import { CommandInterface, perksType } from "../constants/types.js";
 import { Command, CommandManager } from "../managers/commands.js";
 import { Translations } from "../constants/translations.js";
@@ -40,9 +40,18 @@ export const help:CommandInterface = {
         
         for(let command of botCommands) {
             let data:{ name: string, value:string };
+            let subList:string = "";
+            let optionsList = command.commandStructure.options.filter(o => o.toJSON().type == ApplicationCommandOptionType.Subcommand);
+
+            if(optionsList.length > 0) {
+                args.language == "en" ?
+                    subList = ` (${optionsList.map(o => (o.toJSON().name)).join('/')})` :
+                    subList = ` (${optionsList.map(o => (o.toJSON().name_localizations![args.language as keyof typeof command.commandStructure.name_localizations]!)).join('/')})`
+            }
+
             args.language == "en" ? 
-                data = {name: `__${command.commandStructure.name}__`, value: command.commandStructure.description } :
-                data = {name: `__${command.commandStructure.name_localizations![args.language]!}__`, value: command.commandStructure.description_localizations![args.language]!}
+                data = {name: `__${command.commandStructure.name}${subList}__`, value: command.commandStructure.description } :
+                data = {name: `__${command.commandStructure.name_localizations![args.language]!}${subList}__`, value: command.commandStructure.description_localizations![args.language]!}
 
             if(command.permissionLevel == 1)
                 helpCommands.push(data)
