@@ -1,4 +1,4 @@
-import { ChannelType, ChatInputCommandInteraction, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, SlashCommandBuilder, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextChannel } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, SlashCommandBuilder, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextChannel } from "discord.js";
 import { Console, TranslationsCache, bot, botCommands, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
 import {  CommandArgs, CommandInterface, CommandName, SingleLanguageCommandTranslation, TranslationCacheType, perksType, textLanguage } from "../constants/types.js";
@@ -175,6 +175,45 @@ export class Command implements CommandInterface {
             }
         }
         return data;
+    };
+
+    static generateYesNoButtons(command: CommandName, language: textLanguage, additionalLabel?: string) {
+        let buttons = new ActionRowBuilder<ButtonBuilder>()
+            .addComponents([
+                new ButtonBuilder()
+                    .setCustomId(`${command}${additionalLabel}-yes`)
+                    .setStyle(ButtonStyle.Success)
+                    .setLabel(TranslationsCache[language].global.yes),
+
+                new ButtonBuilder()
+                    .setCustomId(`${command}${additionalLabel}-no`)
+                    .setStyle(ButtonStyle.Danger)
+                    .setLabel(TranslationsCache[language].global.no)
+            ])
+        
+        return buttons    
+    }
+
+    static async getConfirmationMessage(args: CommandArgs, text?: string, embeds?:EmbedBuilder[], time?:number):Promise<"yes" | "no" | "error"> {
+        let payload:MessagePayload | InteractionReplyOptions = {content: text, components: [Command.generateYesNoButtons('language', args.language)]};
+        if(embeds)
+            payload.embeds = embeds
+        Command.prototype.reply(payload, args.intera);
+
+        let confirmationResponse;
+        try {
+            let filter = (button:ButtonInteraction<"cached">) => button.user.id === args.intera.user.id && button.customId.includes(args.intera.commandName)
+            confirmationResponse = await args.intera.channel?.awaitMessageComponent({ componentType: ComponentType.Button, filter, time: time || 15000})
+        } catch {
+            return "error"
+        }
+        if(confirmationResponse?.customId.endsWith('yes'))
+            return "yes"
+        else if(confirmationResponse?.customId.endsWith('no'))
+            return "no"
+        else return "error"
+        
+
     }
 }
 
