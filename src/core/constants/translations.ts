@@ -22,10 +22,7 @@ export class Translations {
         return language;
     }
 
-    static getCommandText(command: string): CommandTranslation {
-        if (!Object.keys(TranslationsCache.fr.commands).includes(command))
-            Console.error("Traduction de commande introuvable");
-
+    static getCommandText(command: keyof typeof TranslationsCache.fr.commands): CommandTranslation {
         let fr = TranslationsCache.fr.commands[command as keyof typeof TranslationsCache.fr.commands] as SingleLanguageCommandTranslation;
         let en = TranslationsCache.en.commands[command as keyof typeof TranslationsCache.en.commands] as SingleLanguageCommandTranslation;
 
