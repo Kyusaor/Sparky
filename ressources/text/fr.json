@@ -125,6 +125,13 @@
                 "changeLanguageConfirmation": "Voulez-vous changer la langue du bot en `{text}`?",
                 "success": "Le bot parlera désormais en français sur ce serveur !"
             }
+        },
+        "link": {
+            "name": "lien",
+            "description": "Donne le lien d'ajout du bot",
+            "text": {
+                "reply": "Pour m'ajouter sur votre serveur, [**cliquez ici !**]({text})"
+            }
         }
     },
     "mobs": {

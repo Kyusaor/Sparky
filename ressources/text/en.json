@@ -125,6 +125,13 @@
                 "changeLanguageConfirmation": "english",
                 "success": "english"
             }
+        },
+        "link": {
+            "name": "link",
+            "description": "english",
+            "text": {
+                "reply": "english"
+            }
         }
     },
     "mobs": {
