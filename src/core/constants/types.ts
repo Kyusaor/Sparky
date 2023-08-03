@@ -57,6 +57,7 @@ export type ReplacerList = {
     daysSince?: string,
     timestamp?: number,
     date?: string,
+    text?: string,
 }
 
 
