@@ -95,7 +95,8 @@ export class Command implements CommandInterface {
     }
 
     async reply(data: string | MessagePayload | InteractionReplyOptions, intera: ChatInputCommandInteraction) {
-        await checkReplyPermissions(data, intera);
+        if(intera.guild)
+            await checkReplyPermissions(data, intera);
         if (!intera.deferred && !intera.replied) return intera.reply(data);
         try {
             intera.editReply(data);
