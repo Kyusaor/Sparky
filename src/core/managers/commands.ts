@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextChannel } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextBasedChannel, TextChannel } from "discord.js";
 import { Console, TranslationsCache, bot, botCommands, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
 import {  CommandArgs, CommandInterface, CommandName, SingleLanguageCommandTranslation, TranslationCacheType, perksType, textLanguage } from "../constants/types.js";
@@ -98,7 +98,7 @@ export class Command implements CommandInterface {
 
     async reply(data: string | MessagePayload | InteractionReplyOptions, intera: ChatInputCommandInteraction) {
         if(intera.guild)
-            await checkReplyPermissions(data, intera);
+            await Command.checkReplyPermissions(data, intera.channel!, intera.guildId);
         if (!intera.deferred && !intera.replied) return intera.reply(data);
         try {
             intera.editReply(data);
@@ -203,7 +203,7 @@ export class Command implements CommandInterface {
             ])
         
         return buttons    
-    }
+    };
 
     static async getConfirmationMessage({ intera, language }: CommandArgs, text?: string, embeds?:EmbedBuilder[], time?:number):Promise<"yes" | "no" | "error"> {
         let payload:MessagePayload | InteractionReplyOptions = {content: text, components: [Command.generateYesNoButtons('language', language)]};
@@ -225,30 +225,30 @@ export class Command implements CommandInterface {
         else return "error"
         
 
-    }
-}
+    };
 
-
-async function checkReplyPermissions(data: string | MessagePayload | InteractionReplyOptions, intera: ChatInputCommandInteraction) {
-    let channel = intera.channel as TextChannel
-    let botPermissions = channel.permissionsFor(bot.user!.id);
-    let missingPermissions = [];
-    if(Object.keys(data).includes("attachment") && !botPermissions?.has(PermissionFlagsBits.AttachFiles)) {
-        missingPermissions.push("AttachFiles")
-    }
-    if(Object.keys(data).includes("embeds") && !botPermissions?.has(PermissionFlagsBits.EmbedLinks)) {
-        missingPermissions.push("EmbedLinks")
-    }
-    if(missingPermissions.length > 0) {
-        let language = await db.returnServerLanguage(intera.guild!.id);
-        let translation = TranslationsCache[language].permissions;
-        let missingPermErrorReply:string = translation.MissingPermissions;
-        for(let permission of missingPermissions) {
-            missingPermErrorReply += translation.flags[permission as keyof typeof translation.flags]
+    static async checkReplyPermissions(data: string | MessagePayload | InteractionReplyOptions, channel:TextBasedChannel, guildId?:string | null) {
+        if(channel.type == ChannelType.DM || !guildId) return;
+        let botPermissions = channel.permissionsFor(bot.user!.id);
+        let missingPermissions = [];
+        if(Object.keys(data).includes("attachment") && !botPermissions?.has(PermissionFlagsBits.AttachFiles)) {
+            missingPermissions.push("AttachFiles")
         }
-        data = missingPermErrorReply;
+        if(Object.keys(data).includes("embeds") && !botPermissions?.has(PermissionFlagsBits.EmbedLinks)) {
+            missingPermissions.push("EmbedLinks")
+        }
+        if(missingPermissions.length > 0) {
+            let language = await db.returnServerLanguage(guildId);
+            let translation = TranslationsCache[language].permissions;
+            let missingPermErrorReply:string = translation.MissingPermissions;
+            for(let permission of missingPermissions) {
+                missingPermErrorReply += translation.flags[permission as keyof typeof translation.flags]
+            }
+            data = missingPermErrorReply;
+        }
     }
 }
+
 
 function userCommandLogString(intera: ChatInputCommandInteraction):string {
     let baseText = `${intera.user.username} (${intera.user.id}) a executé la commande ${intera.commandName} `;
