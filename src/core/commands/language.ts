@@ -15,32 +15,32 @@ export const language:CommandInterface = {
                 .addChoices(...getLanguageList())
         ),
 
-    async run(args) {
-        let text = Translations.getCommandText("language")[args.language].text as Record<string, string>;
-        let selectedLanguage = args.intera.options.getString('language') as textLanguage;
+    async run({ intera, language, commandText}) {
+        let text = Translations.getCommandText("language")[language].text as Record<string, string>;
+        let selectedLanguage = intera.options.getString('language') as textLanguage;
 
-        if(selectedLanguage == args.language)
-            return Command.prototype.reply(text.alreadySelectedLanguage, args.intera);
+        if(selectedLanguage == language)
+            return Command.prototype.reply(text.alreadySelectedLanguage, intera);
 
         let newText = Translations.getCommandText("language")[selectedLanguage].text as Record<string, string>;
 
         let newLanguageTranslation = {
-            old: TranslationsCache[args.language].global.languagesFullName[selectedLanguage],
+            old: TranslationsCache[language].global.languagesFullName[selectedLanguage],
             new: TranslationsCache[selectedLanguage].global.languagesFullName[selectedLanguage]
         }
 
         //Confirmation message
         let confirmationText:string = `${Translations.displayText(text.changeLanguageConfirmation, { text: newLanguageTranslation.old})}\n\n${Translations.displayText(newText.changeLanguageConfirmation, { text: newLanguageTranslation.new})}`
-        let confirmation = await Command.getConfirmationMessage(args, confirmationText);
+        let confirmation = await Command.getConfirmationMessage({ intera, language, commandText }, confirmationText);
 
         if(confirmation !== "yes")
-            return Command.prototype.reply({content: TranslationsCache[args.language].global.cancelledCommand, components: []}, args.intera)
+            return Command.prototype.reply({content: TranslationsCache[language].global.cancelledCommand, components: []}, intera)
 
         //Language change
-        let guild = new ServerManager(args.intera.guild!);
+        let guild = new ServerManager(intera.guild!);
         await guild.editServerData({ language: selectedLanguage});
 
-        Command.prototype.reply({content: newText.success, components: []}, args.intera);
+        Command.prototype.reply({content: newText.success, components: []}, intera);
     },
 }
 

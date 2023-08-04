@@ -13,12 +13,11 @@ export const help: CommandInterface = {
     commandStructure: CommandManager.baseSlashCommandBuilder("help", "member")
         .setDMPermission(true),
 
-    async run(args) {
-        let text = Translations.getCommandText("help")[args.language].text as Record<string, string>;
-        if (args.intera.channel?.type == ChannelType.DM || !args.intera.guildId)
-            return Command.prototype.reply(`${text.commandInDM}`, args.intera)
+    async run({intera, language, commandText }) {
+        if (intera.channel?.type == ChannelType.DM || !intera.guildId)
+            return Command.prototype.reply(`${commandText.commandInDM}`, intera)
 
-        let member = await args.intera.guild?.members.fetch(args.intera.user);
+        let member = await intera.guild?.members.fetch(intera.user);
         if (!member)
             throw "Membre introuvable (commande help)"
         let memberPerks = getMemberPermissionPerk(member);
@@ -28,15 +27,15 @@ export const help: CommandInterface = {
             thumb = DiscordValues.botIcon.help :
             thumb = DiscordValues.botIcon.helpAdmin;
 
-        let helpEmbed = Utils.EmbedBaseBuilder(args.language)
+        let helpEmbed = Utils.EmbedBaseBuilder(language)
             .setThumbnail(thumb)
-            .setDescription(Translations.displayText(text.embedDescription, { username: args.intera.user.displayName }))
+            .setDescription(Translations.displayText(commandText.embedDescription, { username: intera.user.displayName }))
 
 
-        let CommandsEmbedFields = buildCommandsEmbeds(args);
-        addHelpCommandFields(helpEmbed, args.intera, memberPerks, text, CommandsEmbedFields);
+        let CommandsEmbedFields = buildCommandsEmbeds({ intera, language, commandText});
+        addHelpCommandFields(helpEmbed, intera, memberPerks, commandText, CommandsEmbedFields);
 
-        Command.prototype.reply({ embeds: [helpEmbed] }, args.intera);
+        Command.prototype.reply({ embeds: [helpEmbed] }, intera);
     }
 }
 
@@ -53,7 +52,7 @@ function getMemberPermissionPerk(member: GuildMember): perksType {
     return value;
 }
 
-function buildCommandsEmbeds(args: CommandArgs) {
+function buildCommandsEmbeds({language}: CommandArgs) {
     let helpCommands: RestOrArray<APIEmbedField> = [];
     let adminCommands: RestOrArray<APIEmbedField> = [];
     let devCommands: RestOrArray<APIEmbedField> = [];
@@ -64,14 +63,14 @@ function buildCommandsEmbeds(args: CommandArgs) {
         let optionsList = command.commandStructure.options.filter(o => o.toJSON().type == ApplicationCommandOptionType.Subcommand);
 
         if (optionsList.length > 0) {
-            args.language == "en" ?
+            language == "en" ?
                 subList = ` (${optionsList.map(o => (o.toJSON().name)).join('/')})` :
-                subList = ` (${optionsList.map(o => (o.toJSON().name_localizations![args.language as keyof typeof command.commandStructure.name_localizations]!)).join('/')})`
+                subList = ` (${optionsList.map(o => (o.toJSON().name_localizations![language as keyof typeof command.commandStructure.name_localizations]!)).join('/')})`
         }
 
-        args.language == "en" ?
+        language == "en" ?
             data = { name: `__${command.commandStructure.name}${subList}__`, value: command.commandStructure.description } :
-            data = { name: `__${command.commandStructure.name_localizations![args.language]!}${subList}__`, value: command.commandStructure.description_localizations![args.language]! }
+            data = { name: `__${command.commandStructure.name_localizations![language]!}${subList}__`, value: command.commandStructure.description_localizations![language]! }
 
         if (command.permissionLevel == 1)
             helpCommands.push(data)

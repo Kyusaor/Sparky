@@ -62,12 +62,12 @@ export type ReplacerList = {
 
 
 //Commands
-export type CommandArgs = { intera: ChatInputCommandInteraction, language: textLanguage };
+export type CommandArgs = { intera: ChatInputCommandInteraction, language: textLanguage, commandText: Record<string, string> };
 
 export interface CommandInterface {
     permissionLevel: 1 | 2 | 3;
     commandStructure: SlashCommandSubcommandsOnlyBuilder | SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
-    run: (args: CommandArgs) => unknown
+    run: ({ intera, language, commandText }: CommandArgs) => unknown
 };
 
 export type perksType = "member" | "admin" | "dev";

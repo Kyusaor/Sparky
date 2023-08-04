@@ -10,12 +10,12 @@ export const link:CommandInterface = {
     commandStructure: CommandManager.baseSlashCommandBuilder("link", "member")
         .setDMPermission(true),
 
-    run(args) {
+    run({ intera, language }) {
         let response:string;
-        args.intera.guild ?
-            response = Translations.displayText(TranslationsCache[args.language].commands.link.text.reply, { text: Utils.displayBotLink() }) :
+        intera.guild ?
+            response = Translations.displayText(TranslationsCache[language].commands.link.text.reply, { text: Utils.displayBotLink() }) :
             response = Utils.displayBotLink();
 
-        Command.prototype.reply(response, args.intera);
+        Command.prototype.reply(response, intera);
     },
 }

@@ -64,10 +64,12 @@ export abstract class CommandManager {
             intera.reply({ content: TranslationsCache[language].global.CommandExecutionError, ephemeral: true });
             return Console.info(`Impossible de récupérer la commande ${intera.commandName}`);
         }
+        let commandText = Translations.getCommandText(intera.commandName as CommandName)[language].text as Record<string, string>;
 
         let args: CommandArgs = {
             intera,
-            language
+            language,
+            commandText
         };
 
         try {
@@ -203,16 +205,16 @@ export class Command implements CommandInterface {
         return buttons    
     }
 
-    static async getConfirmationMessage(args: CommandArgs, text?: string, embeds?:EmbedBuilder[], time?:number):Promise<"yes" | "no" | "error"> {
-        let payload:MessagePayload | InteractionReplyOptions = {content: text, components: [Command.generateYesNoButtons('language', args.language)]};
+    static async getConfirmationMessage({ intera, language }: CommandArgs, text?: string, embeds?:EmbedBuilder[], time?:number):Promise<"yes" | "no" | "error"> {
+        let payload:MessagePayload | InteractionReplyOptions = {content: text, components: [Command.generateYesNoButtons('language', language)]};
         if(embeds)
             payload.embeds = embeds
-        Command.prototype.reply(payload, args.intera);
+        Command.prototype.reply(payload, intera);
 
         let confirmationResponse;
         try {
-            let filter = (button:ButtonInteraction<"cached">) => button.user.id === args.intera.user.id && button.customId.includes(args.intera.commandName)
-            confirmationResponse = await args.intera.channel?.awaitMessageComponent({ componentType: ComponentType.Button, filter, time: time || 15000})
+            let filter = (button:ButtonInteraction<"cached">) => button.user.id === intera.user.id && button.customId.includes(intera.commandName)
+            confirmationResponse = await intera.channel?.awaitMessageComponent({ componentType: ComponentType.Button, filter, time: time || 15000})
         } catch {
             return "error"
         }
