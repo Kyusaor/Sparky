@@ -1,4 +1,4 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, SlashCommandBuilder, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextChannel } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextChannel } from "discord.js";
 import { Console, TranslationsCache, bot, botCommands, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
 import {  CommandArgs, CommandInterface, CommandName, SingleLanguageCommandTranslation, TranslationCacheType, perksType, textLanguage } from "../constants/types.js";
@@ -120,7 +120,7 @@ export class Command implements CommandInterface {
         return sub
     }
 
-    static generateCommandOptionBuilder(command:CommandName, name: string, option:"user" | "number" | "string", isSubOption?: true | undefined) {
+    static generateCommandOptionBuilder(command:CommandName, name: string, option:"user" | "number" | "string" | "channel", isSubOption?: true | undefined) {
         if(!Object.keys(TranslationsCache.fr.commands).includes(command))
             throw "Erreur: infos de localisation indisponibles (commande introuvable)"
 
@@ -136,6 +136,10 @@ export class Command implements CommandInterface {
 
             case 'user':
                 sub = new SlashCommandUserOption();
+                break;
+
+            case 'channel':
+                sub = new SlashCommandChannelOption();
                 break;
 
             default:
