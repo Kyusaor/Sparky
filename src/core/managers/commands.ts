@@ -1,8 +1,9 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextBasedChannel, TextChannel } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessagePayload, PermissionFlags, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextBasedChannel, TextChannel } from "discord.js";
 import { Console, TranslationsCache, bot, botCommands, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
 import {  CommandArgs, CommandInterface, CommandName, SingleLanguageCommandTranslation, TranslationCacheType, perksType, textLanguage } from "../constants/types.js";
 import { readFileSync, readdirSync } from "fs";
+import { language } from "../commands/language.js";
 
 export abstract class CommandManager {
 
@@ -97,8 +98,10 @@ export class Command implements CommandInterface {
     }
 
     async reply(data: string | MessagePayload | InteractionReplyOptions, intera: ChatInputCommandInteraction) {
-        if(intera.guild)
-            await Command.checkReplyPermissions(data, intera.channel!, intera.guildId);
+        let missingPerm = await Command.getMissingPermissions([PermissionFlagsBits.AttachFiles, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.SendMessages], intera.channel!, intera.guildId);
+        if(missingPerm.length > 0)
+            data = await Command.returnMissingPermissionMessage(missingPerm, intera.guildId!);
+        
         if (!intera.deferred && !intera.replied) return intera.reply(data);
         try {
             intera.editReply(data);
@@ -227,25 +230,30 @@ export class Command implements CommandInterface {
 
     };
 
-    static async checkReplyPermissions(data: string | MessagePayload | InteractionReplyOptions, channel:TextBasedChannel, guildId?:string | null) {
-        if(channel.type == ChannelType.DM || !guildId) return;
+    static getMissingPermissions(requiredPermissions: PermissionResolvable[], channel:TextBasedChannel, guildId?:string | null):string[] {
+        if(channel.type == ChannelType.DM || !guildId)
+            return [];
         let botPermissions = channel.permissionsFor(bot.user!.id);
-        let missingPermissions = [];
-        if(Object.keys(data).includes("attachment") && !botPermissions?.has(PermissionFlagsBits.AttachFiles)) {
-            missingPermissions.push("AttachFiles")
+        let permissionsBitfield = new PermissionsBitField(requiredPermissions).toArray();
+        let missingPermissions:string[] = [];
+
+        for(let perm of permissionsBitfield) {
+            if(!botPermissions?.has(perm))
+                missingPermissions.push(perm)
         }
-        if(Object.keys(data).includes("embeds") && !botPermissions?.has(PermissionFlagsBits.EmbedLinks)) {
-            missingPermissions.push("EmbedLinks")
+
+        return missingPermissions;
+    };
+
+    static async returnMissingPermissionMessage(perms:string[], guildId:string):Promise<string> {
+        let language = await db.returnServerLanguage(guildId);
+        let permList:string = "";
+
+        for(let perm of perms) {
+            permList += `-${TranslationsCache[language].permissions.flags[perm as keyof typeof TranslationsCache.fr.permissions.flags]}\n`
         }
-        if(missingPermissions.length > 0) {
-            let language = await db.returnServerLanguage(guildId);
-            let translation = TranslationsCache[language].permissions;
-            let missingPermErrorReply:string = translation.MissingPermissions;
-            for(let permission of missingPermissions) {
-                missingPermErrorReply += translation.flags[permission as keyof typeof translation.flags]
-            }
-            data = missingPermErrorReply;
-        }
+
+        return Translations.displayText(TranslationsCache[language].permissions.MissingPermissions, { text: permList})
     }
 }
 
