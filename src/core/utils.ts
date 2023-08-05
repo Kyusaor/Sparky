@@ -135,10 +135,8 @@ export class ConsoleLogger {
     };
 
     error(input: any, crash?: boolean) {
-        console.error(`[ERROR] ${input.stack || input}`);
-        console.trace()
-        this.logger.error(`[ERROR] ${input.stack || input}`);
-        this.logger.trace();
+        console.trace(`[ERROR] ${input.stack || input}`)
+        this.logger.trace(`[ERROR] ${input.stack || input}`);
         chanList?.LOGS_ERRORS?.send(input.stack || input)
             .then(() => {
                 if (crash)
