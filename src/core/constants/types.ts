@@ -37,7 +37,7 @@ export type SingleLanguageCommandTranslation = {
     name: string, 
     description: string, 
     options?:Record<string, CommandOptionData>, 
-    subcommand?: Record<string, { name: string, description: string, options?: CommandOptionData }>, 
+    subcommand?: Record<string, { name: string, description: string, options?: Record<string, CommandOptionData> }>, 
     text?: Record<any, string[] | string> 
 };
 

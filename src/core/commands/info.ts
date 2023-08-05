@@ -13,7 +13,7 @@ export const info: CommandInterface = {
         .addSubcommand(
             Command.generateSubcommandBuilder("info", "user")
                 .addUserOption(
-                    Command.generateCommandOptionBuilder("info", "user", "user", true) as SlashCommandUserOption
+                    Command.generateCommandOptionBuilder("info", "user", "user", true, "user") as SlashCommandUserOption
                 )
         )
         .addSubcommand(

@@ -1,9 +1,8 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessagePayload, PermissionFlags, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextBasedChannel, TextChannel } from "discord.js";
+import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextBasedChannel } from "discord.js";
 import { Console, TranslationsCache, bot, botCommands, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
 import {  CommandArgs, CommandInterface, CommandName, SingleLanguageCommandTranslation, TranslationCacheType, perksType, textLanguage } from "../constants/types.js";
 import { readFileSync, readdirSync } from "fs";
-import { language } from "../commands/language.js";
 
 export abstract class CommandManager {
 
@@ -125,7 +124,7 @@ export class Command implements CommandInterface {
         return sub
     }
 
-    static generateCommandOptionBuilder(command:CommandName, name: string, option:"user" | "number" | "string" | "channel" | "file", isSubOption?: true | undefined) {
+    static generateCommandOptionBuilder(command:CommandName, name: string, option:"user" | "number" | "string" | "channel" | "file", isSubOption?: true | undefined, optionName?:string) {
         if(!Object.keys(TranslationsCache.fr.commands).includes(command))
             throw "Erreur: infos de localisation indisponibles (commande introuvable)"
 
@@ -156,14 +155,20 @@ export class Command implements CommandInterface {
         }
 
         sub.setName(name)
-            .setNameLocalizations(this.getSubcommandTranslations(command, name, "name", (isSubOption ? "sub-option" : "option")))
-            .setDescription(this.getSubcommandTranslations(command, name, "description", (isSubOption ? "sub-option" : "option"))['en-US'])
-            .setDescriptionLocalizations(this.getSubcommandTranslations(command, name, "description", (isSubOption ? "sub-option" : "option")))
+            .setNameLocalizations(this.getSubcommandTranslations(command, name, "name", (isSubOption ? "sub-option" : "option"), optionName))
+            .setDescription(this.getSubcommandTranslations(command, name, "description", (isSubOption ? "sub-option" : "option"), optionName)['en-US'])
+            .setDescriptionLocalizations(this.getSubcommandTranslations(command, name, "description", (isSubOption ? "sub-option" : "option"), optionName))
 
         return sub
     };
 
-    static getSubcommandTranslations(command: CommandName, subcommand: string, type: "name" | "description", optionType: "sub" | "option" | "sub-option"):Record<string, string> {
+    static getChoices(command: CommandName, optionName:string) {
+        let translationPath = readFileSync('./ressources/text/');
+
+        //for(let language of )
+    }
+
+    static getSubcommandTranslations(command: CommandName, subcommand: string, type: "name" | "description", optionType: "sub" | "option" | "sub-option", optionName?:string):Record<string, string> {
 
         let data:Record<string, string> = {};
         for(let lang of Object.keys(TranslationsCache)) {
@@ -181,7 +186,8 @@ export class Command implements CommandInterface {
                     break;
 
                 case 'sub-option':
-                    data[language] = translationData.subcommand![subcommand as keyof typeof translationData.subcommand].options![type];
+                    console.log(`${subcommand}.options.${optionName}.${type}`)
+                    data[language] = translationData.subcommand![subcommand as keyof typeof translationData.subcommand].options![optionName!][type];
                     break;
 
                 default:
