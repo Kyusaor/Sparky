@@ -186,7 +186,6 @@ export class Command implements CommandInterface {
                     break;
 
                 case 'sub-option':
-                    console.log(`${subcommand}.options.${optionName}.${type}`)
                     data[language] = translationData.subcommand![subcommand as keyof typeof translationData.subcommand].options![optionName!][type];
                     break;
 
