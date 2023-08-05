@@ -69,8 +69,8 @@ function buildCommandsEmbeds({language}: CommandArgs) {
         }
 
         language == "en" ?
-            data = { name: `__${command.commandStructure.name}${subList}__`, value: command.commandStructure.description } :
-            data = { name: `__${command.commandStructure.name_localizations![language]!}${subList}__`, value: command.commandStructure.description_localizations![language]! }
+            data = { name: `/${command.commandStructure.name}${subList}`, value: command.commandStructure.description } :
+            data = { name: `/${command.commandStructure.name_localizations![language]!}${subList}`, value: command.commandStructure.description_localizations![language]! }
 
         if (command.permissionLevel == 1)
             helpCommands.push(data)

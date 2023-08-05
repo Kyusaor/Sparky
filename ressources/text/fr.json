@@ -61,10 +61,10 @@
             "text": {
                 "commandInDM": ":flag_fr: Les commandes ne fonctionnent pas en messages privés, il faut les effectuer sur un serveur.\nVous pouvez m'ajouter à votre serveur grâce à la commande **/lien** qui est la seule à fonctionner en messages privés !",
                 "embedDescription": "*Voici les commandes auxquelles tu as accès {username}!*",
-                "memberFieldTitle": "__Commandes générales__:",
-                "adminFieldTitle": "__Commandes administrateur__:",
+                "memberFieldTitle": "__**Commandes générales**__:",
+                "adminFieldTitle": "__**Commandes administrateur**__:",
                 "memberNotAdminWarning": ":warning: *Vous n'avez pas la permission d'utiliser ces commandes. Demandez à un administrateur du serveur de les exécuter*",
-                "devFieldTitle": "__Commandes développeur__:"
+                "devFieldTitle": "__**Commandes développeur**__:"
             }
         },
         "info": {
