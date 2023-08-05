@@ -22,7 +22,7 @@
         "no": "Non"
     },
     "permissions": {
-        "MissingPermissions": "Oups, il semblerait qu'il me manque les permissions suivantes:\n",
+        "MissingPermissions": "Oups, il semblerait qu'il me manque les permissions suivantes:\n{text}",
         "flags": {
             "AddReactions": "Ajouter des réactions",
             "AttachFiles": "Joindre des fichiers",
@@ -131,6 +131,36 @@
             "description": "Donne le lien d'ajout du bot",
             "text": {
                 "reply": "Pour m'ajouter sur votre serveur, [**cliquez ici !**]({text})"
+            }
+        },
+        "say": {
+            "name": "say",
+            "description": "Envoie un message dans le salon donné",
+            "text": {
+                "noChannelProvided": "Merci de préciser un salon cible",
+                "channel404": "Salon introuvable",
+                "notATextChannel": "Ce salon n'est pas un salon textuel",
+                "successHeader": "*Serveur {name} ({id})*:\n",
+                "success": "Message envoyé avec succès sur le salon `{name}` ({id}):\n\n{text}",
+                "noContent": "Veuillez préciser un message ou un fichier à envoyer"
+            },
+            "options": {
+                "channel": {
+                    "name": "salon",
+                    "description": "Le salon cible"
+                },
+                "id": {
+                    "name": "id",
+                    "description": "L'id du salon"
+                },
+                "content": {
+                    "name": "message",
+                    "description": "Le contenu du message"
+                },
+                "files": {
+                    "name": "fichiers",
+                    "description": "Les fichiers attachés au message"
+                }
             }
         }
     },

@@ -132,6 +132,36 @@
             "text": {
                 "reply": "english"
             }
+        },
+        "say": {
+            "name": "say",
+            "description": "english",
+            "text": {
+                "noChannelProvided": "english",
+                "channel404": "english",
+                "notATextChannel": "Ce salon n'est pas un salon textuel",
+                "successHeader": "english",
+                "success": "english",
+                "noContent": "Veuillez préciser un message ou un fichier à envoyer"
+            },
+            "options": {
+                "channel": {
+                    "name": "channel",
+                    "description": "english"
+                },
+                "id": {
+                    "name": "id",
+                    "description": "english"
+                },
+                "content": {
+                    "name": "message",
+                    "description": "english"
+                },
+                "files": {
+                    "name": "fichiers",
+                    "description": "english"
+                }
+            }
         }
     },
     "mobs": {
