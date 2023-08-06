@@ -56,9 +56,24 @@ export abstract class Utils {
 
     };
 
-    static formatDigitsNumber(input: number, digitsNumber: number): string {
-        return input.toString().padStart(digitsNumber, '0');
+    static format2DigitsNumber(num: number): string {
+        return num.toString().padStart(2, '0');
     };
+
+    static format3DigitsSeparation(num: number):string {
+        let str = num.toString();
+        let i = Math.floor(str.length / 3);
+        let j = str.length % 3;
+        let out = str.slice(0, j);
+        str = str.slice(j)
+
+        for(let k = 0; k <= i; k++) {
+            out += " " + str.slice(0, 3)
+            str = str.slice(3)
+        }
+        
+        return out    
+    }
 
     static statusLoop(bot: Client): void {
         let serversCount = bot.guilds.cache.size;
@@ -99,9 +114,9 @@ export class ConsoleLogger {
     constructor() {
 
         let formatDate = {
-            day: Utils.formatDigitsNumber(new Date().getDate(), 2),
-            month: Utils.formatDigitsNumber(new Date().getMonth() + 1, 2),
-            year: Utils.formatDigitsNumber(new Date().getFullYear(), 2)
+            day: Utils.format2DigitsNumber(new Date().getDate()),
+            month: Utils.format2DigitsNumber(new Date().getMonth() + 1),
+            year: Utils.format2DigitsNumber(new Date().getFullYear())
         };
 
         //Check if directory exists and create it if not
