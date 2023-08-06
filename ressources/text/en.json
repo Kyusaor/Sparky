@@ -37,6 +37,42 @@
         "description": "english"
     },
     "commands": {
+        "calculator": {
+            "name": "calculator",
+            "description": "english",
+            "subcommand": {
+                "buildings": {
+                    "name": "buildings",
+                    "description": "english",
+                    "options":{
+                        "building": {
+                            "name": "building",
+                            "description": "english"
+                        },
+                        "level": {
+                            "name": "level",
+                            "description": "english"
+                        }
+                    }
+                }
+            },
+            "choices": {
+                "buildings": {
+                    "altar": "altar",
+                    "hall": "hall",
+                    "trove": "trove",
+                    "prison": "prison"
+                }
+            },
+            "text": {
+                "missingItemForGems": "english",
+                "missingGemsCosts": "english",
+                "buildEmbedTitle": "english",
+                "buildEmbedDescription": "english",
+                "gemsEquivalence": "english",
+                "noRessources": "english"
+            }
+        },
         "compo": {
             "name": "lineup",
             "description": "english",
@@ -75,8 +111,10 @@
                     "name": "user", 
                     "description": "english", 
                     "options": {
-                        "name": "user", 
-                        "description": "english"
+                        "user": {
+                            "name": "user", 
+                            "description": "english"
+                        }
                     } 
                 },
                 "bot": {
@@ -164,31 +202,59 @@
             }
         }
     },
-    "mobs": {
-        "abeille": "Queen Bee",
-        "agivre": "Frostwing",
-        "anoires": "Blackwing",
-        "bete": "Snow Beast",
-        "chaman": "Voodoo Shaman",
-        "cottrage": "Cottageroar",
-        "drider": "Hell Drider",
-        "epinator": "Terrorthorn",
-        "faucheuse": "Grim Reaper",
-        "flipper": "Arctic Flipper",
-        "gargantua": "Gargantua",
-        "golem": "Hardrox",
-        "gorzilla": "Gawrilla",
-        "griffon": "Gryphon",
-        "larve": "Mega Maggot",
-        "mecha": "Mecha Trojan",
-        "morfalange": "Bon Appeti",
-        "necrose": "Necrosis",
-        "noceros": "Noceros",
-        "sabrecroc": "Saberfang",
-        "serpent": "Serpent Gladiator",
-        "serrulule": "Hootclaw",
-        "titan": "Tidal Titan",
-        "wyrm": "Jade Wyrm"
+    "others": {
+        "mobs": {
+            "abeille": "Queen Bee",
+            "agivre": "Frostwing",
+            "anoires": "Blackwing",
+            "bete": "Snow Beast",
+            "chaman": "Voodoo Shaman",
+            "cottrage": "Cottageroar",
+            "drider": "Hell Drider",
+            "epinator": "Terrorthorn",
+            "faucheuse": "Grim Reaper",
+            "flipper": "Arctic Flipper",
+            "gargantua": "Gargantua",
+            "golem": "Hardrox",
+            "gorzilla": "Gawrilla",
+            "griffon": "Gryphon",
+            "larve": "Mega Maggot",
+            "mecha": "Mecha Trojan",
+            "morfalange": "Bon Appeti",
+            "necrose": "Necrosis",
+            "noceros": "Noceros",
+            "sabrecroc": "Saberfang",
+            "serpent": "Serpent Gladiator",
+            "serrulule": "Hootclaw",
+            "titan": "Tidal Titan",
+            "wyrm": "Jade Wyrm"
+        },
+        "buildings": {
+            "trove": {
+                "name": "salle au trésor",
+                "item": "pioches de cristal"
+            },
+            "hall": {
+                "name": "hall de batailles",
+                "item": "grimoires de guerre"
+            },
+            "prison": {
+                "name": "prison",
+                "item": "menottes en acier"
+            },
+            "altar": {
+                "name": "autel",
+                "item": "cristaux d'âme"
+            }
+        },
+        "ressources": {
+            "food": "english",
+            "stone": "english",
+            "wood": "english",
+            "ore": "english",
+            "gold": "english",
+            "gems": "english"
+        }
     }
 
 }

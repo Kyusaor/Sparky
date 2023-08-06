@@ -37,6 +37,42 @@
         "description": "Pour obtenir la liste de mes commandes, faites **/aide**"
     },
     "commands": {
+        "calculator": {
+            "name": "calcul",
+            "description": "Divers outils de calcul utiles",
+            "subcommand": {
+                "buildings": {
+                    "name": "batiments",
+                    "description": "Calcule les ressources qu'il vous manque pour vos bâtiments payants",
+                    "options":{
+                        "building": {
+                            "name": "batiment",
+                            "description": "Le bâtiment à calculer"
+                        },
+                        "level": {
+                            "name": "niveau",
+                            "description": "Le niveau actuel de votre bâtiment"
+                        }
+                    }
+                }
+            },
+            "choices": {
+                "buildings": {
+                    "altar": "autel",
+                    "hall": "hall de batailles",
+                    "trove": "salle au trésor",
+                    "prison": "prison"
+                }
+            },
+            "text": {
+                "missingItemForGems": "En fonction de par combien vous achetez les {text}:\n",
+                "missingGemsCosts": "Par {text}: {text2}\n",
+                "buildEmbedTitle": "Calculateur de batiment",
+                "buildEmbedDescription": "*Voici les ressources qu'il vous manque pour maxer votre {text} du __niveau {text2} au niveau {text3}__. Le compte des gemmes prend en compte le coût du marteau d'or pour le niveau 25*",
+                "gemsEquivalence": "Équivalent en gemmes:",
+                "noRessources": "Aucun"
+            }
+},
         "compo": {
             "name": "compo",
             "description": "Obtenez les meilleurs compos pour la chasse aux monstres",
@@ -75,8 +111,10 @@
                     "name": "utilisateur", 
                     "description": "Obtenez des infos sur un compte discord", 
                     "options": { 
-                        "name": "utilisateur", 
-                        "description": "Le compte discord dont vous voulez les informations"
+                        "user": {
+                            "name": "utilisateur", 
+                            "description": "Le compte discord dont vous voulez les informations"
+                            }
                         } 
                 },
                 "bot": {
@@ -164,30 +202,58 @@
             }
         }
     },
-    "mobs": {
-        "abeille": "Reine Abeille",
-        "agivre": "Aile de Givre",
-        "anoires": "Ailes Noires",
-        "bete": "Bête des Neiges",
-        "chaman": "Chaman Vaudou",
-        "cottrage": "Cott-rage",
-        "drider": "Drider de l'Enfer",
-        "epinator": "Epinator",
-        "faucheuse": "Grim Reaper",
-        "flipper": "Flipper Arctique",
-        "gargantua": "Gargantua",
-        "golem": "Golem Antique",
-        "gorzilla": "Gorzilla",
-        "griffon": "Griffon",
-        "larve": "Méga-Larve",
-        "mecha": "Mecha-Troyen",
-        "morfalange": "Morfalange",
-        "necrose": "Nécrose",
-        "noceros": "Nocéros",
-        "sabrecroc": "Sabrecroc",
-        "serpent": "Gladiateur Serpent",
-        "serrulule": "Serrulule",
-        "titan": "Titan des Marées",
-        "wyrm": "Wyrm de Jade"
-    }
+    "others": {
+        "mobs": {
+            "abeille": "Reine Abeille",
+            "agivre": "Aile de Givre",
+            "anoires": "Ailes Noires",
+            "bete": "Bête des Neiges",
+            "chaman": "Chaman Vaudou",
+            "cottrage": "Cott-rage",
+            "drider": "Drider de l'Enfer",
+            "epinator": "Epinator",
+            "faucheuse": "Grim Reaper",
+            "flipper": "Flipper Arctique",
+            "gargantua": "Gargantua",
+            "golem": "Golem Antique",
+            "gorzilla": "Gorzilla",
+            "griffon": "Griffon",
+            "larve": "Méga-Larve",
+            "mecha": "Mecha-Troyen",
+            "morfalange": "Morfalange",
+            "necrose": "Nécrose",
+            "noceros": "Nocéros",
+            "sabrecroc": "Sabrecroc",
+            "serpent": "Gladiateur Serpent",
+            "serrulule": "Serrulule",
+            "titan": "Titan des Marées",
+            "wyrm": "Wyrm de Jade"
+        },
+        "buildings": {
+            "trove": {
+                "name": "salle au trésor",
+                "item": "pioches de cristal"
+            },
+            "hall": {
+                "name": "hall de batailles",
+                "item": "grimoires de guerre"
+            },
+            "prison": {
+                "name": "prison",
+                "item": "menottes en acier"
+            },
+            "altar": {
+                "name": "autel",
+                "item": "cristaux d'âme"
+            }
+        },
+        "ressources": {
+            "food": "blé",
+            "stone": "pierre",
+            "wood": "bois",
+            "ore": "minerai",
+            "gold": "or",
+            "gems": "gemmes"
+        }
+        }
 }
