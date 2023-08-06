@@ -1,15 +1,16 @@
 import { Client, User } from 'discord.js';
-import { readFileSync } from 'fs';
+import { readFileSync, readdirSync } from 'fs';
 import { Config } from '../data/config.js';
 import { ConsoleLogger, Utils } from './core/utils.js';
 import cron from 'node-cron';
-import { TranslationCacheType, fetchedChannelsAtBoot } from './core/constants/types.js';
+import { CommandName, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, fetchedChannelsAtBoot, textLanguage } from './core/constants/types.js';
 import { DiscordValues } from './core/constants/values.js';
 import { DBManager } from './core/managers/database.js';
 import { ServerManager } from './core/managers/servers.js'
 import { EventManager } from './core/managers/events.js';
 import { Command, CommandManager } from './core/managers/commands.js';
 import { Translations } from './core/constants/translations.js';
+import { language } from './core/commands/language.js';
 
 let Console = new ConsoleLogger();
 const VERSION = JSON.parse(readFileSync('./package.json', 'utf-8')).version; // app version
