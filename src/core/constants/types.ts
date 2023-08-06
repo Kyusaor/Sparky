@@ -61,6 +61,8 @@ export type ReplacerList = {
     name?: string,
     id?: string,
     text?: string,
+    text2?: string,
+    text3?: string
 }
 
 
