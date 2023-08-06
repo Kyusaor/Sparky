@@ -1,7 +1,7 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextBasedChannel } from "discord.js";
+import { APIApplicationCommandOptionChoice, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextBasedChannel } from "discord.js";
 import { Console, TranslationsCache, bot, botCommands, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
-import {  CommandArgs, CommandInterface, CommandName, SingleLanguageCommandTranslation, TranslationCacheType, perksType, textLanguage } from "../constants/types.js";
+import {  CommandArgs, CommandInterface, CommandName, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, perksType, textLanguage } from "../constants/types.js";
 import { readFileSync, readdirSync } from "fs";
 
 export abstract class CommandManager {
@@ -154,7 +154,7 @@ export class Command implements CommandInterface {
                 throw "Type de subcommande non reconnu";
         }
 
-        sub.setName(name)
+        sub.setName(optionName || name)
             .setNameLocalizations(this.getSubcommandTranslations(command, name, "name", (isSubOption ? "sub-option" : "option"), optionName))
             .setDescription(this.getSubcommandTranslations(command, name, "description", (isSubOption ? "sub-option" : "option"), optionName)['en-US'])
             .setDescriptionLocalizations(this.getSubcommandTranslations(command, name, "description", (isSubOption ? "sub-option" : "option"), optionName))
@@ -162,11 +162,30 @@ export class Command implements CommandInterface {
         return sub
     };
 
-    static getChoices(command: CommandName, optionName:string) {
-        let translationPath = readFileSync('./ressources/text/');
-
-        //for(let language of )
-    }
+    static getChoices(command: CommandName, optionName:string):APIApplicationCommandOptionChoice<string>[] {
+        let path = './ressources/text/'
+        let translationPath = readdirSync(path);
+        
+        let choicesTranslations:Record<string, Record<string, string>> = {}
+    
+        for(let language of translationPath) {
+            let lang = language.slice(0, -5) as textLanguage;
+            let file = JSON.parse(readFileSync(`${path}${language}`, 'utf-8')) as TranslationObject;
+    
+            choicesTranslations[lang] = (file.commands[command] as SingleLanguageCommandTranslation).choices![optionName]
+        }
+        
+        let list:APIApplicationCommandOptionChoice<string>[] = []
+        for(let item of Object.keys(choicesTranslations.en)) {
+            let list_locale:Record<string, string> = {};
+            Object.keys(choicesTranslations).forEach(e =>{
+                if(e !== 'en')
+                    list_locale[e] = choicesTranslations[e][item]
+            })
+            list.push({ name: choicesTranslations.en[item], name_localizations: list_locale, value: item})
+        }
+        return list
+        }
 
     static getSubcommandTranslations(command: CommandName, subcommand: string, type: "name" | "description", optionType: "sub" | "option" | "sub-option", optionName?:string):Record<string, string> {
 
