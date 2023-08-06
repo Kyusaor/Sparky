@@ -1,4 +1,4 @@
-import { APIApplicationCommandOptionChoice, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextBasedChannel } from "discord.js";
+import { APIApplicationCommandOptionChoice, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextBasedChannel } from "discord.js";
 import { Console, TranslationsCache, bot, botCommands, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
 import {  CommandArgs, CommandInterface, CommandName, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, perksType, textLanguage } from "../constants/types.js";
@@ -123,7 +123,7 @@ export class Command implements CommandInterface {
         return sub
     }
 
-    static generateCommandOptionBuilder(command:CommandName, name: string, option:"user" | "number" | "string" | "channel" | "file", isSubOption?: true | undefined, optionName?:string) {
+    static generateCommandOptionBuilder(command:CommandName, name: string, option:"user" | "number" | "string" | "channel" | "file" | "integer", isSubOption?: true | undefined, optionName?:string) {
         if(!Object.keys(TranslationsCache.fr.commands).includes(command))
             throw "Erreur: infos de localisation indisponibles (commande introuvable)"
 
@@ -147,6 +147,10 @@ export class Command implements CommandInterface {
 
             case 'file':
                 sub = new SlashCommandAttachmentOption();
+                break;
+
+            case 'integer':
+                sub = new SlashCommandIntegerOption();
                 break;
 
             default:
