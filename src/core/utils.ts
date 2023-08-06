@@ -56,8 +56,8 @@ export abstract class Utils {
 
     };
 
-    static format2DigitsNumber(num: number): string {
-        return num.toString().padStart(2, '0');
+    static formatDigitsNumber(input: number, digitsNumber: number): string {
+        return input.toString().padStart(digitsNumber, '0');
     };
 
     static statusLoop(bot: Client): void {
@@ -99,9 +99,9 @@ export class ConsoleLogger {
     constructor() {
 
         let formatDate = {
-            day: Utils.format2DigitsNumber(new Date().getDate()),
-            month: Utils.format2DigitsNumber(new Date().getMonth() + 1),
-            year: Utils.format2DigitsNumber(new Date().getFullYear())
+            day: Utils.formatDigitsNumber(new Date().getDate(), 2),
+            month: Utils.formatDigitsNumber(new Date().getMonth() + 1, 2),
+            year: Utils.formatDigitsNumber(new Date().getFullYear(), 2)
         };
 
         //Check if directory exists and create it if not
