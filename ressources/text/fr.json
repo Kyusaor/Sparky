@@ -82,6 +82,34 @@
                     "name": "monstre",
                     "description": "Le monstre dont vous voulez la compo"
                 }
+            },
+            "choices": {
+                "mobs": {
+                    "abeille": "Reine Abeille",
+                    "agivre": "Aile de Givre",
+                    "anoires": "Ailes Noires",
+                    "bete": "Bête des Neiges",
+                    "chaman": "Chaman Vaudou",
+                    "cottrage": "Cott-rage",
+                    "drider": "Drider de l'Enfer",
+                    "epinator": "Epinator",
+                    "faucheuse": "Grim Reaper",
+                    "flipper": "Flipper Arctique",
+                    "gargantua": "Gargantua",
+                    "golem": "Golem Antique",
+                    "gorzilla": "Gorzilla",
+                    "griffon": "Griffon",
+                    "larve": "Méga-Larve",
+                    "mecha": "Mecha-Troyen",
+                    "morfalange": "Morfalange",
+                    "necrose": "Nécrose",
+                    "noceros": "Nocéros",
+                    "sabrecroc": "Sabrecroc",
+                    "serpent": "Gladiateur Serpent",
+                    "serrulule": "Serrulule",
+                    "titan": "Titan des Marées",
+                    "wyrm": "Wyrm de Jade"
+                }
             }
         },
         "contact": {

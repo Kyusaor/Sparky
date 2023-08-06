@@ -82,6 +82,34 @@
                     "name": "monster",
                     "description": "english"
                 }
+            },
+            "choices": {
+                "mobs": {
+                    "abeille": "Queen Bee",
+                    "agivre": "Frostwing",
+                    "anoires": "Blackwing",
+                    "bete": "Snow Beast",
+                    "chaman": "Voodoo Shaman",
+                    "cottrage": "Cottageroar",
+                    "drider": "Hell Drider",
+                    "epinator": "Terrorthorn",
+                    "faucheuse": "Grim Reaper",
+                    "flipper": "Arctic Flipper",
+                    "gargantua": "Gargantua",
+                    "golem": "Hardrox",
+                    "gorzilla": "Gawrilla",
+                    "griffon": "Gryphon",
+                    "larve": "Mega Maggot",
+                    "mecha": "Mecha Trojan",
+                    "morfalange": "Bon Appeti",
+                    "necrose": "Necrosis",
+                    "noceros": "Noceros",
+                    "sabrecroc": "Saberfang",
+                    "serpent": "Serpent Gladiator",
+                    "serrulule": "Hootclaw",
+                    "titan": "Tidal Titan",
+                    "wyrm": "Jade Wyrm"
+                }            
             }
         },
         "contact": {
