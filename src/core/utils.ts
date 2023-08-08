@@ -96,6 +96,20 @@ export abstract class Utils {
         }, 20000);
     };
 
+    static stringifyDuration(durationInSeconds: number, language: textLanguage):string {
+        let times = TranslationsCache[language].global.timeNames;
+
+        let days = Math.floor(durationInSeconds / 1440);
+        let hours = Math.floor((durationInSeconds - days * 1440) / 60);
+        let minutes = durationInSeconds % 60;
+
+        let string = `${Math.floor(minutes)} ${times.minute}`
+        if(hours > 0) string = `${hours} ${times.hour}, ${string}`;
+        if(days > 0) string = `${days} ${times.day}, ${string}`;
+        
+        return string    
+    }
+
     static stringifyDate(date:number | Date, language: textLanguage):string {
         if(typeof date !== 'number')
             date = new Date(date).getTime();
