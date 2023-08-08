@@ -140,10 +140,11 @@ export const calculator: CommandInterface = {
                     fieldValues.push({ name: Translations.displayText(commandText.trainEmbedRssCost, { text: TranslationsCache[language].others.ressources[rss as keyof typeof TranslationsCache.fr.others.ressources] }), value: Utils.format3DigitsSeparation(rssCost(rss as keyof typeof TranslationsCache.fr.others.ressources, args.type, args.tier) * args.amount * (100 - Constants.troops.subv[args.tier][args.subsidy]) / 100), inline: true })
                 }
 
-                let trainEmbed = new EmbedBuilder()
+                let trainEmbed = Utils.EmbedBaseBuilder(language)
                     .setTitle(commandText.trainEmbedTitle)
                     .setDescription(commandText.trainEmbedDescription)
                     .setThumbnail(DiscordValues.embedThumbnails.trainCalculator)
+                    .setColor(0)
                     .addFields([
                         ...fieldValues,
                         { name: commandText.trainEmbedTimeCost, value: Utils.stringifyDuration(Constants.troops[args.tier].time * args.amount / 60 / ((args.speed + 100) / 100), language), inline: true },
