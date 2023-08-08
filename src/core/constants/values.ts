@@ -29,6 +29,9 @@ export abstract class DiscordValues {
     };
     static readonly emptyEmbedField = { name: "** **", value: "** **" };
     static readonly emptyEmbedFieldValue = "** **";
+    static readonly embedThumbnails = {
+        trainCalculator: 'https://media.discordapp.net/attachments/659758501865717790/1059497225711005696/latest.png'
+    }
 }
 
 export abstract class Constants {
@@ -77,6 +80,39 @@ export abstract class Constants {
             },
             images: ['https://media.discordapp.net/attachments/659758501865717790/1053314872869392445/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053314873234292827/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053314873628561408/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053314873980895242/latest.png'],
             itemCost: {1: 15, 10: 120, 100: 1100, 1000: 10000}
+        },
+    }
+
+    static readonly troops = {
+        1: {
+            time: 15,
+            might: 2,
+            gold: 0,
+            rss: 50
+        },
+        2: {
+            time: 30,
+            might: 8,
+            gold: 5,
+            rss: 100
+        },
+        3: {
+            time: 60,
+            might: 24,
+            gold: 10,
+            rss: 150
+        },
+        4: {
+            time: 120,
+            might: 2,
+            gold: 500,
+            rss: 1000
+        },
+        subv: {
+            1: [0, 0.5, 1, 1.5, 2.5, 3.5, 4.5, 7, 10, 16, 40],
+            2: [0, 0.5, 1, 1.5, 2.5, 3.5, 4.5, 7, 10, 16, 40],
+            3: [0, 0.5, 1, 1.5, 2, 3, 4, 5, 7, 11, 30],
+            4: [0, 0.5, 1, 1.5, 2, 3, 4, 5, 7, 11, 30]
         },
     }
 }
