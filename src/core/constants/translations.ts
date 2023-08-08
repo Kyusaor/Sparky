@@ -63,10 +63,10 @@ export class Translations {
         const frDiff = enKeys.filter(key => frKeys.indexOf(key) === -1);
         
         for (const diff of enDiff) {
-			Console.info(`"${diff}" n'est pas présent dans la traduction anglaise`);
+			Console.log(`"${diff}" n'est pas présent dans la traduction anglaise`);
 		}
 		for (const diff of frDiff) {
-			Console.info(`"${diff}" n'est pas présent dans la traduction française`);
+			Console.log(`"${diff}" n'est pas présent dans la traduction française`);
 		}
 
         if(frDiff.length == 0 && enDiff.length == 0)
