@@ -1,7 +1,7 @@
-import { EmbedBuilder, SlashCommandIntegerOption, SlashCommandStringOption } from "discord.js";
+import { APIEmbedField, EmbedBuilder, RestOrArray, SlashCommandIntegerOption, SlashCommandStringOption } from "discord.js";
 import { CommandInterface } from "../constants/types.js";
 import { Command, CommandManager } from "../managers/commands.js";
-import { Constants } from "../constants/values.js";
+import { Constants, DiscordValues } from "../constants/values.js";
 import { Utils } from "../utils.js";
 import { Translations } from "../constants/translations.js";
 import { TranslationsCache } from "../../main.js";
@@ -23,6 +23,41 @@ export const calculator: CommandInterface = {
                         .setMinValue(0)
                         .setMaxValue(25)
                 ),
+        )
+        .addSubcommand(
+            Command.generateSubcommandBuilder("calculator", "train")
+                .addIntegerOption(
+                    (Command.generateCommandOptionBuilder("calculator", "train", "integer", true, "speed") as SlashCommandIntegerOption)
+                        .setRequired(true)
+                        .setMinValue(0)
+                        .setMaxValue(800)
+                )
+                .addIntegerOption(
+                    (Command.generateCommandOptionBuilder("calculator", "train", "integer", true, "capacity") as SlashCommandIntegerOption)
+                        .setRequired(true)
+                        .setMinValue(0)
+                )
+                .addIntegerOption(
+                    (Command.generateCommandOptionBuilder("calculator", "train", "integer", true, "subsidy") as SlashCommandIntegerOption)
+                        .setRequired(true)
+                        .setMinValue(0)
+                        .setMaxValue(10)
+                )
+                .addIntegerOption(
+                    (Command.generateCommandOptionBuilder("calculator", "train", "integer", true, "amount") as SlashCommandIntegerOption)
+                        .setRequired(true)
+                        .setMinValue(0)
+                )
+                .addStringOption(
+                    (Command.generateCommandOptionBuilder("calculator", "train", "string", true, "type") as SlashCommandStringOption)
+                        .setRequired(true)
+                        .addChoices(...Command.getChoices("calculator", "type"))
+                )
+                .addStringOption(
+                    (Command.generateCommandOptionBuilder("calculator", "train", "string", true, "tier") as SlashCommandStringOption)
+                        .setRequired(true)
+                        .addChoices(...Command.getChoices("calculator", "tier"))
+                )
         ),
 
     run({ intera, language, commandText }) {
@@ -41,7 +76,7 @@ export const calculator: CommandInterface = {
 
                 let missingRessources: Record<string, string> = {}
 
-                if (lvl == 25 || (build == 'trove' && lvl > 8)){
+                if (lvl == 25 || (build == 'trove' && lvl > 8)) {
                     for (let i of Object.keys(rss.ressources))
                         missingRessources[i] = commandText.noRessources;
                     missingRessources.gems = commandText.noRessources;
@@ -80,6 +115,42 @@ export const calculator: CommandInterface = {
                 Command.prototype.reply({ embeds: [buildEmbed] }, intera);
                 break;
 
+            case 'train':
+                let troopData = TranslationsCache[language].commands.calculator.choices;
+
+                let args = {
+                    speed: intera.options.getInteger('speed')!,
+                    capacity: intera.options.getInteger('capacity')!,
+                    subsidy: intera.options.getInteger('subsidy')!,
+                    amount: intera.options.getInteger('amount')!,
+                    type: intera.options.getString('type')! as keyof typeof troopData.type,
+                    tier: intera.options.getString('tier')! as keyof typeof troopData.tier
+                };
+
+                let fieldValues: RestOrArray<APIEmbedField> = [
+                    { name: commandText.trainEmbedTrainSpeed, value: `${args.speed}%`, inline: true },
+                    { name: commandText.trainEmbedCostReduction, value: `${Constants.troops.subv[args.tier][args.subsidy]}%`, inline: true },
+                    { name: commandText.trainEmbedTroopAmount, value: `${Utils.format3DigitsSeparation(args.amount)} ${troopData.type[args.type]} T${args.tier}`, inline: true },
+                    { name: commandText.trainEmbedBatchAmount, value: Math.ceil(args.amount / args.capacity).toString(), inline: true },
+                ];
+
+                for (let rss of Object.keys(TranslationsCache.fr.others.ressources)) {
+                    if (rss == "gems")
+                        continue;
+                    fieldValues.push({ name: Translations.displayText(commandText.trainEmbedRssCost, { text: TranslationsCache[language].others.ressources[rss as keyof typeof TranslationsCache.fr.others.ressources] }), value: Utils.format3DigitsSeparation(rssCost(rss as keyof typeof TranslationsCache.fr.others.ressources, args.type, args.tier) * args.amount * (100 - Constants.troops.subv[args.tier][args.subsidy]) / 100), inline: true })
+                }
+
+                let trainEmbed = new EmbedBuilder()
+                    .setTitle(commandText.trainEmbedTitle)
+                    .setDescription(commandText.trainEmbedDescription)
+                    .setThumbnail(DiscordValues.embedThumbnails.trainCalculator)
+                    .addFields([
+                        ...fieldValues,
+                        { name: commandText.trainEmbedTimeCost, value: Utils.stringifyDuration(Constants.troops[args.tier].time * args.amount / 60 / ((args.speed + 100) / 100), language), inline: true },
+                    ])
+
+                Command.prototype.reply({ embeds: [trainEmbed] }, intera);
+                break;
         }
     },
 }
@@ -94,4 +165,14 @@ function getBuildingImage(building: keyof typeof Constants.buildings, level: num
 
     let getStep = levelCap.filter(e => level >= e);
     return images[getStep.length];
+}
+
+let rssCost = function (
+    rss: keyof typeof TranslationsCache.fr.others.ressources,
+    type: keyof typeof TranslationsCache.fr.commands.calculator.choices.type,
+    tier: keyof typeof TranslationsCache.fr.commands.calculator.choices.tier
+) {
+    if ((type == "inf" && rss == "stone") || (type == "range" && rss == "ore") || (type == "cav" && rss == "wood")) return 0;
+    if (rss == "gold") return Constants.troops[tier].gold
+    else return Constants.troops[tier].rss
 }

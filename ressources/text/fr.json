@@ -19,7 +19,13 @@
         "cancelledCommand": "Commande annulée",
         "stringifyDate": "<t:{timestamp}> (il y a {daysSince} jours)",
         "yes": "Oui",
-        "no": "Non"
+        "no": "Non",
+        "timeNames": {
+            "day": "jours",
+            "hour": "heures",
+            "minute": "minutes",
+            "second": "secondes"
+        }
     },
     "permissions": {
         "MissingPermissions": "Oups, il semblerait qu'il me manque les permissions suivantes:\n{text}",
@@ -54,6 +60,36 @@
                             "description": "Le niveau actuel de votre bâtiment"
                         }
                     }
+                },
+                "train": {
+                    "name": "entraînement",
+                    "description": "Calcule le coût en ressources et temps pour former des troupes",
+                    "options": {
+                        "speed": {
+                            "name": "vitesse",
+                            "description": "Votre % de vitesse d'entraînement"
+                        },
+                        "capacity": {
+                            "name": "capacité",
+                            "description": "La capacité de formation de votre caserne"
+                        },
+                        "subsidy": {
+                            "name": "subventions",
+                            "description": "Le niveau de la recherche subvention"
+                        },
+                        "amount": {
+                            "name": "quantité",
+                            "description": "La quantité totale de troupes à former"
+                        },
+                        "type": {
+                            "name": "type",
+                            "description": "Le type de troupes à former"
+                        },
+                        "tier": {
+                            "name": "tier",
+                            "description": "Le tier des troupes à former"
+                        }
+                    }
                 }
             },
             "choices": {
@@ -62,6 +98,18 @@
                     "hall": "hall de batailles",
                     "trove": "salle au trésor",
                     "prison": "prison"
+                },
+                "type": {
+                    "inf": "infanterie",
+                    "range": "distance",
+                    "cav": "cavalerie",
+                    "siege": "engins de siège"
+                },
+                "tier": {
+                    "1": "T1",
+                    "2": "T2",
+                    "3": "T3",
+                    "4": "T4"
                 }
             },
             "text": {
@@ -70,7 +118,16 @@
                 "buildEmbedTitle": "Calculateur de batiment",
                 "buildEmbedDescription": "*Voici les ressources qu'il vous manque pour maxer votre {text} du __niveau {text2} au niveau {text3}__. Le compte des gemmes prend en compte le coût du marteau d'or pour le niveau 25*",
                 "gemsEquivalence": "Équivalent en gemmes:",
-                "noRessources": "Aucun"
+                "noRessources": "Aucun",
+
+                "trainEmbedTitle": "Calculateur de troupes",
+                "trainEmbedDescription": "*Voici le coût en ressources pour former vos troupes !\nNote: le coût en gemmes diminuant au fur et à mesure que le nombre de troupes augmente, il n'est pas affiché dans ce calculateur*",
+                "trainEmbedTrainSpeed" : "__Vitesse d'entraînement:__",
+                "trainEmbedCostReduction" : "__Réduction du coût:__",
+                "trainEmbedTroopAmount" : "__Nombre de troupe à former:__",
+                "trainEmbedBatchAmount" : "__Nombre de fournées nécessaires:__",
+                "trainEmbedRssCost" : "__Coût en {text}:__ ",
+                "trainEmbedTimeCost" : "__Durée nécessaire:__"
             }
 },
         "compo": {
@@ -283,5 +340,5 @@
             "gold": "or",
             "gems": "gemmes"
         }
-        }
+    }
 }

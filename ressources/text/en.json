@@ -19,7 +19,13 @@
         "cancelledCommand": "Commande annulée",
         "stringifyDate": "<t:{timestamp}> ({daysSince} days ago)",
         "yes": "english",
-        "no": "english"
+        "no": "english",
+        "timeNames": {
+            "day": "jours",
+            "hour": "heures",
+            "minute": "minutes",
+            "second": "secondes"
+        }
     },
     "permissions": {
         "MissingPermissions": "english",
@@ -54,6 +60,36 @@
                             "description": "english"
                         }
                     }
+                },
+                "train": {
+                    "name": "training",
+                    "description": "english",
+                    "options": {
+                        "speed": {
+                            "name": "speed",
+                            "description": "english"
+                        },
+                        "capacity": {
+                            "name": "capacity",
+                            "description": "english"
+                        },
+                        "subsidy": {
+                            "name": "subsidy",
+                            "description": "english"
+                        },
+                        "amount": {
+                            "name": "amount",
+                            "description": "english"
+                        },
+                        "type": {
+                            "name": "type",
+                            "description": "english"
+                        },
+                        "tier": {
+                            "name": "tier",
+                            "description": "english"
+                        }
+                    }
                 }
             },
             "choices": {
@@ -62,6 +98,18 @@
                     "hall": "hall",
                     "trove": "trove",
                     "prison": "prison"
+                },
+                "type": {
+                    "inf": "Infantry",
+                    "range": "Range",
+                    "cav": "Cavalry",
+                    "siege": "Siege engine"
+                },
+                "tier": {
+                    "1": "T1",
+                    "2": "T2",
+                    "3": "T3",
+                    "4": "T4"
                 }
             },
             "text": {
@@ -70,7 +118,16 @@
                 "buildEmbedTitle": "english",
                 "buildEmbedDescription": "english",
                 "gemsEquivalence": "english",
-                "noRessources": "english"
+                "noRessources": "english",
+
+                "trainEmbedTitle": "english",
+                "trainEmbedDescription": "english",
+                "trainEmbedTrainSpeed" : "english",
+                "trainEmbedCostReduction" : "english",
+                "trainEmbedTroopAmount" : "english",
+                "trainEmbedBatchAmount" : "english",
+                "trainEmbedRssCost" : "english",
+                "trainEmbedTimeCost" : "english"
             }
         },
         "compo": {
