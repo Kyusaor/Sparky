@@ -27,7 +27,7 @@ export class DBManager {
         let date = new Date();
 
         let month = Utils.format2DigitsNumber(date.getMonth() + 1);
-        let day = Utils.format2DigitsNumber(date.getDay());
+        let day = Utils.format2DigitsNumber(date.getDate());
 
         let dir = `./data/backups/${month}`
         if (!existsSync(dir)) {
