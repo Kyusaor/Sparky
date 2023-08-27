@@ -78,14 +78,14 @@ export abstract class Utils {
     static statusLoop(bot: Client): void {
         let serversCount = bot.guilds.cache.size;
         try {
-            bot.user?.setActivity(`${serversCount} serveurs`, { type: ActivityType.Watching })
+            bot.user?.setActivity(`${serversCount} servers`, { type: ActivityType.Watching })
         } catch (err) {
             Console.error(err);
         }
 
         setTimeout(() => {
             try {
-                bot.user?.setPresence({ activities: [{ name: "Perdu? Faites /aide !", type: ActivityType.Watching }] })
+                bot.user?.setPresence({ activities: [{ name: "Type @sparky for help", type: ActivityType.Custom }] })
             } catch (err) {
                 Console.error(err);
             }
