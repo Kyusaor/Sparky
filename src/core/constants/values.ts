@@ -30,7 +30,8 @@ export abstract class DiscordValues {
     static readonly emptyEmbedField = { name: "** **", value: "** **" };
     static readonly emptyEmbedFieldValue = "** **";
     static readonly embedThumbnails = {
-        trainCalculator: 'https://media.discordapp.net/attachments/659758501865717790/1059497225711005696/latest.png'
+        trainCalculator: 'https://media.discordapp.net/attachments/659758501865717790/1059497225711005696/latest.png',
+        credits: 'https://cdn.discordapp.com/emojis/751774895024898188.webp?size=96&quality=lossless'
     }
 }
 

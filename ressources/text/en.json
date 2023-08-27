@@ -176,6 +176,21 @@
                 "content": "english"
             }
         },
+        "credits": {
+            "name": "credits",
+            "description": "english",
+            "text": {
+                "thanks": [
+                    ["english", "english"],
+                    ["english", "english"],
+                    ["english", "english"],
+                    ["english", "english"],
+                    ["english", "english"]
+                ],
+                "embedDescription": "english",
+                "embedTitle": "english"
+            }
+        },
         "help": {
             "name": "help",
             "description": "english",

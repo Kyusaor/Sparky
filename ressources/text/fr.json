@@ -176,6 +176,21 @@
                 "content": "Besoin d'aide sur le bot, de signaler un bug ou simplement discuter avec des joueurs de Lords Mobile? Voilà le lien du serveur :wink:\n{support_server_invite}\n\nPour contacter le développeur, vous pouvez également envoyer un mail à __**{support_email}**__"
             }
         },
+        "credits": {
+            "name": "credits",
+            "description": "Remerciements",
+            "text": {
+                "thanks": [
+                    ["Les bêta testeurs", "Qui ont accepté de servir de cobayes pour un bot presque fini"],
+                    ["Les testeurs", "Pour m'avoir aidé à la conception du bot et l'amélioration des rendus"],
+                    ["Les quelques donateurs", "Pour m'avoir aidé à soutenir le coût du bot (commande **/donate** si jamais :eyes:)"],
+                    ["Les traducteurs", "Pour avoir corrigé mon anglais douteux"],
+                    ["Et enfin...", "Tous les utilisateurs du bot pour avoir accordé leur confiance à ce projet :heart:"]
+                ],
+                "embedDescription": "La liste des personnes qui ont aidé de près ou de loin au développement du bot",
+                "embedTitle": "Remerciements"
+            }
+        },
         "help": {
             "name": "aide",
             "description": "Obtenez la liste des commandes",
