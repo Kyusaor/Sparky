@@ -1,7 +1,7 @@
 import { APIApplicationCommandOptionChoice, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextBasedChannel } from "discord.js";
 import { Console, TranslationsCache, bot, botCommands, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
-import {  CommandArgs, CommandInterface, CommandName, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, perksType, textLanguage } from "../constants/types.js";
+import { CommandArgs, CommandInterface, CommandName, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, perksType, textLanguage } from "../constants/types.js";
 import { readFileSync, readdirSync } from "fs";
 
 export abstract class CommandManager {
@@ -10,7 +10,7 @@ export abstract class CommandManager {
         const frJSON = JSON.parse(readFileSync(`./ressources/text/fr.json`, 'utf-8'));
         const enJSON = JSON.parse(readFileSync(`./ressources/text/en.json`, 'utf-8'));
 
-        let translations:TranslationCacheType = { fr: frJSON, en: enJSON };
+        let translations: TranslationCacheType = { fr: frJSON, en: enJSON };
 
         let defaultText = [translations.fr.commands, translations.en.commands];
         let text = {
@@ -33,12 +33,12 @@ export abstract class CommandManager {
 
     static async buildBotCommands(): Promise<Command[]> {
         let commandsFiles = readdirSync('./src/core/commands/');
-        let Commands:Command[] = [];
+        let Commands: Command[] = [];
 
-        for(const file of commandsFiles){
+        for (const file of commandsFiles) {
             const commandName = file.slice(0, -3);
             const commandData = await import(`../commands/${commandName}.js`);
-            if(!commandData) {
+            if (!commandData) {
                 Console.error(`Impossible de récupérer le fichier ${file}`);
                 continue;
             }
@@ -87,7 +87,7 @@ export class Command implements CommandInterface {
 
     permissionLevel: 1 | 2 | 3;
     commandStructure: SlashCommandSubcommandsOnlyBuilder | SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
-    run:(args: CommandArgs) => unknown;
+    run: (args: CommandArgs) => unknown;
 
     constructor(args: CommandInterface) {
         this.permissionLevel = args.permissionLevel;
@@ -97,21 +97,21 @@ export class Command implements CommandInterface {
 
     async reply(data: string | MessagePayload | InteractionReplyOptions, intera: ChatInputCommandInteraction) {
         let missingPerm = await Command.getMissingPermissions([PermissionFlagsBits.AttachFiles, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.SendMessages], intera.channel!, intera.guildId);
-        if(missingPerm.length > 0)
+        if (missingPerm.length > 0)
             data = await Command.returnMissingPermissionMessage(missingPerm, intera.guildId!);
-        
+
         if (!intera.deferred && !intera.replied) return intera.reply(data);
         try {
             intera.editReply(data);
         }
         catch {
-            await intera.deleteReply().catch(e => e)
-            return intera.followUp(data).catch(e => Console.log(e))
+            await intera.followUp(data).catch(e => Console.log(e))
+            return intera.deleteReply().catch(e => e)
         }
     };
 
-    static generateSubcommandBuilder(command:CommandName, name: string): SlashCommandSubcommandBuilder {
-        if(!Object.keys(TranslationsCache.fr.commands).includes(command))
+    static generateSubcommandBuilder(command: CommandName, name: string): SlashCommandSubcommandBuilder {
+        if (!Object.keys(TranslationsCache.fr.commands).includes(command))
             throw "Erreur: infos de localisation indisponibles (commande introuvable)"
 
         let sub = new SlashCommandSubcommandBuilder;
@@ -123,12 +123,12 @@ export class Command implements CommandInterface {
         return sub
     }
 
-    static generateCommandOptionBuilder(command:CommandName, name: string, option:"user" | "number" | "string" | "channel" | "file" | "integer", isSubOption?: true | undefined, optionName?:string) {
-        if(!Object.keys(TranslationsCache.fr.commands).includes(command))
+    static generateCommandOptionBuilder(command: CommandName, name: string, option: "user" | "number" | "string" | "channel" | "file" | "integer", isSubOption?: true | undefined, optionName?: string) {
+        if (!Object.keys(TranslationsCache.fr.commands).includes(command))
             throw "Erreur: infos de localisation indisponibles (commande introuvable)"
 
         let sub;
-        switch(option) {
+        switch (option) {
             case 'string':
                 sub = new SlashCommandStringOption();
                 break;
@@ -165,40 +165,40 @@ export class Command implements CommandInterface {
         return sub
     };
 
-    static getChoices(command: CommandName, optionName:string):APIApplicationCommandOptionChoice<string>[] {
+    static getChoices(command: CommandName, optionName: string): APIApplicationCommandOptionChoice<string>[] {
         let path = './ressources/text/'
         let translationPath = readdirSync(path);
-        
-        let choicesTranslations:Record<string, Record<string, string>> = {}
-    
-        for(let language of translationPath) {
+
+        let choicesTranslations: Record<string, Record<string, string>> = {}
+
+        for (let language of translationPath) {
             let lang = language.slice(0, -5) as textLanguage;
             let file = JSON.parse(readFileSync(`${path}${language}`, 'utf-8')) as TranslationObject;
-    
+
             choicesTranslations[lang] = (file.commands[command] as SingleLanguageCommandTranslation).choices![optionName]
         }
-        
-        let list:APIApplicationCommandOptionChoice<string>[] = []
-        for(let item of Object.keys(choicesTranslations.en)) {
-            let list_locale:Record<string, string> = {};
-            Object.keys(choicesTranslations).forEach(e =>{
-                if(e !== 'en')
+
+        let list: APIApplicationCommandOptionChoice<string>[] = []
+        for (let item of Object.keys(choicesTranslations.en)) {
+            let list_locale: Record<string, string> = {};
+            Object.keys(choicesTranslations).forEach(e => {
+                if (e !== 'en')
                     list_locale[e] = choicesTranslations[e][item]
             })
-            list.push({ name: choicesTranslations.en[item], name_localizations: list_locale, value: item})
+            list.push({ name: choicesTranslations.en[item], name_localizations: list_locale, value: item })
         }
         return list
-        }
+    }
 
-    static getSubcommandTranslations(command: CommandName, subcommand: string, type: "name" | "description", optionType: "sub" | "option" | "sub-option", optionName?:string):Record<string, string> {
+    static getSubcommandTranslations(command: CommandName, subcommand: string, type: "name" | "description", optionType: "sub" | "option" | "sub-option", optionName?: string): Record<string, string> {
 
-        let data:Record<string, string> = {};
-        for(let lang of Object.keys(TranslationsCache)) {
+        let data: Record<string, string> = {};
+        for (let lang of Object.keys(TranslationsCache)) {
             let language = lang;
-            if(language == 'en')
+            if (language == 'en')
                 language = 'en-US';
-            let translationData:SingleLanguageCommandTranslation = TranslationsCache[lang as textLanguage].commands[command as keyof typeof TranslationsCache.fr.commands];
-            switch(optionType) {
+            let translationData: SingleLanguageCommandTranslation = TranslationsCache[lang as textLanguage].commands[command as keyof typeof TranslationsCache.fr.commands];
+            switch (optionType) {
                 case 'option':
                     data[language] = translationData.options![subcommand as keyof typeof translationData.subcommand][type]
                     break;
@@ -231,63 +231,86 @@ export class Command implements CommandInterface {
                     .setStyle(ButtonStyle.Danger)
                     .setLabel(TranslationsCache[language].global.no)
             ])
-        
-        return buttons    
+
+        return buttons
     };
 
-    static async getConfirmationMessage({ intera, language }: CommandArgs, text?: string, embeds?:EmbedBuilder[], time?:number):Promise<"yes" | "no" | "error"> {
-        let payload:MessagePayload | InteractionReplyOptions = {content: text, components: [Command.generateYesNoButtons('language', language)]};
-        if(embeds)
+    static generatePageButtons(command: CommandName, additionalLabel?: string, isFirstOrLast?: "first" | "last"): ActionRowBuilder<ButtonBuilder> {
+        let previous = new ButtonBuilder()
+            .setCustomId(`${command}${("-" + additionalLabel)}-previous`)
+            .setStyle(ButtonStyle.Primary)
+            .setEmoji('◀');
+
+        let next = new ButtonBuilder()
+            .setCustomId(`${command}${("-" + additionalLabel)}-next`)
+            .setStyle(ButtonStyle.Primary)
+            .setEmoji('▶');
+
+        if(isFirstOrLast == "first")
+            previous.setDisabled(true)
+        
+        if(isFirstOrLast == "last")
+            next.setDisabled(true)
+
+        let buttons = new ActionRowBuilder<ButtonBuilder>()
+            .addComponents([previous, next])
+
+        return buttons
+    }
+
+    static async getConfirmationMessage({ intera, language }: CommandArgs, text?: string, embeds?: EmbedBuilder[], time?: number): Promise<"yes" | "no" | "error"> {
+        let payload: MessagePayload | InteractionReplyOptions = { content: text, components: [Command.generateYesNoButtons('language', language)] };
+        if (embeds)
             payload.embeds = embeds
         Command.prototype.reply(payload, intera);
 
         let confirmationResponse;
         try {
-            let filter = (button:ButtonInteraction<"cached">) => button.user.id === intera.user.id && button.customId.includes(intera.commandName)
-            confirmationResponse = await intera.channel?.awaitMessageComponent({ componentType: ComponentType.Button, filter, time: time || 15000})
+            let filter = (button: ButtonInteraction<"cached">) => button.user.id === intera.user.id && button.customId.includes(intera.commandName)
+            confirmationResponse = await intera.channel?.awaitMessageComponent({ componentType: ComponentType.Button, filter, time: time || 15000 })
         } catch {
             return "error"
         }
-        if(confirmationResponse?.customId.endsWith('yes'))
+        if (confirmationResponse?.customId.endsWith('yes'))
             return "yes"
-        else if(confirmationResponse?.customId.endsWith('no'))
+        else if (confirmationResponse?.customId.endsWith('no'))
             return "no"
         else return "error"
-        
+
 
     };
 
-    static getMissingPermissions(requiredPermissions: PermissionResolvable[], channel:TextBasedChannel, guildId?:string | null):string[] {
-        if(channel.type == ChannelType.DM || !guildId)
+    static getMissingPermissions(requiredPermissions: PermissionResolvable[], channel: TextBasedChannel, guildId?: string | null): string[] {
+        if (channel.type == ChannelType.DM || !guildId)
             return [];
         let botPermissions = channel.permissionsFor(bot.user!.id);
         let permissionsBitfield = new PermissionsBitField(requiredPermissions).toArray();
-        let missingPermissions:string[] = [];
+        let missingPermissions: string[] = [];
 
-        for(let perm of permissionsBitfield) {
-            if(!botPermissions?.has(perm))
+        for (let perm of permissionsBitfield) {
+            if (!botPermissions?.has(perm))
                 missingPermissions.push(perm)
         }
 
         return missingPermissions;
     };
 
-    static async returnMissingPermissionMessage(perms:string[], guildId:string):Promise<string> {
+    static async returnMissingPermissionMessage(perms: string[], guildId: string): Promise<string> {
         let language = await db.returnServerLanguage(guildId);
-        let permList:string = "";
+        let permList: string = "";
 
-        for(let perm of perms) {
+        for (let perm of perms) {
             permList += `-${TranslationsCache[language].permissions.flags[perm as keyof typeof TranslationsCache.fr.permissions.flags]}\n`
         }
 
-        return Translations.displayText(TranslationsCache[language].permissions.MissingPermissions, { text: permList})
+        return Translations.displayText(TranslationsCache[language].permissions.MissingPermissions, { text: permList })
     }
 }
 
 
-function userCommandLogString(intera: ChatInputCommandInteraction):string {
+function userCommandLogString(intera: ChatInputCommandInteraction): string {
     let baseText = `${intera.user.username} (${intera.user.id}) a executé la commande ${intera.commandName} `;
-    let chanText:string = "";
+    let chanText: string = "";
     intera.channel!.type == ChannelType.GuildText ?
         chanText = `sur le salon ${intera.channel?.name} (${intera.channel?.id}), serveur ${intera.guild?.name} (${intera.guild?.id})` :
         chanText = `en mp`;
