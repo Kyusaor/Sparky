@@ -129,7 +129,7 @@
                 "trainEmbedRssCost" : "__Coût en {text}:__ ",
                 "trainEmbedTimeCost" : "__Durée nécessaire:__"
             }
-},
+        },
         "compo": {
             "name": "compo",
             "description": "Obtenez les meilleurs compos pour la chasse aux monstres",
@@ -189,6 +189,14 @@
                 ],
                 "embedDescription": "La liste des personnes qui ont aidé de près ou de loin au développement du bot",
                 "embedTitle": "Remerciements"
+            }
+        },
+        "data": {
+            "name": "data",
+            "description": "Envoie la base de données du bot",
+            "text": {
+                "error": "Impossible de trouver la backup",
+                "success": "La db a été envoyée en mp"
             }
         },
         "donate": {
