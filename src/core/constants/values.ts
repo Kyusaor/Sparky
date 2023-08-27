@@ -104,7 +104,7 @@ export abstract class Constants {
         },
         4: {
             time: 120,
-            might: 2,
+            might: 36,
             gold: 500,
             rss: 1000
         },
