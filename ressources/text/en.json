@@ -191,6 +191,13 @@
                 "embedTitle": "english"
             }
         },
+        "donate": {
+            "name": "donate",
+            "description": "english",
+            "text": {
+                "donate": "english"
+            }
+        },
         "help": {
             "name": "help",
             "description": "english",

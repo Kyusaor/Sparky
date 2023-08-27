@@ -191,6 +191,13 @@
                 "embedTitle": "Remerciements"
             }
         },
+        "donate": {
+            "name": "donner",
+            "description": "Faire un don à l'auteur du bot",
+            "text": {
+                "donate": "Vous voulez contribuer au développement du bot sans rien y connaître en informatique et sans passer des nuits blanches? J'ai la solution !\n\nEn donnant de l'argent, vous aiderez le développeur à financer l'hébergement du bot et booster son égo, d'une pierre deux coups ! <:thumbsup:751774481781096468>\n{text}"
+            }
+        },
         "help": {
             "name": "aide",
             "description": "Obtenez la liste des commandes",

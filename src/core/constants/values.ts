@@ -84,6 +84,8 @@ export abstract class Constants {
         },
     }
 
+    static readonly paypalLink = 'https://paypal.me/SparkyBot'
+
     static readonly troops = {
         1: {
             time: 15,
