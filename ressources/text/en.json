@@ -332,6 +332,25 @@
                     "description": "english"
                 }
             }
+        },
+        "serverdata": {
+            "name": "serverdata",
+            "description": "english",
+            "text": {
+                "NaN": "english",
+                "notFound": "english",
+                "members": "english",
+                "owner": "english",
+                "language": "english",
+                "creation": "english",
+                "joinedAt": "english"
+            },
+            "options": {
+                "id": {
+                    "name":"id",
+                    "description": "english"
+                }
+            }
         }
     },
     "others": {

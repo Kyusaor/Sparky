@@ -332,6 +332,25 @@
                     "description": "Les fichiers attachés au message"
                 }
             }
+        },
+        "serverdata": {
+            "name": "serveurinfos",
+            "description": "Envoie les infos du serveur donné",
+            "text": {
+                "NaN": "L'input donné n'est pas valide",
+                "notFound": "Impossible de trouver la guilde",
+                "members": "Nombre de membres",
+                "owner": "Propriétaire",
+                "language": "Langue",
+                "creation": "Création",
+                "joinedAt": "Date d'ajout du bot"
+            },
+            "options": {
+                "id": {
+                    "name":"id",
+                    "description": "L'id du serveur cible"
+                }
+            }
         }
     },
     "others": {
