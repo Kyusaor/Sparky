@@ -12,7 +12,7 @@ let commandsFiles = readdirSync('./src/core/commands/');
 for(const file of commandsFiles){
     const commandName = file.slice(0, -3);
     const command = await import(`./core/commands/${commandName}.js`);
-    command.permissionLevel == 3 ?
+    command[commandName].permissionLevel == 3 ?
         devCommands.push(command[commandName].commandStructure.toJSON()) :
         globalCommands.push(command[commandName].commandStructure.toJSON())
     }
