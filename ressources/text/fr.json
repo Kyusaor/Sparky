@@ -352,6 +352,29 @@
                     "description": "L'id du serveur cible"
                 }
             }
+        },
+        "serverlist": {
+            "name": "listeserveurs",
+            "description": "Envoie la liste des serveurs du bot",
+            "options": {
+                "filter": {
+                    "name": "filtre",
+                    "description": "Défini l'ordre de tri des serveurs"
+                }
+            },
+            "choices": {
+                "filter": {
+                    "members": "Membres",
+                    "name": "Alphabétique",
+                    "none": "Aucun"
+                }
+            },
+            "text": {
+                "embedTitle": "Liste des serveurs du bot",
+                "embedDescription": "*filtre: {text}*",
+                "embedFooter": "Page [{text}/{text2}] | {text3} utilisateurs théoriques",
+                "embedFiledValue": "__Id:__ {id}\n__Membres:__ {text}\n__Propriétaire:__ {text2}"
+            }
         }
     },
     "others": {

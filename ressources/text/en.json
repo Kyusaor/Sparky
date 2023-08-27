@@ -352,6 +352,29 @@
                     "description": "english"
                 }
             }
+        },
+        "serverlist": {
+            "name": "serverlist",
+            "description": "english",
+            "options": {
+                "filter": {
+                    "name": "filter",
+                    "description": "english"
+                }
+            },
+            "choices": {
+                "filter": {
+                    "members": "Members",
+                    "name": "Alphabetical",
+                    "none": "None"
+                }
+            },
+            "text": {
+                "embedTitle": "english",
+                "embedDescription": "english",
+                "embedFooter": "english",
+                "embedFiledValue": "english"
+            }
         }
     },
     "others": {
