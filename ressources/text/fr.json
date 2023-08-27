@@ -278,6 +278,23 @@
                 "reply": "Pour m'ajouter sur votre serveur, [**cliquez ici !**]({text})"
             }
         },
+        "logs": {
+            "name": "logs",
+            "description": "Envoie les logs du jour donné",
+            "text": {
+                "noPath": "Impossible de trouver les logs du jour donné"
+            },
+            "options": {
+                "day": {
+                    "name": "jour",
+                    "description": "Le jour"
+                },
+                "month": {
+                    "name": "mois",
+                    "description": "Le mois"
+                }
+            }
+        },
         "say": {
             "name": "say",
             "description": "Envoie un message dans le salon donné",

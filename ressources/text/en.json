@@ -278,6 +278,23 @@
                 "reply": "english"
             }
         },
+        "logs": {
+            "name": "logs",
+            "description": "english",
+            "text": {
+                "noPath": "Impossible de trouver les logs du jour donné"
+            },
+            "options": {
+                "day": {
+                    "name": "day",
+                    "description": "english"
+                },
+                "month": {
+                    "name": "month",
+                    "description": "english"
+                }
+            }
+        },
         "say": {
             "name": "say",
             "description": "english",
