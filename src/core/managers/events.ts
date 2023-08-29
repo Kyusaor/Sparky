@@ -1,4 +1,4 @@
-import { CacheType, ChannelType, Interaction, Message } from "discord.js";
+import { CacheType, ChannelType, Interaction, InteractionType, Message } from "discord.js";
 import { Translations } from "../constants/translations.js";
 import { Utils } from "../utils.js";
 import { DiscordValues } from "../constants/values.js";
@@ -10,6 +10,9 @@ export abstract class EventManager {
     static interactionHandler(intera: Interaction<CacheType>): void {
         if(intera.isChatInputCommand())
             CommandManager.slashCommandManager(intera);
+        if(intera.isButton()) {
+            CommandManager.buttonInteractionManager(intera)
+        }
     }
 
     static MessageCreateHandler(msg: Message<boolean>): void {
