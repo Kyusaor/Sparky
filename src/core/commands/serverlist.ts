@@ -35,11 +35,11 @@ export const serverlist:CommandInterface = {
 
         buildFields(embed, serverList, commandText.embedFiledValue)
 
-        let buttons = Command.generatePageButtons("serverlist", filter, "first");
+        let buttons = Command.generatePageButtons("serverlist", language, filter, "first");
 
-        let filelist = JSON.parse(readFileSync('./data/jsonCache/sortedguilds.json', 'utf-8'));
+        let filelist = JSON.parse(readFileSync('./data/jsonCache/serverlist.json', 'utf-8'));
         filelist[filter] = serverList;
-        writeFileSync('./data/jsonCache/sortedguilds.json', JSON.stringify(filelist));
+        writeFileSync('./data/jsonCache/serverlist.json', JSON.stringify(filelist));
         Command.prototype.reply({embeds: [embed], components: [buttons]}, intera);
     },
 }
