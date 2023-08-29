@@ -329,6 +329,18 @@ export class Command implements CommandInterface {
 
         return Translations.displayText(TranslationsCache[language].permissions.MissingPermissions, { text: permList })
     }
+
+    static async defilePage(command: CommandName, embed: Embed, customId: string) {
+
+        let pageData: {
+            current: number,
+            target: -1 | 1,
+            total: number,
+            filter?: unknown
+        } = getPageData(embed, customId, command);
+
+        
+    }
 }
 
 
@@ -339,4 +351,25 @@ function userCommandLogString(intera: ChatInputCommandInteraction): string {
         chanText = `sur le salon ${intera.channel?.name} (${intera.channel?.id}), serveur ${intera.guild?.name} (${intera.guild?.id})` :
         chanText = `en mp`;
     return baseText + chanText
+}
+
+function getPageData(embed: Embed, id: string, command: CommandName) {
+    let splitId = id.split('-');
+    let language = splitId[0] as textLanguage;
+    let target: -1 | 1;
+
+    let current = Number(embed.footer?.text.split("/")[0].split("[")[1]);
+
+    splitId[splitId.length - 1] == 'nextPage' ?
+        target = 1 :
+        target = -1;
+
+    let total = Number(embed.footer?.text.split("/")[1].split("]")[0]);
+
+    let filter:string | undefined = undefined
+    let filterNames = (TranslationsCache[language].commands[command] as any).choices.filter || undefined;
+    if (filterNames)
+        filter = Object.keys(filterNames).find(k => embed.description?.includes(filterNames[k]));
+
+    return { current, target, total, filter }
 }
