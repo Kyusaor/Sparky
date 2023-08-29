@@ -81,6 +81,30 @@ export abstract class CommandManager {
             Console.error(err);
         }
     };
+
+    static async buttonInteractionManager(button: ButtonInteraction) {
+        let command = this.getCommandFromButtonId(button.customId)
+
+        switch (command) {
+            case "serverlist":
+                Command.defilePage("serverlist", button.message.embeds[0], button.customId);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    static getCommandFromButtonId(buttonId: string): CommandName | undefined {
+
+        const conditions: Partial<Record<CommandName, boolean>> = {
+            serverlist: buttonId.endsWith('previousPage') || buttonId.endsWith('nextPage'),
+        }
+
+        for (let key of Object.keys(conditions)) {
+            if (conditions[key as keyof typeof conditions]) return key as CommandName | undefined
+        }
+    }
 }
 
 export class Command implements CommandInterface {
