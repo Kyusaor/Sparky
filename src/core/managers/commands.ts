@@ -1,4 +1,4 @@
-import { APIApplicationCommandOptionChoice, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, EmbedBuilder, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextBasedChannel } from "discord.js";
+import { APIApplicationCommandOptionChoice, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, Embed, EmbedBuilder, InteractionReplyOptions, InteractionType, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextBasedChannel } from "discord.js";
 import { Console, TranslationsCache, bot, botCommands, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
 import { CommandArgs, CommandInterface, CommandName, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, perksType, textLanguage } from "../constants/types.js";
@@ -259,21 +259,21 @@ export class Command implements CommandInterface {
         return buttons
     };
 
-    static generatePageButtons(command: CommandName, additionalLabel?: string, isFirstOrLast?: "first" | "last"): ActionRowBuilder<ButtonBuilder> {
+    static generatePageButtons(command: CommandName, language: textLanguage, additionalLabel?: string, isFirstOrLast?: "first" | "last"): ActionRowBuilder<ButtonBuilder> {
         let previous = new ButtonBuilder()
-            .setCustomId(`${command}${("-" + additionalLabel)}-previous`)
+            .setCustomId(`${language}-${command}${("-" + additionalLabel)}-previousPage`)
             .setStyle(ButtonStyle.Primary)
             .setEmoji('◀');
 
         let next = new ButtonBuilder()
-            .setCustomId(`${command}${("-" + additionalLabel)}-next`)
+            .setCustomId(`${language}-${command}${("-" + additionalLabel)}-nextPage`)
             .setStyle(ButtonStyle.Primary)
             .setEmoji('▶');
 
-        if(isFirstOrLast == "first")
+        if (isFirstOrLast == "first")
             previous.setDisabled(true)
-        
-        if(isFirstOrLast == "last")
+
+        if (isFirstOrLast == "last")
             next.setDisabled(true)
 
         let buttons = new ActionRowBuilder<ButtonBuilder>()
