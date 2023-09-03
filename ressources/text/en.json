@@ -334,6 +334,29 @@
                 }
             }
         },
+        "send": {
+            "name": "send",
+            "description": "english",
+            "text": {
+                "sendingFailed": "english",
+                "noEntries": "english",
+                "success": "english"
+            },
+            "options": {
+                "user": {
+                    "name": "user",
+                    "description": "english"
+                },
+                "message": {
+                    "name": "message",
+                    "description": "english"
+                },
+                "files": {
+                    "name": "files",
+                    "description": "english"
+                }
+            }
+        },
         "serverdata": {
             "name": "serverdata",
             "description": "english",

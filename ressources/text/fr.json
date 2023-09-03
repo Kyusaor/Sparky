@@ -334,6 +334,29 @@
                 }
             }
         },
+        "send": {
+            "name": "send",
+            "description": "Envoie un message à la personne donnée",
+            "text": {
+                "sendingFailed": "Echec d'envoi du message",
+                "noEntries": "Donnez au moins un text ou un fichier à envoyer",
+                "success": "Envoyé avec succès à {username} ({id}):\n{text}"
+            },
+            "options": {
+                "user": {
+                    "name": "utilisateur",
+                    "description": "L'utilisateur cible"
+                },
+                "message": {
+                    "name": "message",
+                    "description": "Le contenu du message"
+                },
+                "files": {
+                    "name": "fichiers",
+                    "description": "Les fichiers attachés au message"
+                }
+            }
+        },
         "serverdata": {
             "name": "serveurinfos",
             "description": "Envoie les infos du serveur donné",
