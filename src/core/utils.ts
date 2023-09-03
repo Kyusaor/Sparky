@@ -1,5 +1,5 @@
 import consoleStamp from "console-stamp";
-import { ActivityType, Client, EmbedBuilder, EmbedFooterData, TextChannel } from "discord.js";
+import { ActivityType, Client, EmbedBuilder, EmbedFooterData, Locale, TextChannel } from "discord.js";
 import { createWriteStream, existsSync, mkdirSync } from "fs";
 import { bot, chanList, Console, dev, TranslationsCache } from "../main.js";
 import { fetchedChannelsAtBoot, textLanguage } from "./constants/types.js";
@@ -73,6 +73,14 @@ export abstract class Utils {
         }
         
         return out    
+    }
+
+    static getLanguageFromLocale(locale:Locale):textLanguage {
+        let language:any = locale
+        if(language == 'en-US' || language == 'en-GB')
+            language == 'en'
+
+        return language
     }
 
     static statusLoop(bot: Client): void {

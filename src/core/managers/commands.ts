@@ -3,6 +3,7 @@ import { Console, TranslationsCache, bot, botCommands, db } from "../../main.js"
 import { Translations } from "../constants/translations.js";
 import { CommandArgs, CommandInterface, CommandName, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, embedPageData, perksType, textLanguage } from "../constants/types.js";
 import { readFileSync, readdirSync } from "fs";
+import { Utils } from "../utils.js";
 
 export abstract class CommandManager {
 
@@ -55,7 +56,7 @@ export abstract class CommandManager {
             return intera.reply(`${TranslationsCache.fr.global.noCommandOffServer}\n\n${TranslationsCache.en.global.noCommandOffServer}`);
 
         if (intera.guild && !await db.checkIfServerIsPresent(intera.guild))
-            await db.createServer(intera.guild.id, intera.guild.name);
+            await db.createServer(intera.guild.id, intera.guild.name, Utils.getLanguageFromLocale(intera.guild.preferredLocale));
 
         let language = await Translations.getServerLanguage(intera.guildId);
 

@@ -66,8 +66,8 @@ export class DBManager {
         return server.length > 0;
     }
 
-    async createServer(guildId: string, guildName: string): Promise<void> {
-        await this.query<void>(`INSERT INTO config VALUES (?,?,?,?)`, [guildId, guildName, 1, "fr"]);
+    async createServer(guildId: string, guildName: string, language: textLanguage): Promise<void> {
+        await this.query<void>(`INSERT INTO config VALUES (?,?,?,?)`, [guildId, guildName, 1, language]);
         Console.logDb(`Serveur ${guildName} (${guildId}) ajouté avec succès à la DB`);
         this.generateBackup();
     }
