@@ -78,3 +78,11 @@ export interface CommandInterface {
 export type perksType = "member" | "admin" | "dev";
 
 export type CommandName = keyof typeof frTranslationJSON.commands
+
+export type embedPageData = {
+    current: number,
+    target: -1 | 1,
+    total: number,
+    filter?: unknown,
+    language: textLanguage
+};

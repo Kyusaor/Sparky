@@ -1,7 +1,7 @@
-import { APIApplicationCommandOptionChoice, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, Embed, EmbedBuilder, InteractionReplyOptions, InteractionType, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextBasedChannel } from "discord.js";
+import { APIApplicationCommandOptionChoice, APIEmbed, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, Embed, EmbedBuilder, InteractionReplyOptions, InteractionType, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextBasedChannel } from "discord.js";
 import { Console, TranslationsCache, bot, botCommands, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
-import { CommandArgs, CommandInterface, CommandName, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, perksType, textLanguage } from "../constants/types.js";
+import { CommandArgs, CommandInterface, CommandName, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, embedPageData, perksType, textLanguage } from "../constants/types.js";
 import { readFileSync, readdirSync } from "fs";
 
 export abstract class CommandManager {
@@ -87,7 +87,7 @@ export abstract class CommandManager {
 
         switch (command) {
             case "serverlist":
-                Command.defilePage("serverlist", button.message.embeds[0], button.customId);
+                Command.defilePage("serverlist", button);
                 break;
 
             default:
@@ -330,16 +330,25 @@ export class Command implements CommandInterface {
         return Translations.displayText(TranslationsCache[language].permissions.MissingPermissions, { text: permList })
     }
 
-    static async defilePage(command: CommandName, embed: Embed, customId: string) {
+    static async defilePage(command: CommandName, button:ButtonInteraction) {
 
-        let pageData: {
-            current: number,
-            target: -1 | 1,
-            total: number,
-            filter?: unknown
-        } = getPageData(embed, customId, command);
+        let customId = button.customId;
+        let embed = button.message.embeds[0].data;
+        let pageData:embedPageData = getPageData(embed, customId, command);
 
-        
+        let newEmbedPage = await (await import(`../commands/${command}.js`)).getEditedEmbed(pageData, embed);
+
+        let components: ActionRowBuilder<ButtonBuilder>
+        if(pageData.current + pageData.target == 1) {
+            components = this.generatePageButtons(command, pageData.language, pageData.filter?.toString(), "first")
+        }
+        else if (pageData.current + pageData.target == pageData.total) {
+            components = this.generatePageButtons(command, pageData.language, pageData.filter?.toString(), "last")
+        }
+        else {
+            components = this.generatePageButtons(command, pageData.language, pageData.filter?.toString())
+        }
+        button.update({embeds: [newEmbedPage], components: [components]});
     }
 }
 
@@ -353,7 +362,7 @@ function userCommandLogString(intera: ChatInputCommandInteraction): string {
     return baseText + chanText
 }
 
-function getPageData(embed: Embed, id: string, command: CommandName) {
+function getPageData(embed: Readonly<APIEmbed>, id: string, command: CommandName): embedPageData {
     let splitId = id.split('-');
     let language = splitId[0] as textLanguage;
     let target: -1 | 1;
@@ -371,5 +380,5 @@ function getPageData(embed: Embed, id: string, command: CommandName) {
     if (filterNames)
         filter = Object.keys(filterNames).find(k => embed.description?.includes(filterNames[k]));
 
-    return { current, target, total, filter }
+    return { current, target, total, filter, language }
 }

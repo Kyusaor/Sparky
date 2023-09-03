@@ -1,5 +1,5 @@
-import { EmbedBuilder, SlashCommandStringOption } from "discord.js";
-import { CommandInterface } from "../constants/types.js";
+import { APIEmbed, EmbedBuilder, SlashCommandStringOption } from "discord.js";
+import { CommandInterface, embedPageData, textLanguage } from "../constants/types.js";
 import { Command, CommandManager } from "../managers/commands.js";
 import { TranslationsCache, bot } from "../../main.js";
 import { Utils } from "../utils.js";
@@ -81,4 +81,21 @@ function buildFields(embed:EmbedBuilder, list:serverData[], text: string):void {
             value: Translations.displayText(text, { id: serv.id, text: serv.members.toString(), text2: serv.owner})
         })
     }
+}
+
+export function getEditedEmbed(data:embedPageData, embed: Readonly<APIEmbed>):EmbedBuilder {
+
+    let newEmbed = new EmbedBuilder(embed)
+        .setFields([])
+    let filedata = JSON.parse(readFileSync('./data/jsonCache/serverlist.json', 'utf-8'));
+    let servList = filedata[data.filter as keyof typeof filedata] as serverData[]
+
+    let newPage = data.current + data.target;
+    buildFields(newEmbed, servList.slice(25*(newPage - 1), 25 * newPage + 1), TranslationsCache[data.language].commands.serverlist.text.embedFiledValue)
+
+    let oldFooter = embed.footer!.text
+    let newFooter = oldFooter.split("[")[0] + "[" + newPage + "/" + oldFooter.split("/")[1]
+    newEmbed.setFooter({text: newFooter});
+
+    return newEmbed;
 }
