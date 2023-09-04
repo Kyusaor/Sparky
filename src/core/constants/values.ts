@@ -33,6 +33,26 @@ export abstract class DiscordValues {
         trainCalculator: 'https://media.discordapp.net/attachments/659758501865717790/1059497225711005696/latest.png',
         credits: 'https://cdn.discordapp.com/emojis/751774895024898188.webp?size=96&quality=lossless'
     }
+
+    static readonly emotes = {
+        watcher: {
+            name: "veilleur",
+            id: "607194832271573024"
+        },
+        dragon: {
+            name: "dragon",
+            id: "607194934759391242"
+        },
+        redOrb: {
+            name: "redorb",
+            id: "802962307897884723"
+        },
+        yellowOrb: {
+            name: "yellorb",
+            id: "802962218764337173"
+        },
+        
+    }
 }
 
 export abstract class Constants {
