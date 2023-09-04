@@ -398,6 +398,20 @@
                 "embedFooter": "english",
                 "embedFiledValue": "english"
             }
+        },
+        "setglobalping": {
+            "name": "setglobalping",
+            "description": "english",
+            "text": {
+                "noChannel": "english",
+                "embedTitle": "english",
+                "embedDescription": "english",
+                "watcherDescription": "english",
+                "dragonDescription": "english",
+                "redorbDescription": "english",
+                "yelloworbDescription": "english",
+                "success": "english"
+            }
         }
     },
     "others": {
@@ -452,6 +466,12 @@
             "ore": "english",
             "gold": "english",
             "gems": "english"
+        },
+        "hellEvents": {
+            "watcher": "watcher",
+            "dragon": "dragon",
+            "redorb": "red orbs",
+            "yelloworb": "yellow orbs"
         }
     }
 

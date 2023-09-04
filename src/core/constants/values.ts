@@ -43,11 +43,11 @@ export abstract class DiscordValues {
             name: "dragon",
             id: "607194934759391242"
         },
-        redOrb: {
+        redorb: {
             name: "redorb",
             id: "802962307897884723"
         },
-        yellowOrb: {
+        yelloworb: {
             name: "yellorb",
             id: "802962218764337173"
         },

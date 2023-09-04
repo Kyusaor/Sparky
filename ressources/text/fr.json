@@ -398,6 +398,20 @@
                 "embedFooter": "Page [{text}/{text2}] | {text3} utilisateurs théoriques",
                 "embedFiledValue": "__Id:__ {id}\n__Membres:__ {text}\n__Propriétaire:__ {text2}"
             }
+        },
+        "setglobalping": {
+            "name": "setglobalping",
+            "description": "Redéfinis le message d'envoi des infernaux",
+            "text": {
+                "noChannel": "Impossible de trouver le salon",
+                "embedTitle": "Mentions globales",
+                "embedDescription": "Panneau d'envoi des mentions veilleur dragon globales. Pas d'erreurs pour ces mentions, merci de ne pas ping un event déjà mentionné",
+                "watcherDescription": "Notifie les évènements infernaux veilleur",
+                "dragonDescription": "Notifie les évènements infernaux dragon",
+                "redorbDescription": "Notifie un infernal orbes de talent lumineux",
+                "yelloworbDescription": "Notifie un infernal orbes de talent brillant",
+                "success": "Le panneau a bien été redéfini"
+            }
         }
     },
     "others": {
@@ -452,6 +466,12 @@
             "ore": "minerai",
             "gold": "or",
             "gems": "gemmes"
+        },
+        "hellEvents": {
+            "watcher": "veilleur",
+            "dragon": "dragon",
+            "redorb": "orbes rouges",
+            "yelloworb": "orbes jaunes"
         }
     }
 }
