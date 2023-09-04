@@ -8,6 +8,10 @@ import { Translations } from "./constants/translations.js";
 
 export abstract class Utils {
 
+    static capitalizeFirst(str: string):string {
+        return str.charAt(0).toUpperCase() + str.slice(1)
+    }
+
     static daySince(date: Date | number) {
         if(date instanceof Date)
             date = date.getTime();
