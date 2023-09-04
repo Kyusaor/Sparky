@@ -98,12 +98,9 @@ export abstract class CommandManager {
 
     static getCommandFromButtonId(buttonId: string): CommandName | undefined {
 
-        const conditions: Partial<Record<CommandName, boolean>> = {
-            serverlist: buttonId.endsWith('previousPage') || buttonId.endsWith('nextPage'),
-        }
-
-        for (let key of Object.keys(conditions)) {
-            if (conditions[key as keyof typeof conditions]) return key as CommandName | undefined
+        for (let key of botCommands) {
+            let name = key.commandStructure.name;
+            if (buttonId.includes(`${name}-`)) return name as CommandName | undefined
         }
     }
 }
