@@ -14,6 +14,7 @@ export type Server = {
     id: string, 
     name: string, 
     active: 0 | 1, 
+    hellEvent: 0 | 1,
     language: textLanguage 
 };
 
