@@ -20,6 +20,7 @@ cron.schedule('0 0 * * *', () => {
     Console.log("Refresh des logs effectué avec succès")
 });
 let TranslationsCache: TranslationCacheType = await Translations.generateTranslationsCache();
+let consoleErrors = TranslationsCache.fr.global.errors;
 
 bot.login(Config.CURRENT_TOKEN);
 let botCommands: Command[];
@@ -87,7 +88,7 @@ bot.on('interactionCreate', intera => {
     }
 })
 
-export { bot, Console, chanList, dev, db, botCommands, TranslationsCache };
+export { bot, Console, chanList, dev, db, botCommands, TranslationsCache, consoleErrors };
 
 
 async function test() {
