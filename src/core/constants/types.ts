@@ -27,14 +27,14 @@ export type PartialServer = {
 };
 
 export type RolesData = {
-    IW: 0 | 1,
-    ID: 0 | 1,
-    DR: 0 | 1,
-    WR: 0 | 1,
-    RO: 0 | 1,
-    YO: 0 | 1,
-    CR: 0 | 1,
-    CT: 0 | 1,
+    IW: string,
+    ID: string,
+    DR: string,
+    WR: string,
+    RO: string,
+    YO: string,
+    CR: string,
+    CT: string,
 }
 
 export type fullServer = {
