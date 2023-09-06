@@ -14,7 +14,7 @@ export type Server = {
     id: string, 
     name: string, 
     active: 0 | 1, 
-    hellEvent: 0 | 1,
+    hellEvent: string,
     language: textLanguage 
 };
 
@@ -22,9 +22,28 @@ export type PartialServer = {
     id?: string, 
     name?: string, 
     active?: 0 | 1, 
+    hellEvent?: string,
     language?: textLanguage 
 };
 
+export type RolesData = {
+    IW: 0 | 1,
+    ID: 0 | 1,
+    DR: 0 | 1,
+    WR: 0 | 1,
+    RO: 0 | 1,
+    YO: 0 | 1,
+    CR: 0 | 1,
+    CT: 0 | 1,
+}
+
+export type fullServer = {
+    id: string, 
+    name: string, 
+    active: 0 | 1, 
+    language: textLanguage,
+    roles: RolesData | undefined
+}
 
 //Translations
 export type textLanguage = "fr" | "en";

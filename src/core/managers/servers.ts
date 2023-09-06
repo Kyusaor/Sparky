@@ -1,6 +1,6 @@
 import { Guild, User } from "discord.js";
 import { Console, TranslationsCache, bot, chanList, db } from "../../main.js";
-import { PartialServer, Server } from "../constants/types.js";
+import { PartialServer, RolesData, Server, fullServer } from "../constants/types.js";
 import { Utils } from "../utils.js";
 import { DiscordValues } from "../constants/values.js";
 
@@ -13,7 +13,7 @@ export class ServerManager {
 
     static async buildBaseServerObject(serverId: string): Promise<Server> {
         let guild = await bot.guilds.cache.get(serverId);
-        let data:Server = { id: serverId, name: guild?.name || "Serveur introuvable", active: 1, language: Utils.getLanguageFromLocale(guild?.preferredLocale!) || "fr"};
+        let data:Server = { id: serverId, name: guild?.name || "Serveur introuvable", active: 1, hellEvent: '0', language: Utils.getLanguageFromLocale(guild?.preferredLocale!) || "fr"};
         return data
     }
 
@@ -47,6 +47,7 @@ export class ServerManager {
             id: edits.id || oldData.id,
             name: edits.name || oldData.name,
             active: active,
+            hellEvent: edits.hellEvent || oldData.hellEvent,
             language: edits.language || oldData.language
         }
         await db.editServerDatabase(data);
@@ -54,6 +55,26 @@ export class ServerManager {
         for(let dataName of Object.keys(edits)) {
             Console.log(`${dataName}: ${oldData[dataName as keyof Server]} => ${edits[dataName as keyof Server]}`)
         }
+    }
+
+    async getData(type: "full" | "roles" | "base"):Promise<fullServer | Server | RolesData | undefined> {
+        switch(type) {
+            case 'base':
+                return await db.fetchServerData(this.guild.id);
+
+            case 'roles':
+                return await db.fetchServerRoles(this.guild.id);
+
+            case 'full':
+                return await db.fetchFullServerData(this.guild.id);
+            
+            default:
+                break;
+        }
+    }
+
+    async hasWatcher():Promise<boolean> {
+        return await db.checkIfWatcherEnabled(this.guild.id);
     }
 
     async isActive(): Promise<boolean> {

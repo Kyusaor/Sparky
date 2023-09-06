@@ -4,7 +4,7 @@ import { Console } from '../../main.js';
 import { Utils } from '../utils.js';
 import mysqldump from 'mysqldump';
 import { Config } from '../../../data/config.js';
-import { Server, queryArgs, textLanguage } from '../constants/types.js';
+import { RolesData, Server, fullServer, queryArgs, textLanguage } from '../constants/types.js';
 import { Guild } from 'discord.js';
 
 
@@ -65,6 +65,11 @@ export class DBManager {
             Console.info(`Plus d'une instance du serveur ${guild.id} est présente dans la base de donnée`)
         return server.length > 0;
     }
+    
+    async checkIfWatcherEnabled(guildId: string):Promise<boolean> {
+        let data = await this.fetchServerData(guildId);
+        return !data || data.hellEvent == '0'
+    }
 
     async createServer(guildId: string, guildName: string, language: textLanguage): Promise<void> {
         await this.query<void>(`INSERT INTO config VALUES (?,?,?,?,?)`, [guildId, guildName, 1, 0, language]);
@@ -78,9 +83,22 @@ export class DBManager {
         Console.logDb(`Serveur ${serverData.name} (${serverData.id}) modifié avec succès`)
     }
 
+    async fetchFullServerData(guildId: string): Promise<fullServer | undefined> {
+        let Server = await this.fetchServerData(guildId)
+        if(!Server)
+            return undefined;
+        let roles = await this.fetchServerRoles(guildId);
+        return { ...Server, roles }
+    }
+
     async fetchServerData(guildId: string): Promise<Server | undefined> {
         let rows = await this.query<Server[]>(`SELECT * FROM config WHERE id =?`, guildId);
         return rows[0];
+    }
+
+    async fetchServerRoles(guildId: string): Promise<RolesData | undefined> {
+        let rows = await this.query<RolesData[]>(`SELECT * FROM hellroles WHERE id =?`, guildId);
+        return rows[0]
     }
 
     generateBackup() {
