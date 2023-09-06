@@ -13,11 +13,15 @@
             {"text": "Fun fact: je suis le meilleur bot du monde"},
             {"text": "Soutenez le bot avec la commande /donner"}
         ],
+        "errors": {
+            "notInAGuild": "La command doit être exécutée sur un serveur",
+            "guildDataNotFound": "Impossible de récupérer les données de serveur"
+        },
+        "cancelledCommand": "Command annulée",
         "noLinkInDm": ":flag_fr: Bonjour, pour m'ajouter à votre serveur utilisez plutôt ce lien!",
         "noCommandOffServer": ":flag_fr: Les commandes sont à réaliser sur un serveur !",
         "CommandExecutionError": "Une erreur est survenue pendant l'éxecution de la commande!",
         "defaultCommandReply": "Impossible d'exécuter la commande :confused:",
-        "cancelledCommand": "Commande annulée",
         "stringifyDate": "<t:{timestamp}> (il y a {daysSince} jours)",
         "yes": "Oui",
         "no": "Non",
@@ -411,6 +415,17 @@
                 "redorbDescription": "Notifie un infernal orbes de talent lumineux",
                 "yelloworbDescription": "Notifie un infernal orbes de talent brillant",
                 "success": "Le panneau a bien été redéfini"
+            }
+        },
+        "watcher": {
+            "name": "veilleur",
+            "description": "Définit le panneau de notifications d'évènements infernaux",
+            "text": {
+                "missingPerm": "Je ne peux pas définir le panneau de notifications sans les permissions nécessaires. Il me manque ces permissions:\n0",
+                "askIfReparam": "Les notifications d'infernaux sont déjà définies, voulez-vous les reparamétrer?\n\n:warning: Les membres devront se réabonner si vous faites cela",
+                "roleTooHigh": "Le rôle {text} est trop haut, je ne peux pas le supprimer. Il faut placer le role sparky au dessus de ce rôle pour que je puisse redéfinir le panneau d'évènements infernaux",
+                "roleNotFound": "Impossible de trouver le role {text} (serveur {text2} ({id}))",
+                "roleNotCancellable": "Impossible de supprimer le role {text} (serveur {text2} ({id}))"
             }
         }
     },

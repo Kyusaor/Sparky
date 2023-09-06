@@ -13,19 +13,23 @@
             {"text": "english"},
             {"text": "english"}
         ],
+        "errors": {
+            "notInAGuild": "english",
+            "guildDataNotFound": "english"
+        },
         "noLinkInDm": "english",
         "noCommandOffServer": "english",
         "CommandExecutionError": "english",
         "defaultCommandReply": "english",
-        "cancelledCommand": "Commande annulée",
+        "cancelledCommand": "english",
         "stringifyDate": "<t:{timestamp}> ({daysSince} days ago)",
         "yes": "english",
         "no": "english",
         "timeNames": {
-            "day": "jours",
-            "hour": "heures",
-            "minute": "minutes",
-            "second": "secondes"
+            "day": "english",
+            "hour": "english",
+            "minute": "english",
+            "second": "english"
         }
     },
     "permissions": {
@@ -411,6 +415,14 @@
                 "redorbDescription": "english",
                 "yelloworbDescription": "english",
                 "success": "english"
+            }
+        },
+        "watcher": {
+            "name": "watcher",
+            "description": "english",
+            "text": {
+                "missingPerm": "english",
+                "askIfReparam": "english"
             }
         }
     },
