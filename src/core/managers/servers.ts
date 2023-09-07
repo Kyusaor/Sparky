@@ -1,6 +1,6 @@
 import { Guild, User } from "discord.js";
 import { Console, TranslationsCache, bot, chanList, db } from "../../main.js";
-import { PartialServer, RolesData, Server, fullServer } from "../constants/types.js";
+import { ChanData, PartialServer, RolesData, Server, fullServer } from "../constants/types.js";
 import { Utils } from "../utils.js";
 import { DiscordValues } from "../constants/values.js";
 
@@ -57,7 +57,7 @@ export class ServerManager {
         }
     }
 
-    async getData(type: "full" | "roles" | "base"):Promise<fullServer | Server | RolesData | undefined> {
+    async getData(type: "full" | "roles" | "base" | "channels"):Promise<fullServer | Server | RolesData | ChanData | undefined> {
         switch(type) {
             case 'base':
                 return await db.fetchServerData(this.guild.id);
@@ -67,6 +67,9 @@ export class ServerManager {
 
             case 'full':
                 return await db.fetchFullServerData(this.guild.id);
+
+            case 'channels':
+                return await db.fetchServerChannels(this.guild.id);
             
             default:
                 break;

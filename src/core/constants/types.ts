@@ -37,12 +37,18 @@ export type RolesData = {
     challengeTroops: string,
 }
 
+export type ChanData = {
+    board: string,
+    ping: string
+}
+
 export type fullServer = {
     id: string, 
     name: string, 
     active: 0 | 1, 
     language: textLanguage,
-    roles: RolesData | undefined
+    roles: RolesData | undefined,
+    chans: ChanData | undefined
 }
 
 //Translations

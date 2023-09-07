@@ -4,7 +4,7 @@ import { Console } from '../../main.js';
 import { Utils } from '../utils.js';
 import mysqldump from 'mysqldump';
 import { Config } from '../../../data/config.js';
-import { RolesData, Server, fullServer, queryArgs, textLanguage } from '../constants/types.js';
+import { ChanData, RolesData, Server, fullServer, queryArgs, textLanguage } from '../constants/types.js';
 import { Guild } from 'discord.js';
 
 
@@ -79,8 +79,12 @@ export class DBManager {
 
     async createServerRoles(guildId: string, guildName: string, roles: RolesData): Promise<void> {
         await this.query<void>(`INSERT INTO hellroles VALUES (?,?,?,?,?,?,?,?)`, Object.values(roles));
-        Console.logDb(`Serveur ${guildName} (${guildId}) ajouté avec succès à la DB`);
-        this.generateBackup();
+        Console.logDb(`Serveur ${guildName} (${guildId}) ajouté avec succès à la DB roles`);
+    }
+
+    async createServerChannels(guildId: string, guildName: string, chans: ChanData): Promise<void> {
+        await this.query<void>(`INSERT INTO hellchannels VALUES (?,?)`, Object.values(chans));
+        Console.logDb(`Serveur ${guildName} (${guildId}) ajouté avec succès à la DB channels`);
     }
 
     async editServerDatabase(serverData:Server): Promise<void> {
@@ -94,7 +98,13 @@ export class DBManager {
         if(!Server)
             return undefined;
         let roles = await this.fetchServerRoles(guildId);
-        return { ...Server, roles }
+        let chans = await this.fetchServerChannels(guildId);
+        return { ...Server, roles, chans }
+    }
+
+    async fetchServerChannels(guildId: string): Promise<ChanData | undefined> {
+        let rows = await this.query<ChanData[]>(`SELECT * FROM hellchannels WHERE id =?`, guildId);
+        return rows[0];
     }
 
     async fetchServerData(guildId: string): Promise<Server | undefined> {
