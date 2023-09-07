@@ -78,7 +78,7 @@ export abstract class CommandManager {
             Console.log(userCommandLogString(intera));
         }
         catch (err) {
-            Command.prototype.reply(TranslationsCache[language].global.CommandExecutionError, intera);
+            Command.prototype.reply({ content: TranslationsCache[language].global.CommandExecutionError, components: []}, intera);
             Console.error(err);
         }
     };
