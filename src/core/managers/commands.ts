@@ -281,7 +281,7 @@ export class Command implements CommandInterface {
     }
 
     static async getConfirmationMessage({ intera, language }: CommandArgs, text?: string, embeds?: EmbedBuilder[], time?: number): Promise<"yes" | "no" | "error"> {
-        let payload: MessagePayload | InteractionReplyOptions = { content: text, components: [Command.generateYesNoButtons('language', language)] };
+        let payload: MessagePayload | InteractionReplyOptions = { content: text, components: [Command.generateYesNoButtons(intera.commandName as CommandName, language)] };
         if (embeds)
             payload.embeds = embeds
         Command.prototype.reply(payload, intera);
@@ -298,8 +298,6 @@ export class Command implements CommandInterface {
         else if (confirmationResponse?.customId.endsWith('no'))
             return "no"
         else return "error"
-
-
     };
 
     static getMissingPermissions(requiredPermissions: PermissionResolvable[], channel: TextBasedChannel, guildId?: string | null): string[] {
