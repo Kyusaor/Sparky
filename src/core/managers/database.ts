@@ -68,11 +68,17 @@ export class DBManager {
     
     async checkIfWatcherEnabled(guildId: string):Promise<boolean> {
         let data = await this.fetchServerData(guildId);
-        return !data || data.hellEvent == '0'
+        return data !== undefined && data.hellEvent == '1'
     }
 
     async createServer(guildId: string, guildName: string, language: textLanguage): Promise<void> {
         await this.query<void>(`INSERT INTO config VALUES (?,?,?,?,?)`, [guildId, guildName, 1, 0, language]);
+        Console.logDb(`Serveur ${guildName} (${guildId}) ajouté avec succès à la DB`);
+        this.generateBackup();
+    }
+
+    async createServerRoles(guildId: string, guildName: string, roles: RolesData): Promise<void> {
+        await this.query<void>(`INSERT INTO hellroles VALUES (?,?,?,?,?,?,?,?)`, Object.values(roles));
         Console.logDb(`Serveur ${guildName} (${guildId}) ajouté avec succès à la DB`);
         this.generateBackup();
     }
