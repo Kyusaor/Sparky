@@ -187,6 +187,10 @@ export class Command implements CommandInterface {
         return sub
     };
 
+    static generateButtonCustomId(command: CommandName, language: textLanguage):string {
+        return `${command}-${language}`
+    }
+
     static getChoices(command: CommandName, optionName: string): APIApplicationCommandOptionChoice<string>[] {
         let path = './ressources/text/'
         let translationPath = readdirSync(path);
@@ -244,12 +248,12 @@ export class Command implements CommandInterface {
         let buttons = new ActionRowBuilder<ButtonBuilder>()
             .addComponents([
                 new ButtonBuilder()
-                    .setCustomId(`${command}${additionalLabel}-yes`)
+                    .setCustomId(`${this.generateButtonCustomId(command, language)}${additionalLabel}-yes`)
                     .setStyle(ButtonStyle.Success)
                     .setLabel(TranslationsCache[language].global.yes),
 
                 new ButtonBuilder()
-                    .setCustomId(`${command}${additionalLabel}-no`)
+                    .setCustomId(`${this.generateButtonCustomId(command, language)}${additionalLabel}-no`)
                     .setStyle(ButtonStyle.Danger)
                     .setLabel(TranslationsCache[language].global.no)
             ])
@@ -259,12 +263,12 @@ export class Command implements CommandInterface {
 
     static generatePageButtons(command: CommandName, language: textLanguage, additionalLabel?: string, isFirstOrLast?: "first" | "last"): ActionRowBuilder<ButtonBuilder> {
         let previous = new ButtonBuilder()
-            .setCustomId(`${language}-${command}${("-" + additionalLabel)}-previousPage`)
+            .setCustomId(`${this.generateButtonCustomId(command, language)}${("-" + additionalLabel)}-previousPage`)
             .setStyle(ButtonStyle.Primary)
             .setEmoji('◀');
 
         let next = new ButtonBuilder()
-            .setCustomId(`${language}-${command}${("-" + additionalLabel)}-nextPage`)
+            .setCustomId(`${this.generateButtonCustomId(command, language)}${("-" + additionalLabel)}-nextPage`)
             .setStyle(ButtonStyle.Primary)
             .setEmoji('▶');
 
