@@ -49,6 +49,12 @@ export class ServerManager {
         await this.editServerData({ hellEvent: '1'})
     }
 
+    async deleteHellData(): Promise<void> {
+        await db.deleteServerChannels(this.guild.id, this.guild.name);
+        await db.deleteServerRoles(this.guild.id, this.guild.name);
+        await this.editServerData({ hellEvent: '0'})
+    }
+
     displayInConsole():string {
         return `${this.guild.name} (${this.guild.id})`
     }

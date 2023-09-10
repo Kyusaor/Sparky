@@ -421,7 +421,10 @@
             "name": "stopwatcher",
             "description": "english",
             "text": {
-
+                "watcherIsNotDefined": "english",
+                "askIfDelete": "english",
+                "loadingText": "english",
+                "success": "english"
             }
         },
         "watcher": {

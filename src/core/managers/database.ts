@@ -89,6 +89,16 @@ export class DBManager {
         Console.logDb(`Serveur ${guildName} (${guildId}) ajouté avec succès à la DB channels`);
     }
 
+    async deleteServerRoles(guildId: string, guildName: string): Promise<void> {
+        await this.query<void>('DELETE FROM hellroles WHERE id = ?', [guildId]);
+        Console.logDb(`Serveur ${guildName} (${guildId}) supprimé avec succès de la DB roles`)
+    }
+
+    async deleteServerChannels(guildId: string, guildName: string): Promise<void> {
+        await this.query<void>('DELETE FROM hellchannels WHERE id = ?', [guildId]);
+        Console.logDb(`Serveur ${guildName} (${guildId}) supprimé avec succès de la DB channels`)
+    }
+
     async editServerDatabase(serverData:Server): Promise<void> {
         await this.query<void>(`UPDATE config SET id = ?, name = ?, active = ?, hellEvent = ?, language = ? WHERE id = ?`, [serverData.id, serverData.name, serverData.active, serverData.hellEvent, serverData.language, serverData.id])
         this.generateBackup();

@@ -421,7 +421,10 @@
             "name": "stopveilleur",
             "description": "Efface les salons de signalement des challenges et évènements infernaux",
             "text": {
-
+                "watcherIsNotDefined": "Le signalement des évènements infernaux n'est pas paramétré sur ce serveur. Faites `/{text}` pour le définir",
+                "askIfDelete": "Voulez-vous supprimer les salons <#{text}> et <#{text2}>?\n\n:warning: **Cette action est irréversible!**",
+                "loadingText": "<a:loading:739785338347585598> Suppression en cours...",
+                "success": "Les salons de signalements d'évènements infernaux ont été supprimés!\nPour les redéfinir, faites `/{text}`"
             }
         },
         "watcher": {

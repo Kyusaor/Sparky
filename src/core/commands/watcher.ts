@@ -57,7 +57,7 @@ export const watcher:CommandInterface = {
     }
 }
 
-function checkPerm(bot:GuildMember, language: textLanguage): string | undefined {
+export function checkPerm(bot:GuildMember, language: textLanguage): string | undefined {
     let text = TranslationsCache[language].permissions
     let str = "";
     if(!bot.permissions.has([PermissionFlagsBits.ManageRoles])) str += text.flags.ManageRoles;
@@ -67,7 +67,7 @@ function checkPerm(bot:GuildMember, language: textLanguage): string | undefined 
         return Translations.displayText(text.MissingPermissions, { text: str })
 }
 
-async function deleteChanOrRole(type: "channels" | "roles", guild: Guild, botmember: GuildMember, commandText: Record<string, string>, intera: ChatInputCommandInteraction<CacheType>):Promise<string | void> {
+export async function deleteChanOrRole(type: "channels" | "roles", guild: Guild, botmember: GuildMember, commandText: Record<string, string>, intera: ChatInputCommandInteraction<CacheType>):Promise<string | void> {
     let guildManager = new ServerManager(guild);
     let data = await guildManager.getData(type) as ChanData | RoleData;
 

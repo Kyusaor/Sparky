@@ -52,19 +52,19 @@ export abstract class DiscordValues {
             name: "rechDrag",
             id: "660453599318638592"
         },
-        redorb: {
+        redOrb: {
             name: "redorb",
             id: "802962307897884723"
         },
-        yelloworb: {
+        yellowOrb: {
             name: "yellorb",
             id: "802962218764337173"
         },
-        research: {
+        challengeResearch: {
             name: "academie",
             id: "607196986948452377"
         },
-        troop: {
+        challengeTroops: {
             name: "fantassin",
             id: "607554773851570181"
         },
@@ -176,16 +176,16 @@ export abstract class Constants {
             emoji: DiscordValues.emotes.dragonResearch
         },
         redOrb: {
-            emoji: DiscordValues.emotes.redorb
+            emoji: DiscordValues.emotes.redOrb
         },
         yellowOrb: {
-            emoji: DiscordValues.emotes.yelloworb
+            emoji: DiscordValues.emotes.yellowOrb
         },
         challengeResearch: {
-            emoji: DiscordValues.emotes.research
+            emoji: DiscordValues.emotes.challengeResearch
         },
         challengeTroops: {
-            emoji: DiscordValues.emotes.troop
+            emoji: DiscordValues.emotes.challengeTroops
         }
     }
 }
