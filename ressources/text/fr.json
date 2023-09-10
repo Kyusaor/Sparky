@@ -417,15 +417,44 @@
                 "success": "Le panneau a bien été redéfini"
             }
         },
+        "stopwatcher": {
+            "name": "stopveilleur",
+            "description": "Efface les salons de signalement des challenges et évènements infernaux",
+            "text": {
+
+            }
+        },
         "watcher": {
             "name": "veilleur",
             "description": "Définit le panneau de notifications d'évènements infernaux",
             "text": {
                 "missingPerm": "Je ne peux pas définir le panneau de notifications sans les permissions nécessaires. Il me manque ces permissions:\n0",
                 "askIfReparam": "Les notifications d'infernaux sont déjà définies, voulez-vous les reparamétrer?\n\n:warning: Les membres devront se réabonner si vous faites cela",
-                "roleTooHigh": "Le rôle {text} est trop haut, je ne peux pas le supprimer. Il faut placer le role sparky au dessus de ce rôle pour que je puisse redéfinir le panneau d'évènements infernaux",
-                "roleNotFound": "Impossible de trouver le role {text} (serveur {text2} ({id}))",
-                "roleNotCancellable": "Impossible de supprimer le role {text} (serveur {text2} ({id}))"
+                "roleTooHigh": "Le rôle {text} est au dessus de mes rôles, je ne peux donc pas le supprimer. Il faudra le supprimer vous-même",
+                "rolesNotFound": "Impossible de trouver le role {text} (serveur {text2} ({id}))",
+                "rolesNotCancellable": "Impossible de supprimer le role {text} (serveur {text2} ({id}))",
+                "rolesAndChanDeletionReason": "Reparamétrage du panneau Veilleur",
+                "channelsNotFound": "Impossible de trouver le salon {text} (serveur {text2} ({id}))",
+
+                "loadingText": "<a:loading:739785338347585598> Paramétrage en cours...",
+
+                "boardName": "tableau-veilleur-dragon",
+                "boardTopic": "Abonnez-vous aux notifications d'évènements infernaux et challenge !",
+                "boardReason": "création du salon d'abonnement aux notifications",
+                "mentionName": "notifs-veilleurs-dragons",
+                "mentionTopic": "Abonnez-vous aux notifications d'évènements infernaux et challenge pour recevoir les mentions!",
+                "mentionReason": "création du salon d'abonnement aux notifications",
+                "hell": "infernal ",
+
+                "boardEmbedTitle": "__**Signalement des Veilleurs et Dragons**__",
+                "boardEmbedDescription": "Sélectionnez les évènements infernaux et les challenges qui vous intéressent. Les mentions seront faites dans le salon <#{id}>",
+                "boardEmbedFieldName": "__Comment ça marche?__",
+                "boardEmbedFieldValue": "Cliquez sur le menu déroulant et sélectionnez les types d'évènements pour lesquels vous voulez être notifiés. C'est tout!",
+                "boardEmbedFooter": "Développé avec amour par {dev_username}",
+                "boardMenuOptionDescription": "Soyez notifié quand il y a un évènement {text}",
+                "boardMenuPlaceholder": "Choissez vos abonnements",
+
+                "success": "Terminé ! Les salons <#{text}> et <#{text2}> ont bien été créés\nVous êtes libres de renommer ou déplacer les salons et rôles, du moment que vous ne supprimez rien :wink:\nFaites `/{text3}` pour les supprimer"
             }
         }
     },
@@ -485,8 +514,12 @@
         "hellEvents": {
             "watcher": "veilleur",
             "dragon": "dragon",
-            "redorb": "orbes rouges",
-            "yelloworb": "orbes jaunes"
+            "redOrb": "orbes rouges",
+            "yellowOrb": "orbes jaunes",
+            "watcherResearch": "veilleur recherche",
+            "dragonResearch": "dragon recherche",
+            "challengeResearch": "challenge dragon recherche",
+            "challengeTroops": "challenge dragon entraînement"
         }
     }
 }

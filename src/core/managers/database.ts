@@ -78,12 +78,14 @@ export class DBManager {
     }
 
     async createServerRoles(guildId: string, guildName: string, roles: RolesData): Promise<void> {
-        await this.query<void>(`INSERT INTO hellroles VALUES (?,?,?,?,?,?,?,?)`, Object.values(roles));
+        let data = [guildId, roles.watcher, roles.dragon, roles.dragonResearch, roles.watcherResearch, roles.redOrb, roles.yellowOrb, roles.challengeResearch, roles.challengeTroops]
+        await this.query<void>(`INSERT INTO hellroles VALUES (?,?,?,?,?,?,?,?,?)`, data);
         Console.logDb(`Serveur ${guildName} (${guildId}) ajouté avec succès à la DB roles`);
     }
 
     async createServerChannels(guildId: string, guildName: string, chans: ChanData): Promise<void> {
-        await this.query<void>(`INSERT INTO hellchannels VALUES (?,?)`, Object.values(chans));
+        let data = [ guildId, chans.board, chans.ping]
+        await this.query<void>(`INSERT INTO hellchannels VALUES (?,?,?)`, data);
         Console.logDb(`Serveur ${guildName} (${guildId}) ajouté avec succès à la DB channels`);
     }
 
@@ -115,6 +117,18 @@ export class DBManager {
     async fetchServerRoles(guildId: string): Promise<RolesData | undefined> {
         let rows = await this.query<RolesData[]>(`SELECT * FROM hellroles WHERE id =?`, guildId);
         return rows[0]
+    }
+
+    async updateServerRoles(guildId: string, guildName: string, roles: RolesData): Promise<void> {
+        let data = [roles.watcher, roles.dragon, roles.dragonResearch, roles.watcherResearch, roles.redOrb, roles.yellowOrb, roles.challengeResearch, roles.challengeTroops]
+        await this.query<void>(`UPDATE hellroles SET watcher = ?, dragon = ?, dragonResearch = ?, watcherResearch = ?, redOrb = ?, yellowOrb = ?, challengeResearch = ?, challengeTroops = ? WHERE id = ?;`, [...data, guildId]);
+        Console.logDb(`Serveur ${guildName} (${guildId}) modifié avec succès dans la DB roles`);
+    }
+
+    async updateServerChannels(guildId: string, guildName: string, chans: ChanData): Promise<void> {
+        let data = [chans.board, chans.ping]
+        await this.query<void>(`UPDATE hellchannels SET board = ?, ping = ? WHERE id = ?;`, [...data, guildId]);
+        Console.logDb(`Serveur ${guildName} (${guildId}) modifié avec succès dans la DB channels`);
     }
 
     generateBackup() {

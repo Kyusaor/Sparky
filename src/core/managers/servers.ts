@@ -37,6 +37,22 @@ export class ServerManager {
         this.logServerUpdate("remove", owner);
     }
 
+    async registerHellData(channels: ChanData, roles: RolesData, update: boolean): Promise<void> {
+        if(update) {
+            await db.updateServerRoles(this.guild.id, this.guild.name, roles);
+            await db.updateServerChannels(this.guild.id, this.guild.name, channels);
+        } else {
+            await db.createServerRoles(this.guild.id, this.guild.name, roles);
+            await db.createServerChannels(this.guild.id, this.guild.name, channels);
+        }
+
+        await this.editServerData({ hellEvent: '1'})
+    }
+
+    displayInConsole():string {
+        return `${this.guild.name} (${this.guild.id})`
+    }
+
     async editServerData(edits: PartialServer): Promise<void> {
         let oldData = await db.fetchServerData(this.guild.id);
         if(!oldData)

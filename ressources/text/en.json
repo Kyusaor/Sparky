@@ -417,12 +417,44 @@
                 "success": "english"
             }
         },
+        "stopwatcher": {
+            "name": "stopwatcher",
+            "description": "english",
+            "text": {
+
+            }
+        },
         "watcher": {
             "name": "watcher",
             "description": "english",
             "text": {
                 "missingPerm": "english",
-                "askIfReparam": "english"
+                "askIfReparam": "english",
+                "roleTooHigh": "english",
+                "rolesNotFound": "english",
+                "rolesNotCancellable": "english",
+                "rolesAndChanDeletionReason": "english",
+                "channelsNotFound": "english",
+
+                "loadingText": "english",
+
+                "boardName": "english",
+                "boardTopic": "english",
+                "boardReason": "english",
+                "mentionName": "english",
+                "mentionTopic": "english",
+                "mentionReason": "english",
+                "hell": "english",
+
+                "boardEmbedTitle": "english",
+                "boardEmbedDescription": "english",
+                "boardEmbedFieldName": "english",
+                "boardEmbedFieldValue": "english",
+                "boardEmbedFooter": "english",
+                "boardMenuOptionDescription": "english",
+                "boardMenuPlaceholder": "english",
+
+                "success": "english"
             }
         }
     },
@@ -482,8 +514,12 @@
         "hellEvents": {
             "watcher": "watcher",
             "dragon": "dragon",
-            "redorb": "red orbs",
-            "yelloworb": "yellow orbs"
+            "redOrb": "english",
+            "yellowOrb": "english",
+            "watcherResearch": "english",
+            "dragonResearch": "english",
+            "challengeResearch": "english",
+            "challengeTroops": "english"
         }
     }
 

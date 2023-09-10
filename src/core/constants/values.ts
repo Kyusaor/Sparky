@@ -1,4 +1,4 @@
-import { ColorResolvable } from "discord.js";
+import { ColorResolvable, PermissionsBitField } from "discord.js";
 
 export abstract class DiscordValues {
 
@@ -31,7 +31,8 @@ export abstract class DiscordValues {
     static readonly emptyEmbedFieldValue = "** **";
     static readonly embedThumbnails = {
         trainCalculator: 'https://media.discordapp.net/attachments/659758501865717790/1059497225711005696/latest.png',
-        credits: 'https://cdn.discordapp.com/emojis/751774895024898188.webp?size=96&quality=lossless'
+        credits: 'https://cdn.discordapp.com/emojis/751774895024898188.webp?size=96&quality=lossless',
+        hellBoard: 'https://media.discordapp.net/attachments/659758501865717790/1007676744330903602/infernaux.png'
     }
 
     static readonly emotes = {
@@ -39,9 +40,17 @@ export abstract class DiscordValues {
             name: "veilleur",
             id: "607194832271573024"
         },
+        watcherResearch: {
+            name: "rechVeill",
+            id: "660453261979025418"
+        },
         dragon: {
             name: "dragon",
             id: "607194934759391242"
+        },
+        dragonResearch: {
+            name: "rechDrag",
+            id: "660453599318638592"
         },
         redorb: {
             name: "redorb",
@@ -51,7 +60,21 @@ export abstract class DiscordValues {
             name: "yellorb",
             id: "802962218764337173"
         },
-        
+        research: {
+            name: "academie",
+            id: "607196986948452377"
+        },
+        troop: {
+            name: "fantassin",
+            id: "607554773851570181"
+        },
+    }
+
+    static readonly permissions = {
+        hellEvents: {
+            denyEveryone: [PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.AddReactions],
+            allowBot: [PermissionsBitField.Flags.SendMessages, PermissionsBitField.Flags.ManageChannels, PermissionsBitField.Flags.ViewChannel]
+        }
     }
 }
 
@@ -137,5 +160,32 @@ export abstract class Constants {
             3: [0, 0.5, 1, 1.5, 2, 3, 4, 5, 7, 11, 30],
             4: [0, 0.5, 1, 1.5, 2, 3, 4, 5, 7, 11, 30]
         },
+    }
+
+    static readonly hellMenu = {
+        watcher: {
+            emoji: DiscordValues.emotes.watcher
+        },
+        dragon: {
+            emoji: DiscordValues.emotes.dragon
+        },
+        watcherResearch: {
+            emoji: DiscordValues.emotes.watcherResearch
+        },
+        dragonResearch: {
+            emoji: DiscordValues.emotes.dragonResearch
+        },
+        redOrb: {
+            emoji: DiscordValues.emotes.redorb
+        },
+        yellowOrb: {
+            emoji: DiscordValues.emotes.yelloworb
+        },
+        challengeResearch: {
+            emoji: DiscordValues.emotes.research
+        },
+        challengeTroops: {
+            emoji: DiscordValues.emotes.troop
+        }
     }
 }
