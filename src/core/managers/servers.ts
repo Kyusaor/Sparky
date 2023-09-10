@@ -32,7 +32,7 @@ export class ServerManager {
     }
 
     async checkListRemoveServer():Promise<void> {
-        this.editServerData({active: 0});
+        this.editServerData({active: 0, hellEvent: '0'});
         let owner = await bot.users.fetch(this.guild.ownerId);
         this.logServerUpdate("remove", owner);
     }
