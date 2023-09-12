@@ -1,4 +1,4 @@
-import { SlashCommandStringOption } from "discord.js";
+import { PermissionFlagsBits, SlashCommandStringOption } from "discord.js";
 import { CommandInterface } from "../constants/types.js";
 import { Command, CommandManager } from "../managers/commands.js";
 import { existsSync } from "fs";
@@ -6,6 +6,8 @@ import { existsSync } from "fs";
 export const compo:CommandInterface = {
 
     permissionLevel: 1,
+
+    neededPermissions: [PermissionFlagsBits.AttachFiles],
 
     cacheLockScope: "none",
 

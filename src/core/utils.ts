@@ -1,7 +1,7 @@
 import consoleStamp from "console-stamp";
-import { ActivityType, Client, EmbedBuilder, EmbedFooterData, Locale, TextChannel } from "discord.js";
+import { ActivityType, Client, EmbedBuilder, EmbedFooterData, Locale, PermissionsBitField, TextChannel } from "discord.js";
 import { createWriteStream, existsSync, mkdirSync } from "fs";
-import { bot, chanList, Console, dev, TranslationsCache } from "../main.js";
+import { bot, botCommands, chanList, Console, dev, TranslationsCache } from "../main.js";
 import { fetchedChannelsAtBoot, textLanguage } from "./constants/types.js";
 import { DiscordValues } from "./constants/values.js";
 import { Translations } from "./constants/translations.js";
@@ -21,7 +21,7 @@ export abstract class Utils {
     }
 
     static displayBotLink():string {
-        return `https://discord.com/api/oauth2/authorize?client_id=${bot.user?.id}&permissions=${DiscordValues.BOT_PERMISSIONS_BITFIELD}&scope=bot%20applications.commands`
+        return `https://discord.com/api/oauth2/authorize?client_id=${bot.user?.id}&permissions=${Utils.getBotPermissionsBigint()}&scope=bot%20applications.commands`
     }
 
     static EmbedBaseBuilder(language: textLanguage):EmbedBuilder {
@@ -77,6 +77,17 @@ export abstract class Utils {
         }
         
         return out    
+    }
+
+    static getBotPermissionsBigint():bigint {
+        let perms:bigint[] = []
+        for(let cmd of botCommands) {
+            cmd.neededPermissions?.forEach(p => {
+                if(!perms.includes(p))
+                    perms.push(p)
+            })
+        }
+        return new PermissionsBitField(perms).bitfield;
     }
 
     static getLanguageFromLocale(locale:Locale):textLanguage {

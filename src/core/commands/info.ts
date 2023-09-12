@@ -1,4 +1,4 @@
-import { ColorResolvable, EmbedBuilder, EmbedFooterOptions, Guild, GuildMember, SlashCommandUserOption, User, embedLength } from "discord.js";
+import { ColorResolvable, EmbedBuilder, EmbedFooterOptions, Guild, GuildMember, PermissionFlagsBits, SlashCommandUserOption, User, embedLength } from "discord.js";
 import { CommandInterface } from "../constants/types";
 import { CommandManager, Command } from "../managers/commands.js";
 import { Console, TranslationsCache, bot } from "../../main.js";
@@ -8,6 +8,8 @@ import { readFileSync } from "fs";
 
 export const info: CommandInterface = {
     permissionLevel: 1,
+
+    neededPermissions: [PermissionFlagsBits.EmbedLinks],
 
     cacheLockScope: "none",
 

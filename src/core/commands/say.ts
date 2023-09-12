@@ -7,6 +7,8 @@ import { Translations } from "../constants/translations.js";
 export const say: CommandInterface = {
     permissionLevel: 3,
 
+    neededPermissions: [PermissionFlagsBits.SendMessages],
+
     cacheLockScope: "none",
 
     commandStructure: CommandManager.baseSlashCommandBuilder("say", "dev")

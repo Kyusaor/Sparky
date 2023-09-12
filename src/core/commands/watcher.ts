@@ -1,7 +1,7 @@
-import { APISelectMenuOption, ActionRowBuilder, CacheType, ChatInputCommandInteraction, EmbedBuilder, Guild, GuildMember, PermissionFlagsBits, Role, RoleData, StringSelectMenuBuilder, StringSelectMenuOptionBuilder, TextChannel } from "discord.js";
+import { APISelectMenuOption, ActionRowBuilder, CacheType, ChatInputCommandInteraction, EmbedBuilder, Guild, GuildMember, PermissionFlagsBits, Role, RoleData, StringSelectMenuBuilder, TextChannel } from "discord.js";
 import { ChanData, CommandInterface, CommandName, RolesData, textLanguage } from "../constants/types.js";
 import { Command, CommandManager } from "../managers/commands.js";
-import { Console, TranslationsCache, bot, botCommands, consoleErrors, db, dev } from "../../main.js";
+import { Console, TranslationsCache, bot, consoleErrors, db, dev } from "../../main.js";
 import { ServerManager } from "../managers/servers.js";
 import { Utils } from "../utils.js";
 import { Translations } from "../constants/translations.js";
@@ -9,6 +9,8 @@ import { Constants, DiscordValues } from "../constants/values.js";
 
 export const watcher:CommandInterface = {
     permissionLevel: 2,
+
+    neededPermissions: [PermissionFlagsBits.ManageChannels, PermissionFlagsBits.ManageRoles, PermissionFlagsBits.UseExternalEmojis],
 
     cacheLockScope: "guild",
 

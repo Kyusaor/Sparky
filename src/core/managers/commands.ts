@@ -114,6 +114,7 @@ export abstract class CommandManager {
 export class Command implements CommandInterface {
 
     permissionLevel: 1 | 2 | 3;
+    neededPermissions?: bigint[];
     cacheLockScope: "guild" | "user" | "none";
     commandStructure: SlashCommandSubcommandsOnlyBuilder | SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
     run: (args: CommandArgs) => unknown;
@@ -122,6 +123,7 @@ export class Command implements CommandInterface {
         this.permissionLevel = args.permissionLevel;
         this.cacheLockScope = args.cacheLockScope;
         this.commandStructure = args.commandStructure;
+        this.neededPermissions = args.neededPermissions;
         this.run = args.run;
     }
 

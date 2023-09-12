@@ -5,7 +5,6 @@ export abstract class DiscordValues {
     static readonly MAIN_GUILD = "632957557375500299";
     static readonly DEV_DISCORD_ID = "370293090407153665";
 
-    static readonly BOT_PERMISSIONS_BITFIELD = "268748881";
     static readonly BOT_EMAIL_CONTACT = "sparky.botfr@gmail.com";
 
     static readonly MAIN_GUILD_INVITE = "https://discord.gg/6Dtrzax";

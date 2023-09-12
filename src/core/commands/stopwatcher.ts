@@ -1,3 +1,4 @@
+import { PermissionFlagsBits } from "discord.js";
 import { Console, TranslationsCache, bot, consoleErrors, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
 import { CommandInterface, fullServer } from "../constants/types.js";
@@ -8,6 +9,8 @@ import { checkPerm, deleteChanOrRole } from "./watcher.js";
 
 export const stopwatcher:CommandInterface = { 
     permissionLevel: 2,
+
+    neededPermissions: [PermissionFlagsBits.ManageChannels, PermissionFlagsBits.ManageRoles],
 
     cacheLockScope: "guild",
 
