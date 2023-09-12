@@ -372,7 +372,8 @@
                 "owner": "Propriétaire",
                 "language": "Langue",
                 "creation": "Création",
-                "joinedAt": "Date d'ajout du bot"
+                "joinedAt": "Date d'ajout du bot",
+                "hell": "Signalements infernaux"
             },
             "options": {
                 "id": {

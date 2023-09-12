@@ -34,6 +34,7 @@ export const serverdata:CommandInterface = {
             members: guildObject.memberCount,
             owner: `${owner.username} (${owner.id})`,
             language: TranslationsCache[language].global.languagesFullName[guild.language],
+            hell: guild.hellEvent == '1' ? TranslationsCache[language].global.yes : TranslationsCache[language].global.no,
             creation: Utils.stringifyDate(guildObject.createdTimestamp, language),
             joinedAt: Utils.stringifyDate(guildObject.joinedTimestamp, language)
         };
