@@ -1,8 +1,8 @@
 {
     "global": {
         "languagesFullName":{
-            "fr": "français",
-            "en": "anglais"
+            "fr": "french",
+            "en": "english"
         },
         "welcomeMsg": "english",
         "tipsFooter": [
