@@ -6,6 +6,8 @@ import { Translations } from "../constants/translations.js";
 export const send:CommandInterface = {
     permissionLevel: 3,
 
+    cacheLockScope: "none",
+
     commandStructure: CommandManager.baseSlashCommandBuilder("send", "dev")
         .addUserOption(
             (Command.generateCommandOptionBuilder("send", "user", "user") as SlashCommandUserOption)

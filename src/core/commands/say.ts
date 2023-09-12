@@ -7,6 +7,8 @@ import { Translations } from "../constants/translations.js";
 export const say: CommandInterface = {
     permissionLevel: 3,
 
+    cacheLockScope: "none",
+
     commandStructure: CommandManager.baseSlashCommandBuilder("say", "dev")
         .addChannelOption(
             Command.generateCommandOptionBuilder("say", "channel", "channel") as SlashCommandChannelOption

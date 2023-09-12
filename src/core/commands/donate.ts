@@ -7,6 +7,8 @@ export const donate:CommandInterface = {
 
     permissionLevel: 1,
 
+    cacheLockScope: "none",
+
     commandStructure: CommandManager.baseSlashCommandBuilder("donate", "member"),
 
     run({ intera, commandText }) {

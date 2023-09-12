@@ -8,6 +8,8 @@ import { Utils } from "../utils.js";
 export const setglobalping:CommandInterface = {
     permissionLevel: 3,
 
+    cacheLockScope: "none",
+
     commandStructure: CommandManager.baseSlashCommandBuilder("setglobalping", "dev"),
 
     run({intera, commandText}) {

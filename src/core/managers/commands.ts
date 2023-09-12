@@ -1,7 +1,7 @@
 import { APIApplicationCommandOptionChoice, APIEmbed, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, Embed, EmbedBuilder, InteractionReplyOptions, InteractionType, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextBasedChannel } from "discord.js";
-import { Console, TranslationsCache, bot, botCommands, db } from "../../main.js";
+import { Console, StatusCache, TranslationsCache, bot, botCommands, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
-import { CommandArgs, CommandInterface, CommandName, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, embedPageData, perksType, textLanguage } from "../constants/types.js";
+import { CommandArgs, CommandInterface, CommandName, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, cacheLockScope, embedPageData, perksType, textLanguage } from "../constants/types.js";
 import { readFileSync, readdirSync } from "fs";
 import { Utils } from "../utils.js";
 
@@ -65,6 +65,9 @@ export abstract class CommandManager {
             intera.reply({ content: TranslationsCache[language].global.CommandExecutionError, ephemeral: true });
             return Console.info(`Impossible de récupérer la commande ${intera.commandName}`);
         }
+        if(StatusCache.isLocked(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName))
+            return Command.prototype.reply(TranslationsCache[language].global.commandIsLocked, intera);
+        
         let commandText = Translations.getCommandText(intera.commandName as CommandName)[language].text as Record<string, string>;
 
         let args: CommandArgs = {
@@ -74,11 +77,14 @@ export abstract class CommandManager {
         };
 
         try {
+            StatusCache.lock(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName)
             await command.run(args);
+            StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName)
             Console.log(userCommandLogString(intera));
         }
         catch (err) {
             Command.prototype.reply({ content: TranslationsCache[language].global.CommandExecutionError, components: []}, intera);
+            StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName)
             Console.error(err);
         }
     };
@@ -108,11 +114,13 @@ export abstract class CommandManager {
 export class Command implements CommandInterface {
 
     permissionLevel: 1 | 2 | 3;
+    cacheLockScope: "guild" | "user" | "none";
     commandStructure: SlashCommandSubcommandsOnlyBuilder | SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
     run: (args: CommandArgs) => unknown;
 
     constructor(args: CommandInterface) {
         this.permissionLevel = args.permissionLevel;
+        this.cacheLockScope = args.cacheLockScope;
         this.commandStructure = args.commandStructure;
         this.run = args.run;
     }
@@ -349,6 +357,52 @@ export class Command implements CommandInterface {
             components = this.generatePageButtons(command, pageData.language, pageData.filter?.toString())
         }
         button.update({embeds: [newEmbedPage], components: [components]});
+    }
+}
+
+
+export class StatusCacheClass {
+
+    type:Record<CommandName, cacheLockScope>;
+    locked:Record<CommandName, string[]>;
+
+    constructor(commandList: Command[]) {
+        this.type = {} as any;
+        this.locked = {} as any;
+        for(let command of commandList) {
+            this.type[command.commandStructure.name as CommandName] = command.cacheLockScope;
+            this.locked[command.commandStructure.name as CommandName] = [];
+        }
+    }
+
+    getTarget(guild: string, user: string, command: CommandName):string {
+        switch (this.type[command]) {
+            case 'guild':
+                return guild;
+        
+            case 'user':
+                return user
+
+            default:
+                return "nope";
+        }
+    }
+
+    lock(guild: string, user: string, command: CommandName):void {
+        this.locked[command].push(this.getTarget(guild, user, command))
+    }
+
+    unlock(guild: string, user: string, command: CommandName):void {
+        let target:string = this.getTarget(guild, user, command);
+
+        while (this.locked[command].includes(target)) {
+            let index = this.locked[command].findIndex(e => e == target);
+            this.locked[command].splice(index, 1);
+        }
+    }
+
+    isLocked(guild: string, user: string, command: CommandName):boolean {
+        return this.locked[command].includes(this.getTarget(guild, user, command));
     }
 }
 

@@ -8,6 +8,8 @@ export const credits:CommandInterface = {
 
     permissionLevel: 1,
 
+    cacheLockScope: "none",
+
     commandStructure: CommandManager.baseSlashCommandBuilder("credits", "member"),
 
     run({ intera, language, commandText }) {

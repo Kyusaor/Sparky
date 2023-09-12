@@ -7,6 +7,8 @@ export const compo:CommandInterface = {
 
     permissionLevel: 1,
 
+    cacheLockScope: "none",
+
     commandStructure: CommandManager.baseSlashCommandBuilder("compo", "member")
         .addStringOption(
             (Command.generateCommandOptionBuilder("compo", "monster", "string") as SlashCommandStringOption)

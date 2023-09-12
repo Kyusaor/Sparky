@@ -7,6 +7,8 @@ import { Utils } from "../utils.js";
 export const serverdata:CommandInterface = {
     permissionLevel: 3,
 
+    cacheLockScope: "none",
+
     commandStructure: CommandManager.baseSlashCommandBuilder("serverdata", "dev")
         .addStringOption(
             (Command.generateCommandOptionBuilder("serverdata", "id", "string") as SlashCommandStringOption)

@@ -9,6 +9,8 @@ import { checkPerm, deleteChanOrRole } from "./watcher.js";
 export const stopwatcher:CommandInterface = { 
     permissionLevel: 2,
 
+    cacheLockScope: "guild",
+
     commandStructure: CommandManager.baseSlashCommandBuilder("stopwatcher", "admin"),
 
     async run({ intera, language, commandText }) {

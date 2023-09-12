@@ -8,6 +8,8 @@ export const contact:CommandInterface = {
 
     permissionLevel: 1,
 
+    cacheLockScope: "none",
+
     commandStructure: CommandManager.baseSlashCommandBuilder("contact", "member"),
     
     async run(args):Promise<void> {

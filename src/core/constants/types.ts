@@ -97,11 +97,14 @@ export type CommandArgs = { intera: ChatInputCommandInteraction, language: textL
 
 export interface CommandInterface {
     permissionLevel: 1 | 2 | 3;
+    cacheLockScope: cacheLockScope;
     commandStructure: SlashCommandSubcommandsOnlyBuilder | SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
     run: ({ intera, language, commandText }: CommandArgs) => unknown
 };
 
 export type perksType = "member" | "admin" | "dev";
+
+export type cacheLockScope = "guild" | "user" | "none"
 
 export type CommandName = keyof typeof frTranslationJSON.commands
 

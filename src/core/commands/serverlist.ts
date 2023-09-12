@@ -9,6 +9,8 @@ import { readFileSync, writeFileSync } from "fs";
 export const serverlist:CommandInterface = {
     permissionLevel: 3,
 
+    cacheLockScope: "none",
+
     commandStructure: CommandManager.baseSlashCommandBuilder("serverlist", "dev")
         .addStringOption(
             (Command.generateCommandOptionBuilder("serverlist", "filter", "string") as SlashCommandStringOption)

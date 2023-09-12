@@ -18,6 +18,7 @@
             "guildDataNotFound": "english"
         },
         "noLinkInDm": "english",
+        "commandIsLocked": "Cette commande est déjà en cours d'exécution",
         "noCommandOffServer": "english",
         "CommandExecutionError": "english",
         "defaultCommandReply": "english",

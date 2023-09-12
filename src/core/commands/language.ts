@@ -8,6 +8,8 @@ import { ServerManager } from "../managers/servers.js";
 export const language:CommandInterface = {
     permissionLevel: 2,
 
+    cacheLockScope: "guild",
+
     commandStructure: CommandManager.baseSlashCommandBuilder("language", "admin")
         .addStringOption(
             (Command.generateCommandOptionBuilder("language", "language", "string") as SlashCommandStringOption)

@@ -9,6 +9,8 @@ import { TranslationsCache } from "../../main.js";
 export const calculator: CommandInterface = {
     permissionLevel: 1,
 
+    cacheLockScope: "user",
+
     commandStructure: CommandManager.baseSlashCommandBuilder("calculator", "member")
         .addSubcommand(
             Command.generateSubcommandBuilder("calculator", "buildings")

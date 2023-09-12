@@ -1,16 +1,15 @@
 import { Client, User } from 'discord.js';
-import { readFileSync, readdirSync } from 'fs';
+import { readFileSync } from 'fs';
 import { Config } from '../data/config.js';
 import { ConsoleLogger, Utils } from './core/utils.js';
 import cron from 'node-cron';
-import { CommandName, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, fetchedChannelsAtBoot, textLanguage } from './core/constants/types.js';
+import { TranslationCacheType, fetchedChannelsAtBoot } from './core/constants/types.js';
 import { DiscordValues } from './core/constants/values.js';
 import { DBManager } from './core/managers/database.js';
 import { ServerManager } from './core/managers/servers.js'
 import { EventManager } from './core/managers/events.js';
-import { Command, CommandManager } from './core/managers/commands.js';
+import { Command, CommandManager, StatusCacheClass } from './core/managers/commands.js';
 import { Translations } from './core/constants/translations.js';
-import { language } from './core/commands/language.js';
 
 let Console = new ConsoleLogger();
 const VERSION = JSON.parse(readFileSync('./package.json', 'utf-8')).version; // app version
@@ -27,6 +26,7 @@ let botCommands: Command[];
 let chanList: fetchedChannelsAtBoot;
 let dev: User;
 let db: DBManager;
+let StatusCache: StatusCacheClass;
 
 
 //Executed when the bot starts
@@ -40,6 +40,7 @@ bot.on('ready', async () => {
         Console.log(`\n\n             SPARKY\n\nBot discord Lords Mobile français\nDéveloppé par Kyusaki\n\nVersion: ${VERSION}\nClient: ${bot.user?.username}\nConsole:`);
         db = new DBManager(Config.DBConfig);
         botCommands = await CommandManager.buildBotCommands();
+        StatusCache = new StatusCacheClass(botCommands);
         chanList.LOGS_CONNEXIONS?.send(VERSION);
         await test();
     }
@@ -88,7 +89,7 @@ bot.on('interactionCreate', intera => {
     }
 })
 
-export { bot, Console, chanList, dev, db, botCommands, TranslationsCache, consoleErrors };
+export { bot, Console, chanList, dev, db, botCommands, TranslationsCache, consoleErrors, StatusCache };
 
 
 async function test() {

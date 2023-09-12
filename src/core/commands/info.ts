@@ -9,6 +9,8 @@ import { readFileSync } from "fs";
 export const info: CommandInterface = {
     permissionLevel: 1,
 
+    cacheLockScope: "none",
+
     commandStructure: CommandManager.baseSlashCommandBuilder("info", "member")
         .addSubcommand(
             Command.generateSubcommandBuilder("info", "user")

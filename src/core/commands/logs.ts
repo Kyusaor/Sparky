@@ -7,6 +7,8 @@ import { existsSync } from "fs";
 export const logs:CommandInterface = {
     permissionLevel: 3,
 
+    cacheLockScope: "none",
+
     commandStructure: CommandManager.baseSlashCommandBuilder("logs", "dev")
         .addIntegerOption(
             (Command.generateCommandOptionBuilder("logs", "day", "integer") as SlashCommandIntegerOption)

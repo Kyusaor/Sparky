@@ -7,6 +7,8 @@ import { Utils } from "../utils.js";
 export const link:CommandInterface = {
     permissionLevel: 1,
 
+    cacheLockScope: "none",
+
     commandStructure: CommandManager.baseSlashCommandBuilder("link", "member")
         .setDMPermission(true),
 

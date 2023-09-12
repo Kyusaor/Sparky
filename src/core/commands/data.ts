@@ -8,6 +8,8 @@ export const data:CommandInterface = {
 
     permissionLevel: 3,
 
+    cacheLockScope: "none",
+
     commandStructure: CommandManager.baseSlashCommandBuilder("data", "dev"),
 
     async run({ intera, commandText }) {

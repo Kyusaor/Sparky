@@ -10,6 +10,8 @@ export const help: CommandInterface = {
 
     permissionLevel: 1,
 
+    cacheLockScope: "none",
+
     commandStructure: CommandManager.baseSlashCommandBuilder("help", "member")
         .setDMPermission(true),
 

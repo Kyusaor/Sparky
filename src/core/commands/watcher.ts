@@ -10,6 +10,8 @@ import { Constants, DiscordValues } from "../constants/values.js";
 export const watcher:CommandInterface = {
     permissionLevel: 2,
 
+    cacheLockScope: "guild",
+
     commandStructure: CommandManager.baseSlashCommandBuilder("watcher", "admin"),
 
     async run({ intera, language, commandText }) {

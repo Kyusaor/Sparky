@@ -20,6 +20,7 @@
     "noImplicitThis": true,
     "outDir": "dist",
     "skipLibCheck": true,
+    "strictPropertyInitialization": false,
   },
 
   "exclude": ["node_modules"],
