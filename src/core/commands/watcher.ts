@@ -35,7 +35,7 @@ export const watcher:CommandInterface = {
         //manage roles and channels deletion if watcher is already defined
         let hasWatcher = await guild.hasWatcher()
         if(hasWatcher) {
-            let confirm = await Command.getConfirmationMessage({intera, language, commandText}, commandText.askIfReparam);
+            let confirm = await Command.getConfirmationMessage(intera, intera.commandName as CommandName, language, commandText.askIfReparam);
             if(confirm !== 'yes')
                 return Command.prototype.reply({content: TranslationsCache[language].global.cancelledCommand, components: []}, intera);
 

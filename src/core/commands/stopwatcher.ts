@@ -36,7 +36,7 @@ export const stopwatcher:CommandInterface = {
         if(!hasWatcher)
             return Command.prototype.reply({content: Translations.displayText(commandText.watcherIsNotDefined, { text: TranslationsCache[language].commands.watcher.name})}, intera)
 
-        let confirm = await Command.getConfirmationMessage({intera, language, commandText}, Translations.displayText(commandText.askIfDelete, { text: guildData.chans?.board, text2: guildData.chans?.ping}));
+        let confirm = await Command.getConfirmationMessage(intera, intera.commandName as CommandName, language, Translations.displayText(commandText.askIfDelete, { text: guildData.chans?.board, text2: guildData.chans?.ping}));
         if(confirm !== 'yes')
             return Command.prototype.reply({content: TranslationsCache[language].global.cancelledCommand, components: []}, intera);
 

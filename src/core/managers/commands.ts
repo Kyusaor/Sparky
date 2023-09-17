@@ -294,15 +294,15 @@ export class Command implements CommandInterface {
         return buttons
     }
 
-    static async getConfirmationMessage({ intera, language }: CommandArgs, text?: string, embeds?: EmbedBuilder[], time?: number): Promise<"yes" | "no" | "error"> {
-        let payload: MessagePayload | InteractionReplyOptions = { content: text, components: [Command.generateYesNoButtons(intera.commandName as CommandName, language)] };
+    static async getConfirmationMessage(intera: ChatInputCommandInteraction | ButtonInteraction, commandname: CommandName, language: textLanguage, text?: string, embeds?: EmbedBuilder[], time?: number): Promise<"yes" | "no" | "error"> {
+        let payload: MessagePayload | InteractionReplyOptions = { content: text, components: [Command.generateYesNoButtons(commandname, language)] };
         if (embeds)
             payload.embeds = embeds
         Command.prototype.reply(payload, intera);
 
         let confirmationResponse;
         try {
-            let filter = (button: ButtonInteraction<"cached">) => button.user.id === intera.user.id && button.customId.includes(intera.commandName)
+            let filter = (button: ButtonInteraction<"cached">) => button.user.id === intera.user.id && button.customId.includes(commandname)
             confirmationResponse = await intera.channel?.awaitMessageComponent({ componentType: ComponentType.Button, filter, time: time || 15000 })
         } catch {
             return "error"
