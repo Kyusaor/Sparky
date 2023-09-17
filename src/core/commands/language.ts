@@ -33,7 +33,7 @@ export const language:CommandInterface = {
 
         //Confirmation message
         let confirmationText:string = `${Translations.displayText(text.changeLanguageConfirmation, { text: newLanguageTranslation.old})}\n\n${Translations.displayText(newText.changeLanguageConfirmation, { text: newLanguageTranslation.new})}`
-        let confirmation = await Command.getConfirmationMessage(intera, intera.commandName as CommandName, language, confirmationText);
+        let confirmation = await Command.getConfirmationMessage(intera, intera.commandName as CommandName, language, {text: confirmationText});
 
         if(confirmation !== "yes")
             return Command.prototype.reply({content: TranslationsCache[language].global.cancelledCommand, components: []}, intera)
