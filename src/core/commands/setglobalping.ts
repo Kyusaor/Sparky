@@ -2,7 +2,7 @@ import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from "disc
 import { TranslationsCache, chanList } from "../../main.js";
 import { CommandInterface } from "../constants/types.js";
 import { Command, CommandManager } from "../managers/commands.js";
-import { DiscordValues } from "../constants/values.js";
+import { Constants, DiscordValues } from "../constants/values.js";
 import { Utils } from "../utils.js";
 
 export const setglobalping:CommandInterface = {
@@ -19,7 +19,7 @@ export const setglobalping:CommandInterface = {
 
         let embed = buildBoardEmbed(commandText);
         let buttons = buildBoardButtons();
-        channel.send({embeds: [embed], components: [buttons]});
+        channel.send({embeds: [embed], components: buttons});
         Command.prototype.reply({content: commandText.success, ephemeral: true}, intera);
     }
 }
@@ -30,10 +30,10 @@ function buildBoardEmbed(text:Record<string, string>):EmbedBuilder {
         .setDescription(text.embedDescription)
         .setColor([253,90,24])
 
-        let emotes = DiscordValues.emotes
-        for(let event of Object.keys(emotes)) {
-            let data = emotes[event as keyof typeof emotes]
-            let name = `${Utils.capitalizeFirst(TranslationsCache.fr.others.hellEvents[event as keyof typeof emotes])} <:${data.name}:${data.id}>`
+        let hellEvents = Constants.WatcherMentionsTemplates;
+        for(let event of Object.keys(hellEvents)) {
+            let data = DiscordValues.emotes[event as keyof typeof hellEvents]
+            let name = `${Utils.capitalizeFirst(TranslationsCache.fr.others.hellEvents[event as keyof typeof TranslationsCache.fr.others.hellEvents])} <:${data.name}:${data.id}>`
             embed.addFields({
                 name,
                 value: text[`${event}Description`]
@@ -43,17 +43,23 @@ function buildBoardEmbed(text:Record<string, string>):EmbedBuilder {
     return embed
 }
 
-function buildBoardButtons():ActionRowBuilder<ButtonBuilder> {
-    let buttons = new ActionRowBuilder<ButtonBuilder>()
-    let emotes = DiscordValues.emotes
-    for(let event of Object.keys(emotes)) {
-        buttons.addComponents([
+function buildBoardButtons():ActionRowBuilder<ButtonBuilder>[] {
+    let buttons:ActionRowBuilder<ButtonBuilder>[] = [];
+    let row = new ActionRowBuilder<ButtonBuilder>();
+    let hellEvents = Constants.WatcherMentionsTemplates;
+    for(let event of Object.keys(hellEvents)) {
+        if(row.components.length == 5) {
+            buttons.push(row);
+            row = new ActionRowBuilder<ButtonBuilder>();
+        }
+        row.addComponents([
             new ButtonBuilder()
-                .setCustomId(`fr-setglobalping-${event}`)
-                .setEmoji(emotes[event as keyof typeof emotes].id)
+                .setCustomId(`${Command.generateButtonCustomId("setglobalping", "fr")}-${event}`)
+                .setEmoji(DiscordValues.emotes[event as keyof typeof DiscordValues.emotes].id)
                 .setStyle(ButtonStyle.Secondary)
         ])
     }
 
+    buttons.push(row)
     return buttons
 }
