@@ -107,7 +107,7 @@ export abstract class CommandManager {
                 break;
 
             case "setglobalping":
-                await this.WatcherMentionManager(button);
+                await WatcherManager.MentionManager(button);
                 break;
 
             default:
@@ -131,93 +131,6 @@ export abstract class CommandManager {
 
     }
 
-    //Watcher mention management
-    static async WatcherMentionManager(button: ButtonInteraction) {
-        StatusCache.lock(button.guild!.id, button.user.id, "setglobalping");
-        let language = button.customId.split("-")[1] as textLanguage;
-
-        let payload = this.generateTypeEventMessage(button, language);
-        await Command.prototype.reply({ content: payload.message, components: payload.buttons }, button);
-
-        let event = await this.getEventType(button, payload.list);
-        if (event == "error")
-            return Command.prototype.reply({ content: TranslationsCache[language].global.cancelledCommand, components: [] }, button);
-
-        let confirmation = await Command.getConfirmationMessage(button, "setglobalping", language, {text: this.getConfirmationMessage(language, event), deleteMsg: true});
-        
-        if (confirmation !== 'yes') {
-            return Command.prototype.reply({ content: TranslationsCache[language].global.cancelledCommand, components: [] }, button);
-        }
-
-        console.log('yes');
-    }
-
-    static generateTypeEventMessage(button: ButtonInteraction, language: textLanguage) {
-        let event = button.customId.split("-")[2] as keyof typeof Constants.WatcherMentionsTemplates;
-        const text = TranslationsCache[language].others.hellMentions;
-
-        let buttons: ActionRowBuilder<ButtonBuilder>[] = [];
-        let row = new ActionRowBuilder<ButtonBuilder>();
-        let list: string[] = [];
-        let message = Translations.displayText(text.baseTypeMsg, { text: text[event] })
-
-        for (let i = 0; i < Constants.WatcherMentionsTemplates[event].length; i++) {
-
-            if (row.components.length == 5) {
-                buttons.push(row);
-                row = new ActionRowBuilder<ButtonBuilder>()
-            }
-
-            let currentType = Constants.WatcherMentionsTemplates[event][i];
-            let customId: string = "";
-            let emoji: string;
-            if (Array.isArray(currentType)) {
-                customId = currentType.join("-");
-                emoji = DiscordValues.defaultEmotes.numbers[i];
-                message += `-${emoji}: ${currentType.map(e => text[e as keyof typeof Constants.WatcherMentionsTemplates]).join(", ")}\n`
-            } else {
-                customId = currentType;
-                let customEmoji = Constants.hellMenu[currentType as keyof typeof Constants.hellMenu]?.emoji ||
-                    DiscordValues.emotes[currentType as keyof typeof DiscordValues.emotes];
-                emoji = customEmoji.id
-                let stringEmoji = `<:${customEmoji.name}:${customEmoji.id}>`
-                message += `-${stringEmoji}: ${text[currentType as keyof typeof Constants.WatcherMentionsTemplates]}\n`
-            }
-
-            list.push(customId);
-            row.addComponents(
-                new ButtonBuilder()
-                    .setCustomId(customId)
-                    .setEmoji(emoji)
-                    .setStyle(ButtonStyle.Secondary)
-            )
-        }
-
-        message += text.baseTypeMsgEnd;
-        buttons.push(row);
-
-        return { message, buttons, list }
-    }
-
-    static async getEventType(button: ButtonInteraction, customIdList: string[]): Promise<keyof typeof TranslationsCache.fr.others.hellMentions | "error"> {
-        let confirmationResponse;
-        try {
-            let filter = (buttonReply: ButtonInteraction<"cached">) => buttonReply.user.id === button.user.id && customIdList.includes(buttonReply.customId)
-            confirmationResponse = await button.channel!.awaitMessageComponent({ componentType: ComponentType.Button, filter, time: 10000 })
-        } catch {
-            return "error"
-        }
-        return confirmationResponse.customId as keyof typeof TranslationsCache.fr.others.hellMentions
-    }
-
-    static getConfirmationMessage(language: textLanguage, event: keyof typeof TranslationsCache.fr.others.hellMentions): string {
-        let text = TranslationsCache[language].others.hellMentions
-        let confirmationText = Translations.displayText(text.confirmation, {
-            text: event.includes("challenge") ? text.challenge : text.hell,
-            text2: text[event]
-        })
-        return confirmationText;
-    }
 }
 
 export class Command implements CommandInterface {
@@ -419,6 +332,7 @@ export class Command implements CommandInterface {
             let filter = (button: ButtonInteraction<"cached">) => button.user.id === intera.user.id && button.customId.includes(commandname)
             confirmationResponse = await intera.channel?.awaitMessageComponent({ componentType: ComponentType.Button, filter, time: options?.time || 15000 })
         } catch {
+            intera.channel?.lastMessage?.delete().catch(e => Console.error(e));
             return "error"
         }
         
@@ -530,6 +444,97 @@ export class StatusCacheClass {
     }
 }
 
+export class WatcherManager {
+
+    //Watcher mention management
+    static async MentionManager(button: ButtonInteraction) {
+        StatusCache.lock(button.guild!.id, button.user.id, "setglobalping");
+        let language = button.customId.split("-")[1] as textLanguage;
+
+        let payload = this.generateTypeEventMessage(button, language);
+        await Command.prototype.reply({ content: payload.message, components: payload.buttons }, button);
+
+        let event = await this.getEventType(button, payload.list);
+        if (event == "error")
+            return Command.prototype.reply({ content: TranslationsCache[language].global.cancelledCommand, ephemeral: true, components: [] }, button);
+
+        let confirmation = await Command.getConfirmationMessage(button, "setglobalping", language, {text: this.getConfirmationMessage(language, event), deleteMsg: true});
+        
+        if (confirmation !== 'yes') {
+            return Command.prototype.reply({ content: TranslationsCache[language].global.cancelledCommand, ephemeral: true, components: [] }, button);
+        }
+
+        console.log('yes');
+    }
+
+    static generateTypeEventMessage(button: ButtonInteraction, language: textLanguage) {
+        let event = button.customId.split("-")[2] as keyof typeof Constants.WatcherMentionsTemplates;
+        const text = TranslationsCache[language].others.hellMentions;
+
+        let buttons: ActionRowBuilder<ButtonBuilder>[] = [];
+        let row = new ActionRowBuilder<ButtonBuilder>();
+        let list: string[] = [];
+        let message = Translations.displayText(text.baseTypeMsg, { text: text[event] })
+
+        for (let i = 0; i < Constants.WatcherMentionsTemplates[event].length; i++) {
+
+            if (row.components.length == 5) {
+                buttons.push(row);
+                row = new ActionRowBuilder<ButtonBuilder>()
+            }
+
+            let currentType = Constants.WatcherMentionsTemplates[event][i];
+            let customId: string = "";
+            let emoji: string;
+            if (Array.isArray(currentType)) {
+                customId = currentType.join("-");
+                emoji = DiscordValues.defaultEmotes.numbers[i];
+                message += `-${emoji}: ${currentType.map(e => text[e as keyof typeof Constants.WatcherMentionsTemplates]).join(", ")}\n`
+            } else {
+                customId = currentType;
+                let customEmoji = Constants.hellMenu[currentType as keyof typeof Constants.hellMenu]?.emoji ||
+                    DiscordValues.emotes[currentType as keyof typeof DiscordValues.emotes];
+                emoji = customEmoji.id
+                let stringEmoji = `<:${customEmoji.name}:${customEmoji.id}>`
+                message += `-${stringEmoji}: ${text[currentType as keyof typeof Constants.WatcherMentionsTemplates]}\n`
+            }
+
+            list.push(customId);
+            row.addComponents(
+                new ButtonBuilder()
+                    .setCustomId(customId)
+                    .setEmoji(emoji)
+                    .setStyle(ButtonStyle.Secondary)
+            )
+        }
+
+        message += text.baseTypeMsgEnd;
+        buttons.push(row);
+
+        return { message, buttons, list }
+    }
+
+    static async getEventType(button: ButtonInteraction, customIdList: string[]): Promise<keyof typeof TranslationsCache.fr.others.hellMentions | "error"> {
+        let confirmationResponse;
+        try {
+            let filter = (buttonReply: ButtonInteraction<"cached">) => buttonReply.user.id === button.user.id && customIdList.includes(buttonReply.customId)
+            confirmationResponse = await button.channel!.awaitMessageComponent({ componentType: ComponentType.Button, filter, time: 10000 })
+        } catch {
+            return "error"
+        }
+        return confirmationResponse.customId as keyof typeof TranslationsCache.fr.others.hellMentions
+    }
+
+    static getConfirmationMessage(language: textLanguage, event: keyof typeof TranslationsCache.fr.others.hellMentions): string {
+        let text = TranslationsCache[language].others.hellMentions
+        let confirmationText = Translations.displayText(text.confirmation, {
+            text: event.includes("challenge") ? text.challenge : text.hell,
+            text2: text[event]
+        })
+        return confirmationText;
+    }
+
+}
 
 function userCommandLogString(intera: ChatInputCommandInteraction): string {
     let baseText = `${intera.user.username} (${intera.user.id}) a executé la commande ${intera.commandName} `;
