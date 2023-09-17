@@ -1,5 +1,5 @@
 import { APIApplicationCommandOptionChoice, ComponentType, SlashCommandStringOption, time } from "discord.js";
-import { CommandInterface, TranslationCacheType, textLanguage } from "../constants/types.js";
+import { CommandInterface, CommandName, TranslationCacheType, textLanguage } from "../constants/types.js";
 import { Command, CommandManager } from "../managers/commands.js";
 import { TranslationsCache, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";

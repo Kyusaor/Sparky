@@ -1,7 +1,7 @@
 import { PermissionFlagsBits } from "discord.js";
 import { Console, TranslationsCache, bot, consoleErrors, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
-import { CommandInterface, fullServer } from "../constants/types.js";
+import { CommandInterface, CommandName, fullServer } from "../constants/types.js";
 import { Command, CommandManager } from "../managers/commands.js";
 import { ServerManager } from "../managers/servers.js";
 import { Utils } from "../utils.js";
