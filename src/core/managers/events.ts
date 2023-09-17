@@ -2,7 +2,7 @@ import { CacheType, ChannelType, Interaction, InteractionType, Message } from "d
 import { Translations } from "../constants/translations.js";
 import { Utils } from "../utils.js";
 import { DiscordValues } from "../constants/values.js";
-import { TranslationsCache, bot, chanList } from "../../main.js";
+import { Console, StatusCache, TranslationsCache, bot, chanList } from "../../main.js";
 import { CommandManager } from "./commands.js";
 
 export abstract class EventManager {
@@ -12,6 +12,10 @@ export abstract class EventManager {
             CommandManager.slashCommandManager(intera);
         if(intera.isButton()) {
             CommandManager.buttonInteractionManager(intera)
+                .catch(e=> {
+                    Console.error(e);
+                    StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, "setglobalping")
+                })
         }
     }
 
