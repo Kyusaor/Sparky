@@ -15,7 +15,9 @@
         ],
         "errors": {
             "notInAGuild": "english",
-            "guildDataNotFound": "english"
+            "guildDataNotFound": "english",
+            "buttonWithoutCommand": "english",
+            "unableToReply": "english"
         },
         "noLinkInDm": "english",
         "commandIsLocked": "Cette commande est déjà en cours d'exécution",
@@ -414,8 +416,8 @@
                 "embedDescription": "english",
                 "watcherDescription": "english",
                 "dragonDescription": "english",
-                "redorbDescription": "english",
-                "yelloworbDescription": "english",
+                "redOrbDescription": "english",
+                "yellowOrbDescription": "english",
                 "success": "english"
             }
         },
@@ -525,6 +527,26 @@
             "dragonResearch": "english",
             "challengeResearch": "english",
             "challengeTroops": "english"
+        },
+        "hellMentions": {
+            "watcher":"watcher",
+            "dragon":"dragon",
+            "redOrb":"red orb",
+            "yellowOrb":"yellow orb",
+            "research": "research",
+            "building": "building",
+            "merge": "merge",
+            "troop": "train",
+            "labyrinth": "labyrinth",
+            "tycoon": "tycoon",
+            "challenge": "challenge",
+            "hell": "hell",
+            "hunt": "hunt",
+            "challengeResearch": "english",
+            "challengeTroops": "english",
+            "baseTypeMsg": "english",
+            "baseTypeMsgEnd": "english",
+            "confirmation": "english"
         }
     }
 

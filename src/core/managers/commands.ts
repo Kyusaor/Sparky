@@ -1,9 +1,10 @@
-import { APIApplicationCommandOptionChoice, APIEmbed, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, Embed, EmbedBuilder, InteractionReplyOptions, InteractionType, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextBasedChannel } from "discord.js";
+import { APIApplicationCommandOptionChoice, APIEmbed, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, Embed, EmbedBuilder, InteractionReplyOptions, InteractionType, InteractionUpdateOptions, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextBasedChannel, parseEmoji } from "discord.js";
 import { Console, StatusCache, TranslationsCache, bot, botCommands, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
 import { CommandArgs, CommandInterface, CommandName, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, cacheLockScope, embedPageData, perksType, textLanguage } from "../constants/types.js";
 import { readFileSync, readdirSync } from "fs";
 import { Utils } from "../utils.js";
+import { Constants, DiscordValues } from "../constants/values.js";
 
 export abstract class CommandManager {
 
@@ -65,9 +66,9 @@ export abstract class CommandManager {
             intera.reply({ content: TranslationsCache[language].global.CommandExecutionError, ephemeral: true });
             return Console.info(`Impossible de récupérer la commande ${intera.commandName}`);
         }
-        if(StatusCache.isLocked(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName))
+        if (StatusCache.isLocked(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName))
             return Command.prototype.reply(TranslationsCache[language].global.commandIsLocked, intera);
-        
+
         let commandText = Translations.getCommandText(intera.commandName as CommandName)[language].text as Record<string, string>;
 
         let args: CommandArgs = {
@@ -83,31 +84,139 @@ export abstract class CommandManager {
             Console.log(userCommandLogString(intera));
         }
         catch (err) {
-            Command.prototype.reply({ content: TranslationsCache[language].global.CommandExecutionError, components: []}, intera);
+            Command.prototype.reply({ content: TranslationsCache[language].global.CommandExecutionError, components: [] }, intera);
             StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName)
             Console.error(err);
         }
     };
 
     static async buttonInteractionManager(button: ButtonInteraction) {
-        let command = this.getCommandFromButtonId(button.customId)
+        if (button.message.author.id !== bot.user!.id)
+            return;
+        let command = this.getCommandFromButtonId(button.customId);
+        if (!command)
+            return Console.info(TranslationsCache.fr.global.errors.buttonWithoutCommand + button.customId)
 
+        if(command !== 'not a base button' && StatusCache.isLocked(button.guildId, button.user.id, command)) {
+            let language = await db.returnServerLanguage(button.guildId!);
+            return Command.prototype.reply({content: TranslationsCache[language].global.commandIsLocked, ephemeral: true}, button);
+        }
         switch (command) {
             case "serverlist":
-                Command.defilePage("serverlist", button);
+                await Command.defilePage("serverlist", button);
+                break;
+
+            case "setglobalping":
+                await this.WatcherMentionManager(button);
                 break;
 
             default:
-                break;
+                return;
         }
+        StatusCache.unlock(button.guildId, button.user.id, command)
     }
 
-    static getCommandFromButtonId(buttonId: string): CommandName | undefined {
+    static getCommandFromButtonId(buttonId: string): CommandName | "not a base button" | undefined {
 
         for (let key of botCommands) {
             let name = key.commandStructure.name;
-            if (buttonId.includes(`${name}-`)) return name as CommandName | undefined
+            if (buttonId.endsWith('yes') || buttonId.endsWith('no')) return "not a base button";
+            if (buttonId.includes(`${name}-`)) return name as CommandName
         }
+
+        let hellEventsList = Object.keys(TranslationsCache.fr.others.hellMentions);
+        if (
+            hellEventsList.find(e => buttonId.includes(e))
+        ) return "not a base button";
+
+    }
+
+    //Watcher mention management
+    static async WatcherMentionManager(button: ButtonInteraction) {
+        StatusCache.lock(button.guild!.id, button.user.id, "setglobalping");
+        let language = button.customId.split("-")[1] as textLanguage;
+
+        let payload = this.generateTypeEventMessage(button, language);
+        await Command.prototype.reply({ content: payload.message, components: payload.buttons }, button);
+
+        let event = await this.getEventType(button, payload.list);
+        if (event == "error")
+            return Command.prototype.reply({ content: TranslationsCache[language].global.cancelledCommand, components: [] }, button);
+
+        let confirmation = await Command.getConfirmationMessage(button, "setglobalping", language, {text: this.getConfirmationMessage(language, event), deleteMsg: true});
+        
+        if (confirmation !== 'yes') {
+            return Command.prototype.reply({ content: TranslationsCache[language].global.cancelledCommand, components: [] }, button);
+        }
+
+        console.log('yes');
+    }
+
+    static generateTypeEventMessage(button: ButtonInteraction, language: textLanguage) {
+        let event = button.customId.split("-")[2] as keyof typeof Constants.WatcherMentionsTemplates;
+        const text = TranslationsCache[language].others.hellMentions;
+
+        let buttons: ActionRowBuilder<ButtonBuilder>[] = [];
+        let row = new ActionRowBuilder<ButtonBuilder>();
+        let list: string[] = [];
+        let message = Translations.displayText(text.baseTypeMsg, { text: text[event] })
+
+        for (let i = 0; i < Constants.WatcherMentionsTemplates[event].length; i++) {
+
+            if (row.components.length == 5) {
+                buttons.push(row);
+                row = new ActionRowBuilder<ButtonBuilder>()
+            }
+
+            let currentType = Constants.WatcherMentionsTemplates[event][i];
+            let customId: string = "";
+            let emoji: string;
+            if (Array.isArray(currentType)) {
+                customId = currentType.join("-");
+                emoji = DiscordValues.defaultEmotes.numbers[i];
+                message += `-${emoji}: ${currentType.map(e => text[e as keyof typeof Constants.WatcherMentionsTemplates]).join(", ")}\n`
+            } else {
+                customId = currentType;
+                let customEmoji = Constants.hellMenu[currentType as keyof typeof Constants.hellMenu]?.emoji ||
+                    DiscordValues.emotes[currentType as keyof typeof DiscordValues.emotes];
+                emoji = customEmoji.id
+                let stringEmoji = `<:${customEmoji.name}:${customEmoji.id}>`
+                message += `-${stringEmoji}: ${text[currentType as keyof typeof Constants.WatcherMentionsTemplates]}\n`
+            }
+
+            list.push(customId);
+            row.addComponents(
+                new ButtonBuilder()
+                    .setCustomId(customId)
+                    .setEmoji(emoji)
+                    .setStyle(ButtonStyle.Secondary)
+            )
+        }
+
+        message += text.baseTypeMsgEnd;
+        buttons.push(row);
+
+        return { message, buttons, list }
+    }
+
+    static async getEventType(button: ButtonInteraction, customIdList: string[]): Promise<keyof typeof TranslationsCache.fr.others.hellMentions | "error"> {
+        let confirmationResponse;
+        try {
+            let filter = (buttonReply: ButtonInteraction<"cached">) => buttonReply.user.id === button.user.id && customIdList.includes(buttonReply.customId)
+            confirmationResponse = await button.channel!.awaitMessageComponent({ componentType: ComponentType.Button, filter, time: 10000 })
+        } catch {
+            return "error"
+        }
+        return confirmationResponse.customId as keyof typeof TranslationsCache.fr.others.hellMentions
+    }
+
+    static getConfirmationMessage(language: textLanguage, event: keyof typeof TranslationsCache.fr.others.hellMentions): string {
+        let text = TranslationsCache[language].others.hellMentions
+        let confirmationText = Translations.displayText(text.confirmation, {
+            text: event.includes("challenge") ? text.challenge : text.hell,
+            text2: text[event]
+        })
+        return confirmationText;
     }
 }
 
@@ -127,18 +236,23 @@ export class Command implements CommandInterface {
         this.run = args.run;
     }
 
-    async reply(data: string | MessagePayload | InteractionReplyOptions, intera: ChatInputCommandInteraction) {
+    async reply(data: string | MessagePayload | InteractionReplyOptions, intera: ChatInputCommandInteraction | ButtonInteraction) {
         let missingPerm = await Command.getMissingPermissions([PermissionFlagsBits.AttachFiles, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.SendMessages], intera.channel!, intera.guildId);
         if (missingPerm.length > 0)
             data = await Command.returnMissingPermissionMessage(missingPerm, intera.guildId!);
 
-        if (!intera.deferred && !intera.replied) return intera.reply(data);
         try {
-            intera.editReply(data);
+            if (intera.replied) {
+                await intera.deleteReply().catch(e => e);
+                return intera.followUp(data);
+            }
+            if (intera.deferred) {
+                return intera.editReply(data);
+            }
+            return intera.reply(data);
         }
         catch {
-            await intera.followUp(data).catch(e => Console.log(e))
-            return intera.deleteReply().catch(e => e)
+            Console.error(TranslationsCache.fr.global.errors.unableToReply)
         }
     };
 
@@ -197,7 +311,7 @@ export class Command implements CommandInterface {
         return sub
     };
 
-    static generateButtonCustomId(command: CommandName, language: textLanguage):string {
+    static generateButtonCustomId(command: CommandName, language: textLanguage): string {
         return `${command}-${language}`
     }
 
@@ -294,7 +408,7 @@ export class Command implements CommandInterface {
         return buttons
     }
 
-    static async getConfirmationMessage(intera: ChatInputCommandInteraction | ButtonInteraction, commandname: CommandName, language: textLanguage, options?: {text?: string, embeds?: EmbedBuilder[], time?: number, ephemeral?: boolean} ): Promise<"yes" | "no" | "error"> {
+    static async getConfirmationMessage(intera: ChatInputCommandInteraction | ButtonInteraction, commandname: CommandName, language: textLanguage, options?: {text?: string, embeds?: EmbedBuilder[], time?: number, ephemeral?: boolean, deleteMsg?: boolean} ): Promise<"yes" | "no" | "error"> {
         let payload: MessagePayload | InteractionReplyOptions = { content: options?.text, components: [Command.generateYesNoButtons(commandname, language)], ephemeral: options?.ephemeral };
         if (options?.embeds)
             payload.embeds = options?.embeds
@@ -306,6 +420,14 @@ export class Command implements CommandInterface {
             confirmationResponse = await intera.channel?.awaitMessageComponent({ componentType: ComponentType.Button, filter, time: options?.time || 15000 })
         } catch {
             return "error"
+        }
+        
+        if(options?.deleteMsg) {
+            if(intera.isChatInputCommand())
+                intera.deleteReply().catch(e => Console.error(e));
+            if(intera.isButton()) {
+                confirmationResponse?.message.delete().catch(e => Console.error(e));
+            }
         }
         if (confirmationResponse?.customId.endsWith('yes'))
             return "yes"
@@ -340,16 +462,16 @@ export class Command implements CommandInterface {
         return Translations.displayText(TranslationsCache[language].permissions.MissingPermissions, { text: permList })
     }
 
-    static async defilePage(command: CommandName, button:ButtonInteraction) {
+    static async defilePage(command: CommandName, button: ButtonInteraction) {
 
         let customId = button.customId;
         let embed = button.message.embeds[0].data;
-        let pageData:embedPageData = getPageData(embed, customId, command);
+        let pageData: embedPageData = getPageData(embed, customId, command);
 
         let newEmbedPage = await (await import(`../commands/${command}.js`)).getEditedEmbed(pageData, embed);
 
         let components: ActionRowBuilder<ButtonBuilder>
-        if(pageData.current + pageData.target == 1) {
+        if (pageData.current + pageData.target == 1) {
             components = this.generatePageButtons(command, pageData.language, pageData.filter?.toString(), "first")
         }
         else if (pageData.current + pageData.target == pageData.total) {
@@ -358,30 +480,30 @@ export class Command implements CommandInterface {
         else {
             components = this.generatePageButtons(command, pageData.language, pageData.filter?.toString())
         }
-        button.update({embeds: [newEmbedPage], components: [components]});
+        button.update({ embeds: [newEmbedPage], components: [components] });
     }
 }
 
 
 export class StatusCacheClass {
 
-    type:Record<CommandName, cacheLockScope>;
-    locked:Record<CommandName, string[]>;
+    type: Record<CommandName, cacheLockScope>;
+    locked: Record<CommandName, string[]>;
 
     constructor(commandList: Command[]) {
         this.type = {} as any;
         this.locked = {} as any;
-        for(let command of commandList) {
+        for (let command of commandList) {
             this.type[command.commandStructure.name as CommandName] = command.cacheLockScope;
             this.locked[command.commandStructure.name as CommandName] = [];
         }
     }
 
-    getTarget(guild: string, user: string, command: CommandName):string {
+    getTarget(guild: string, user: string, command: CommandName): string {
         switch (this.type[command]) {
             case 'guild':
                 return guild;
-        
+
             case 'user':
                 return user
 
@@ -390,12 +512,12 @@ export class StatusCacheClass {
         }
     }
 
-    lock(guild: string, user: string, command: CommandName):void {
-        this.locked[command].push(this.getTarget(guild, user, command))
+    lock(guild: string | null, user: string, command: CommandName): void {
+        this.locked[command].push(this.getTarget(guild || user, user, command))
     }
 
-    unlock(guild: string, user: string, command: CommandName):void {
-        let target:string = this.getTarget(guild, user, command);
+    unlock(guild: string | null, user: string, command: CommandName): void {
+        let target: string = this.getTarget(guild || user, user, command);
 
         while (this.locked[command].includes(target)) {
             let index = this.locked[command].findIndex(e => e == target);
@@ -403,8 +525,8 @@ export class StatusCacheClass {
         }
     }
 
-    isLocked(guild: string, user: string, command: CommandName):boolean {
-        return this.locked[command].includes(this.getTarget(guild, user, command));
+    isLocked(guild: string | null, user: string, command: CommandName): boolean {
+        return this.locked[command].includes(this.getTarget(guild || user, user, command));
     }
 }
 
@@ -431,7 +553,7 @@ function getPageData(embed: Readonly<APIEmbed>, id: string, command: CommandName
 
     let total = Number(embed.footer?.text.split("/")[1].split("]")[0]);
 
-    let filter:string | undefined = undefined
+    let filter: string | undefined = undefined
     let filterNames = (TranslationsCache[language].commands[command] as any).choices.filter || undefined;
     if (filterNames)
         filter = Object.keys(filterNames).find(k => embed.description?.includes(filterNames[k]));

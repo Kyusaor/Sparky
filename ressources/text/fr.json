@@ -15,9 +15,11 @@
         ],
         "errors": {
             "notInAGuild": "La command doit être exécutée sur un serveur",
-            "guildDataNotFound": "Impossible de récupérer les données de serveur"
+            "guildDataNotFound": "Impossible de récupérer les données de serveur",
+            "buttonWithoutCommand": "Ce customId ne contient pas de commande: ",
+            "unableToReply": "Impossible de répondre à l'interaction"
         },
-        "cancelledCommand": "Command annulée",
+        "cancelledCommand": "Commande annulée",
         "commandIsLocked": "Cette commande est déjà en cours d'exécution",
         "noLinkInDm": ":flag_fr: Bonjour, pour m'ajouter à votre serveur utilisez plutôt ce lien!",
         "noCommandOffServer": ":flag_fr: Les commandes sont à réaliser sur un serveur !",
@@ -414,8 +416,8 @@
                 "embedDescription": "Panneau d'envoi des mentions veilleur dragon globales. Pas d'erreurs pour ces mentions, merci de ne pas ping un event déjà mentionné",
                 "watcherDescription": "Notifie les évènements infernaux veilleur",
                 "dragonDescription": "Notifie les évènements infernaux dragon",
-                "redorbDescription": "Notifie un infernal orbes de talent lumineux",
-                "yelloworbDescription": "Notifie un infernal orbes de talent brillant",
+                "redOrbDescription": "Notifie un infernal orbes de talent lumineux",
+                "yellowOrbDescription": "Notifie un infernal orbes de talent brillant",
                 "success": "Le panneau a bien été redéfini"
             }
         },
@@ -525,6 +527,26 @@
             "dragonResearch": "dragon recherche",
             "challengeResearch": "challenge dragon recherche",
             "challengeTroops": "challenge dragon entraînement"
+        },
+        "hellMentions": {
+            "watcher":"veilleur",
+            "dragon":"dragon",
+            "redOrb":"orbes rouges",
+            "yellowOrb":"orbes jaunes",
+            "research": "recherche",
+            "building": "construction",
+            "troop": "entraînement",
+            "merge": "fusion",
+            "labyrinth": "labyrinthe",
+            "tycoon": "royaume du pouvoir",
+            "hunt": "chasse",
+            "challenge": "challenge",
+            "hell": "infernal",
+            "challengeResearch": "dragon recherche",
+            "challengeTroops": "dragon entraînement",
+            "baseTypeMsg": "__Choisis le type d'évènement {text}:__\n",
+            "baseTypeMsgEnd": "\n\n:warning: *Ignorez pour annuler*",
+            "confirmation": "Voulez-vous signaler un évènement {text} {text2}?"
         }
     }
 }

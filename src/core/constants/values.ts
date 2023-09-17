@@ -39,17 +39,9 @@ export abstract class DiscordValues {
             name: "veilleur",
             id: "607194832271573024"
         },
-        watcherResearch: {
-            name: "rechVeill",
-            id: "660453261979025418"
-        },
         dragon: {
             name: "dragon",
             id: "607194934759391242"
-        },
-        dragonResearch: {
-            name: "rechDrag",
-            id: "660453599318638592"
         },
         redOrb: {
             name: "redorb",
@@ -59,14 +51,38 @@ export abstract class DiscordValues {
             name: "yellorb",
             id: "802962218764337173"
         },
-        challengeResearch: {
+        research: {
             name: "academie",
             id: "607196986948452377"
         },
-        challengeTroops: {
+        troop: {
             name: "fantassin",
             id: "607554773851570181"
         },
+        building: {
+            name: "batiment",
+            id: "607559564535267348"
+        },
+        merge: {
+            name: "pacte",
+            id: "607554115416883200"
+        },
+        tycoon: {
+            name: "royaume_pouvoir",
+            id: "607559484486844436"
+        },
+        labyrinth: {
+            name: "labyrinthe",
+            id: "607561368421400576"
+        },
+        hunt: {
+            name: "chasse",
+            id: "614816781420199937"
+        }
+    }
+
+    static readonly defaultEmotes = {
+        numbers: ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣"]
     }
 
     static readonly permissions = {
@@ -169,10 +185,10 @@ export abstract class Constants {
             emoji: DiscordValues.emotes.dragon
         },
         watcherResearch: {
-            emoji: DiscordValues.emotes.watcherResearch
+            emoji: DiscordValues.emotes.research
         },
         dragonResearch: {
-            emoji: DiscordValues.emotes.dragonResearch
+            emoji: DiscordValues.emotes.research
         },
         redOrb: {
             emoji: DiscordValues.emotes.redOrb
@@ -181,10 +197,29 @@ export abstract class Constants {
             emoji: DiscordValues.emotes.yellowOrb
         },
         challengeResearch: {
-            emoji: DiscordValues.emotes.challengeResearch
+            emoji: DiscordValues.emotes.research
         },
         challengeTroops: {
-            emoji: DiscordValues.emotes.challengeTroops
+            emoji: DiscordValues.emotes.troop
         }
+    }
+
+    static readonly WatcherMentionsTemplates = {
+        watcher: [ "research", "building", "merge", "labyrinth", "tycoon", "hunt" ],
+        dragon: [ "research", "building", "merge", "labyrinth", "tycoon", "hunt", "challengeResearch", "challengeTroops" ],
+        redOrb: [
+            ["merge", "troop"],
+            ["merge", "building"], 
+            ["merge", "research"], 
+            ["merge", "troop", "building"], 
+            ["merge", "research", "building"], 
+            ["research", "troop", "building"], 
+            ["merge", "research", "troop", "building"]
+        ],
+        yellowOrb: [
+            ["merge", "research"], 
+            ["merge","troop", "building"], 
+            ["merge", "troop", "research"]
+        ]
     }
 }
