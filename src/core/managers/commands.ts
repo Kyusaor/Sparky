@@ -1,7 +1,7 @@
-import { APIApplicationCommandOptionChoice, APIEmbed, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, Embed, EmbedBuilder, InteractionReplyOptions, InteractionType, InteractionUpdateOptions, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextBasedChannel, parseEmoji } from "discord.js";
-import { Console, StatusCache, TranslationsCache, bot, botCommands, db } from "../../main.js";
+import { APIApplicationCommandOptionChoice, APIEmbed, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, Embed, EmbedBuilder, InteractionReplyOptions, InteractionType, InteractionUpdateOptions, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, RoleData, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextBasedChannel, TextChannel, parseEmoji, time } from "discord.js";
+import { Console, StatusCache, TranslationsCache, bot, botCommands, chanList, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
-import { CommandArgs, CommandInterface, CommandName, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, cacheLockScope, embedPageData, perksType, textLanguage } from "../constants/types.js";
+import { CommandArgs, CommandInterface, CommandName, RolesData, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, cacheLockScope, embedPageData, hellEventData, hellEventTask, perksType, textLanguage } from "../constants/types.js";
 import { readFileSync, readdirSync } from "fs";
 import { Utils } from "../utils.js";
 import { Constants, DiscordValues } from "../constants/values.js";
@@ -458,13 +458,15 @@ export class WatcherManager {
         if (event == "error")
             return Command.prototype.reply({ content: TranslationsCache[language].global.cancelledCommand, ephemeral: true, components: [] }, button);
 
-        let confirmation = await Command.getConfirmationMessage(button, "setglobalping", language, {text: this.getConfirmationMessage(language, event), deleteMsg: true});
+        let eventData = this.getEventData(event, button.customId);
+        let confirmation = await Command.getConfirmationMessage(button, "setglobalping", language, {text: this.getConfirmationMessage(language, eventData), deleteMsg: true});
         
         if (confirmation !== 'yes') {
             return Command.prototype.reply({ content: TranslationsCache[language].global.cancelledCommand, ephemeral: true, components: [] }, button);
         }
 
-        console.log('yes');
+        await this.sendMentions(eventData);
+        this.logMention(eventData, button);
     }
 
     static generateTypeEventMessage(button: ButtonInteraction, language: textLanguage) {
@@ -525,13 +527,100 @@ export class WatcherManager {
         return confirmationResponse.customId as keyof typeof TranslationsCache.fr.others.hellMentions
     }
 
-    static getConfirmationMessage(language: textLanguage, event: keyof typeof TranslationsCache.fr.others.hellMentions): string {
+    static getEventData(event: keyof typeof TranslationsCache.fr.others.hellMentions, customId: string):hellEventData {
+        return {
+            hellOrChallenge: event.includes("challenge") ? "challenge" : "hell",
+            type: event.split('-'),
+            reward: customId.split('-')[2],
+        } as hellEventData
+    }
+
+    static getConfirmationMessage(language: textLanguage, eventData: hellEventData): string {
         let text = TranslationsCache[language].others.hellMentions
         let confirmationText = Translations.displayText(text.confirmation, {
-            text: event.includes("challenge") ? text.challenge : text.hell,
-            text2: text[event]
+            text: text[eventData.hellOrChallenge as keyof typeof text],
+            text2: text[eventData.reward as keyof typeof text],
+            text3: eventData.type.map(e => text[e as keyof typeof text]).join(", ")
         })
         return confirmationText;
+    }
+
+    static async sendMentions(event: hellEventData) {
+        let chanlist = await db.fetchServersHellChannels(this.displayRoleToMention(event));
+        let message = this.buildHellMentionMessage(event);
+
+        for(let chan of chanlist) {
+            let channel = await bot.channels.cache.get(chan.ping) as TextChannel;
+            let language = await db.returnServerLanguage(channel.guildId);
+            try {
+                if(!channel)
+                    throw TranslationsCache.fr.global.errors.noChannel;
+
+                channel.send(Translations.displayText(message[language], { id: chan.role }))
+            } catch(e) {
+                Console.error(e)
+            }
+        }
+    }
+
+    static buildHellMentionMessage(event: hellEventData):Record<textLanguage, string> {
+        let textTranslations:Partial<Record<textLanguage, string>> = {};
+        let minutes = new Date().getMinutes();
+        Object.keys(TranslationsCache).forEach(lang => {
+            let text = TranslationsCache[lang as textLanguage].others.hellMentions;
+
+            let base = Translations.displayText(text.baseMentionMsg, {text: text[event.hellOrChallenge], text2: text[event.reward], text3: event.type.map(e => text[e]).join(", ")});
+
+            let timer = minutes >= 55 ?
+                Translations.displayText(text.remainingTimeAfterBegining, {text: Math.floor(Math.abs(minutes - 60)).toString()}) :
+                Translations.displayText(text.remainingTimeBeforeEnd, {text: Math.floor(55 - minutes).toString()});
+            textTranslations[lang as textLanguage] = base + timer
+        })
+
+        return textTranslations as Record<textLanguage, string>; 
+    }
+
+    static displayRoleToMention(event: hellEventData):keyof RolesData {
+        let role:keyof RolesData;
+        if(event.type[0] == 'research' && event.type.length == 1) {
+            event.reward == 'dragon' ?
+                role = "dragonResearch" :
+                role = "watcherResearch";
+            return role;
+        }
+        if(event.hellOrChallenge == 'challenge') {
+            event.type[0] == 'research' ?
+                role = 'challengeResearch' :
+                role = 'challengeTroops'
+            return role
+        }
+        return event.reward;
+    }
+
+    static async logMention(data: hellEventData, button:ButtonInteraction) {
+        let text = TranslationsCache.fr.others.hellMentions;
+        chanList.LOGS_HELL_EVENTS!.send(Translations.displayText(text.logMentions, {id: button.user.username, text: text[data.hellOrChallenge], text2: text[data.reward], text3: data.type.map(e => text[e]).join(", ")}));
+        
+        //Temporary log in board channel
+        let message:string = "";
+        for(let lang of Object.keys(TranslationsCache)) {
+            text = TranslationsCache[lang as keyof typeof TranslationsCache].others.hellMentions;
+            let typeString = data.type.map(e => {
+                if(Object.keys(DiscordValues.emotes).includes(e)) {
+                    let emoteData = DiscordValues.emotes[e as keyof typeof DiscordValues.emotes];
+                    return `${text[e]} ${Utils.displayEmoteInChat(emoteData)}`
+                }
+                else return `${text[e]}`
+            }).join(", ")
+            console.log(typeString)
+            let msg = Translations.displayText(text.temporaryLogMentions, {
+                text: text[data.hellOrChallenge], 
+                text2: `${text[data.reward]} ${Utils.displayEmoteInChat(DiscordValues.emotes[data.reward])}`, 
+                text3: typeString
+            })
+            message += msg
+        }
+        button.channel?.send(message)
     }
 
 }
