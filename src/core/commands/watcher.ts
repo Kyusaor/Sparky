@@ -159,7 +159,7 @@ async function buildRoles(language: textLanguage, guild: Guild):Promise<RolesDat
     let roles:Partial<RolesData> = {};
     for(let event of Object.keys(hellText)) {
         let role = await guild.roles.create({
-            name: hellText[event as keyof typeof hellText],
+            name: Utils.capitalizeFirst(hellText[event as keyof typeof hellText]),
             mentionable: true,
             permissions: [],
             hoist: false
