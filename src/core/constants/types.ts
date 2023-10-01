@@ -1,5 +1,5 @@
 import { ChatInputCommandInteraction, PermissionFlags, SlashCommandBuilder, SlashCommandSubcommandsOnlyBuilder, TextChannel } from "discord.js";
-import { DiscordValues } from "./values.js";
+import { Constants, DiscordValues } from "./values.js";
 import frTranslationJSON from '../../../ressources/text/fr.json';
 
 
@@ -116,3 +116,11 @@ export type embedPageData = {
     filter?: unknown,
     language: textLanguage
 };
+
+export type hellEventTask =  "research" | "building" | "merge" | "troop" | "labyrinth" | "tycoon" | "hunt" | "challengeResearch" | "challengeTroops";
+
+export type hellEventData = {
+    hellOrChallenge: "challenge" | "hell";
+    type: hellEventTask[];
+    reward: keyof typeof Constants.WatcherMentionsTemplates;
+}
