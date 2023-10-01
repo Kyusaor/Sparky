@@ -24,6 +24,10 @@ export abstract class Utils {
         return `https://discord.com/api/oauth2/authorize?client_id=${bot.user?.id}&permissions=${Utils.getBotPermissionsBigint()}&scope=bot%20applications.commands`
     }
 
+    static displayEmoteInChat(emoteData: typeof DiscordValues.emotes.building):string {
+        return `<:${emoteData.name}:${emoteData.id}>`
+    }
+
     static EmbedBaseBuilder(language: textLanguage):EmbedBuilder {
         let translation = TranslationsCache[language];
         let rdmNumber = Math.floor(Math.random() * translation.global.tipsFooter.length)
