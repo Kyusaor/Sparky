@@ -93,7 +93,7 @@ export abstract class Utils {
     static getLanguageFromLocale(locale:Locale):textLanguage {
         let language:any = locale
         if(language == 'en-US' || language == 'en-GB')
-            language == 'en'
+            language = 'en'
 
         return language
     }
