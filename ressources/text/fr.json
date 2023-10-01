@@ -549,7 +549,9 @@
             "confirmation": "Voulez-vous signaler un évènement {text} {text2} {text3}?",
             "baseMentionMsg": "<@&{id}>, un évènement {text} {text2} {text3} est en cours!\n",
             "remainingTimeBeforeEnd": "Il reste **{text}** minutes",
-            "remainingTimeAfterBegining": "Il commencera dans **{text}** minutes"
+            "remainingTimeAfterBegining": "Il commencera dans **{text}** minutes",
+            "logMentions": "{id} a signalé un évènement {text} {text2} {text3}",
+            "temporaryLogMentions": "Un évènement {text} {text2} {text3} a été signalé\n"
         }
     }
 }

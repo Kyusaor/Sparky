@@ -549,7 +549,9 @@
             "confirmation": "Do you want to report a {text3} {text2} {text} event?",
             "baseMentionMsg": "<@&{id}>, a {text3} {text2} {text} event is on!\n",
             "remainingTimeBeforeEnd": "**{text}** minutes remaining",
-            "remainingTimeAfterBegining": "It will start in **{text}** minutes"
+            "remainingTimeAfterBegining": "It will start in **{text}** minutes",
+            "logMentions": "{id} has reported a {text3} {text2} {text} event",
+            "temporaryLogMentions": "A {text3} {text2} {text} event has been reported!\n"
         }
     }
 
