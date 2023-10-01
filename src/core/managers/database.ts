@@ -6,6 +6,7 @@ import mysqldump from 'mysqldump';
 import { Config } from '../../../data/config.js';
 import { ChanData, RolesData, Server, fullServer, queryArgs, textLanguage } from '../constants/types.js';
 import { Guild } from 'discord.js';
+import { Constants } from '../constants/values.js';
 
 
 export class DBManager {
@@ -127,6 +128,13 @@ export class DBManager {
     async fetchServerRoles(guildId: string): Promise<RolesData | undefined> {
         let rows = await this.query<RolesData[]>(`SELECT * FROM hellroles WHERE id =?`, guildId);
         return rows[0]
+    }
+
+    async fetchServersHellChannels(role:keyof RolesData): Promise<{ping: string, role: string}[]> {
+        let channelsRows = await this.query<any[]>(`SELECT ping,${role} FROM hellchannels INNER JOIN hellroles ON hellchannels.id = hellroles.id`);
+        let channelsId:{ping: string, role: string}[] = [];
+        channelsRows.forEach(e => channelsId.push({ping: e.ping, role: e[role]}));
+        return channelsId
     }
 
     async updateServerRoles(guildId: string, guildName: string, roles: RolesData): Promise<void> {
