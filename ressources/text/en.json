@@ -4,98 +4,99 @@
             "fr": "french",
             "en": "english"
         },
-        "welcomeMsg": "english",
+        "welcomeMsg": "Let me introduce myself: I am Sparky, a Lords Mobile Discord bot, made for guild servers.\n\nMy commands list can be found by typing **/help** on your server. Thanks for adding me !",
         "tipsFooter": [
-            {"text": "english"},
-            {"text": "english", "iconURL": "english"},
-            {"text": "english"},
-            {"text": "english"},
-            {"text": "english"},
-            {"text": "english"}
+            {"text": "Type the **/help** command to get some help!"},
+            {"text": "Made with love by {dev_username}", "iconURL": "{dev_avatar_url}"},
+            {"text": "Use the **/language** command to change the bot's language!"},
+            {"text": "Use /watcher to get notifications on hell events"},
+            {"text": "Fun fact: I'm the best bot in the world"},
+            {"text": "Support the bot with /donate :pray:"}
         ],
         "errors": {
-            "notInAGuild": "english",
-            "guildDataNotFound": "english",
-            "buttonWithoutCommand": "english",
-            "unableToReply": "english"
+            "notInAGuild": "Commands must be done on a server",
+            "guildDataNotFound": "Unable to get server's data",
+            "buttonWithoutCommand": "This customId doesn't contain any command: ",
+            "unableToReply": "Impossible to respond to this interaction",
+            "noChannel": "No channel"
         },
-        "noLinkInDm": "english",
-        "commandIsLocked": "Cette commande est déjà en cours d'exécution",
-        "noCommandOffServer": "english",
-        "CommandExecutionError": "english",
-        "defaultCommandReply": "english",
-        "cancelledCommand": "english",
+        "noLinkInDm": "Command aborted",
+        "commandIsLocked": "This command is already being executed",
+        "noCommandOffServer": ":flag_us: Hello, to add me to your server use this link!",
+        "CommandExecutionError": ":flag_us: Commands must be done on a server!",
+        "defaultCommandReply": "An error has occured during the command's execution",
+        "cancelledCommand": "Impossible to execute the command :confused:",
         "stringifyDate": "<t:{timestamp}> ({daysSince} days ago)",
-        "yes": "english",
-        "no": "english",
+        "yes": "Yes",
+        "no": "No",
         "timeNames": {
-            "day": "english",
-            "hour": "english",
-            "minute": "english",
-            "second": "english"
+            "day": "days",
+            "hour": "hours",
+            "minute": "minutes",
+            "second": "seconds"
         }
     },
     "permissions": {
-        "MissingPermissions": "english",
+        "MissingPermissions": "Oops, it seems that I'm missing the following permissions:\n{text}",
         "flags": {
-            "AddReactions": "english",
-            "AttachFiles": "english",
-            "EmbedLinks": "english",
-            "ManageRoles": "english",
-            "ManageChannels": "english",
-            "UseExternalEmojis": "english"
+            "AddReactions": "Add reactions",
+            "AttachFiles": "Attach files",
+            "EmbedLinks": "Embed links",
+            "ManageRoles": "Manage roles",
+            "ManageChannels": "Manage channels",
+            "UseExternalEmojis": "Use external emojis"
         }
     },
     "helpMention": {
-        "title": "english",
-        "description": "english"
+        "title": "Lost?",
+        "description": "To get my command list, use **/help**"
     },
     "commands": {
         "calculator": {
             "name": "calculator",
-            "description": "english",
+            "description": "A bunch of useful calculators",
             "subcommand": {
                 "buildings": {
                     "name": "buildings",
-                    "description": "english",
+                    "description": "Get your missing resources for your gem buildings",
                     "options":{
                         "building": {
                             "name": "building",
-                            "description": "english"
+                            "description": "The building to get"
                         },
                         "level": {
                             "name": "level",
-                            "description": "english"
+                            "description": "The current level of this building"
                         }
                     }
                 },
                 "train": {
                     "name": "training",
-                    "description": "english",
+                    "description": "Get the cost (ressources/time) to train troops",
                     "options": {
                         "speed": {
                             "name": "speed",
-                            "description": "english"
+                            "description": "Your speed train %"
                         },
                         "capacity": {
                             "name": "capacity",
-                            "description": "english"
+                            "description": "The capacity of your barracks"
                         },
                         "subsidy": {
                             "name": "subsidy",
-                            "description": "english"
+                            "description": "Your subsidy research level"
                         },
                         "amount": {
                             "name": "amount",
-                            "description": "english"
+                            "description": "The total amount of troops you want to train"
                         },
                         "type": {
                             "name": "type",
-                            "description": "english"
+                            "description": "The troop type to train"
                         },
                         "tier": {
                             "name": "tier",
-                            "description": "english"
+                            "description": "The troop's tier"
                         }
                     }
                 }
@@ -121,31 +122,31 @@
                 }
             },
             "text": {
-                "missingItemForGems": "english",
-                "missingGemsCosts": "english",
-                "buildEmbedTitle": "english",
-                "buildEmbedDescription": "english",
-                "gemsEquivalence": "english",
-                "noRessources": "english",
+                "missingItemForGems": "Depending of how much {text} you buy:\n",
+                "missingGemsCosts": "By {text}: {text2}\n",
+                "buildEmbedTitle": "Building calculator",
+                "buildEmbedDescription": "*Here are the missing ressources for maxing your {text} from __level {text2} to {text3}__. Gems amount take into account the gold hammer cost*",
+                "gemsEquivalence": "Gems equivalence:",
+                "noRessources": "Nothing",
 
-                "trainEmbedTitle": "english",
-                "trainEmbedDescription": "english",
-                "trainEmbedTrainSpeed" : "english",
-                "trainEmbedCostReduction" : "english",
-                "trainEmbedTroopAmount" : "english",
-                "trainEmbedBatchAmount" : "english",
-                "trainEmbedRssCost" : "english",
-                "trainEmbedTimeCost" : "english"
+                "trainEmbedTitle": "Troop calculator",
+                "trainEmbedDescription": "*Here is the ressources cost to train your troops!\nNote: gems cost decreasing when troop amount increase, it's not showed there*",
+                "trainEmbedTrainSpeed" : "__Train speed:__",
+                "trainEmbedCostReduction" : "__Cost reduction:__",
+                "trainEmbedTroopAmount" : "__Amount of troops to train:__",
+                "trainEmbedBatchAmount" : "__Amount of batches needed:__",
+                "trainEmbedRssCost" : "__{text}'s cost:__",
+                "trainEmbedTimeCost" : "__Time needed:__"
             }
         },
         "compo": {
             "name": "lineup",
-            "description": "english",
+            "description": "Get the best lineup for mob hunting",
             "text": {},
             "options": {
                 "monster": {
                     "name": "monster",
-                    "description": "english"
+                    "description": "The monster you want the lineup for"
                 }
             },
             "choices": {
@@ -179,218 +180,217 @@
         },
         "contact": {
             "name": "contact",
-            "description": "english",
+            "description": "Contact us (discord/mail)",
             "text": {
-                "content": "english"
+                "content": "Needing help with the bot, report a bug or just chatting with Lords mobile players? Here is the server's link :wink:\n{support_server_invite}\n\nTo contact the developer, you can also send an email to __**{support_email}**__"
             }
         },
         "credits": {
             "name": "credits",
-            "description": "english",
+            "description": "Special thanks",
             "text": {
                 "thanks": [
-                    ["english", "english"],
-                    ["english", "english"],
-                    ["english", "english"],
-                    ["english", "english"],
-                    ["english", "english"]
+                    ["Bêta testers", "Who accepted to be my laboratory rats for an almost-ready bot"],
+                    ["The donators", "Who helped me to support the bot hosting cost (don't hesitate to **/donate** by the way :eyes:)"],
+                    ["The translators", "Who helped me to correct my questionable english skills"],
+                    ["And then...", "To all the bot users who gave me their trust with this project :heart:"]
                 ],
-                "embedDescription": "english",
-                "embedTitle": "english"
+                "embedDescription": "The list of people who offered their support during the bot's development",
+                "embedTitle": "Special thanks"
             }
         },
         "data": {
             "name": "data",
-            "description": "english",
+            "description": "Send the bot database",
             "text": {
-                "error": "english",
-                "success": "english"
+                "error": "Unable to find the backup",
+                "success": "Database has been sent"
             }
         },
         "donate": {
             "name": "donate",
-            "description": "english",
+            "description": "Donate to the bot's author",
             "text": {
-                "donate": "english"
+                "donate": "You want to contribute to the bot's development without any computer skills and without spending your nights on it? I have a solution !\n\nBy giving money, you will help the developer to pay the bot hosting and boost his ego ! Hit two gryphons with one stone ! <:thumbsup:751774481781096468>\n{text}"
             }
         },
         "help": {
             "name": "help",
-            "description": "english",
+            "description": "Get the command list",
             "text": {
-                "commandInDM": "english",
-                "embedDescription": "english",
-                "memberFieldTitle": "english",
-                "adminFieldTitle": "english",
-                "memberNotAdminWarning": "english",
-                "devFieldTitle": "english"
+                "commandInDM": ":flag_us: Commands don't work in private messages, you must do it on a server.\nYou can add me to your server thanks to the **/link** command, wich is the only one working in private !",
+                "embedDescription": "Here are the commands you are able to access {username}!",
+                "memberFieldTitle": "__**General commands**__:",
+                "adminFieldTitle": "__**Administrator commands**__:",
+                "memberNotAdminWarning": ":warning: *You don't have permission to use these commands. Ask a server administrator to use them*",
+                "devFieldTitle": "__**Developer commands**__:"
             }
         },
         "info": {
             "name": "info",
-            "description": "english",
+            "description": "Get informations about a Discord user, this server or the bot",
             "subcommand": {
                 "user": {
                     "name": "user", 
-                    "description": "english", 
+                    "description": "Get information about a Discord user", 
                     "options": {
                         "user": {
                             "name": "user", 
-                            "description": "english"
+                            "description": "The discord user you want the informations for"
                         }
                     } 
                 },
                 "bot": {
                     "name": "bot",
-                    "description": "english"
+                    "description": "Get information about the bot"
                 },
                 "server": {
                     "name": "server",
-                    "description": "english"
+                    "description": "Get information about the server"
                 }
             },
             "text": {
-                "bot": "english",
-                "account": "english",
-                "noNickname": "english",
-                "accountCreation": "english",
-                "usernameField": "english",
-                "globalUsernameField": "english",
-                "profileTypeField": "english",
-                "accountCreationDateField": "english",
-                "nicknameField": "english",
-                "joinDateField": "english",
-                "rolesField": "english",
-                "guildCountField": "english",
-                "idField": "english",
-                "versionField": "english",
-                "isPresentField": "english",
-                "botInviteField": "english",
-                "guildCreationField": "english",
-                "guildOwnerField": "english",
-                "guildMemberCountField": "english",
-                "clicHere": "english"
+                "bot": "Bot",
+                "account": "User",
+                "noNickname": "No nickname",
+                "accountCreation": "created at {date}",
+                "usernameField": "User id",
+                "globalUsernameField": "Username",
+                "profileTypeField": "Discord account type",
+                "accountCreationDateField": "Account creation date",
+                "nicknameField": "Nickname",
+                "joinDateField": "Server joining date",
+                "rolesField": "Roles",
+                "guildCountField": "Server count",
+                "idField": "Id",
+                "versionField": "Bot version",
+                "isPresentField": "Server's member",
+                "botInviteField": "Invite link",
+                "guildCreationField": "Creation date",
+                "guildOwnerField": "Owner",
+                "guildMemberCountField": "Members count",
+                "clicHere": "Clic here!"
             }
         },
         "language" : {
             "name": "language",
-            "description": "english",
+            "description": "Change the bot language",
             "options": {
                 "language": {
                     "name": "langue",
-                    "description": "english"
+                    "description": "The language you want"
                 }
             },
             "text": {
-                "alreadySelectedLanguage": "english",
-                "changeLanguageConfirmation": "english",
-                "success": "english"
+                "alreadySelectedLanguage": "The bot is already writing in english!",
+                "changeLanguageConfirmation": "Do you want to change the bot language to `{text}`?",
+                "success": "The bot will speak in English from now!"
             }
         },
         "link": {
             "name": "link",
-            "description": "english",
+            "description": "Give the bot invite link",
             "text": {
-                "reply": "english"
+                "reply": "To add me to your server, [**clic here !**]({text})"
             }
         },
         "logs": {
             "name": "logs",
-            "description": "english",
+            "description": "Send the logs of chosen day",
             "text": {
-                "noPath": "Impossible de trouver les logs du jour donné"
+                "noPath": "Impossible to find the selected day's logs"
             },
             "options": {
                 "day": {
                     "name": "day",
-                    "description": "english"
+                    "description": "The day"
                 },
                 "month": {
                     "name": "month",
-                    "description": "english"
+                    "description": "The month"
                 }
             }
         },
         "say": {
             "name": "say",
-            "description": "english",
+            "description": "Send a message in the selected channel",
             "text": {
-                "noChannelProvided": "english",
-                "channel404": "english",
-                "notATextChannel": "Ce salon n'est pas un salon textuel",
-                "successHeader": "english",
-                "success": "english",
-                "noContent": "Veuillez préciser un message ou un fichier à envoyer"
+                "noChannelProvided": "Please provide a target channel",
+                "channel404": "Channel not found",
+                "notATextChannel": "This channel is not text-based",
+                "successHeader": "Server *Serveur {name} ({id})*:\n",
+                "success": "Message sent successfully to the `{name}` channel ({id}):\n\n{text}",
+                "noContent": "Please provide a message or a file to send"
             },
             "options": {
                 "channel": {
                     "name": "channel",
-                    "description": "english"
+                    "description": "The target channel"
                 },
                 "id": {
                     "name": "id",
-                    "description": "english"
+                    "description": "The channel id"
                 },
                 "content": {
                     "name": "message",
-                    "description": "english"
+                    "description": "The message content"
                 },
                 "files": {
                     "name": "fichiers",
-                    "description": "english"
+                    "description": "Files to attach to the message"
                 }
             }
         },
         "send": {
             "name": "send",
-            "description": "english",
+            "description": "Send a message to target user",
             "text": {
-                "sendingFailed": "english",
-                "noEntries": "english",
-                "success": "english"
+                "sendingFailed": "Failed to send the message",
+                "noEntries": "Provide at least a text or a file to send",
+                "success": "Successfully sent to {username} ({id}):\n{text}"
             },
             "options": {
                 "user": {
                     "name": "user",
-                    "description": "english"
+                    "description": "Target user"
                 },
                 "message": {
                     "name": "message",
-                    "description": "english"
+                    "description": "Message content"
                 },
                 "files": {
                     "name": "files",
-                    "description": "english"
+                    "description": "Files to attach to the message"
                 }
             }
         },
         "serverdata": {
             "name": "serverdata",
-            "description": "english",
+            "description": "Send information of the provided server",
             "text": {
-                "NaN": "english",
-                "notFound": "english",
-                "members": "english",
-                "owner": "english",
-                "language": "english",
-                "creation": "english",
-                "joinedAt": "english",
-                "hell": "english"
+                "NaN": "The provided input is not a number",
+                "notFound": "Server not found",
+                "members": "Members count",
+                "owner": "Owner",
+                "language": "Language",
+                "creation": "Creation",
+                "joinedAt": "Bot addition date",
+                "hell": "Hell mentions"
             },
             "options": {
                 "id": {
                     "name":"id",
-                    "description": "english"
+                    "description": "Target server id"
                 }
             }
         },
         "serverlist": {
             "name": "serverlist",
-            "description": "english",
+            "description": "Send the bot server list",
             "options": {
                 "filter": {
                     "name": "filter",
-                    "description": "english"
+                    "description": "Define the servers sorting order"
                 }
             },
             "choices": {
@@ -401,67 +401,67 @@
                 }
             },
             "text": {
-                "embedTitle": "english",
-                "embedDescription": "english",
-                "embedFooter": "english",
-                "embedFiledValue": "english"
+                "embedTitle": "Bot servers list",
+                "embedDescription": "*filter: {text}*",
+                "embedFooter": "Page [{text}/{text2}] | {text3} theorical users",
+                "embedFiledValue": "__Id:__ {id}\n__Members:__ {text}\n__Owner:__ {text2}"
             }
         },
         "setglobalping": {
             "name": "setglobalping",
-            "description": "english",
+            "description": "Define again the hell mention board",
             "text": {
-                "noChannel": "english",
-                "embedTitle": "english",
-                "embedDescription": "english",
-                "watcherDescription": "english",
-                "dragonDescription": "english",
-                "redOrbDescription": "english",
-                "yellowOrbDescription": "english",
-                "success": "english"
+                "noChannel": "Channel not found",
+                "embedTitle": "Global mentions",
+                "embedDescription": "Hell mention board. Please do not mention an event already alterted",
+                "watcherDescription": "Notify a watcher hell event",
+                "dragonDescription": "Notify a dragon hell event",
+                "redOrbDescription": "Notify a bright talent orb hell event",
+                "yellowOrbDescription": "Notify a brilliant orb hell event",
+                "success": "Board has been successfully sent"
             }
         },
         "stopwatcher": {
             "name": "stopwatcher",
-            "description": "english",
+            "description": "Delete the hell mention channels",
             "text": {
-                "watcherIsNotDefined": "english",
-                "askIfDelete": "english",
-                "loadingText": "english",
-                "success": "english"
+                "watcherIsNotDefined": "The hell mention channels are not defined on this server. Type `/{text}` to define it",
+                "askIfDelete": "Do you want to delete the  <#{text}> and <#{text2}> channels?\n\n:warning: **This action is irreversible!**",
+                "loadingText": "<a:loading:739785338347585598> Deleting...",
+                "success": "Hell mention channels were deleted !\nTo define them again, use `/{text}`"
             }
         },
         "watcher": {
             "name": "watcher",
-            "description": "english",
+            "description": "Define the hell mention board",
             "text": {
-                "missingPerm": "english",
-                "askIfReparam": "english",
-                "roleTooHigh": "english",
-                "rolesNotFound": "english",
-                "rolesNotCancellable": "english",
-                "rolesAndChanDeletionReason": "english",
-                "channelsNotFound": "english",
+                "missingPerm": "I can't define the notification board without the required permissions. I miss these permissions:\n",
+                "askIfReparam": "Hell mentions are already defined, do you want to define them again?\n\n:warning: Members will have to subscribe again if you do this",
+                "roleTooHigh": "The {text} role is beyond my abilities, I can't delete it. You will have to do it yourself",
+                "rolesNotFound": "Impossible to find the {text} role (server {text2} ({id}))",
+                "rolesNotCancellable": "Impossible to delete the {text} role (server {text2} ({id}))",
+                "rolesAndChanDeletionReason": "Reparametrization of the hell mention board",
+                "channelsNotFound": "Impossible to find the {text} channel (server {text2} ({id}))",
 
-                "loadingText": "english",
+                "loadingText": "<a:loading:739785338347585598> Setting up...",
 
-                "boardName": "english",
-                "boardTopic": "english",
-                "boardReason": "english",
-                "mentionName": "english",
-                "mentionTopic": "english",
-                "mentionReason": "english",
-                "hell": "english",
+                "boardName": "hell-event-board",
+                "boardTopic": "Subscribe to hell events and challenges notifications!",
+                "boardReason": "Subscribing channel creation",
+                "mentionName": "hell-event-notifications",
+                "mentionTopic": "Subscribe to hell events and challenges notifications to get mentionned when one start!",
+                "mentionReason": "Mentions channel creation",
+                "hell": "hell ",
 
-                "boardEmbedTitle": "english",
-                "boardEmbedDescription": "english",
-                "boardEmbedFieldName": "english",
-                "boardEmbedFieldValue": "english",
-                "boardEmbedFooter": "english",
-                "boardMenuOptionDescription": "english",
-                "boardMenuPlaceholder": "english",
+                "boardEmbedTitle": "__**Watcher and Dragons Reporting**__",
+                "boardEmbedDescription": "Select hell events and challenges you're interested in. Mentions will be done in the <#{id}> channel",
+                "boardEmbedFieldName": "__How does it work?__",
+                "boardEmbedFieldValue": "Click on the scrolling menu below and select the events you want to get notified for. That's it!",
+                "boardEmbedFooter": "Made with love by {dev_username}",
+                "boardMenuOptionDescription": "Get notified when a {text} event starts",
+                "boardMenuPlaceholder": "Chose your subscriptions",
 
-                "success": "english"
+                "success": "Done! <#{text}> and <#{text2}> channels were successfully created\nYou're free to rename them or move them in the channels list as long as you delete nothing :wink:\nType `/{text3}` to delete them and the roles"
             }
         }
     },
@@ -494,39 +494,39 @@
         },
         "buildings": {
             "trove": {
-                "name": "salle au trésor",
-                "item": "pioches de cristal"
+                "name": "treasure trove",
+                "item": "crystal pickaxe"
             },
             "hall": {
-                "name": "hall de batailles",
-                "item": "grimoires de guerre"
+                "name": "battle hall",
+                "item": "war tome"
             },
             "prison": {
                 "name": "prison",
-                "item": "menottes en acier"
+                "item": "steel cuffs"
             },
             "altar": {
-                "name": "autel",
-                "item": "cristaux d'âme"
+                "name": "altar",
+                "item": "soul crystal"
             }
         },
         "ressources": {
-            "food": "english",
-            "stone": "english",
-            "wood": "english",
-            "ore": "english",
-            "gold": "english",
-            "gems": "english"
+            "food": "food",
+            "stone": "stone",
+            "wood": "wood",
+            "ore": "ore",
+            "gold": "gold",
+            "gems": "gems"
         },
         "hellEvents": {
             "watcher": "watcher",
             "dragon": "dragon",
-            "redOrb": "english",
-            "yellowOrb": "english",
-            "watcherResearch": "english",
-            "dragonResearch": "english",
-            "challengeResearch": "english",
-            "challengeTroops": "english"
+            "redOrb": "red orbs",
+            "yellowOrb": "yellow orbs",
+            "watcherResearch": "watcher research",
+            "dragonResearch": "dragon research",
+            "challengeResearch": "challenge dragon research",
+            "challengeTroops": "challenge dragon training"
         },
         "hellMentions": {
             "watcher":"watcher",
@@ -542,11 +542,14 @@
             "challenge": "challenge",
             "hell": "hell",
             "hunt": "hunt",
-            "challengeResearch": "english",
-            "challengeTroops": "english",
-            "baseTypeMsg": "english",
-            "baseTypeMsgEnd": "english",
-            "confirmation": "english"
+            "challengeResearch": "dragon research",
+            "challengeTroops": "dragon training",
+            "baseTypeMsg": "__Chose the event type {text}:__",
+            "baseTypeMsgEnd": "\n\n:warning: *Ignore to cancel*",
+            "confirmation": "Do you want to report a {text3} {text2} {text} event?",
+            "baseMentionMsg": "<@&{id}>, a {text3} {text2} {text} event is on!\n",
+            "remainingTimeBeforeEnd": "**{text}** minutes remaining",
+            "remainingTimeAfterBegining": "It will start in **{text}** minutes"
         }
     }
 

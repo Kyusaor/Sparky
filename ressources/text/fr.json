@@ -6,24 +6,25 @@
         },
         "welcomeMsg": "Je me présente: je suis Sparky, un bot discord Lords Mobile, conçu pour les serveurs de guilde.\n\nLa liste de mes commandes se trouve en faisant **\\/aide\\** sur votre serveur\n\nMerci de m'avoir ajouté!",
         "tipsFooter": [
-            {"text": "Faites la commande /aide pour obtenir de l'aide !"},
+            {"text": "Faites la commande **/aide** pour obtenir de l'aide !"},
             {"text": "Développé avec amour par {dev_username}", "iconURL": "{dev_avatar_url}"},
-            {"text": "Faites la commande /langage pour changer la langue du bot!"},
+            {"text": "Faites la commande **/langage** pour changer la langue du bot!"},
             {"text": "Faites /veilleur pour avoir les notifications d'évènements infernaux"},
             {"text": "Fun fact: je suis le meilleur bot du monde"},
-            {"text": "Soutenez le bot avec la commande /donner"}
+            {"text": "Soutenez le bot avec la commande /donner :pray:"}
         ],
         "errors": {
             "notInAGuild": "La command doit être exécutée sur un serveur",
             "guildDataNotFound": "Impossible de récupérer les données de serveur",
             "buttonWithoutCommand": "Ce customId ne contient pas de commande: ",
-            "unableToReply": "Impossible de répondre à l'interaction"
+            "unableToReply": "Impossible de répondre à l'interaction",
+            "noChannel": "Aucun salon"
         },
         "cancelledCommand": "Commande annulée",
         "commandIsLocked": "Cette commande est déjà en cours d'exécution",
         "noLinkInDm": ":flag_fr: Bonjour, pour m'ajouter à votre serveur utilisez plutôt ce lien!",
         "noCommandOffServer": ":flag_fr: Les commandes sont à réaliser sur un serveur !",
-        "CommandExecutionError": "Une erreur est survenue pendant l'éxecution de la commande!",
+        "CommandExecutionError": "Une erreur est survenue pendant l'éxecution de la commande",
         "defaultCommandReply": "Impossible d'exécuter la commande :confused:",
         "stringifyDate": "<t:{timestamp}> (il y a {daysSince} jours)",
         "yes": "Oui",
@@ -190,7 +191,6 @@
             "text": {
                 "thanks": [
                     ["Les bêta testeurs", "Qui ont accepté de servir de cobayes pour un bot presque fini"],
-                    ["Les testeurs", "Pour m'avoir aidé à la conception du bot et l'amélioration des rendus"],
                     ["Les quelques donateurs", "Pour m'avoir aidé à soutenir le coût du bot (commande **/donate** si jamais :eyes:)"],
                     ["Les traducteurs", "Pour avoir corrigé mon anglais douteux"],
                     ["Et enfin...", "Tous les utilisateurs du bot pour avoir accordé leur confiance à ce projet :heart:"]
@@ -435,7 +435,7 @@
             "name": "veilleur",
             "description": "Définit le panneau de notifications d'évènements infernaux",
             "text": {
-                "missingPerm": "Je ne peux pas définir le panneau de notifications sans les permissions nécessaires. Il me manque ces permissions:\n0",
+                "missingPerm": "Je ne peux pas définir le panneau de notifications sans les permissions nécessaires. Il me manque ces permissions:\n",
                 "askIfReparam": "Les notifications d'infernaux sont déjà définies, voulez-vous les reparamétrer?\n\n:warning: Les membres devront se réabonner si vous faites cela",
                 "roleTooHigh": "Le rôle {text} est au dessus de mes rôles, je ne peux donc pas le supprimer. Il faudra le supprimer vous-même",
                 "rolesNotFound": "Impossible de trouver le role {text} (serveur {text2} ({id}))",
@@ -456,12 +456,12 @@
                 "boardEmbedTitle": "__**Signalement des Veilleurs et Dragons**__",
                 "boardEmbedDescription": "Sélectionnez les évènements infernaux et les challenges qui vous intéressent. Les mentions seront faites dans le salon <#{id}>",
                 "boardEmbedFieldName": "__Comment ça marche?__",
-                "boardEmbedFieldValue": "Cliquez sur le menu déroulant et sélectionnez les types d'évènements pour lesquels vous voulez être notifiés. C'est tout!",
+                "boardEmbedFieldValue": "Cliquez sur le menu déroulant ci-dessous et sélectionnez les types d'évènements pour lesquels vous voulez être notifiés. C'est tout!",
                 "boardEmbedFooter": "Développé avec amour par {dev_username}",
                 "boardMenuOptionDescription": "Soyez notifié quand il y a un évènement {text}",
                 "boardMenuPlaceholder": "Choissez vos abonnements",
 
-                "success": "Terminé ! Les salons <#{text}> et <#{text2}> ont bien été créés\nVous êtes libres de renommer ou déplacer les salons et rôles, du moment que vous ne supprimez rien :wink:\nFaites `/{text3}` pour les supprimer"
+                "success": "Terminé ! Les salons <#{text}> et <#{text2}> ont bien été créés\nVous êtes libres de renommer ou déplacer les salons et rôles, du moment que vous ne supprimez rien :wink:\nFaites `/{text3}` pour les supprimer ainsi que les rôles"
             }
         }
     },
@@ -546,7 +546,10 @@
             "challengeTroops": "dragon entraînement",
             "baseTypeMsg": "__Choisis le type d'évènement {text}:__\n",
             "baseTypeMsgEnd": "\n\n:warning: *Ignorez pour annuler*",
-            "confirmation": "Voulez-vous signaler un évènement {text} {text2}?"
+            "confirmation": "Voulez-vous signaler un évènement {text} {text2} {text3}?",
+            "baseMentionMsg": "<@&{id}>, un évènement {text} {text2} {text3} est en cours!\n",
+            "remainingTimeBeforeEnd": "Il reste **{text}** minutes",
+            "remainingTimeAfterBegining": "Il commencera dans **{text}** minutes"
         }
     }
 }
