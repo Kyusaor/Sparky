@@ -61,8 +61,11 @@ export class ServerManager {
 
     async editServerData(edits: PartialServer): Promise<void> {
         let oldData = await db.fetchServerData(this.guild.id);
-        if(!oldData)
+        if(!oldData) {
             oldData = await ServerManager.buildBaseServerObject(this.guild.id);
+            let guild = await bot.guilds.fetch(this.guild.id);
+            await db.createServer(guild.id, guild.name, 'en');
+        }
         let active:0 | 1;
         edits.active === 0 ? active = 0 : active = 1;
         let data:Server = {
