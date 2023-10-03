@@ -10,46 +10,6 @@ export type fetchedChannelsAtBoot = {
 
 export type queryArgs = string | number | boolean | null | queryArgs[] | undefined;
 
-export type Server = { 
-    id: string, 
-    name: string, 
-    active: 0 | 1, 
-    hellEvent: string,
-    language: textLanguage 
-};
-
-export type PartialServer = { 
-    id?: string, 
-    name?: string, 
-    active?: 0 | 1, 
-    hellEvent?: string,
-    language?: textLanguage 
-};
-
-export type RolesData = {
-    watcher: string,
-    dragon: string,
-    dragonResearch: string,
-    watcherResearch: string,
-    redOrb: string,
-    yellowOrb: string,
-    challengeResearch: string,
-    challengeTroops: string,
-}
-
-export type ChanData = {
-    board: string,
-    ping: string
-}
-
-export type fullServer = {
-    id: string, 
-    name: string, 
-    active: 0 | 1, 
-    language: textLanguage,
-    roles: RolesData | undefined,
-    chans: ChanData | undefined
-}
 
 //Translations
 export type textLanguage = "fr" | "en";
@@ -123,4 +83,52 @@ export type hellEventData = {
     hellOrChallenge: "challenge" | "hell";
     type: hellEventTask[];
     reward: keyof typeof Constants.WatcherMentionsTemplates;
+}
+
+
+//Database related
+export type RolesData = {
+    watcher: string,
+    dragon: string,
+    dragonResearch: string,
+    watcherResearch: string,
+    redOrb: string,
+    yellowOrb: string,
+    challengeResearch: string,
+    challengeTroops: string,
+}
+
+export type ChanData = {
+    board: string,
+    ping: string
+}
+
+export type fullServer = {
+    id: string, 
+    name: string, 
+    active: 0 | 1, 
+    language: textLanguage,
+    roles: RolesData | undefined,
+    chans: ChanData | undefined
+}
+
+export type Server = { 
+    id: string, 
+    name: string, 
+    active: 0 | 1, 
+    hellEvent: string,
+    language: textLanguage 
+};
+
+export type PartialServer = { 
+    id?: string, 
+    name?: string, 
+    active?: 0 | 1, 
+    hellEvent?: string,
+    language?: textLanguage 
+};
+
+export type UserData = {
+    id: string;
+    preferredLanguage:textLanguage;
 }
