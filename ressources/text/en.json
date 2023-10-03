@@ -6,12 +6,12 @@
         },
         "welcomeMsg": "Let me introduce myself: I am Sparky, a Lords Mobile Discord bot, made for guild servers.\n\nMy commands list can be found by typing **/help** on your server. Thanks for adding me !",
         "tipsFooter": [
-            {"text": "Type the **/help** command to get some help!"},
+            {"text": "Type the /help command to get some help!"},
             {"text": "Made with love by {dev_username}", "iconURL": "{dev_avatar_url}"},
-            {"text": "Use the **/language** command to change the bot's language!"},
+            {"text": "Use the /language command to change the bot's language!"},
             {"text": "Use /watcher to get notifications on hell events"},
             {"text": "Fun fact: I'm the best bot in the world"},
-            {"text": "Support the bot with /donate :pray:"}
+            {"text": "Support the bot with /donate �"}
         ],
         "errors": {
             "notInAGuild": "Commands must be done on a server",
@@ -29,6 +29,7 @@
         "stringifyDate": "<t:{timestamp}> ({daysSince} days ago)",
         "yes": "Yes",
         "no": "No",
+        "cancel": "cancel",
         "timeNames": {
             "day": "days",
             "hour": "hours",
@@ -283,8 +284,12 @@
             },
             "text": {
                 "alreadySelectedLanguage": "The bot is already writing in english!",
-                "changeLanguageConfirmation": "Do you want to change the bot language to `{text}`?",
-                "success": "The bot will speak in English from now!"
+                "changeLanguageConfirmation": "Do you want to change the bot language for your {text} to `{text2}`?",
+                "success": "The bot will speak in English from now on your {text}!",
+                "serverOrAccount": "Do you want to change the bot language for your account or the server?",
+                "guild": "server",
+                "user": "account",
+                "noPermission": "You are not allowed to do that, ask a manager of this server to do it"
             }
         },
         "link": {

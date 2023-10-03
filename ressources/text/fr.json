@@ -6,12 +6,12 @@
         },
         "welcomeMsg": "Je me présente: je suis Sparky, un bot discord Lords Mobile, conçu pour les serveurs de guilde.\n\nLa liste de mes commandes se trouve en faisant **\\/aide\\** sur votre serveur\n\nMerci de m'avoir ajouté!",
         "tipsFooter": [
-            {"text": "Faites la commande **/aide** pour obtenir de l'aide !"},
+            {"text": "Faites la commande /aide pour obtenir de l'aide !"},
             {"text": "Développé avec amour par {dev_username}", "iconURL": "{dev_avatar_url}"},
-            {"text": "Faites la commande **/langage** pour changer la langue du bot!"},
+            {"text": "Faites la commande /langage pour changer la langue du bot!"},
             {"text": "Faites /veilleur pour avoir les notifications d'évènements infernaux"},
             {"text": "Fun fact: je suis le meilleur bot du monde"},
-            {"text": "Soutenez le bot avec la commande /donner :pray:"}
+            {"text": "Soutenez le bot avec la commande /donner �"}
         ],
         "errors": {
             "notInAGuild": "La command doit être exécutée sur un serveur",
@@ -29,6 +29,7 @@
         "stringifyDate": "<t:{timestamp}> (il y a {daysSince} jours)",
         "yes": "Oui",
         "no": "Non",
+        "cancel": "annuler",
         "timeNames": {
             "day": "jours",
             "hour": "heures",
@@ -283,8 +284,12 @@
             },
             "text": {
                 "alreadySelectedLanguage": "Le bot est déjà paramétré en français!",
-                "changeLanguageConfirmation": "Voulez-vous changer la langue du bot en `{text}`?",
-                "success": "Le bot parlera désormais en français sur ce serveur !"
+                "changeLanguageConfirmation": "Voulez-vous changer la langue du bot pour votre {text} en `{text2}`?",
+                "success": "Le bot parlera désormais en français pour votre {text} !",
+                "serverOrAccount": "Voulez-vous changer la langue du bot pour le serveur ou pour votre compte?",
+                "guild": "serveur",
+                "user": "compte",
+                "noPermission": "Vous n'avez pas la permission de faire cela, demandez à un gestionnaire du serveur de le faire"
             }
         },
         "link": {
