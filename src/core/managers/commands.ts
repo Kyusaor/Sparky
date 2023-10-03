@@ -120,7 +120,7 @@ export abstract class CommandManager {
 
         for (let key of botCommands) {
             let name = key.commandStructure.name;
-            if (buttonId.endsWith('yes') || buttonId.endsWith('no')) return "not a base button";
+            if (buttonId.endsWith('yes') || buttonId.endsWith('no') || buttonId.includes("nbb")) return "not a base button";
             if (buttonId.includes(`${name}-`)) return name as CommandName
         }
 
