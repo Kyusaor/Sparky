@@ -4,8 +4,8 @@ import { Console } from '../../main.js';
 import { Utils } from '../utils.js';
 import mysqldump from 'mysqldump';
 import { Config } from '../../../data/config.js';
-import { ChanData, RolesData, Server, fullServer, queryArgs, textLanguage } from '../constants/types.js';
-import { Guild } from 'discord.js';
+import { ChanData, RolesData, Server, UserData, fullServer, queryArgs, textLanguage } from '../constants/types.js';
+import { Guild, User } from 'discord.js';
 import { Constants } from '../constants/values.js';
 
 
@@ -66,6 +66,11 @@ export class DBManager {
             Console.info(`Plus d'une instance du serveur ${guild.id} est présente dans la base de donnée`)
         return server.length > 0;
     }
+
+    async checkIfUserIsPresent(userId:string):Promise<boolean> {
+        let users = await this.query<any[]>(`SELECT * FROM users WHERE id = ?`, userId);
+        return users.length > 0;
+    }
     
     async checkIfWatcherEnabled(guildId: string):Promise<boolean> {
         let data = await this.fetchServerData(guildId);
@@ -90,6 +95,11 @@ export class DBManager {
         Console.logDb(`Serveur ${guildName} (${guildId}) ajouté avec succès à la DB channels`);
     }
 
+    async createUser(data:UserData):Promise<void> {
+        await this.query<void>(`INSERT INTO users VALUES (?,?)`, [data.id, data.preferredLanguage]);
+        Console.logDb(`User ${data.id} ajouté avec succès à la DB users`);
+    }
+
     async deleteServerRoles(guildId: string, guildName: string): Promise<void> {
         await this.query<void>('DELETE FROM hellroles WHERE id = ?', [guildId]);
         Console.logDb(`Serveur ${guildName} (${guildId}) supprimé avec succès de la DB roles`)
@@ -104,6 +114,12 @@ export class DBManager {
         await this.query<void>(`UPDATE config SET id = ?, name = ?, active = ?, hellEvent = ?, language = ? WHERE id = ?`, [serverData.id, serverData.name, serverData.active, serverData.hellEvent, serverData.language, serverData.id])
         this.generateBackup();
         Console.logDb(`Serveur ${serverData.name} (${serverData.id}) modifié avec succès`)
+    }
+
+    async editUserDatabase(userData:UserData):Promise<void> {
+        await this.query<void>(`UPDATE users SET id = ?, preferredLanguage = ? WHERE id = ?`, [userData.id, userData.preferredLanguage, userData.id])
+        this.generateBackup();
+        Console.logDb(`User ${userData.id} modifié avec succès`)
     }
 
     async fetchFullServerData(guildId: string): Promise<fullServer | undefined> {
@@ -135,6 +151,11 @@ export class DBManager {
         let channelsId:{ping: string, role: string}[] = [];
         channelsRows.forEach(e => channelsId.push({ping: e.ping, role: e[role]}));
         return channelsId
+    }
+
+    async fetchUserData(userID:string) {
+        let rows = await this.query<UserData[]>(`SELECT * FROM users WHERE id =?`, userID);
+        return rows[0];
     }
 
     async updateServerRoles(guildId: string, guildName: string, roles: RolesData): Promise<void> {
