@@ -98,7 +98,8 @@ export abstract class Utils {
         let language:any = locale
         if(language == 'en-US' || language == 'en-GB')
             language = 'en'
-
+        if(!Object.keys(TranslationsCache).includes(language))
+            language = 'en';
         return language
     }
 
