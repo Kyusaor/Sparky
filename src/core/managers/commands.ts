@@ -59,7 +59,9 @@ export abstract class CommandManager {
         if (intera.guild && !await db.checkIfServerIsPresent(intera.guild))
             await db.createServer(intera.guild.id, intera.guild.name, Utils.getLanguageFromLocale(intera.guild.preferredLocale));
 
-        let language = await Translations.getServerLanguage(intera.guildId);
+        let language = (await db.fetchUserData(intera.user.id)).preferredLanguage;
+        if(!language)
+            language = await Translations.getServerLanguage(intera.guildId);
 
         let command = botCommands.find(com => com.commandStructure.name == intera.commandName);
         if (!command) {
