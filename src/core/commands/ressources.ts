@@ -1,6 +1,6 @@
 import { InteractionReplyOptions, SlashCommandStringOption } from "discord.js";
-import { CommandInterface } from "../constants/types";
-import { Command, CommandManager } from "../managers/commands";
+import { CommandInterface } from "../constants/types.js";
+import { Command, CommandManager } from "../managers/commands.js";
 import { existsSync } from "fs";
 
 export const ressources:CommandInterface = {
