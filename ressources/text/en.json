@@ -338,6 +338,30 @@
                 }
             }
         },
+        "ressources": {
+            "name": "ressources",
+            "description": "Documents and useful links",
+            "text": {
+
+            },
+            "choices": {
+                "target": {
+                    "migration": "Migration scroll cost",
+                    "orbs": "Familiar talents upgrade cost",
+                    "buildings": "Gems building upgrade cost",
+                    "random": "Random quest GF",
+                    "igg": "Contact IGG",
+                    "discord": "Join the official LM discord",
+                    "chest": "Chest droprates"
+                }
+            },
+            "options": {
+                "target": {
+                    "name": "target",
+                    "description": "What you want to know"
+                }
+            }
+        },
         "say": {
             "name": "say",
             "description": "Send a message in the selected channel",

@@ -338,6 +338,29 @@
                 }
             }
         },
+        "ressources": {
+            "name": "ressources",
+            "description": "Des documents et liens utiles",
+            "text": {
+            },
+            "choices": {
+                "target": {
+                    "migration": "Coût en vélins de migration",
+                    "orbs": "Coût d'amélioration talents familiers",
+                    "buildings": "Coût d'amélioration bâtiments payants",
+                    "random": "Quêtes aléatoires GF",
+                    "igg": "Contacter IGG",
+                    "discord": "Rejoindre le discord LM officiel",
+                    "chest": "Taux de drop des coffres"
+                }
+            },
+            "options": {
+                "target": {
+                    "name": "target",
+                    "description": "Ce que vous voulez savoir"
+                }
+            }
+        },
         "say": {
             "name": "say",
             "description": "Envoie un message dans le salon donné",
