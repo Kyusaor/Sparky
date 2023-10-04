@@ -54,10 +54,25 @@
     },
     "commands": {
         "about": {
-            "name": "a propos",
+            "name": "a-propos",
             "description": "Informations additionnels sur le bot et ce qui tourne autour",
             "text": {
-                "bot": "Bonjour,\nJe suis Sparky, un bot Discord français d'aide pour les joueurs de Lords Mobile. J'ai été créé par {dev_username} en 2020, afin d'aider les serveurs de guilde au mieux dans leur vie de lord. Un serveur existe pour aider et regrouper les joueurs (commande **/{text}**), si vous avez des questions à mon sujet n'hésitez pas à le rejoindre pour les poser!"
+                "bot": "Bonjour,\nJe suis Sparky, un bot Discord français d'aide pour les joueurs de Lords Mobile. J'ai été créé par Kyusaki en 2020, afin d'aider les serveurs de guilde au mieux dans leur vie de lord. Un serveur existe pour aider et regrouper les joueurs (commande **/contact**), si vous avez des questions à mon sujet n'hésitez pas à le rejoindre pour les poser!\n\nSur le côté technique, je suis codé en Typescript en utilisant la librairie discord.js, avec une base de donnée en SQL",
+                "dev": "Salut,\nMoi c'est Kyusaki, joueur de Lords Mobile depuis 2016, dans la guilde française imp que je j'ai rejoins et jamais quitté, développeur de bots discord depuis 2019 et modérateur puis gérant du serveur discord Lords Mobile FR depuis la même année. J'avais fait le bot du serveur discord en y mettant quelques fonctions utiles et j'ai créé Sparky suite aux nombreuses demandes de membres d'avoir la possibilité d'utiliser ces fonctions sur leurs propres serveurs. N'hésitez pas à me contacter si vous avez besoin de quelque chose ! 😉",
+                "permissions": "Voilà les permissions dont j'ai besoin pour fonctionner, ainsi que la raison:\n> __Les indispensables:__\n> -Envoyer des messages: J'imagine que celui là est plutôt évident non? :blobowo:\n> -Intégrer des liens: La plupart des messages sont dans des embeds, les messages rectangulaires des bots, et il faut cette permission pour pouvoir les envoyer\n> -Intégrer des liens: Pour être capable d'envoyer des images pour plusieurs commandes (**/compo** par exemple)\n> \n> __Les optionnelles:__\n> -Gérer les rôles: pour que je sois capable de créer/supprimer les rôles de la commande **/veilleur** (mentions des évènements infernaux)\n> -Gérer les salons: Pareil, mais pour les salons\n> -Utiliser des emojis externes: Certains des emojis que j'utilise viennent de mon serveur, donc elles n'apparaîtront pas si je n'ai pas cette permission (un <:emoji:123456789> moche apparaîtra à la place par contre, pas dramatique mais ça peut être pénible)"
+            },
+            "choices": {
+                "topic": {
+                    "bot": "Le bot",
+                    "dev": "Le développeur",
+                    "permissions": "Les permissions du bot"
+                }
+            },
+            "options": {
+                "topic": {
+                    "name": "sujet",
+                    "description": "Le sujet sur lequel vous voulez en savoir plus"
+                }
             }
         },
         "calculator": {
