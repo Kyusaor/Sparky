@@ -53,6 +53,13 @@
         "description": "Pour obtenir la liste de mes commandes, faites **/aide**"
     },
     "commands": {
+        "about": {
+            "name": "a propos",
+            "description": "Informations additionnels sur le bot et ce qui tourne autour",
+            "text": {
+                "bot": "Bonjour,\nJe suis Sparky, un bot Discord français d'aide pour les joueurs de Lords Mobile. J'ai été créé par {dev_username} en 2020, afin d'aider les serveurs de guilde au mieux dans leur vie de lord. Un serveur existe pour aider et regrouper les joueurs (commande **/{text}**), si vous avez des questions à mon sujet n'hésitez pas à le rejoindre pour les poser!"
+            }
+        },
         "calculator": {
             "name": "calcul",
             "description": "Divers outils de calcul utiles",

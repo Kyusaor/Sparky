@@ -53,6 +53,13 @@
         "description": "To get my command list, use **/help**"
     },
     "commands": {
+        "about": {
+            "name": "about",
+            "description": "Some additionals information about the bot and its related topics",
+            "text": {
+                "bot": "Hello,\nI'm Sparky, a french Discord bot for Lords Mobile players. I was created by {dev_username} in 2020, to help guild's servers as best as I can in their Lord lives. A server exists to help and group players (/{text} command), if you have any questions about me don't hesitate to join and inquire!"
+            }
+        },
         "calculator": {
             "name": "calculator",
             "description": "A bunch of useful calculators",
