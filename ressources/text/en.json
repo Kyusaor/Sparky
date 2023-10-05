@@ -342,7 +342,9 @@
             "name": "ressources",
             "description": "Documents and useful links",
             "text": {
-
+                "igg": "If you have a problem, you can reach IGG by these emails:\n-__Android__:help.lordsmobile.android@igg.com\n-__iOS__:ihelp.lordsmobile@igg.com",
+                "discord": "You can join the official Lords Mobile Discord server there:\n{text}",
+                "discord-reviver": "https://discord.gg/lordsmobile"
             },
             "choices": {
                 "target": {
