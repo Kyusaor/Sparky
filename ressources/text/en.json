@@ -71,7 +71,7 @@
             "options": {
                 "topic": {
                     "name": "topic",
-                    "description": "The topic that's interesting you"
+                    "description": "The topic that’s of interest to you"
                 }
             }
         },
