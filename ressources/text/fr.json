@@ -159,7 +159,8 @@
                 "trainEmbedTroopAmount" : "__Nombre de troupe à former:__",
                 "trainEmbedBatchAmount" : "__Nombre de fournées nécessaires:__",
                 "trainEmbedRssCost" : "__Coût en {text}:__ ",
-                "trainEmbedTimeCost" : "__Durée nécessaire:__"
+                "trainEmbedTimeCost" : "__Durée nécessaire:__",
+                "trainEmbedMightGained": "__Puissance obtenue:__"
             }
         },
         "compo": {

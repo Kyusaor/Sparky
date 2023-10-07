@@ -159,7 +159,8 @@
                 "trainEmbedTroopAmount" : "__Amount of troops to train:__",
                 "trainEmbedBatchAmount" : "__Amount of batches needed:__",
                 "trainEmbedRssCost" : "__{text}'s cost:__",
-                "trainEmbedTimeCost" : "__Time needed:__"
+                "trainEmbedTimeCost" : "__Time needed:__",
+                "trainEmbedMightGained": "__Might obtained:__"
             }
         },
         "compo": {
