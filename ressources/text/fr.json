@@ -344,14 +344,12 @@
             "text": {
                 "igg": "En cas de souci, vous pouvez contacter l'assistance d'igg via ces adresses mail:\n-__Android__: help.lordsmobile.android@igg.com\n-__iOS__: ihelp.lordsmobile@igg.com",
                 "discord": "Vous pouvez rejoindre le serveur Discord Lords Mobile officiel avec ce lien:\n{text}",
+                "chest": "Les taux de drop de coffres officiels sont disponibles [par ici]({text})! (:warning: les noms sont en anglais)",
+                "chest-reviver": "https://lordsmobile.igg.com/project/probability/?game_id=1051029902",
                 "discord-reviver": "https://discord.gg/lordsmobilefr"
             },
             "choices": {
                 "target": {
-                    "migration": "Coût en vélins de migration",
-                    "orbs": "Coût d'amélioration talents familiers",
-                    "buildings": "Coût d'amélioration bâtiments payants",
-                    "random": "Quêtes aléatoires GF",
                     "igg": "Contacter IGG",
                     "discord": "Rejoindre le discord LM officiel",
                     "chest": "Taux de drop des coffres"

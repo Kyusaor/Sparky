@@ -344,14 +344,12 @@
             "text": {
                 "igg": "If you have a problem, you can reach IGG by these emails:\n-__Android__:help.lordsmobile.android@igg.com\n-__iOS__:ihelp.lordsmobile@igg.com",
                 "discord": "You can join the official Lords Mobile Discord server there:\n{text}",
+                "chest": "Officials chest droprates are available [right there]({text})!",
+                "chest-reviver": "https://lordsmobile.igg.com/project/probability/?game_id=1051029902",
                 "discord-reviver": "https://discord.gg/lordsmobile"
             },
             "choices": {
                 "target": {
-                    "migration": "Migration scroll cost",
-                    "orbs": "Familiar talents upgrade cost",
-                    "buildings": "Gems building upgrade cost",
-                    "random": "Random quest GF",
                     "igg": "Contact IGG",
                     "discord": "Join the official LM discord",
                     "chest": "Chest droprates"
