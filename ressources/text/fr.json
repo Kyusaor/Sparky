@@ -11,7 +11,7 @@
             {"text": "Faites la commande /langage pour changer la langue du bot!"},
             {"text": "Faites /veilleur pour avoir les notifications d'évènements infernaux"},
             {"text": "Fun fact: je suis le meilleur bot du monde"},
-            {"text": "Soutenez le bot avec la commande /donner �"}
+            {"text": "Soutenez le bot avec la commande /donner"}
         ],
         "errors": {
             "notInAGuild": "La command doit être exécutée sur un serveur",

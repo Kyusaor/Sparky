@@ -11,7 +11,7 @@
             {"text": "Use the /language command to change the bot's language!"},
             {"text": "Use /watcher to get notifications on hell events"},
             {"text": "Fun fact: I'm the best bot in the world"},
-            {"text": "Support the bot with /donate �"}
+            {"text": "Support the bot with /donate"}
         ],
         "errors": {
             "notInAGuild": "Commands must be done on a server",
