@@ -20,7 +20,7 @@ export const data:CommandInterface = {
 
         let path = `./data/backups/${month}/backup-${day}-${month}.sql`
 
-        console.log(path)
+        console.log(`New backup at ${path}`)
         if(!existsSync(path))
             return Command.prototype.reply(commandText.error, intera);
 
