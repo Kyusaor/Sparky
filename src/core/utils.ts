@@ -189,6 +189,8 @@ export class ConsoleLogger {
     logDb(input: any) {
         console.log(`[DATA] ${input}`);
         this.logger.log(`[DATA] ${input}`);
+
+        chanList.LOGS_DB?.send(input.stack || input).catch(e => e)
     };
 
     error(input: any, crash?: boolean) {
