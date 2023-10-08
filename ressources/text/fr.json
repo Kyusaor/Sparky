@@ -297,7 +297,7 @@
             }
         },
         "language" : {
-            "name": "language",
+            "name": "langage",
             "description": "Change la langue du bot",
             "options": {
                 "language": {
