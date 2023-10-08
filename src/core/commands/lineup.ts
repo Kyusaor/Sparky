@@ -3,7 +3,7 @@ import { CommandInterface } from "../constants/types.js";
 import { Command, CommandManager } from "../managers/commands.js";
 import { existsSync } from "fs";
 
-export const compo:CommandInterface = {
+export const lineup:CommandInterface = {
 
     permissionLevel: 1,
 
@@ -11,11 +11,11 @@ export const compo:CommandInterface = {
 
     cacheLockScope: "none",
 
-    commandStructure: CommandManager.baseSlashCommandBuilder("compo", "member")
+    commandStructure: CommandManager.baseSlashCommandBuilder("lineup", "member")
         .addStringOption(
-            (Command.generateCommandOptionBuilder("compo", "monster", "string") as SlashCommandStringOption)
+            (Command.generateCommandOptionBuilder("lineup", "monster", "string") as SlashCommandStringOption)
                 .setRequired(true)
-                .addChoices(...Command.getChoices("compo", "mobs"))
+                .addChoices(...Command.getChoices("lineup", "mobs"))
         ),
 
     async run({ intera, language }): Promise<void> {

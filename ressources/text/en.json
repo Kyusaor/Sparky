@@ -163,45 +163,6 @@
                 "trainEmbedMightGained": "__Might obtained:__"
             }
         },
-        "compo": {
-            "name": "lineup",
-            "description": "Get the best lineup for mob hunting",
-            "text": {},
-            "options": {
-                "monster": {
-                    "name": "monster",
-                    "description": "The monster you want the lineup for"
-                }
-            },
-            "choices": {
-                "mobs": {
-                    "abeille": "Queen Bee",
-                    "agivre": "Frostwing",
-                    "anoires": "Blackwing",
-                    "bete": "Snow Beast",
-                    "chaman": "Voodoo Shaman",
-                    "cottrage": "Cottageroar",
-                    "drider": "Hell Drider",
-                    "epinator": "Terrorthorn",
-                    "faucheuse": "Grim Reaper",
-                    "flipper": "Arctic Flipper",
-                    "gargantua": "Gargantua",
-                    "golem": "Hardrox",
-                    "gorzilla": "Gawrilla",
-                    "griffon": "Gryphon",
-                    "larve": "Mega Maggot",
-                    "mecha": "Mecha Trojan",
-                    "morfalange": "Bon Appeti",
-                    "necrose": "Necrosis",
-                    "noceros": "Noceros",
-                    "sabrecroc": "Saberfang",
-                    "serpent": "Serpent Gladiator",
-                    "serrulule": "Hootclaw",
-                    "titan": "Tidal Titan",
-                    "wyrm": "Jade Wyrm"
-                }            
-            }
-        },
         "contact": {
             "name": "contact",
             "description": "Contact us (discord/mail)",
@@ -313,6 +274,45 @@
                 "guild": "server",
                 "user": "account",
                 "noPermission": "You are not allowed to do that, ask a manager of this server to do it"
+            }
+        },
+        "lineup": {
+            "name": "lineup",
+            "description": "Get the best lineup for mob hunting",
+            "text": {},
+            "options": {
+                "monster": {
+                    "name": "monster",
+                    "description": "The monster you want the lineup for"
+                }
+            },
+            "choices": {
+                "mobs": {
+                    "abeille": "Queen Bee",
+                    "agivre": "Frostwing",
+                    "anoires": "Blackwing",
+                    "bete": "Snow Beast",
+                    "chaman": "Voodoo Shaman",
+                    "cottrage": "Cottageroar",
+                    "drider": "Hell Drider",
+                    "epinator": "Terrorthorn",
+                    "faucheuse": "Grim Reaper",
+                    "flipper": "Arctic Flipper",
+                    "gargantua": "Gargantua",
+                    "golem": "Hardrox",
+                    "gorzilla": "Gawrilla",
+                    "griffon": "Gryphon",
+                    "larve": "Mega Maggot",
+                    "mecha": "Mecha Trojan",
+                    "morfalange": "Bon Appeti",
+                    "necrose": "Necrosis",
+                    "noceros": "Noceros",
+                    "sabrecroc": "Saberfang",
+                    "serpent": "Serpent Gladiator",
+                    "serrulule": "Hootclaw",
+                    "titan": "Tidal Titan",
+                    "wyrm": "Jade Wyrm"
+                }            
             }
         },
         "link": {
