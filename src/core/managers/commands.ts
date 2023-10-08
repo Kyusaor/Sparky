@@ -614,7 +614,7 @@ export class WatcherManager {
                 }
                 else return `${text[e]}`
             }).join(", ")
-            console.log(typeString)
+
             let msg = Translations.displayText(text.temporaryLogMentions, {
                 text: text[data.hellOrChallenge], 
                 text2: `${text[data.reward]} ${Utils.displayEmoteInChat(DiscordValues.emotes[data.reward])}`, 
