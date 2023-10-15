@@ -5,8 +5,7 @@ import { Utils } from '../utils.js';
 import mysqldump from 'mysqldump';
 import { Config } from '../../../data/config.js';
 import { ChanData, RolesData, Server, UserData, fullServer, queryArgs, textLanguage } from '../constants/types.js';
-import { Guild, User } from 'discord.js';
-import { Constants } from '../constants/values.js';
+import { Guild } from 'discord.js';
 
 
 export class DBManager {
