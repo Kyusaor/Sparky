@@ -191,7 +191,7 @@ export class DBManager {
                 host: Config.DBConfig.host,
                 user: Config.DBConfig.user,
                 password: Config.DBConfig.password,
-                database: 'guilds'
+                database: Config.DBConfig.database
             },
             dumpToFile: DBManager.createAndDisplayBackupPath()
         })
