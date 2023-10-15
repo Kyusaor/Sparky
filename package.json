@@ -1,6 +1,6 @@
 {
   "name": "sparkv2",
-  "version": "alpha",
+  "version": "3.0",
   "description": "",
   "type": "module",
   "main": "main.js",
