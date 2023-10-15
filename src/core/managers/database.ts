@@ -60,10 +60,12 @@ export class DBManager {
         return rows[0].active == 1;
     }
 
-    async checkIfServerIsPresent(guild: Guild): Promise<boolean> {
-        let server = await this.query<any[]>(`SELECT * FROM config WHERE id = ?`, guild.id);
+    async checkIfServerIsPresent(guild: Guild | string): Promise<boolean> {
+        if(typeof guild !== "string")
+            guild = guild.id;
+        let server = await this.query<any[]>(`SELECT * FROM config WHERE id = ?`, guild);
         if (server.length > 1)
-            Console.info(`Plus d'une instance du serveur ${guild.id} est présente dans la base de donnée`)
+            Console.info(`Plus d'une instance du serveur ${guild} est présente dans la base de donnée`)
         return server.length > 0;
     }
 
@@ -78,6 +80,9 @@ export class DBManager {
     }
 
     async createServer(guildId: string, guildName: string, language: textLanguage): Promise<void> {
+        if(await this.checkIfServerIsPresent(guildId))
+            return Console.logDb('Server already in database')
+
         await this.query<void>(`INSERT INTO config VALUES (?,?,?,?,?)`, [guildId, guildName, 1, 0, language]);
         Console.logDb(`Serveur ${guildName} (${guildId}) ajouté avec succès à la DB`);
         this.generateBackup();
@@ -85,17 +90,27 @@ export class DBManager {
 
     async createServerRoles(guildId: string, guildName: string, roles: RolesData): Promise<void> {
         let data = [guildId, roles.watcher, roles.dragon, roles.dragonResearch, roles.watcherResearch, roles.redOrb, roles.yellowOrb, roles.challengeResearch, roles.challengeTroops]
+        if(await this.fetchServerRoles(guildId))
+            return await this.updateServerRoles(guildId, guildName, roles);
+        
         await this.query<void>(`INSERT INTO hellroles VALUES (?,?,?,?,?,?,?,?,?)`, data);
         Console.logDb(`Serveur ${guildName} (${guildId}) ajouté avec succès à la DB roles`);
     }
 
     async createServerChannels(guildId: string, guildName: string, chans: ChanData): Promise<void> {
+        let isPresent = await this.query<any[]>(`SELECT * FROM hellchannels WHERE id = ?`, guildId);
+        if(isPresent.length > 0) 
+            return await this.updateServerChannels(guildId, guildName, chans);
+
         let data = [ guildId, chans.board, chans.ping]
         await this.query<void>(`INSERT INTO hellchannels VALUES (?,?,?)`, data);
         Console.logDb(`Serveur ${guildName} (${guildId}) ajouté avec succès à la DB channels`);
     }
 
     async createUser(data:UserData):Promise<void> {
+        if(await this.checkIfUserIsPresent(data.id))
+            return await this.editUserDatabase(data);
+
         await this.query<void>(`INSERT INTO users VALUES (?,?)`, [data.id, data.preferredLanguage]);
         Console.logDb(`User ${data.id} ajouté avec succès à la DB users`);
     }
@@ -180,6 +195,7 @@ export class DBManager {
             },
             dumpToFile: DBManager.createAndDisplayBackupPath()
         })
+        Console.logDb(`Backup générée ${Utils.stringifyDate(new Date(), 'fr')}`)
     }
 
     async returnServerLanguage(guildId: string): Promise<textLanguage> {
