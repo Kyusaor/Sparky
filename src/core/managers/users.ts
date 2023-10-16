@@ -38,8 +38,8 @@ export class UserManager {
         }
     }
 
-    async getOldLanguage(): Promise<textLanguage> {
+    async getOldLanguage(): Promise<textLanguage | undefined> {
         let data = await db.fetchUserData(this.id)
-        return data.preferredLanguage;
+        return data?.preferredLanguage;
     }
 }
