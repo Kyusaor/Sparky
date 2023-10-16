@@ -68,6 +68,7 @@ export function checkPerm(bot:GuildMember, language: textLanguage): string | und
     if(!bot.permissions.has([PermissionFlagsBits.ManageChannels])) str += text.flags.ManageChannels;
     if(!bot.permissions.has([PermissionFlagsBits.EmbedLinks])) str += text.flags.EmbedLinks;
     if(!bot.permissions.has([PermissionFlagsBits.ManageChannels, PermissionFlagsBits.ManageRoles, PermissionFlagsBits.EmbedLinks]))
+    if(str.length > 1)
         return Translations.displayText(text.MissingPermissions, { text: str })
 }
 
