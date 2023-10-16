@@ -1,7 +1,7 @@
-import { APISelectMenuOption, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, CacheType, ChatInputCommandInteraction, EmbedBuilder, Guild, GuildMember, PermissionFlagsBits, Role, RoleData, StringSelectMenuBuilder, TextChannel } from "discord.js";
+import { APISelectMenuOption, ActionRowBuilder, CacheType, ChatInputCommandInteraction, EmbedBuilder, Guild, GuildMember, PermissionFlagsBits, Role, RoleData, StringSelectMenuBuilder, TextChannel } from "discord.js";
 import { ChanData, CommandInterface, CommandName, RolesData, textLanguage } from "../constants/types.js";
 import { Command, CommandManager } from "../managers/commands.js";
-import { Console, StatusCache, TranslationsCache, bot, consoleErrors, db, dev } from "../../main.js";
+import { Console, TranslationsCache, bot, consoleErrors, db, dev } from "../../main.js";
 import { ServerManager } from "../managers/servers.js";
 import { Utils } from "../utils.js";
 import { Translations } from "../constants/translations.js";
@@ -10,7 +10,7 @@ import { Constants, DiscordValues } from "../constants/values.js";
 export const watcher:CommandInterface = {
     permissionLevel: 2,
 
-    neededPermissions: [PermissionFlagsBits.ManageChannels, PermissionFlagsBits.ManageRoles, PermissionFlagsBits.UseExternalEmojis],
+    neededPermissions: [PermissionFlagsBits.ManageChannels, PermissionFlagsBits.ManageRoles, PermissionFlagsBits.UseExternalEmojis, PermissionFlagsBits.EmbedLinks],
 
     cacheLockScope: "guild",
 
@@ -67,7 +67,6 @@ export function checkPerm(bot:GuildMember, language: textLanguage): string | und
     if(!bot.permissions.has([PermissionFlagsBits.ManageRoles])) str += text.flags.ManageRoles;
     if(!bot.permissions.has([PermissionFlagsBits.ManageChannels])) str += text.flags.ManageChannels;
     if(!bot.permissions.has([PermissionFlagsBits.EmbedLinks])) str += text.flags.EmbedLinks;
-    if(!bot.permissions.has([PermissionFlagsBits.ManageChannels, PermissionFlagsBits.ManageRoles, PermissionFlagsBits.EmbedLinks]))
     if(str.length > 1)
         return Translations.displayText(text.MissingPermissions, { text: str })
 }

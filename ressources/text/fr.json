@@ -45,6 +45,7 @@
             "EmbedLinks": "Intégrer des liens",
             "ManageRoles": "Gérer les rôles",
             "ManageChannels": "Gérer les salons",
+            "SendMessages": "Envoyer des messages",
             "UseExternalEmojis": "Utiliser des emojis externes"
         }
     },

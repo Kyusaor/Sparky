@@ -45,6 +45,7 @@
             "EmbedLinks": "Embed links",
             "ManageRoles": "Manage roles",
             "ManageChannels": "Manage channels",
+            "SendMessages": "Send messages",
             "UseExternalEmojis": "Use external emojis"
         }
     },
