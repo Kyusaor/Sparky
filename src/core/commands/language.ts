@@ -30,6 +30,8 @@ export const language:CommandInterface = {
 
         let user = new UserManager(intera.user.id);
         let oldLangUser = await user.getOldLanguage();
+        if(!oldLangUser)
+            oldLangUser = language;
         if(type == "user")
             language = oldLangUser;
 
