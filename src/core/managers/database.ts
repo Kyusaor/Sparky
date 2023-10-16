@@ -194,7 +194,7 @@ export class DBManager {
             },
             dumpToFile: DBManager.createAndDisplayBackupPath()
         })
-        Console.logDb(`Backup générée ${Utils.stringifyDate(new Date(), 'fr')}`)
+        Console.logDb(`Backup générée`)
     }
 
     async returnServerLanguage(guildId: string): Promise<textLanguage> {
