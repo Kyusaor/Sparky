@@ -176,7 +176,7 @@
             "text": {
                 "thanks": [
                     ["Les bêta testeurs", "Qui ont accepté de servir de cobayes pour un bot presque fini"],
-                    ["Les quelques donateurs", "Pour m'avoir aidé à soutenir le coût du bot (commande **/donate** si jamais :eyes:)"],
+                    ["Les quelques donateurs", "Pour m'avoir aidé à soutenir le coût du bot (commande **/donner** si jamais :eyes:)"],
                     ["Les traducteurs", "Pour avoir corrigé mon anglais douteux"],
                     ["Et enfin...", "Tous les utilisateurs du bot pour avoir accordé leur confiance à ce projet :heart:"]
                 ],
