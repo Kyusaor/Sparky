@@ -481,6 +481,11 @@
                 "watcherIsNotDefined": "Le signalement des évènements infernaux n'est pas paramétré sur ce serveur. Faites `/{text}` pour le définir",
                 "askIfDelete": "Voulez-vous supprimer les salons <#{text}> et <#{text2}>?\n\n:warning: **Cette action est irréversible!**",
                 "loadingText": "<a:loading:739785338347585598> Suppression en cours...",
+                "rolesNotFound": "Impossible de trouver le role {text} (serveur {text2} ({id}))",
+                "channelsNotFound": "Impossible de trouver le salon {text} (serveur {text2} ({id}))",
+                "rolesNotCancellable": "Impossible de supprimer le role {text} (serveur {text2} ({id}))",
+                "rolesAndChanDeletionReason": "Reparamétrage du panneau Veilleur",
+                "roleTooHigh": "Le rôle {text} est au dessus de mes rôles, je ne peux donc pas le supprimer. Il faudra le supprimer vous-même",
                 "success": "Les salons de signalements d'évènements infernaux ont été supprimés!\nPour les redéfinir, faites `/{text}`"
             }
         },

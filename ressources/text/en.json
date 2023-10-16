@@ -481,6 +481,11 @@
                 "watcherIsNotDefined": "The hell mention channels are not defined on this server. Type `/{text}` to define it",
                 "askIfDelete": "Do you want to delete the  <#{text}> and <#{text2}> channels?\n\n:warning: **This action is irreversible!**",
                 "loadingText": "<a:loading:739785338347585598> Deleting...",
+                "roleTooHigh": "The {text} role is beyond my abilities, I can't delete it. You will have to do it yourself",
+                "rolesNotFound": "Impossible to find the {text} role (server {text2} ({id}))",
+                "rolesNotCancellable": "Impossible to delete the {text} role (server {text2} ({id}))",
+                "rolesAndChanDeletionReason": "Reparametrization of the hell mention board",
+                "channelsNotFound": "Impossible to find the {text} channel (server {text2} ({id}))",
                 "success": "Hell mention channels were deleted !\nTo define them again, use `/{text}`"
             }
         },
