@@ -5,8 +5,8 @@
   "type": "module",
   "main": "main.js",
   "scripts": {
-    "run": "node --no-warnings dist/src/main",
-    "build": "tsc",
+    "run": "tsc && node --no-warnings dist/src/main",
+    "build": "tsc -w",
     "deploy": "node dist/src/deploy"
   },
   "repository": {
