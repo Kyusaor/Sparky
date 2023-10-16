@@ -639,7 +639,7 @@ function userCommandLogString(intera: ChatInputCommandInteraction): string {
 
 function getPageData(embed: Readonly<APIEmbed>, id: string, command: CommandName): embedPageData {
     let splitId = id.split('-');
-    let language = splitId[0] as textLanguage;
+    let language = splitId[1] as textLanguage;
     let target: -1 | 1;
 
     let current = Number(embed.footer?.text.split("/")[0].split("[")[1]);
