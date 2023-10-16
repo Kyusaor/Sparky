@@ -56,7 +56,7 @@ export abstract class CommandManager {
         if (!intera.guildId && !['link', 'help'].includes(intera.commandName))
             return intera.reply(`${TranslationsCache.fr.global.noCommandOffServer}\n\n${TranslationsCache.en.global.noCommandOffServer}`);
 
-        if (intera.guild && !await db.checkIfServerIsPresent(intera.guild))
+        if (intera.guild && !(await db.checkIfServerIsPresent(intera.guild)))
             await db.createServer(intera.guild.id, intera.guild.name, Utils.getLanguageFromLocale(intera.guild.preferredLocale));
 
         let language = (await db.fetchUserData(intera.user.id))?.preferredLanguage;
