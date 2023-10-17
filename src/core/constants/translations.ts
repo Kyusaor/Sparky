@@ -1,7 +1,7 @@
 import { Console, TranslationsCache, db } from "../../main.js";
 import { CommandName, CommandTranslation, ReplacerList, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, textLanguage } from "./types.js";
 import { readFileSync } from 'fs';
-import { DiscordValues } from "./values.js";
+import { Constants, DiscordValues } from "./values.js";
 
 
 export class Translations {
@@ -30,6 +30,8 @@ export class Translations {
     }
 
     static displayText(text: string, replacer: ReplacerList): string {
+        if(!text)
+            return TranslationsCache[Constants.defaultLanguage].global.translation404;
         if (!text.includes('{')) return text;
 
         for (let replacerElem of Object.keys(replacer)) {

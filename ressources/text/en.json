@@ -26,6 +26,7 @@
         "CommandExecutionError": ":flag_us: Commands must be done on a server!",
         "defaultCommandReply": "An error has occured during the command's execution",
         "cancelledCommand": "Impossible to execute the command :confused:",
+        "translation404": "<Translation not found>",
         "stringifyDate": "<t:{timestamp}> ({daysSince} days ago)",
         "yes": "Yes",
         "no": "No",

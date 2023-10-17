@@ -95,6 +95,8 @@ export abstract class DiscordValues {
 
 export abstract class Constants {
 
+    static readonly defaultLanguage = 'en';
+
     static readonly buildings = {
         altar: {
             ressources: {

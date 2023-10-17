@@ -26,6 +26,7 @@
         "noCommandOffServer": ":flag_fr: Les commandes sont à réaliser sur un serveur !",
         "CommandExecutionError": "Une erreur est survenue pendant l'éxecution de la commande",
         "defaultCommandReply": "Impossible d'exécuter la commande :confused:",
+        "translation404": "<Traduction introuvable>",
         "stringifyDate": "<t:{timestamp}> (il y a {daysSince} jours)",
         "yes": "Oui",
         "no": "Non",
