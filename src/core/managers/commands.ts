@@ -554,6 +554,8 @@ export class WatcherManager {
 
         for(let chan of chanlist) {
             let channel = await bot.channels.cache.get(chan.ping) as TextChannel;
+            if(!channel)
+                continue;
             let language = await db.returnServerLanguage(channel.guildId);
             try {
                 if(!channel)
