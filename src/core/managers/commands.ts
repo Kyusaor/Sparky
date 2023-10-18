@@ -1,10 +1,11 @@
-import { APIApplicationCommandOptionChoice, APIEmbed, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, Embed, EmbedBuilder, InteractionReplyOptions, InteractionType, InteractionUpdateOptions, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, RoleData, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, TextBasedChannel, TextChannel, parseEmoji, time } from "discord.js";
+import { APIApplicationCommandOptionChoice, APIEmbed, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, Embed, EmbedBuilder, GuildMemberRoleManager, InteractionReplyOptions, InteractionType, InteractionUpdateOptions, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, Role, RoleData, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, StringSelectMenuInteraction, TextBasedChannel, TextChannel, parseEmoji, time } from "discord.js";
 import { Console, StatusCache, TranslationsCache, bot, botCommands, chanList, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
 import { CommandArgs, CommandInterface, CommandName, RolesData, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, cacheLockScope, embedPageData, hellEventData, hellEventTask, perksType, textLanguage } from "../constants/types.js";
 import { readFileSync, readdirSync } from "fs";
 import { Utils } from "../utils.js";
 import { Constants, DiscordValues } from "../constants/values.js";
+import { ServerManager } from "./servers.js";
 
 export abstract class CommandManager {
 
@@ -52,16 +53,12 @@ export abstract class CommandManager {
         return Commands;
     };
 
-    static async slashCommandManager(intera: ChatInputCommandInteraction) {
+    static async slashCommandManager(intera: ChatInputCommandInteraction, language: textLanguage) {
         if (!intera.guildId && !['link', 'help'].includes(intera.commandName))
             return intera.reply(`${TranslationsCache.fr.global.noCommandOffServer}\n\n${TranslationsCache.en.global.noCommandOffServer}`);
 
         if (intera.guild && !(await db.checkIfServerIsPresent(intera.guild)))
             await db.createServer(intera.guild.id, intera.guild.name, Utils.getLanguageFromLocale(intera.guild.preferredLocale));
-
-        let language = (await db.fetchUserData(intera.user.id))?.preferredLanguage;
-        if(!language)
-            language = await Translations.getServerLanguage(intera.guildId);
 
         let command = botCommands.find(com => com.commandStructure.name == intera.commandName);
         if (!command) {
@@ -93,7 +90,7 @@ export abstract class CommandManager {
         }
     };
 
-    static async buttonInteractionManager(button: ButtonInteraction) {
+    static async buttonInteractionManager(button: ButtonInteraction, language: textLanguage) {
         if (button.message.author.id !== bot.user!.id)
             return;
         let command = this.getCommandFromButtonId(button.customId);
@@ -101,7 +98,6 @@ export abstract class CommandManager {
             return Console.info(TranslationsCache.fr.global.errors.buttonWithoutCommand + button.customId)
 
         if(command !== 'not a base button' && StatusCache.isLocked(button.guildId, button.user.id, command)) {
-            let language = await db.returnServerLanguage(button.guildId!);
             return Command.prototype.reply({content: TranslationsCache[language].global.commandIsLocked, ephemeral: true}, button);
         }
         switch (command) {
@@ -152,7 +148,7 @@ export class Command implements CommandInterface {
         this.run = args.run;
     }
 
-    async reply(data: string | MessagePayload | InteractionReplyOptions, intera: ChatInputCommandInteraction | ButtonInteraction) {
+    async reply(data: string | MessagePayload | InteractionReplyOptions, intera: ChatInputCommandInteraction | ButtonInteraction | StringSelectMenuInteraction) {
         let missingPerm = await Command.getMissingPermissions([PermissionFlagsBits.AttachFiles, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.SendMessages], intera.channel!, intera.guildId);
         if (missingPerm.length > 0)
             data = await Command.returnMissingPermissionMessage(missingPerm, intera.guildId!);
@@ -628,6 +624,46 @@ export class WatcherManager {
         button.channel?.send(message)
     }
 
+
+    static async selectMenuManager(intera: StringSelectMenuInteraction, language: textLanguage) {
+        if(intera.values.find(e => !Object.keys(Constants.hellMenu).includes(e)))
+            return;
+
+        let guild = new ServerManager(intera.guild!);
+        let roles = await guild.getHellRoles();
+        if(!roles)
+            return Command.prototype.reply(TranslationsCache[language].commands.watcher.text.noRoles, intera);
+
+        let changesList:{add:[keyof RolesData, Role][], remove:[keyof RolesData, Role][]} = { 
+            add: [],
+            remove: []
+        };
+
+        let currentRoles = intera.member?.roles as GuildMemberRoleManager;
+        for(let roleLabel of Object.keys(roles)) {
+            if(currentRoles.cache.map(r => r.id).includes(roles[roleLabel as keyof typeof roles]!.id) && !intera.values.includes(roleLabel))
+                changesList.remove.push([roleLabel as keyof RolesData,  roles[roleLabel as keyof typeof roles]!])
+            if(!currentRoles.cache.map(r => r.id).includes(roles[roleLabel as keyof typeof roles]!.id) && intera.values.includes(roleLabel))
+                changesList.add.push([roleLabel as keyof RolesData,  roles[roleLabel as keyof typeof roles]!])
+        }
+
+        let messageString:string = TranslationsCache[language].others.hellMentions.updateRolesMsg;
+
+        for(let addition of changesList.add) {
+            await currentRoles.add(addition[1]);
+            messageString += `(+) ${TranslationsCache[language].others.hellEvents[addition[0]]}\n`;
+        }
+
+        for(let remove of changesList.remove) {
+            await currentRoles.add(remove[1]);
+            messageString += `(-) ${TranslationsCache[language].others.hellEvents[remove[0]]}\n`;
+        }
+
+        if(Object.keys(roles).length < Object.keys(Constants.hellMenu).length)
+            messageString += TranslationsCache[language].others.hellMentions.missingRoles;
+
+        Command.prototype.reply({content: messageString, ephemeral: true}, intera);
+    }
 }
 
 function userCommandLogString(intera: ChatInputCommandInteraction): string {

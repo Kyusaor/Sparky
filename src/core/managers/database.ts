@@ -6,6 +6,7 @@ import mysqldump from 'mysqldump';
 import { Config } from '../../../data/config.js';
 import { ChanData, RolesData, Server, UserData, fullServer, queryArgs, textLanguage } from '../constants/types.js';
 import { Guild } from 'discord.js';
+import { Constants } from '../constants/values.js';
 
 
 export class DBManager {
@@ -36,6 +37,16 @@ export class DBManager {
 
 
         return dir + `/backup-${day}-${month}.sql`;
+    }
+
+    static getColumnList(type: "roles" | "channels"):string {
+        switch(type) {
+            case 'roles':
+                return Object.keys(Constants.hellMenu).join(",");
+
+            case 'channels':
+                return "board,ping";
+        }
     }
 
 
@@ -146,7 +157,7 @@ export class DBManager {
     }
 
     async fetchServerChannels(guildId: string): Promise<ChanData | undefined> {
-        let rows = await this.query<ChanData[]>(`SELECT * FROM hellchannels WHERE id =?`, guildId);
+        let rows = await this.query<ChanData[]>(`SELECT ${DBManager.getColumnList("channels")} FROM hellchannels WHERE id =?`, guildId);
         return rows[0];
     }
 
@@ -156,7 +167,7 @@ export class DBManager {
     }
 
     async fetchServerRoles(guildId: string): Promise<RolesData | undefined> {
-        let rows = await this.query<RolesData[]>(`SELECT * FROM hellroles WHERE id =?`, guildId);
+        let rows = await this.query<RolesData[]>(`SELECT ${DBManager.getColumnList("roles")} FROM hellroles WHERE id =?`, guildId);
         return rows[0]
     }
 

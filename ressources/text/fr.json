@@ -501,6 +501,7 @@
                 "rolesNotCancellable": "Impossible de supprimer le role {text} (serveur {text2} ({id}))",
                 "rolesAndChanDeletionReason": "Reparamétrage du panneau Veilleur",
                 "channelsNotFound": "Impossible de trouver le salon {text} (serveur {text2} ({id}))",
+                "noRoles": "Échec de récupération des rôles du serveur",
 
                 "loadingText": "<a:loading:739785338347585598> Paramétrage en cours...",
 
@@ -610,7 +611,10 @@
             "remainingTimeBeforeEnd": "Il reste **{text}** minutes",
             "remainingTimeAfterBegining": "Il commencera dans **{text}** minutes",
             "logMentions": "{id} a signalé un évènement {text} {text2} {text3}",
-            "temporaryLogMentions": "Un évènement {text} {text2} {text3} a été signalé\n"
+            "temporaryLogMentions": "Un évènement {text} {text2} {text3} a été signalé\n",
+
+            "updateRolesMsg": "Vos rôles ont été modifiés:\n",
+            "missingRoles": ":warning: Certains rôles mentions sont introuvables"
         }
     }
 }

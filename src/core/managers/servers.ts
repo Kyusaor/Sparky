@@ -1,4 +1,4 @@
-import { Guild, User } from "discord.js";
+import { Guild, Role, User } from "discord.js";
 import { Console, TranslationsCache, bot, chanList, db } from "../../main.js";
 import { ChanData, PartialServer, RolesData, Server, fullServer } from "../constants/types.js";
 import { Utils } from "../utils.js";
@@ -99,6 +99,21 @@ export class ServerManager {
             default:
                 break;
         }
+    }
+
+    async getHellRoles():Promise<Partial<Record<keyof RolesData, Role>> | void> {
+        let roledata = await db.fetchServerRoles(this.guild.id)
+        if(!roledata)
+            return Console.logDb(`Unable to fetch roles in db of ${this.guild.id} guild`);
+        let list:Partial<Record<keyof RolesData, Role>> = {};
+        for(let roleId of Object.keys(roledata)) {
+            let role = await this.guild.roles.fetch(roledata[roleId as keyof RolesData]);
+            if(role == null)
+                continue;
+            list[roleId as keyof RolesData] = role;
+        }
+        //console.log(list)
+        return list
     }
 
     async hasWatcher():Promise<boolean> {

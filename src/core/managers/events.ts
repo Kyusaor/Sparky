@@ -2,20 +2,27 @@ import { CacheType, ChannelType, Interaction, InteractionType, Message } from "d
 import { Translations } from "../constants/translations.js";
 import { Utils } from "../utils.js";
 import { DiscordValues } from "../constants/values.js";
-import { Console, StatusCache, TranslationsCache, bot, chanList } from "../../main.js";
-import { CommandManager } from "./commands.js";
+import { Console, StatusCache, TranslationsCache, bot, chanList, db } from "../../main.js";
+import { CommandManager, WatcherManager } from "./commands.js";
+import { language } from "../commands/language.js";
 
 export abstract class EventManager {
 
-    static interactionHandler(intera: Interaction<CacheType>): void {
+    static async interactionHandler(intera: Interaction<CacheType>): Promise<void> {
+        let language = (await db.fetchUserData(intera.user.id))?.preferredLanguage;
+        if(!language)
+            language = await Translations.getServerLanguage(intera.guildId);
         if(intera.isChatInputCommand())
-            CommandManager.slashCommandManager(intera);
+            CommandManager.slashCommandManager(intera, language);
         if(intera.isButton()) {
-            CommandManager.buttonInteractionManager(intera)
+            CommandManager.buttonInteractionManager(intera, language)
                 .catch(e=> {
                     Console.error(e);
                     StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, "setglobalping")
                 })
+        }
+        if(intera.isStringSelectMenu()) {
+            WatcherManager.selectMenuManager(intera, language);
         }
     }
 
