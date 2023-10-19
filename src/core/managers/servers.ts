@@ -142,7 +142,6 @@ export class ServerManager {
             }
         }
 
-        Console.info(`${text[type].symbol} ${this.guild.name} (${this.guild.id})`);
         chanList.LOGS_SERVERS?.send(`${text[type].emote} ${this.guild.name} (${this.guild.id})\nMembres: ${this.guild.memberCount}\nOwner: ${owner.username} (${owner.id})`);
     }
 
