@@ -656,7 +656,7 @@ export class WatcherManager {
         }
 
         for(let remove of changesList.remove) {
-            await currentRoles.add(remove[1]);
+            await currentRoles.remove(remove[1]);
             messageString += `(-) ${TranslationsCache[language].others.hellEvents[remove[0]]}\n`;
         }
 
