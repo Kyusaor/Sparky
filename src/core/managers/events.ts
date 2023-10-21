@@ -22,7 +22,12 @@ export abstract class EventManager {
                 })
         }
         if(intera.isStringSelectMenu()) {
+            try {
             WatcherManager.selectMenuManager(intera, language);
+            }
+            catch (e) {
+                Console.error(e)
+            }
         }
     }
 
