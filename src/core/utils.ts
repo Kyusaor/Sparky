@@ -202,6 +202,7 @@ export class ConsoleLogger {
                     process.exit(1);
             })
             .catch(() => {
+                console.error()
                 if (crash)
                     process.exit(1);
             })

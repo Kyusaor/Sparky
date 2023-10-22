@@ -4,26 +4,25 @@ import { Utils } from "../utils.js";
 import { DiscordValues } from "../constants/values.js";
 import { Console, StatusCache, TranslationsCache, bot, chanList, db } from "../../main.js";
 import { CommandManager, WatcherManager } from "./commands.js";
-import { language } from "../commands/language.js";
 
 export abstract class EventManager {
 
     static async interactionHandler(intera: Interaction<CacheType>): Promise<void> {
         let language = (await db.fetchUserData(intera.user.id))?.preferredLanguage;
-        if(!language)
+        if (!language)
             language = await Translations.getServerLanguage(intera.guildId);
-        if(intera.isChatInputCommand())
+        if (intera.isChatInputCommand())
             CommandManager.slashCommandManager(intera, language);
-        if(intera.isButton()) {
+        if (intera.isButton()) {
             CommandManager.buttonInteractionManager(intera, language)
-                .catch(e=> {
+                .catch(e => {
                     Console.error(e);
                     StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, "setglobalping")
                 })
         }
-        if(intera.isStringSelectMenu()) {
+        if (intera.isStringSelectMenu()) {
             try {
-            WatcherManager.selectMenuManager(intera, language);
+                WatcherManager.selectMenuManager(intera, language);
             }
             catch (e) {
                 Console.error(e)
@@ -49,6 +48,7 @@ export abstract class EventManager {
             .setDescription(TranslationsCache[language].helpMention.description)
 
         msg.channel.send({ embeds: [embed] })
+            .catch(e => Console.error(e))
     };
 
 
@@ -64,15 +64,21 @@ export abstract class EventManager {
             msgFiles.push(e.url)
         );
 
-        chanDM.send(msg.author.id);
-        chanDM.send(`__**${msg.author.tag} a envoyé:**__`);
+        try {
+            chanDM.send(msg.author.id);
+            chanDM.send(`__**${msg.author.tag} a envoyé:**__`);
 
-        if (msg.stickers.size == 1)
-            chanDM.send(`sticker: ${msg.stickers.first()?.name}`)
-        else
-            chanDM.send({ content: msg.content, files: msgFiles });
+            if (msg.stickers.size == 1)
+                chanDM.send(`sticker: ${msg.stickers.first()?.name}`)
+            else
+                chanDM.send({ content: msg.content, files: msgFiles });
 
-        if(msg.content.includes('discord.gg/'))
-            msg.channel.send(`${TranslationsCache.fr.global.noLinkInDm}\n\n${TranslationsCache.en.global.noLinkInDm}\n\n${Utils.displayBotLink()}`)
+            if (msg.content.includes('discord.gg/'))
+                msg.channel.send(`${TranslationsCache.fr.global.noLinkInDm}\n\n${TranslationsCache.en.global.noLinkInDm}\n\n${Utils.displayBotLink()}`)
+
+        }
+        catch (err) {
+            Console.error(err);
+        }
     };
 }
