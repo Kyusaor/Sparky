@@ -120,12 +120,12 @@ export class ServerManager {
         return await db.checkIfWatcherEnabled(this.guild.id);
     }
 
-    async isActive(): Promise<boolean> {
+    async isActive() {
         let isActive = await db.checkIfServerIsActive(this.guild.id);
         return isActive;
     }
 
-    async isPresentInDatabase(): Promise<boolean> {
+    async isPresentInDatabase(): Promise<boolean | undefined> {
         let isPresent = await db.checkIfServerIsPresent(this.guild);
         return isPresent;
     }

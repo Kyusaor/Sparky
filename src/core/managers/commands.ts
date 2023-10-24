@@ -547,6 +547,8 @@ export class WatcherManager {
 
     static async sendMentions(event: hellEventData) {
         let chanlist = await db.fetchServersHellChannels(this.displayRoleToMention(event));
+        if(!chanlist)
+            throw TranslationsCache[Constants.defaultLanguage].global.errors.DBerror;
         let message = this.buildHellMentionMessage(event);
 
         for(let chan of chanlist) {

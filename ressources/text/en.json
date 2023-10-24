@@ -18,7 +18,8 @@
             "guildDataNotFound": "Unable to get server's data",
             "buttonWithoutCommand": "This customId doesn't contain any command: ",
             "unableToReply": "Impossible to respond to this interaction",
-            "noChannel": "No channel"
+            "noChannel": "No channel",
+            "DBerror": "Database error"
         },
         "noLinkInDm": "Command aborted",
         "commandIsLocked": "This command is already being executed",

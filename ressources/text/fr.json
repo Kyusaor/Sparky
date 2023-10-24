@@ -18,7 +18,8 @@
             "guildDataNotFound": "Impossible de récupérer les données de serveur",
             "buttonWithoutCommand": "Ce customId ne contient pas de commande: ",
             "unableToReply": "Impossible de répondre à l'interaction",
-            "noChannel": "Aucun salon"
+            "noChannel": "Aucun salon",
+            "DBerror": "Erreur base de données"
         },
         "cancelledCommand": "Commande annulée",
         "commandIsLocked": "Cette commande est déjà en cours d'exécution",
