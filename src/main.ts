@@ -27,6 +27,7 @@ let chanList: fetchedChannelsAtBoot;
 let dev: User;
 let db: DBManager;
 let StatusCache: StatusCacheClass;
+let bootLocked = true;
 
 
 //Executed when the bot starts
@@ -42,6 +43,7 @@ bot.on('ready', async () => {
         botCommands = await CommandManager.buildBotCommands();
         StatusCache = new StatusCacheClass(botCommands);
         chanList.LOGS_CONNEXIONS?.send(VERSION);
+        bootLocked = false;
         await test();
     }
     catch (err) {
@@ -52,6 +54,8 @@ bot.on('ready', async () => {
 
 //Discord events listeners
 bot.on('guildCreate', guild => {
+    if(bootLocked)
+        return console.log("Erreur démarrage: guildCreate");
     try {
         let server = new ServerManager(guild);
         server.checklistNewServers();
@@ -62,6 +66,8 @@ bot.on('guildCreate', guild => {
 });
 
 bot.on('guildDelete', guild => {
+    if(bootLocked)
+        return console.log("Erreur démarrage: guildDelete");
     try {
         let server = new ServerManager(guild);
         server.checkListRemoveServer();
@@ -72,6 +78,8 @@ bot.on('guildDelete', guild => {
 })
 
 bot.on('messageCreate', msg => {
+    if(bootLocked)
+        return console.log("Erreur démarrage: message");
     try {
         EventManager.MessageCreateHandler(msg);
     }
@@ -81,6 +89,8 @@ bot.on('messageCreate', msg => {
 })
 
 bot.on('interactionCreate', intera => {
+    if(bootLocked)
+        return console.log("Erreur démarrage: intera");
     try {
         EventManager.interactionHandler(intera);
     }
