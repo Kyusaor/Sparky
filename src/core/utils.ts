@@ -190,7 +190,7 @@ export class ConsoleLogger {
         console.log(`[DATA] ${input}`);
         this.logger.log(`[DATA] ${input}`);
 
-        chanList.LOGS_DB?.send(input.stack || input).catch(e => e)
+        chanList.LOGS_DB?.send(input.stack || input).catch(e => console.error())
     };
 
     error(input: any, crash?: boolean) {
@@ -211,7 +211,7 @@ export class ConsoleLogger {
     info(input: any) {
         console.log(`[INFO] ${input}`);
         this.logger.log(`[INFO] ${input}`);
-        chanList?.LOGS_ERRORS?.send(`[INFO] ${input}`)
+        chanList?.LOGS_ERRORS?.send(`[INFO] ${input}`).catch(e => console.error())
     };
 
     log(input: any) {
