@@ -7,23 +7,23 @@ import { DiscordValues } from "../constants/values.js";
 export class ServerManager {
     guild: Guild;
 
-    constructor (providedGuild: Guild) {
+    constructor(providedGuild: Guild) {
         this.guild = providedGuild;
     }
 
     static async buildBaseServerObject(serverId: string): Promise<Server> {
         let guild = await bot.guilds.cache.get(serverId);
-        let data:Server = { id: serverId, name: guild?.name || "Serveur introuvable", active: 1, hellEvent: '0', language: Utils.getLanguageFromLocale(guild?.preferredLocale!) || "fr"};
+        let data: Server = { id: serverId, name: guild?.name || "Serveur introuvable", active: 1, hellEvent: '0', language: Utils.getLanguageFromLocale(guild?.preferredLocale!) || "fr" };
         return data
     }
 
-    async checklistNewServers():Promise<void> {
+    async checklistNewServers(): Promise<void> {
         let dbPresence = await this.isPresentInDatabase();
-        if(!dbPresence) {
+        if (!dbPresence) {
             await db.createServer(this.guild.id, this.guild.name, Utils.getLanguageFromLocale(this.guild.preferredLocale));
         }
-        else if(!await this.isActive()){
-            this.editServerData({active: 1});
+        else if (!await this.isActive()) {
+            this.editServerData({ active: 1 });
         }
         let owner = await bot.users.fetch(this.guild.ownerId);
 
@@ -31,14 +31,14 @@ export class ServerManager {
         this.logServerUpdate("add", owner);
     }
 
-    async checkListRemoveServer():Promise<void> {
-        this.editServerData({active: 0, hellEvent: '0'});
+    async checkListRemoveServer(): Promise<void> {
+        this.editServerData({ active: 0, hellEvent: '0' });
         let owner = await bot.users.fetch(this.guild.ownerId);
         this.logServerUpdate("remove", owner);
     }
 
     async registerHellData(channels: ChanData, roles: RolesData, update: boolean): Promise<void> {
-        if(update) {
+        if (update) {
             await db.updateServerRoles(this.guild.id, this.guild.name, roles);
             await db.updateServerChannels(this.guild.id, this.guild.name, channels);
         } else {
@@ -46,29 +46,29 @@ export class ServerManager {
             await db.createServerChannels(this.guild.id, this.guild.name, channels);
         }
 
-        await this.editServerData({ hellEvent: '1'})
+        await this.editServerData({ hellEvent: '1' })
     }
 
     async deleteHellData(): Promise<void> {
         await db.deleteServerChannels(this.guild.id, this.guild.name);
         await db.deleteServerRoles(this.guild.id, this.guild.name);
-        await this.editServerData({ hellEvent: '0'})
+        await this.editServerData({ hellEvent: '0' })
     }
 
-    displayInConsole():string {
+    displayInConsole(): string {
         return `${this.guild.name} (${this.guild.id})`
     }
 
     async editServerData(edits: PartialServer): Promise<void> {
         let oldData = await db.fetchServerData(this.guild.id);
-        if(!oldData) {
+        if (!oldData) {
             oldData = await ServerManager.buildBaseServerObject(this.guild.id);
             let guild = await bot.guilds.fetch(this.guild.id);
             await db.createServer(guild.id, guild.name, 'en');
         }
-        let active:0 | 1;
+        let active: 0 | 1;
         edits.active === 0 ? active = 0 : active = 1;
-        let data:Server = {
+        let data: Server = {
             id: edits.id || oldData.id,
             name: edits.name || oldData.name,
             active: active,
@@ -77,13 +77,13 @@ export class ServerManager {
         }
         await db.editServerDatabase(data);
 
-        for(let dataName of Object.keys(edits)) {
+        for (let dataName of Object.keys(edits)) {
             Console.log(`${dataName}: ${oldData[dataName as keyof Server]} => ${edits[dataName as keyof Server]}`)
         }
     }
 
-    async getData(type: "full" | "roles" | "base" | "channels"):Promise<fullServer | Server | RolesData | ChanData | undefined> {
-        switch(type) {
+    async getData(type: "full" | "roles" | "base" | "channels"): Promise<fullServer | Server | RolesData | ChanData | undefined> {
+        switch (type) {
             case 'base':
                 return await db.fetchServerData(this.guild.id);
 
@@ -95,28 +95,20 @@ export class ServerManager {
 
             case 'channels':
                 return await db.fetchServerChannels(this.guild.id);
-            
+
             default:
                 break;
         }
     }
 
-    async getHellRoles():Promise<Partial<Record<keyof RolesData, Role>> | void> {
+    async getHellRoles(): Promise<RolesData | undefined> {
         let roledata = await db.fetchServerRoles(this.guild.id)
-        if(!roledata)
-            return Console.logDb(`Unable to fetch roles in db of ${this.guild.id} guild`);
-        let list:Partial<Record<keyof RolesData, Role>> = {};
-        for(let roleId of Object.keys(roledata)) {
-            let role = await this.guild.roles.fetch(roledata[roleId as keyof RolesData]);
-            if(role == null)
-                continue;
-            list[roleId as keyof RolesData] = role;
-        }
-        //console.log(list)
-        return list
+        if (!roledata)
+            Console.logDb(`Unable to fetch roles in db of ${this.guild.id} guild`);
+        return roledata
     }
 
-    async hasWatcher():Promise<boolean> {
+    async hasWatcher(): Promise<boolean> {
         return await db.checkIfWatcherEnabled(this.guild.id);
     }
 
@@ -130,7 +122,7 @@ export class ServerManager {
         return isPresent;
     }
 
-    logServerUpdate(type: "add" | "remove", owner: User):void {
+    logServerUpdate(type: "add" | "remove", owner: User): void {
         let text = {
             add: {
                 symbol: "(+)",
@@ -150,14 +142,14 @@ export class ServerManager {
             .setTitle(`:flag_fr: Bonjour ${owner.username} !`)
             .setDescription(TranslationsCache.fr.global.welcomeMsg)
             .addFields([
-                {name: `:flag_gb: Hello ${owner.username} !`, value: TranslationsCache.en.global.welcomeMsg}
+                { name: `:flag_gb: Hello ${owner.username} !`, value: TranslationsCache.en.global.welcomeMsg }
             ])
             .setThumbnail(DiscordValues.botIcon.base)
 
-        
-        owner.send({embeds: [embed]})
-        .catch(e => {
-            Console.error(`Impossible d'envoyer un mp de bienvenue à l'utilisateur ${owner.tag} (${owner.id})`)
-        })
+
+        owner.send({ embeds: [embed] })
+            .catch(e => {
+                Console.error(`Impossible d'envoyer un mp de bienvenue à l'utilisateur ${owner.tag} (${owner.id})`)
+            })
     }
 }

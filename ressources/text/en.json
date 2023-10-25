@@ -19,7 +19,8 @@
             "buttonWithoutCommand": "This customId doesn't contain any command: ",
             "unableToReply": "Impossible to respond to this interaction",
             "noChannel": "No channel",
-            "DBerror": "Database error"
+            "DBerror": "Database error",
+            "RoleNotEditable": "Impossible to edit user's roles"
         },
         "noLinkInDm": "Command aborted",
         "commandIsLocked": "This command is already being executed",

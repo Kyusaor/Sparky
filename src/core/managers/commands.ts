@@ -1,4 +1,4 @@
-import { APIApplicationCommandOptionChoice, APIEmbed, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, Embed, EmbedBuilder, GuildMemberRoleManager, InteractionReplyOptions, InteractionType, InteractionUpdateOptions, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, Role, RoleData, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, StringSelectMenuInteraction, TextBasedChannel, TextChannel, parseEmoji, time } from "discord.js";
+import { APIApplicationCommandOptionChoice, APIEmbed, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, Embed, EmbedBuilder, GuildMember, GuildMemberRoleManager, InteractionReplyOptions, InteractionType, InteractionUpdateOptions, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, Role, RoleData, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, StringSelectMenuInteraction, TextBasedChannel, TextChannel, parseEmoji, time } from "discord.js";
 import { Console, StatusCache, TranslationsCache, bot, botCommands, chanList, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
 import { CommandArgs, CommandInterface, CommandName, RolesData, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, cacheLockScope, embedPageData, hellEventData, hellEventTask, perksType, textLanguage } from "../constants/types.js";
@@ -85,7 +85,7 @@ export abstract class CommandManager {
         }
         catch (err) {
             Command.prototype.reply({ content: TranslationsCache[language].global.CommandExecutionError, components: [] }, intera)
-                .catch(e => {intera.channel?.send(TranslationsCache[language].global.CommandExecutionError).catch(e => e)});
+                .catch(e => { intera.channel?.send(TranslationsCache[language].global.CommandExecutionError).catch(e => e) });
             StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName)
             Console.error(err);
         }
@@ -98,8 +98,8 @@ export abstract class CommandManager {
         if (!command)
             return Console.info(TranslationsCache.fr.global.errors.buttonWithoutCommand + button.customId)
 
-        if(command !== 'not a base button' && StatusCache.isLocked(button.guildId, button.user.id, command)) {
-            return Command.prototype.reply({content: TranslationsCache[language].global.commandIsLocked, ephemeral: true}, button);
+        if (command !== 'not a base button' && StatusCache.isLocked(button.guildId, button.user.id, command)) {
+            return Command.prototype.reply({ content: TranslationsCache[language].global.commandIsLocked, ephemeral: true }, button);
         }
         switch (command) {
             case "serverlist":
@@ -321,7 +321,7 @@ export class Command implements CommandInterface {
         return buttons
     }
 
-    static async getConfirmationMessage(intera: ChatInputCommandInteraction | ButtonInteraction, commandname: CommandName, language: textLanguage, options?: {text?: string, embeds?: EmbedBuilder[], time?: number, ephemeral?: boolean, deleteMsg?: boolean} ): Promise<"yes" | "no" | "error"> {
+    static async getConfirmationMessage(intera: ChatInputCommandInteraction | ButtonInteraction, commandname: CommandName, language: textLanguage, options?: { text?: string, embeds?: EmbedBuilder[], time?: number, ephemeral?: boolean, deleteMsg?: boolean }): Promise<"yes" | "no" | "error"> {
         let payload: MessagePayload | InteractionReplyOptions = { content: options?.text, components: [Command.generateYesNoButtons(commandname, language)], ephemeral: options?.ephemeral };
         if (options?.embeds)
             payload.embeds = options?.embeds
@@ -335,11 +335,11 @@ export class Command implements CommandInterface {
             intera.channel?.lastMessage?.delete().catch(e => Console.error(e));
             return "error"
         }
-        
-        if(options?.deleteMsg) {
-            if(intera.isChatInputCommand())
+
+        if (options?.deleteMsg) {
+            if (intera.isChatInputCommand())
                 intera.deleteReply().catch(e => Console.error(e));
-            if(intera.isButton()) {
+            if (intera.isButton()) {
                 confirmationResponse?.message.delete().catch(e => Console.error(e));
             }
         }
@@ -428,7 +428,7 @@ export class StatusCacheClass {
 
     lock(guild: string | null, user: string, command: CommandName): void {
         const target = this.getTarget(guild || user, user, command);
-        if(target !== "nope")
+        if (target !== "nope")
             this.locked[command].push(target);
     }
 
@@ -461,8 +461,8 @@ export class WatcherManager {
             return Command.prototype.reply({ content: TranslationsCache[language].global.cancelledCommand, ephemeral: true, components: [] }, button);
 
         let eventData = this.getEventData(event, button.customId);
-        let confirmation = await Command.getConfirmationMessage(button, "setglobalping", language, {text: this.getConfirmationMessage(language, eventData), deleteMsg: true});
-        
+        let confirmation = await Command.getConfirmationMessage(button, "setglobalping", language, { text: this.getConfirmationMessage(language, eventData), deleteMsg: true });
+
         if (confirmation !== 'yes') {
             return Command.prototype.reply({ content: TranslationsCache[language].global.cancelledCommand, ephemeral: true, components: [] }, button);
         }
@@ -529,7 +529,7 @@ export class WatcherManager {
         return confirmationResponse.customId as keyof typeof TranslationsCache.fr.others.hellMentions
     }
 
-    static getEventData(event: keyof typeof TranslationsCache.fr.others.hellMentions, customId: string):hellEventData {
+    static getEventData(event: keyof typeof TranslationsCache.fr.others.hellMentions, customId: string): hellEventData {
         return {
             hellOrChallenge: event.includes("challenge") ? "challenge" : "hell",
             type: event.split('-'),
@@ -549,52 +549,52 @@ export class WatcherManager {
 
     static async sendMentions(event: hellEventData) {
         let chanlist = await db.fetchServersHellChannels(this.displayRoleToMention(event));
-        if(!chanlist)
+        if (!chanlist)
             throw TranslationsCache[Constants.defaultLanguage].global.errors.DBerror;
         let message = this.buildHellMentionMessage(event);
 
-        for(let chan of chanlist) {
+        for (let chan of chanlist) {
             let channel = await bot.channels.cache.get(chan.ping) as TextChannel;
-            if(!channel)
+            if (!channel)
                 continue;
             let language = await db.returnServerLanguage(channel.guildId);
             try {
-                if(!channel)
+                if (!channel)
                     throw TranslationsCache.fr.global.errors.noChannel;
 
                 channel.send(Translations.displayText(message[language], { id: chan.role }))
-            } catch(e) {
+            } catch (e) {
                 Console.error(e)
             }
         }
     }
 
-    static buildHellMentionMessage(event: hellEventData):Record<textLanguage, string> {
-        let textTranslations:Partial<Record<textLanguage, string>> = {};
+    static buildHellMentionMessage(event: hellEventData): Record<textLanguage, string> {
+        let textTranslations: Partial<Record<textLanguage, string>> = {};
         let minutes = new Date().getMinutes();
         Object.keys(TranslationsCache).forEach(lang => {
             let text = TranslationsCache[lang as textLanguage].others.hellMentions;
 
-            let base = Translations.displayText(text.baseMentionMsg, {text: text[event.hellOrChallenge], text2: text[event.reward], text3: event.type.map(e => text[e]).join(", ")});
+            let base = Translations.displayText(text.baseMentionMsg, { text: text[event.hellOrChallenge], text2: text[event.reward], text3: event.type.map(e => text[e]).join(", ") });
 
             let timer = minutes >= 55 ?
-                Translations.displayText(text.remainingTimeAfterBegining, {text: Math.floor(Math.abs(minutes - 60)).toString()}) :
-                Translations.displayText(text.remainingTimeBeforeEnd, {text: Math.floor(55 - minutes).toString()});
+                Translations.displayText(text.remainingTimeAfterBegining, { text: Math.floor(Math.abs(minutes - 60)).toString() }) :
+                Translations.displayText(text.remainingTimeBeforeEnd, { text: Math.floor(55 - minutes).toString() });
             textTranslations[lang as textLanguage] = base + timer
         })
 
-        return textTranslations as Record<textLanguage, string>; 
+        return textTranslations as Record<textLanguage, string>;
     }
 
-    static displayRoleToMention(event: hellEventData):keyof RolesData {
-        let role:keyof RolesData;
-        if(event.type[0] == 'research' && event.type.length == 1) {
+    static displayRoleToMention(event: hellEventData): keyof RolesData {
+        let role: keyof RolesData;
+        if (event.type[0] == 'research' && event.type.length == 1) {
             event.reward == 'dragon' ?
                 role = "dragonResearch" :
                 role = "watcherResearch";
             return role;
         }
-        if(event.hellOrChallenge == 'challenge') {
+        if (event.hellOrChallenge == 'challenge') {
             event.type[0] == 'research' ?
                 role = 'challengeResearch' :
                 role = 'challengeTroops'
@@ -603,16 +603,16 @@ export class WatcherManager {
         return event.reward;
     }
 
-    static async logMention(data: hellEventData, button:ButtonInteraction) {
+    static async logMention(data: hellEventData, button: ButtonInteraction) {
         let text = TranslationsCache.fr.others.hellMentions;
-        chanList.LOGS_HELL_EVENTS!.send(Translations.displayText(text.logMentions, {id: button.user.username, text: text[data.hellOrChallenge], text2: text[data.reward], text3: data.type.map(e => text[e]).join(", ")}));
-        
+        chanList.LOGS_HELL_EVENTS!.send(Translations.displayText(text.logMentions, { id: button.user.username, text: text[data.hellOrChallenge], text2: text[data.reward], text3: data.type.map(e => text[e]).join(", ") }));
+
         //Temporary log in board channel
-        let message:string = "";
-        for(let lang of Object.keys(TranslationsCache)) {
+        let message: string = "";
+        for (let lang of Object.keys(TranslationsCache)) {
             text = TranslationsCache[lang as keyof typeof TranslationsCache].others.hellMentions;
             let typeString = data.type.map(e => {
-                if(Object.keys(DiscordValues.emotes).includes(e)) {
+                if (Object.keys(DiscordValues.emotes).includes(e)) {
                     let emoteData = DiscordValues.emotes[e as keyof typeof DiscordValues.emotes];
                     return `${text[e]} ${Utils.displayEmoteInChat(emoteData)}`
                 }
@@ -620,8 +620,8 @@ export class WatcherManager {
             }).join(", ")
 
             let msg = Translations.displayText(text.temporaryLogMentions, {
-                text: text[data.hellOrChallenge], 
-                text2: `${text[data.reward]} ${Utils.displayEmoteInChat(DiscordValues.emotes[data.reward])}`, 
+                text: text[data.hellOrChallenge],
+                text2: `${text[data.reward]} ${Utils.displayEmoteInChat(DiscordValues.emotes[data.reward])}`,
                 text3: typeString
             })
             message += msg
@@ -631,43 +631,54 @@ export class WatcherManager {
 
 
     static async selectMenuManager(intera: StringSelectMenuInteraction, language: textLanguage) {
-        if(intera.values.find(e => !Object.keys(Constants.hellMenu).includes(e)))
+        if (intera.values.find(e => !Object.keys(Constants.hellMenu).includes(e)))
             return;
 
         let guild = new ServerManager(intera.guild!);
         let roles = await guild.getHellRoles();
-        if(!roles)
+        if (!roles)
             return Command.prototype.reply(TranslationsCache[language].commands.watcher.text.noRoles, intera);
 
-        let changesList:{add:[keyof RolesData, Role][], remove:[keyof RolesData, Role][]} = { 
+        let changesList: { add: [keyof RolesData, string][], remove: [keyof RolesData, string][] } = {
             add: [],
             remove: []
         };
 
         let currentRoles = intera.member?.roles as GuildMemberRoleManager;
-        for(let roleLabel of Object.keys(roles)) {
-            if(currentRoles.cache.map(r => r.id).includes(roles[roleLabel as keyof typeof roles]!.id) && !intera.values.includes(roleLabel))
-                changesList.remove.push([roleLabel as keyof RolesData,  roles[roleLabel as keyof typeof roles]!])
-            if(!currentRoles.cache.map(r => r.id).includes(roles[roleLabel as keyof typeof roles]!.id) && intera.values.includes(roleLabel))
-                changesList.add.push([roleLabel as keyof RolesData,  roles[roleLabel as keyof typeof roles]!])
+        for (let roleLabel of Object.keys(roles)) {
+            if (currentRoles.cache.map(r => r.id).includes(roles[roleLabel as keyof typeof roles]) && !intera.values.includes(roleLabel))
+                changesList.remove.push([roleLabel as keyof RolesData, roles[roleLabel as keyof typeof roles]])
+            if (!currentRoles.cache.map(r => r.id).includes(roles[roleLabel as keyof typeof roles]) && intera.values.includes(roleLabel))
+                changesList.add.push([roleLabel as keyof RolesData, roles[roleLabel as keyof typeof roles]])
         }
 
-        let messageString:string = TranslationsCache[language].others.hellMentions.updateRolesMsg;
+        let messageString: string = TranslationsCache[language].others.hellMentions.updateRolesMsg;
 
-        for(let addition of changesList.add) {
-            await currentRoles.add(addition[1]);
-            messageString += `(+) ${TranslationsCache[language].others.hellEvents[addition[0]]}\n`;
+        for (let obj of changesList.add) {
+            messageString += `(+) ${TranslationsCache[language].others.hellEvents[obj[0]]}\n`;
         }
 
-        for(let remove of changesList.remove) {
-            await currentRoles.remove(remove[1]);
-            messageString += `(-) ${TranslationsCache[language].others.hellEvents[remove[0]]}\n`;
+        for (let obj of changesList.remove) {
+            messageString += `(-) ${TranslationsCache[language].others.hellEvents[obj[0]]}\n`;
         }
 
-        if(Object.keys(roles).length < Object.keys(Constants.hellMenu).length)
-            messageString += TranslationsCache[language].others.hellMentions.missingRoles;
+        await Command.prototype.reply({ content: messageString, ephemeral: true }, intera);
 
-        Command.prototype.reply({content: messageString, ephemeral: true}, intera);
+        await Promise.allSettled(changesList.add.map(async (obj) => {
+            await currentRoles.add(obj[1])
+                .catch(e => {
+                    Console.log(TranslationsCache[Constants.defaultLanguage].global.errors.RoleNotEditable);
+                })
+        }))
+
+        await Promise.allSettled(changesList.remove.map(async (obj) => {
+            messageString += `(-) ${TranslationsCache[language].others.hellEvents[obj[0]]}\n`;
+            await currentRoles.remove(obj[1])
+                .catch(e => {
+                    Console.log(TranslationsCache[Constants.defaultLanguage].global.errors.RoleNotEditable);
+                })
+        }))
+
     }
 }
 
