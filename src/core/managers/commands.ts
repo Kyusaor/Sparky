@@ -427,7 +427,9 @@ export class StatusCacheClass {
     }
 
     lock(guild: string | null, user: string, command: CommandName): void {
-        this.locked[command].push(this.getTarget(guild || user, user, command))
+        const target = this.getTarget(guild || user, user, command);
+        if(target !== "nope")
+            this.locked[command].push(target);
     }
 
     unlock(guild: string | null, user: string, command: CommandName): void {
