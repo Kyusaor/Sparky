@@ -188,6 +188,13 @@
                 "embedTitle": "Special thanks"
             }
         },
+        "cycle": {
+            "name": "cycle",
+            "description": "Send the cycle of some ingame events",
+            "text": {
+                
+            }
+        },
         "data": {
             "name": "data",
             "description": "Send the bot database",

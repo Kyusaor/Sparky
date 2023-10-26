@@ -188,6 +188,13 @@
                 "embedTitle": "Remerciements"
             }
         },
+        "cycle": {
+            "name": "cycle",
+            "description": "Envoies les dates d'un évènement donné",
+            "text": {
+                
+            }
+        },
         "data": {
             "name": "data",
             "description": "Envoie la base de données du bot",
