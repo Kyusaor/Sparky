@@ -12,7 +12,8 @@ export abstract class EventManager {
         if (!language)
             language = await Translations.getServerLanguage(intera.guildId);
         if (intera.isChatInputCommand())
-            CommandManager.slashCommandManager(intera, language);
+            CommandManager.slashCommandManager(intera, language)
+                .catch(e => Console.error(e));
         if (intera.isButton()) {
             CommandManager.buttonInteractionManager(intera, language)
                 .catch(e => {
