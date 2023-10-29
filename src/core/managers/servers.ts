@@ -133,8 +133,11 @@ export class ServerManager {
                 emote: "📤",
             }
         }
-
-        chanList.LOGS_SERVERS?.send(`${text[type].emote} ${this.guild.name} (${this.guild.id})\nMembres: ${this.guild.memberCount}\nOwner: ${owner.username} (${owner.id})`);
+        try {
+            chanList.LOGS_SERVERS?.send(`${text[type].emote} ${this.guild.name} (${this.guild.id})\nMembres: ${this.guild.memberCount}\nOwner: ${owner.username} (${owner.id})`);
+        } catch (e) {
+            Console.error(e)
+        }
     }
 
     async sendDmToServerOwner(owner: User): Promise<void> {

@@ -561,10 +561,11 @@ export class WatcherManager {
             try {
                 if (!channel)
                     throw TranslationsCache.fr.global.errors.noChannel;
-
-                channel.send(Translations.displayText(message[language], { id: chan.role }))
+                if(channel.permissionsFor(channel.guild.members.me!).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]))
+                    await channel.send(Translations.displayText(message[language], { id: chan.role }));
             } catch (e) {
-                Console.error(e)
+                Console.error(e);
+                continue;
             }
         }
     }

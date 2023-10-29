@@ -203,7 +203,7 @@ export class ConsoleLogger {
 
         try {
             chanList?.LOGS_ERRORS?.send(input.stack || input)
-                .then(() => {
+                .then(e => {
                     if (crash)
                         process.exit(1)
                 });
