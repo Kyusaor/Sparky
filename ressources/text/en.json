@@ -263,7 +263,7 @@
         },
         "language" : {
             "name": "language",
-            "description": "Change the bot language",
+            "description": "Change the bot language for you (or the server, if you have admin permission)",
             "options": {
                 "language": {
                     "name": "langue",
