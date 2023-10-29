@@ -81,7 +81,7 @@ export abstract class CommandManager {
             await command.run(args);
             StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName)
             Console.log(userCommandLogString(intera));
-            chanList.LOGS_USERS?.send(`__**New command**__\nUser: \`${intera.user.username}\`\nId: \`${intera.user.id}\`\nCommand: \`${intera.commandName}\`\nServer: \`${intera.guild?.name}\`\nID: \`${intera.guildId}\``).catch(e => e)
+            chanList.LOGS_USERS?.send(`__**New command**__\nUser: \`${intera.user.username}\`\nId: \`${intera.user.id}\`\nCommand: \`${intera.commandName}\`\nServer: \`${intera.guild?.name}\`\nID: \`${intera.guildId}\``)
         }
         catch (err) {
             Command.prototype.reply({ content: TranslationsCache[language].global.CommandExecutionError, components: [] }, intera)
@@ -665,18 +665,20 @@ export class WatcherManager {
         await Command.prototype.reply({ content: messageString, ephemeral: true }, intera);
 
         await Promise.allSettled(changesList.add.map(async (obj) => {
-            await currentRoles.add(obj[1])
-                .catch(e => {
-                    Console.log(TranslationsCache[Constants.defaultLanguage].global.errors.RoleNotEditable);
-                })
+            try {
+                await currentRoles.add(obj[1])
+            } catch {
+                Console.log(TranslationsCache[Constants.defaultLanguage].global.errors.RoleNotEditable);
+            }
         }))
 
         await Promise.allSettled(changesList.remove.map(async (obj) => {
             messageString += `(-) ${TranslationsCache[language].others.hellEvents[obj[0]]}\n`;
-            await currentRoles.remove(obj[1])
-                .catch(e => {
-                    Console.log(TranslationsCache[Constants.defaultLanguage].global.errors.RoleNotEditable);
-                })
+            try {
+                await currentRoles.remove(obj[1])
+            } catch {
+                Console.log(TranslationsCache[Constants.defaultLanguage].global.errors.RoleNotEditable);
+            }
         }))
 
     }

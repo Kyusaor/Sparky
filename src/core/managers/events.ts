@@ -11,23 +11,21 @@ export abstract class EventManager {
         let language = (await db.fetchUserData(intera.user.id))?.preferredLanguage;
         if (!language)
             language = await Translations.getServerLanguage(intera.guildId);
-        if (intera.isChatInputCommand())
-            CommandManager.slashCommandManager(intera, language)
-                .catch(e => Console.error(e));
-        if (intera.isButton()) {
-            CommandManager.buttonInteractionManager(intera, language)
-                .catch(e => {
-                    Console.error(e);
-                    StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, "setglobalping")
-                })
-        }
-        if (intera.isStringSelectMenu()) {
-            try {
+
+        try {
+            if (intera.isChatInputCommand())
+                CommandManager.slashCommandManager(intera, language);
+
+            if (intera.isButton())
+                CommandManager.buttonInteractionManager(intera, language);
+
+            if (intera.isStringSelectMenu())
                 WatcherManager.selectMenuManager(intera, language);
-            }
-            catch (e) {
-                Console.error(e)
-            }
+
+        } catch (e) {
+            Console.error(e);
+            if (intera.isButton())
+                StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, "setglobalping")
         }
     }
 
@@ -49,7 +47,6 @@ export abstract class EventManager {
             .setDescription(TranslationsCache[language].helpMention.description)
 
         msg.channel.send({ embeds: [embed] })
-            .catch(e => Console.error(e))
     };
 
 

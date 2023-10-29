@@ -100,21 +100,25 @@ export async function deleteChanOrRole(type: "channels" | "roles", guild: Guild,
 }
 
 async function createChannel(type: "board" | "mention", guild: Guild, text:Record<string, string>): Promise<TextChannel> {
-    let chan = await guild.channels.create({
-        name: text[`${type}Name`],
-        topic: text[`${type}Topic`],
-        permissionOverwrites: [
-            {
-                id: guild.id,
-                deny: DiscordValues.permissions.hellEvents.denyEveryone
-            },
-            {
-                id: bot.user!.id,
-                allow: DiscordValues.permissions.hellEvents.allowBot
-            }
-        ],
-        reason: text[`${type}Reason`]
-    }).catch(e=> { throw e })
+    try {
+        let chan = await guild.channels.create({
+            name: text[`${type}Name`],
+            topic: text[`${type}Topic`],
+            permissionOverwrites: [
+                {
+                    id: guild.id,
+                    deny: DiscordValues.permissions.hellEvents.denyEveryone
+                },
+                {
+                    id: bot.user!.id,
+                    allow: DiscordValues.permissions.hellEvents.allowBot
+                }
+            ],
+            reason: text[`${type}Reason`]
+        })
+        } catch (e) {
+        throw e
+    }
 
     return chan
 }

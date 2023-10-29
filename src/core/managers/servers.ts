@@ -146,10 +146,10 @@ export class ServerManager {
             ])
             .setThumbnail(DiscordValues.botIcon.base)
 
-
-        owner.send({ embeds: [embed] })
-            .catch(e => {
-                Console.error(`Impossible d'envoyer un mp de bienvenue à l'utilisateur ${owner.tag} (${owner.id})`)
-            })
+        try {
+            owner.send({ embeds: [embed] })
+        } catch {
+            Console.error(`Impossible d'envoyer un mp de bienvenue à l'utilisateur ${owner.tag} (${owner.id})`)
+        }
     }
 }
