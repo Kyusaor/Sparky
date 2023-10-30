@@ -99,7 +99,7 @@ bot.on('interactionCreate', intera => {
     }
 })
 
-process.on('uncaughtException', function (error) {
+process.on('uncaughtException', error => {
     console.log('UncaughtException catched:')
     console.log(error.stack);
  });
