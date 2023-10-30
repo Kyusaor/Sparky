@@ -581,7 +581,10 @@ export class WatcherManager {
             let timer = minutes >= 55 ?
                 Translations.displayText(text.remainingTimeAfterBegining, { text: Math.floor(Math.abs(minutes - 60)).toString() }) :
                 Translations.displayText(text.remainingTimeBeforeEnd, { text: Math.floor(55 - minutes).toString() });
-            textTranslations[lang as textLanguage] = base + timer
+            
+            event.hellOrChallenge == 'hell' ?
+                textTranslations[lang as textLanguage] = base + timer :
+                textTranslations[lang as textLanguage] = base;
         })
 
         return textTranslations as Record<textLanguage, string>;
