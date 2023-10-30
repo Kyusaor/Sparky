@@ -100,8 +100,8 @@ bot.on('interactionCreate', intera => {
 })
 
 process.on('uncaughtException', error => {
-    console.log('UncaughtException catched:')
-    console.log(error.stack);
+    Console.error('UncaughtException catched:')
+    Console.error(error.stack);
  });
 
 export { bot, Console, chanList, dev, db, botCommands, TranslationsCache, consoleErrors, StatusCache };
