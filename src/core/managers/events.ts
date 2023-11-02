@@ -14,13 +14,13 @@ export abstract class EventManager {
 
         try {
             if (intera.isChatInputCommand())
-                CommandManager.slashCommandManager(intera, language);
+                await CommandManager.slashCommandManager(intera, language);
 
             if (intera.isButton())
-                CommandManager.buttonInteractionManager(intera, language);
+                await CommandManager.buttonInteractionManager(intera, language);
 
             if (intera.isStringSelectMenu())
-                WatcherManager.selectMenuManager(intera, language);
+                await WatcherManager.selectMenuManager(intera, language);
 
         } catch (e) {
             Console.error(e);

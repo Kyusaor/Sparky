@@ -84,8 +84,11 @@ export abstract class CommandManager {
             chanList.LOGS_USERS?.send(`__**New command**__\nUser: \`${intera.user.username}\`\nId: \`${intera.user.id}\`\nCommand: \`${intera.commandName}\`\nLanguage: \`${language}\`\nServer: \`${intera.guild?.name}\`\nID: \`${intera.guildId}\``)
         }
         catch (err) {
-            Command.prototype.reply({ content: TranslationsCache[language].global.CommandExecutionError, components: [] }, intera)
-                .catch(e => { intera.channel?.send(TranslationsCache[language].global.CommandExecutionError).catch(e => e) });
+            try {
+                await Command.prototype.reply({ content: TranslationsCache[language].global.CommandExecutionError, components: [] }, intera)
+            } catch (err) {
+                intera.channel?.send(TranslationsCache[language].global.CommandExecutionError).catch(e => e)
+            }
             StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName)
             Console.error(err);
         }

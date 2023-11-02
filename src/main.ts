@@ -88,11 +88,11 @@ bot.on('messageCreate', msg => {
     }
 })
 
-bot.on('interactionCreate', intera => {
+bot.on('interactionCreate', async intera => {
     if(bootLocked)
         return console.log("Erreur démarrage: intera");
     try {
-        EventManager.interactionHandler(intera);
+        await EventManager.interactionHandler(intera);
     }
     catch (err) {
         Console.error(err);
