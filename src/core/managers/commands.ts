@@ -153,19 +153,19 @@ export class Command implements CommandInterface {
     }
 
     async reply(data: string | MessagePayload | InteractionReplyOptions, intera: ChatInputCommandInteraction | ButtonInteraction | StringSelectMenuInteraction) {
-        let missingPerm = await Command.getMissingPermissions([PermissionFlagsBits.AttachFiles, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.SendMessages], intera.channel!, intera.guildId);
+        let missingPerm = await Command.getMissingPermissions([PermissionFlagsBits.AttachFiles, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.SendMessages], intera.channel, intera.guildId);
         if (missingPerm.length > 0)
             data = await Command.returnMissingPermissionMessage(missingPerm, intera.guildId!);
 
         try {
             if (intera.replied) {
                 await intera.deleteReply().catch(e => e);
-                return intera.followUp(data);
+                intera.followUp(data);
             }
             if (intera.deferred) {
-                return intera.editReply(data);
+                intera.editReply(data);
             }
-            return intera.reply(data);
+            intera.reply(data);
         }
         catch {
             Console.error(TranslationsCache.fr.global.errors.unableToReply)
@@ -353,8 +353,8 @@ export class Command implements CommandInterface {
         else return "error"
     };
 
-    static getMissingPermissions(requiredPermissions: PermissionResolvable[], channel: TextBasedChannel, guildId?: string | null): string[] {
-        if (channel.type == ChannelType.DM || !guildId)
+    static getMissingPermissions(requiredPermissions: PermissionResolvable[], channel: TextBasedChannel | null, guildId?: string | null): string[] {
+        if (!channel || channel.type == ChannelType.DM || !guildId)
             return [];
         let botPermissions = channel.permissionsFor(bot.user!.id);
         let permissionsBitfield = new PermissionsBitField(requiredPermissions).toArray();
