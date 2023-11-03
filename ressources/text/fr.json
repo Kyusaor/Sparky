@@ -193,6 +193,12 @@
             "description": "Envoies les dates d'un évènement donné",
             "text": {
                 
+            },
+            "choices": {
+                "event": {
+                    "tycoon": "Royaume du pouvoir",
+                    "labyrinth": "Labyrinthe"
+                }
             }
         },
         "data": {

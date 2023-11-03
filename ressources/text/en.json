@@ -193,6 +193,12 @@
             "description": "Send the cycle of some ingame events",
             "text": {
                 
+            },
+            "choices": {
+                "event": {
+                    "tycoon": "Kingdom tycoon",
+                    "labyrinth": "Labyrinth"
+                }
             }
         },
         "data": {

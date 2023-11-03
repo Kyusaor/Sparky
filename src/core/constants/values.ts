@@ -224,4 +224,29 @@ export abstract class Constants {
             ["merge", "troop", "research"]
         ]
     }
+
+    static readonly cycleEvents = {
+        labyrinth: {
+            origin: 56,
+            events: {
+                frost1: 56,
+                wyrm: 56,
+                frost2: 56,
+                gargantua: 56,
+                frost3: 56,
+                therror: 56,
+            }
+        },
+        tycoon: {
+            origin: 56,
+            events: {
+                frost1: 56,
+                wyrm: 56,
+                frost2: 56,
+                gargantua: 56,
+                frost3: 56,
+                therror: 56,
+            }
+        },
+    }
 }
