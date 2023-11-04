@@ -103,17 +103,17 @@ export abstract class Utils {
         return language
     }
 
-    static statusLoop(bot: Client): void {
+    static async statusLoop(bot: Client): Promise<void> {
         let serversCount = bot.guilds.cache.size;
         try {
-            bot.user?.setActivity(`${serversCount} servers`, { type: ActivityType.Watching })
+            await bot.user?.setActivity(`${serversCount} servers`, { type: ActivityType.Watching })
         } catch (err) {
             Console.error(err);
         }
 
-        setTimeout(() => {
+        setTimeout(async () => {
             try {
-                bot.user?.setPresence({ activities: [{ name: "Type @sparky for help", type: ActivityType.Custom }] })
+                await bot.user?.setPresence({ activities: [{ name: "Type @sparky for help", type: ActivityType.Custom }] })
             } catch (err) {
                 Console.error(err);
             }
@@ -190,38 +190,32 @@ export class ConsoleLogger {
         console.log(`[DATA] ${input}`);
         this.logger.log(`[DATA] ${input}`);
 
-        try {
-            chanList.LOGS_DB?.send(input.stack || input)
-        } catch (e) {
-            console.log(e)
-        }
+        chanList.LOGS_DB?.send(input.stack || input)
+            .catch(e => Console.error(e))
     };
 
     error(input: any, crash?: boolean) {
         console.trace(`[ERROR] ${input.stack || input}`)
         this.logger.trace(`[ERROR] ${input.stack || input}`);
 
-        try {
-            chanList?.LOGS_ERRORS?.send(input.stack || input)
-                .then(e => {
-                    if (crash)
-                        process.exit(1)
-                });
-        } catch {
-            console.error()
-            if (crash)
-                process.exit(1)
-        }
+        chanList?.LOGS_ERRORS?.send(input.stack || input)
+            .then(e => {
+                if (crash)
+                    process.exit(1)
+            })
+            .catch(e => {
+                console.error(e)
+                if (crash)
+                    process.exit(1)
+            })
     };
 
     info(input: any) {
         console.log(`[INFO] ${input}`);
         this.logger.log(`[INFO] ${input}`);
-        try {
-            chanList?.LOGS_ERRORS?.send(`[INFO] ${input}`)
-        } catch {
-            console.error()
-        }
+
+        chanList?.LOGS_ERRORS?.send(`[INFO] ${input}`)
+            .catch(e => Console.error(e))
     };
 
     log(input: any) {

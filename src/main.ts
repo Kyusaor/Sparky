@@ -42,7 +42,7 @@ bot.on('ready', async () => {
         db = new DBManager(Config.DBConfig);
         botCommands = await CommandManager.buildBotCommands();
         StatusCache = new StatusCacheClass(botCommands);
-        chanList.LOGS_CONNEXIONS?.send(VERSION);
+        await chanList.LOGS_CONNEXIONS?.send(VERSION);
         bootLocked = false;
         await test();
     }
@@ -53,35 +53,35 @@ bot.on('ready', async () => {
 
 
 //Discord events listeners
-bot.on('guildCreate', guild => {
+bot.on('guildCreate', async guild => {
     if(bootLocked)
         return console.log("Erreur démarrage: guildCreate");
     try {
         let server = new ServerManager(guild);
-        server.checklistNewServers();
+        await server.checklistNewServers();
     }
     catch (err) {
         Console.error(err);
     }
 });
 
-bot.on('guildDelete', guild => {
+bot.on('guildDelete', async guild => {
     if(bootLocked)
         return console.log("Erreur démarrage: guildDelete");
     try {
         let server = new ServerManager(guild);
-        server.checkListRemoveServer();
+        await server.checkListRemoveServer();
     }
     catch (err) {
         Console.error(err);
     }
 })
 
-bot.on('messageCreate', msg => {
+bot.on('messageCreate', async msg => {
     if(bootLocked)
         return console.log("Erreur démarrage: message");
     try {
-        EventManager.MessageCreateHandler(msg);
+        await EventManager.MessageCreateHandler(msg);
     }
     catch (err) {
         Console.error(err);

@@ -50,7 +50,7 @@ export abstract class EventManager {
     };
 
 
-    static DmToBotHandler(msg: Message): void {
+    static async DmToBotHandler(msg: Message): Promise<void> {
         if (msg.author.bot || msg.channel.type !== ChannelType.DM) return;
 
         let msgFiles: string[] = [];
@@ -63,16 +63,16 @@ export abstract class EventManager {
         );
 
         try {
-            chanDM.send(msg.author.id);
-            chanDM.send(`__**${msg.author.tag} a envoyé:**__`);
+            await chanDM.send(msg.author.id);
+            await chanDM.send(`__**${msg.author.tag} a envoyé:**__`);
 
             if (msg.stickers.size == 1)
-                chanDM.send(`sticker: ${msg.stickers.first()?.name}`)
+                await chanDM.send(`sticker: ${msg.stickers.first()?.name}`)
             else
-                chanDM.send({ content: msg.content, files: msgFiles });
+                await chanDM.send({ content: msg.content, files: msgFiles });
 
             if (msg.content.includes('discord.gg/'))
-                msg.channel.send(`${TranslationsCache.fr.global.noLinkInDm}\n\n${TranslationsCache.en.global.noLinkInDm}\n\n${Utils.displayBotLink()}`)
+                await msg.channel.send(`${TranslationsCache.fr.global.noLinkInDm}\n\n${TranslationsCache.en.global.noLinkInDm}\n\n${Utils.displayBotLink()}`)
 
         }
         catch (err) {

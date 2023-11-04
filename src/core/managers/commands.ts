@@ -62,7 +62,7 @@ export abstract class CommandManager {
 
         let command = botCommands.find(com => com.commandStructure.name == intera.commandName);
         if (!command) {
-            intera.reply({ content: TranslationsCache[language].global.CommandExecutionError, ephemeral: true });
+            await intera.reply({ content: TranslationsCache[language].global.CommandExecutionError, ephemeral: true });
             return Console.info(`Impossible de récupérer la commande ${intera.commandName}`);
         }
         if (StatusCache.isLocked(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName))
@@ -81,7 +81,7 @@ export abstract class CommandManager {
             await command.run(args);
             StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName)
             Console.log(userCommandLogString(intera));
-            chanList.LOGS_USERS?.send(`__**New command**__\nUser: \`${intera.user.username}\`\nId: \`${intera.user.id}\`\nCommand: \`${intera.commandName}\`\nLanguage: \`${language}\`\nServer: \`${intera.guild?.name}\`\nID: \`${intera.guildId}\``)
+            await chanList.LOGS_USERS?.send(`__**New command**__\nUser: \`${intera.user.username}\`\nId: \`${intera.user.id}\`\nCommand: \`${intera.commandName}\`\nLanguage: \`${language}\`\nServer: \`${intera.guild?.name}\`\nID: \`${intera.guildId}\``)
         }
         catch (err) {
             try {
@@ -106,11 +106,19 @@ export abstract class CommandManager {
         }
         switch (command) {
             case "serverlist":
-                await Command.defilePage("serverlist", button);
+                try {
+                    await Command.defilePage("serverlist", button);
+                } catch (e) {
+                    Console.error(e)
+                }
                 break;
 
             case "setglobalping":
-                await WatcherManager.MentionManager(button);
+                try {
+                    await WatcherManager.MentionManager(button);
+                } catch (e) {
+                    Console.error(e)
+                }
                 break;
 
             default:
@@ -160,12 +168,12 @@ export class Command implements CommandInterface {
         try {
             if (intera.replied) {
                 await intera.deleteReply().catch(e => e);
-                intera.followUp(data);
+                await intera.followUp(data);
             }
             if (intera.deferred) {
-                intera.editReply(data);
+                await intera.editReply(data);
             }
-            intera.reply(data);
+            await intera.reply(data);
         }
         catch {
             Console.error(TranslationsCache.fr.global.errors.unableToReply)
@@ -380,7 +388,6 @@ export class Command implements CommandInterface {
     }
 
     static async defilePage(command: CommandName, button: ButtonInteraction) {
-
         let customId = button.customId;
         let embed = button.message.embeds[0].data;
         let pageData: embedPageData = getPageData(embed, customId, command);
@@ -397,7 +404,7 @@ export class Command implements CommandInterface {
         else {
             components = this.generatePageButtons(command, pageData.language, pageData.filter?.toString())
         }
-        button.update({ embeds: [newEmbedPage], components: [components] });
+        await button.update({ embeds: [newEmbedPage], components: [components] });
     }
 }
 
@@ -564,8 +571,8 @@ export class WatcherManager {
             try {
                 if (!channel)
                     throw TranslationsCache.fr.global.errors.noChannel;
-                if(channel.permissionsFor(channel.guild.members.me!).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]))
-                    channel.send(Translations.displayText(message[language], { id: chan.role }));
+                if (channel.permissionsFor(channel.guild.members.me!).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]))
+                    await channel.send(Translations.displayText(message[language], { id: chan.role }));
             } catch (e) {
                 Console.error(e);
                 continue;
@@ -584,7 +591,7 @@ export class WatcherManager {
             let timer = minutes >= 55 ?
                 Translations.displayText(text.remainingTimeAfterBegining, { text: Math.floor(Math.abs(minutes - 60)).toString() }) :
                 Translations.displayText(text.remainingTimeBeforeEnd, { text: Math.floor(55 - minutes).toString() });
-            
+
             event.hellOrChallenge == 'hell' ?
                 textTranslations[lang as textLanguage] = base + timer :
                 textTranslations[lang as textLanguage] = base;
