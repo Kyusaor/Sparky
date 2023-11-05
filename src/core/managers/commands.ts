@@ -176,7 +176,7 @@ export class Command implements CommandInterface {
             await intera.reply(data);
         }
         catch {
-            Console.error(TranslationsCache.fr.global.errors.unableToReply)
+            console.error(TranslationsCache.fr.global.errors.unableToReply)
         }
     };
 
