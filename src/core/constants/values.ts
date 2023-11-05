@@ -227,26 +227,14 @@ export abstract class Constants {
 
     static readonly cycleEvents = {
         labyrinth: {
-            origin: 56,
-            events: {
-                frost1: 56,
-                wyrm: 56,
-                frost2: 56,
-                gargantua: 56,
-                frost3: 56,
-                therror: 56,
-            }
+            origin: 1698987600000,
+            events: [ "frost", "wyrm", "frost", "gargantua", "frost", "therror"],
+            duration: 604800000
         },
         tycoon: {
-            origin: 56,
-            events: {
-                frost1: 56,
-                wyrm: 56,
-                frost2: 56,
-                gargantua: 56,
-                frost3: 56,
-                therror: 56,
-            }
-        },
+            origin: 1698901200000,
+            events: ["voodoo", "bee", "morfa", "titan"],
+            duration: 604800000
+        }
     }
 }
