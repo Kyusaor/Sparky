@@ -206,6 +206,17 @@ export abstract class Constants {
         }
     }
 
+    static readonly oldHellMenu = {
+        IV: "watcher",
+        IVR: "watcherResearch",
+        ID: "dragon",
+        IDR: "dragonResearch",
+        CDR: "challengeResearch",
+        CDT: "challengeTroops",
+        OR: "redOrb",
+        OJ: "yellowOrb"
+    }
+
     static readonly WatcherMentionsTemplates = {
         watcher: [ "research", "building", "merge", "labyrinth", "tycoon", "hunt" ],
         dragon: [ "research", "building", "merge", "labyrinth", "tycoon", "hunt", "challengeResearch", "challengeTroops" ],

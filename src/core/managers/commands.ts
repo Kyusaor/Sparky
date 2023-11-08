@@ -645,7 +645,15 @@ export class WatcherManager {
 
 
     static async selectMenuManager(intera: StringSelectMenuInteraction, language: textLanguage) {
-        if (intera.values.find(e => !Object.keys(Constants.hellMenu).includes(e)))
+
+        //Old hell board values legacy
+        let values = intera.values.map(e => {
+            if(Object.keys(Constants.oldHellMenu).includes(e))
+                return Constants.oldHellMenu[e as keyof typeof Constants.oldHellMenu]
+            else return e
+        })
+        
+        if (values.find(e => !Object.keys(Constants.hellMenu).includes(e)))
             return;
 
         let guild = new ServerManager(intera.guild!);
@@ -660,9 +668,9 @@ export class WatcherManager {
 
         let currentRoles = intera.member?.roles as GuildMemberRoleManager;
         for (let roleLabel of Object.keys(roles)) {
-            if (currentRoles.cache.map(r => r.id).includes(roles[roleLabel as keyof typeof roles]) && !intera.values.includes(roleLabel))
+            if (currentRoles.cache.map(r => r.id).includes(roles[roleLabel as keyof typeof roles]) && !values.includes(roleLabel))
                 changesList.remove.push([roleLabel as keyof RolesData, roles[roleLabel as keyof typeof roles]])
-            if (!currentRoles.cache.map(r => r.id).includes(roles[roleLabel as keyof typeof roles]) && intera.values.includes(roleLabel))
+            if (!currentRoles.cache.map(r => r.id).includes(roles[roleLabel as keyof typeof roles]) && values.includes(roleLabel))
                 changesList.add.push([roleLabel as keyof RolesData, roles[roleLabel as keyof typeof roles]])
         }
 
