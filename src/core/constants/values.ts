@@ -235,4 +235,17 @@ export abstract class Constants {
             ["merge", "troop", "research"]
         ]
     }
+
+    static readonly cycleEvents = {
+        labyrinth: {
+            origin: 1698987600,
+            events: [ "agivre", "drider", "agivre", "wyrm", "agivre", "epinator", "agivre", "gargantua"],
+            duration: 604800
+        },
+        tycoon: {
+            origin: 1698901200,
+            events: ["chaman", "abeille", "morfalange", "titan"],
+            duration: 604800
+        }
+    }
 }
