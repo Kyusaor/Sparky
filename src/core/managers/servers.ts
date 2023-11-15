@@ -2,7 +2,7 @@ import { Guild, Role, User } from "discord.js";
 import { Console, TranslationsCache, bot, chanList, db } from "../../main.js";
 import { ChanData, PartialServer, RolesData, Server, fullServer } from "../constants/types.js";
 import { Utils } from "../utils.js";
-import { DiscordValues } from "../constants/values.js";
+import { Constants, DiscordValues } from "../constants/values.js";
 
 export class ServerManager {
     guild: Guild;
@@ -13,7 +13,7 @@ export class ServerManager {
 
     static async buildBaseServerObject(serverId: string): Promise<Server> {
         let guild = await bot.guilds.cache.get(serverId);
-        let data: Server = { id: serverId, name: guild?.name || "Serveur introuvable", active: 1, hellEvent: '0', language: Utils.getLanguageFromLocale(guild?.preferredLocale!) || "fr" };
+        let data: Server = { id: serverId, name: guild?.name || "Serveur introuvable", active: 1, hellEvent: '0', language: Utils.getLanguageFromLocale(guild?.preferredLocale!) || Constants.defaultLanguage };
         return data
     }
 
