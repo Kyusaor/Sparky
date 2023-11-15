@@ -285,7 +285,7 @@
         },
         "language" : {
             "name": "langage",
-            "description": "Change la langue du bot",
+            "description": "Change la langue du bot (ou du serveur, si vous avez la permission admin)",
             "options": {
                 "language": {
                     "name": "langue",

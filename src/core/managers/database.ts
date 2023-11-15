@@ -116,7 +116,7 @@ export class DBManager {
 
             await this.query<void>(`INSERT INTO config VALUES (?,?,?,?,?)`, [guildId, guildName, 1, 0, language]);
             Console.logDb(`Serveur ${guildName} (${guildId}) ajouté avec succès à la DB`);
-            this.generateBackup();
+            await this.generateBackup();
         } catch (err) {
             Console.error(err);
         }
@@ -182,7 +182,7 @@ export class DBManager {
     async editServerDatabase(serverData: Server) {
         try {
             await this.query<void>(`UPDATE config SET id = ?, name = ?, active = ?, hellEvent = ?, language = ? WHERE id = ?`, [serverData.id, serverData.name, serverData.active, serverData.hellEvent, serverData.language, serverData.id])
-            this.generateBackup();
+            await this.generateBackup();
             Console.logDb(`Serveur ${serverData.name} (${serverData.id}) modifié avec succès`)
         } catch (err) {
             Console.error(err);
@@ -192,7 +192,7 @@ export class DBManager {
     async editUserDatabase(userData: UserData) {
         try {
             await this.query<void>(`UPDATE users SET id = ?, preferredLanguage = ? WHERE id = ?`, [userData.id, userData.preferredLanguage, userData.id])
-            this.generateBackup();
+            await this.generateBackup();
             Console.logDb(`User ${userData.id} modifié avec succès`)
         } catch (err) {
             Console.error(err);
@@ -279,9 +279,9 @@ export class DBManager {
         }
     }
 
-    generateBackup() {
+    async generateBackup() {
         try {
-            mysqldump({
+            await mysqldump({
                 connection: {
                     host: Config.DBConfig.host,
                     user: Config.DBConfig.user,
@@ -298,8 +298,8 @@ export class DBManager {
 
     async returnServerLanguage(guildId: string) {
         try {
-            let rows = await this.query<{ language: textLanguage }[]>(`SELECT language FROM config WHERE id = ?`, guildId)
-            return rows[0]?.language
+            let rows = await this.query<{ language: textLanguage }[]>(`SELECT language FROM config WHERE id = ?`, guildId);
+            return rows[0]?.language;
         } catch (err) {
             Console.error(err);
             return Constants.defaultLanguage;

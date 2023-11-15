@@ -122,7 +122,7 @@ export class ServerManager {
         return isPresent;
     }
 
-    logServerUpdate(type: "add" | "remove", owner: User): void {
+    async logServerUpdate(type: "add" | "remove", owner: User): Promise<void> {
         let text = {
             add: {
                 symbol: "(+)",
@@ -133,8 +133,11 @@ export class ServerManager {
                 emote: "📤",
             }
         }
-
-        chanList.LOGS_SERVERS?.send(`${text[type].emote} ${this.guild.name} (${this.guild.id})\nMembres: ${this.guild.memberCount}\nOwner: ${owner.username} (${owner.id})`);
+        try {
+            await chanList.LOGS_SERVERS?.send(`${text[type].emote} ${this.guild.name} (${this.guild.id})\nMembres: ${this.guild.memberCount}\nOwner: ${owner.username} (${owner.id})`);
+        } catch (e) {
+            Console.error(e)
+        }
     }
 
     async sendDmToServerOwner(owner: User): Promise<void> {
@@ -146,10 +149,10 @@ export class ServerManager {
             ])
             .setThumbnail(DiscordValues.botIcon.base)
 
-
-        owner.send({ embeds: [embed] })
-            .catch(e => {
-                Console.error(`Impossible d'envoyer un mp de bienvenue à l'utilisateur ${owner.tag} (${owner.id})`)
-            })
+        try {
+            await owner.send({ embeds: [embed] })
+        } catch {
+            Console.error(`Impossible d'envoyer un mp de bienvenue à l'utilisateur ${owner.tag} (${owner.id})`)
+        }
     }
 }

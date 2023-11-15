@@ -11,23 +11,21 @@ export abstract class EventManager {
         let language = (await db.fetchUserData(intera.user.id))?.preferredLanguage;
         if (!language)
             language = await Translations.getServerLanguage(intera.guildId);
-        if (intera.isChatInputCommand())
-            CommandManager.slashCommandManager(intera, language)
-                .catch(e => Console.error(e));
-        if (intera.isButton()) {
-            CommandManager.buttonInteractionManager(intera, language)
-                .catch(e => {
-                    Console.error(e);
-                    StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, "setglobalping")
-                })
-        }
-        if (intera.isStringSelectMenu()) {
-            try {
-                WatcherManager.selectMenuManager(intera, language);
-            }
-            catch (e) {
-                Console.error(e)
-            }
+
+        try {
+            if (intera.isChatInputCommand())
+                await CommandManager.slashCommandManager(intera, language);
+
+            if (intera.isButton())
+                await CommandManager.buttonInteractionManager(intera, language);
+
+            if (intera.isStringSelectMenu())
+                await WatcherManager.selectMenuManager(intera, language);
+
+        } catch (e) {
+            Console.error(e);
+            if (intera.isButton())
+                StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, "setglobalping")
         }
     }
 
@@ -49,11 +47,10 @@ export abstract class EventManager {
             .setDescription(TranslationsCache[language].helpMention.description)
 
         msg.channel.send({ embeds: [embed] })
-            .catch(e => Console.error(e))
     };
 
 
-    static DmToBotHandler(msg: Message): void {
+    static async DmToBotHandler(msg: Message): Promise<void> {
         if (msg.author.bot || msg.channel.type !== ChannelType.DM) return;
 
         let msgFiles: string[] = [];
@@ -66,16 +63,16 @@ export abstract class EventManager {
         );
 
         try {
-            chanDM.send(msg.author.id);
-            chanDM.send(`__**${msg.author.tag} a envoyé:**__`);
+            await chanDM.send(msg.author.id);
+            await chanDM.send(`__**${msg.author.tag} a envoyé:**__`);
 
             if (msg.stickers.size == 1)
-                chanDM.send(`sticker: ${msg.stickers.first()?.name}`)
+                await chanDM.send(`sticker: ${msg.stickers.first()?.name}`)
             else
-                chanDM.send({ content: msg.content, files: msgFiles });
+                await chanDM.send({ content: msg.content, files: msgFiles });
 
             if (msg.content.includes('discord.gg/'))
-                msg.channel.send(`${TranslationsCache.fr.global.noLinkInDm}\n\n${TranslationsCache.en.global.noLinkInDm}\n\n${Utils.displayBotLink()}`)
+                await msg.channel.send(`${TranslationsCache.fr.global.noLinkInDm}\n\n${TranslationsCache.en.global.noLinkInDm}\n\n${Utils.displayBotLink()}`)
 
         }
         catch (err) {

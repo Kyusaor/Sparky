@@ -12,6 +12,7 @@ export const about:CommandInterface = {
         .addStringOption(
             (Command.generateCommandOptionBuilder("about", "topic", "string") as SlashCommandStringOption)
                 .addChoices(...Command.getChoices("about", "topic"))
+                .setRequired(true)
         ),
 
     neededPermissions: [PermissionFlagsBits.EmbedLinks],

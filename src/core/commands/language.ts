@@ -7,7 +7,7 @@ import { ServerManager } from "../managers/servers.js";
 import { UserManager } from "../managers/users.js";
 
 export const language:CommandInterface = {
-    permissionLevel: 2,
+    permissionLevel: 1,
 
     cacheLockScope: "guild",
 
