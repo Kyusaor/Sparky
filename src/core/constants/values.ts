@@ -243,7 +243,7 @@ export abstract class Constants {
             duration: 604800
         },
         tycoon: {
-            origin: 1698901200,
+            origin: 1698296400,
             events: ["chaman", "abeille", "morfalange", "titan"],
             duration: 604800
         }
