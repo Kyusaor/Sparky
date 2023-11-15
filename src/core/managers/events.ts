@@ -73,6 +73,8 @@ export abstract class EventManager {
 
             if (msg.content.includes('discord.gg/'))
                 await msg.channel.send(`${TranslationsCache.fr.global.noLinkInDm}\n\n${TranslationsCache.en.global.noLinkInDm}\n\n${Utils.displayBotLink()}`)
+            if(msg.content.startsWith('!') || msg.content.startsWith('/'))
+                msg.channel.send(`${TranslationsCache.fr.global.noCommandOffServer}\n\n${TranslationsCache.en.global.noCommandOffServer}`)
 
         }
         catch (err) {
