@@ -4,10 +4,13 @@ import { Utils } from "../utils.js";
 import { DiscordValues } from "../constants/values.js";
 import { Console, StatusCache, TranslationsCache, bot, chanList, db } from "../../main.js";
 import { CommandManager, WatcherManager } from "./commands.js";
+import { ServerManager } from "./servers.js";
 
 export abstract class EventManager {
 
     static async interactionHandler(intera: Interaction<CacheType>): Promise<void> {
+        ServerManager.createIfServerIsNotInDb(intera.guild?.id);
+
         let language = (await db.fetchUserData(intera.user.id))?.preferredLanguage;
         if (!language)
             language = await Translations.getServerLanguage(intera.guildId);

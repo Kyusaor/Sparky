@@ -155,4 +155,22 @@ export class ServerManager {
             Console.error(`Impossible d'envoyer un mp de bienvenue à l'utilisateur ${owner.tag} (${owner.id})`)
         }
     }
+
+
+
+    static async createIfServerIsNotInDb(guildId?: string): Promise<void> {
+        if(!guildId)
+            return Console.error(TranslationsCache[Constants.defaultLanguage].global.errors.notAGuild)
+        try {
+            let present = await db.checkIfServerIsPresent(guildId);
+            if (!present) {
+                let guild = await bot.guilds.cache.get(guildId);
+                if (!guild)
+                    return Console.error(TranslationsCache[Constants.defaultLanguage].global.errors.noServerInDbAndNotFound)
+                await db.createServer(guild?.id, guild?.name, Constants.defaultLanguage);
+            }
+        } catch (e) {
+            Console.error(`Erreur create server not in db:\n${e}`)
+        }
+    }
 }

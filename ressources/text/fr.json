@@ -20,7 +20,9 @@
             "unableToReply": "Impossible de répondre à l'interaction",
             "noChannel": "Aucun salon",
             "DBerror": "Erreur base de données",
-            "RoleNotEditable": "Impossible de modifier les rôles de l'user"
+            "RoleNotEditable": "Impossible de modifier les rôles de l'user",
+            "noServerInDbAndNotFound": "Impossible de trouver le serveur qui n'est pas en db",
+            "notAGuild": "Ceci n'est pas un serveur"
         },
         "cancelledCommand": "Commande annulée",
         "commandIsLocked": "Cette commande est déjà en cours d'exécution",

@@ -20,7 +20,9 @@
             "unableToReply": "Impossible to respond to this interaction",
             "noChannel": "No channel",
             "DBerror": "Database error",
-            "RoleNotEditable": "Impossible to edit user's roles"
+            "RoleNotEditable": "Impossible to edit user's roles",
+            "noServerInDbAndNotFound": "Impossible to find the server not in db",
+            "notAGuild": "Ceci n'est pas un serveur"
         },
         "cancelledCommand": "Command aborted",
         "commandIsLocked": "This command is already being executed",
