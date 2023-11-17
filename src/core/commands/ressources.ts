@@ -12,6 +12,7 @@ export const ressources:CommandInterface = {
         .addStringOption(
             (Command.generateCommandOptionBuilder("ressources", "target", "string") as SlashCommandStringOption)
                 .addChoices(...Command.getChoices("ressources", "target"))
+                .setRequired(true)
         ),
 
     cacheLockScope: "none",
