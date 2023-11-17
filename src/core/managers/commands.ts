@@ -648,11 +648,11 @@ export class WatcherManager {
 
         //Old hell board values legacy
         let values = intera.values.map(e => {
-            if(Object.keys(Constants.oldHellMenu).includes(e))
+            if (Object.keys(Constants.oldHellMenu).includes(e))
                 return Constants.oldHellMenu[e as keyof typeof Constants.oldHellMenu]
             else return e
         })
-        
+
         if (values.find(e => !Object.keys(Constants.hellMenu).includes(e)))
             return;
 
@@ -709,9 +709,9 @@ export class WatcherManager {
 function userCommandLogString(intera: ChatInputCommandInteraction): string {
     let baseText = `${intera.user.username} (${intera.user.id}) a executé la commande ${intera.commandName} `;
     let chanText: string = "";
-    intera.channel!.type == ChannelType.GuildText ?
-        chanText = `sur le salon ${intera.channel?.name} (${intera.channel?.id}), serveur ${intera.guild?.name} (${intera.guild?.id})` :
-        chanText = `en mp`;
+    intera.channel!.type == ChannelType.DM ?
+        chanText = `en mp` :
+        chanText = `sur le salon ${intera.channel?.name} (${intera.channel?.id}), serveur ${intera.guild?.name} (${intera.guild?.id})`;
     return baseText + chanText
 }
 
