@@ -548,6 +548,13 @@
                 "boardMenuPlaceholder": "Chose your subscriptions",
 
                 "success": "Done! <#{text}> and <#{text2}> channels were successfully created\nYou're free to rename them or move them in the channels list as long as you delete nothing :wink:\nType `/{text3}` to delete them and the roles\n*Note that reports are made by the bot staff, some events could be missed*"
+            },
+            "watcher-refresh":{
+                "name": "watcher-refresh",
+                "description": "Check if every roles is set up, and create these wich are missing",
+                "text": {
+                    
+                }
             }
         }
     },

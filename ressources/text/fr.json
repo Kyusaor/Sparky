@@ -549,6 +549,13 @@
 
                 "success": "Terminé ! Les salons <#{text}> et <#{text2}> ont bien été créés\nVous êtes libres de renommer ou déplacer les salons et rôles, du moment que vous ne supprimez rien :wink:\nFaites `/{text3}` pour les supprimer ainsi que les rôles\n*À noter: les signalements sont fait à la main par le staff du bot, certains évènements peuvent être ratés*"
             }
+        },
+        "watcher-refresh":{
+            "name": "veilleur-verif",
+            "description": "Vérifie que tous les rôles sont correctement paramétré, et créée les éléments qui manquent",
+            "text": {
+                
+            }
         }
     },
     "others": {
