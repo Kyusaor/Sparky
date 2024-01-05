@@ -227,6 +227,70 @@
                 "donate": "Vous voulez contribuer au développement du bot sans rien y connaître en informatique et sans passer des nuits blanches? J'ai la solution !\n\nEn donnant de l'argent, vous aiderez le développeur à financer l'hébergement du bot et booster son égo, d'une pierre deux coups ! <:thumbsup:751774481781096468>\n{text}"
             }
         },
+        "guildfest": {
+            "name": "guildfest",
+            "description": "Infos utiles sur la Guild Fest",
+            "subcommand": {
+                "random": {
+                    "name": "aleatoires",
+                    "description": "Obtenez la liste des quêtes aléatoires possibles",
+                    "options": {
+                        "points": {
+                            "name": "points",
+                            "description": "Le nombre de points de la quête que vous voulez"
+                        }
+                    }
+                }
+            },
+            "text": {
+                "embedTitle": "Quête aléatoire: {text} points",
+                "embedDescription": "*Le classement par difficulté est fait en moyenne à titre indicatif et n'a pas pour but d'être absolu, chacun peut évidemment y voir des différences en fonction de sa façon de jouer*",
+                "fieldDuration": "__Durée de la quête:__",
+                "days": "{text} jours",
+                "day": "{text} jour",
+                "easyField": "__Quêtes faciles:__",
+                "mediumField": "__Quête longues ou normales:__",
+                "hardField": "__Quêtes difficiles ou payantes:__",
+
+                "help": "Envoyer **{text}** aides aux membres de la guilde",
+                "admin": "Effectuer **{text}** quêtes admin",
+                "guild": "Effectuer **{text}** quêtes de guilde",
+                "stage": "Faire **{text}** stages de héros",
+                "hell": "Compléter **{text}** événements inferaux",
+                "boat": "Effectuer **{text}** échanges de bateau",
+                "rss": "Récolter **{text}** de ressources",
+                "hitMob": "Frapper des monstres **{text}** fois",
+                "mightRech": "Augmenter votre puissance recherche de **{text}** puissance",
+                "mightTotal": "Augmenter votre puissance totale de **{text}** puissance",
+                "tycoonBoss": "Rencontrer **{text}** boss au royaume du pouvoir",
+                "box": "Ouvrir **{text}** boites mystère",
+                "pdg": "Dépenser **{text}** pièces de guilde",
+                "merge": "Fusionner **{text}** pactes",
+                "mobLeg": "Obtenir **{text}** butins légendaires",
+                "frag": "Dépenser **{text}** fragments de familier",
+                "pack": "Acheter **{text}** packs au shop",
+                "topHell": "Faire **{text}** top 70 en événements infernaux",
+                "topSolo": "Faire **{text}** top 70 en événements solo",
+                "gems": "Dépenser **{text}** gemmes",
+                "stars": "Dépenser **{text}** étoiles sacrées",
+                "token": "Dépenser **{text}** jetons au royaume du pouvoir",
+                "bossLabyElite": "Rencontrer **{text}** boss au labyrinthe élite",
+                "loseTroops": "Perdre **{text}** de vos troupes T4",
+                "mergeSpeed": "Accélérer **{text}** jours de fusion de pactes"
+            },
+            "choices": {
+                "points": {
+                    "145": "Gantelet maître (145 points)",
+                    "185": "Gantelet maître (185 points)",
+                    "225": "Gantelet maître (225 points)",
+                    "265": "Gantelet maître (265 points)",
+                    "125": "Gantelet expert (125 points)",
+                    "150": "Gantelet expert (150 points)",
+                    "175": "Gantelet expert (175 points)",
+                    "200": "Gantelet expert (200 points)"
+                }
+            }
+        },
         "help": {
             "name": "aide",
             "description": "Obtenez la liste des commandes",
@@ -547,7 +611,14 @@
                 "boardMenuOptionDescription": "Soyez notifié quand il y a un évènement {text}",
                 "boardMenuPlaceholder": "Choissez vos abonnements",
 
-                "success": "Terminé ! Les salons <#{text}> et <#{text2}> ont bien été créés\nVous êtes libres de renommer ou déplacer les salons et rôles, du moment que vous ne supprimez rien :wink:\nFaites `/{text3}` pour les supprimer ainsi que les rôles"
+                "success": "Terminé ! Les salons <#{text}> et <#{text2}> ont bien été créés\nVous êtes libres de renommer ou déplacer les salons et rôles, du moment que vous ne supprimez rien :wink:\nFaites `/{text3}` pour les supprimer ainsi que les rôles\n*À noter: les signalements sont fait à la main par le staff du bot, certains évènements peuvent être ratés*"
+            }
+        },
+        "watcher-refresh":{
+            "name": "veilleur-verif",
+            "description": "Vérifie que tous les rôles sont correctement paramétré, et créée les éléments qui manquent",
+            "text": {
+                
             }
         }
     },

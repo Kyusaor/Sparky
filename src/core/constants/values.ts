@@ -20,7 +20,7 @@ export abstract class DiscordValues {
         HELL_EVENTS_BOARD: "647042988358238208"
     };
 
-    static readonly embedColor:ColorResolvable = [59, 229, 53];
+    static readonly embedColor: ColorResolvable = [59, 229, 53];
     static readonly botIcon = {
         base: 'https://media.discordapp.net/attachments/659758501865717790/1070365617997221940/sparky.png',
         help: 'https://media.discordapp.net/attachments/659758501865717790/680102643519193089/help_sparky.png',
@@ -31,7 +31,8 @@ export abstract class DiscordValues {
     static readonly embedThumbnails = {
         trainCalculator: 'https://media.discordapp.net/attachments/659758501865717790/1059497225711005696/latest.png',
         credits: 'https://cdn.discordapp.com/emojis/751774895024898188.webp?size=96&quality=lossless',
-        hellBoard: 'https://media.discordapp.net/attachments/659758501865717790/1007676744330903602/infernaux.png'
+        hellBoard: 'https://media.discordapp.net/attachments/659758501865717790/1007676744330903602/infernaux.png',
+        randomGF: 'https://media.discordapp.net/attachments/659758501865717790/1059831455695507506/image.png'
     }
 
     static readonly emotes = {
@@ -107,7 +108,7 @@ export abstract class Constants {
                 items: [1, 2, 5, 12, 20, 30, 45, 60, 85, 100, 120, 150, 180, 250, 340, 500, 700, 900, 1200, 1500, 1800, 2100, 2400, 3000, 4500],
             },
             images: ['https://media.discordapp.net/attachments/659758501865717790/1050450719599251518/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1050450748326019082/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1050450770614554714/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1050450802520637581/latest.png'],
-            itemCost: {1: 15, 10: 120, 100: 1100, 1000: 10000}
+            itemCost: { 1: 15, 10: 120, 100: 1100, 1000: 10000 }
         },
         trove: {
             ressources: {
@@ -115,10 +116,10 @@ export abstract class Constants {
                 stone: [0, 375000, 562500, 843750, 1262625, 1898437, 2847656, 4271484, 6407226],
                 wood: [0, 375000, 562500, 843750, 1262625, 1898437, 2847656, 4271484, 6407226],
                 ore: [0, 375000, 562500, 843750, 1262625, 1898437, 2847656, 4271484, 6407226],
-                items: [0, 5, 25, 55, 75, 145, 295, 900, 3500],    
+                items: [0, 5, 25, 55, 75, 145, 295, 900, 3500],
             },
             images: ['https://media.discordapp.net/attachments/659758501865717790/1053310152192839710/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053310152725499914/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053310153144946768/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053310153606303804/latest.png'],
-            itemCost: {1: 20, 10: 160, 100: 1500, 1000: 14000}
+            itemCost: { 1: 20, 10: 160, 100: 1500, 1000: 14000 }
         },
         prison: {
             ressources: {
@@ -126,10 +127,10 @@ export abstract class Constants {
                 stone: [375, 562, 843, 1265, 1898, 2847, 4271, 6407, 9610, 14416, 21624, 32436, 48654, 72982, 109473, 164210, 246315, 369472, 554209, 831314, 1246971, 1870456, 2805685, 4208528, 8417056],
                 wood: [375, 562, 843, 1265, 1898, 2847, 4271, 6407, 9610, 14416, 21624, 32436, 48654, 72982, 109473, 164210, 246315, 369472, 554209, 831314, 1246971, 1870456, 2805685, 4208528, 8417056],
                 ore: [375, 562, 843, 1265, 1898, 2847, 4271, 6407, 9610, 14416, 21624, 32436, 48654, 72982, 109473, 164210, 246315, 369472, 554209, 831314, 1246971, 1870456, 2805685, 4208528, 8417056],
-                items: [1, 2, 5, 12, 20, 30, 45, 60, 85, 100, 120, 150, 180, 250, 340, 500, 700, 900, 1200, 1500, 1800, 2100, 2400, 3000, 4500],    
+                items: [1, 2, 5, 12, 20, 30, 45, 60, 85, 100, 120, 150, 180, 250, 340, 500, 700, 900, 1200, 1500, 1800, 2100, 2400, 3000, 4500],
             },
             images: ['https://media.discordapp.net/attachments/659758501865717790/1053311615107350629/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053311615719723018/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053311616160120963/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053311616525017169/latest.png'],
-            itemCost: {1: 15, 10: 120, 100: 1100, 1000: 10000}
+            itemCost: { 1: 15, 10: 120, 100: 1100, 1000: 10000 }
         },
         hall: {
             ressources: {
@@ -140,7 +141,7 @@ export abstract class Constants {
                 items: [1, 2, 5, 12, 20, 30, 45, 60, 85, 100, 120, 150, 180, 250, 340, 500, 700, 900, 1200, 1500, 1800, 2100, 2400, 3000, 4500],
             },
             images: ['https://media.discordapp.net/attachments/659758501865717790/1053314872869392445/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053314873234292827/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053314873628561408/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053314873980895242/latest.png'],
-            itemCost: {1: 15, 10: 120, 100: 1100, 1000: 10000}
+            itemCost: { 1: 15, 10: 120, 100: 1100, 1000: 10000 }
         },
     }
 
@@ -218,20 +219,20 @@ export abstract class Constants {
     }
 
     static readonly WatcherMentionsTemplates = {
-        watcher: [ "research", "building", "merge", "labyrinth", "tycoon", "hunt" ],
-        dragon: [ "research", "building", "merge", "labyrinth", "tycoon", "hunt", "challengeResearch", "challengeTroops" ],
+        watcher: ["research", "building", "merge", "labyrinth", "tycoon", "hunt"],
+        dragon: ["research", "building", "merge", "labyrinth", "tycoon", "hunt", "challengeResearch", "challengeTroops"],
         redOrb: [
             ["merge", "troop"],
-            ["merge", "building"], 
-            ["merge", "research"], 
-            ["merge", "troop", "building"], 
-            ["merge", "research", "building"], 
-            ["research", "troop", "building"], 
+            ["merge", "building"],
+            ["merge", "research"],
+            ["merge", "troop", "building"],
+            ["merge", "research", "building"],
+            ["research", "troop", "building"],
             ["merge", "research", "troop", "building"]
         ],
         yellowOrb: [
-            ["merge", "research"], 
-            ["merge","troop", "building"], 
+            ["merge", "research"],
+            ["merge", "troop", "building"],
             ["merge", "troop", "research"]
         ]
     }
@@ -239,13 +240,236 @@ export abstract class Constants {
     static readonly cycleEvents = {
         labyrinth: {
             origin: 1698987600,
-            events: [ "agivre", "drider", "agivre", "wyrm", "agivre", "epinator", "agivre", "gargantua"],
+            events: ["agivre", "drider", "agivre", "wyrm", "agivre", "epinator", "agivre", "gargantua"],
             duration: 604800
         },
         tycoon: {
             origin: 1698296400,
             events: ["chaman", "abeille", "morfalange", "titan"],
             duration: 604800
+        }
+    }
+
+    static readonly randomGF = {
+        data: {
+            125: {
+                quest: {
+                    help: 60,
+                    boat: 12,
+                    admin: 120,
+                    guild: 120,
+                    stage: 15,
+                    inf: 1,
+                    rss: "20m",
+                    hitMob: 45,
+                    mightRech: "1m2",
+                    mightTotal: "1m2",
+                    tycoonBoss: 2,
+                    pack: 2,
+                    box: 20,
+                    gems: "15k",
+                    pdg: "400k",
+                    stars: "12k",
+                },
+                color: [156, 110, 214] as ColorResolvable,
+                duration: 1,
+            },
+            150: {
+                quest: {
+                    help: 75,
+                    boat: 16,
+                    admin: 150,
+                    guild: 150,
+                    stage: 30,
+                    hell: 2,
+                    rss: "25m",
+                    hitMob: 65,
+                    mightRech: "1m5",
+                    mightTotal: "1m5",
+                    tycoonBoss: 4,
+                    pack: 3,
+                    box: 25,
+                    topHell: 1,
+                    topSolo: 1,
+                    gems: "25k",
+                    pdg: "600k",
+                    stars: "25k",
+                    token: 45,
+                },
+                color: [156, 110, 214] as ColorResolvable,
+                duration: 2,
+            },
+            175: {
+                quest: {
+                    help: 90,
+                    boat: 20,
+                    admin: 200,
+                    guild: 200,
+                    stage: 60,
+                    hell: 3,
+                    rss: "30m",
+                    hitMob: 80,
+                    mightRech: "2m",
+                    mightTotal: "2m",
+                    tycoonBoss: 6,
+                    pack: 7,
+                    box: 35,
+                    topHell: 2,
+                    topSolo: 2,
+                    gems: "50k",
+                    pdg: "900k",
+                    stars: "35k",
+                },
+                color: [156, 110, 214] as ColorResolvable,
+                duration: 3,
+            },
+            200: {
+                quest: {
+                    help: 140,
+                    boat: 32,
+                    admin: 250,
+                    guild: 250,
+                    stage: 100,
+                    hell: 5,
+                    rss: "45m",
+                    hitMob: 130,
+                    mightRech: "3m",
+                    mightTotal: "3m",
+                    tycoonBoss: 8,
+                    pack: 10,
+                    box: 45,
+                    topHell: 4,
+                    topSolo: 3,
+                    gems: "100k",
+                    pdg: "1m2",
+                    stars: "50k",
+                    token: 90,
+                },
+                color: [156, 110, 214] as ColorResolvable,
+                duration: 4,
+            },
+            145: {
+                quest: {
+                    boat: 12,
+                    admin: 135,
+                    guild: 135,
+                    stage: 75,
+                    hell: 2,
+                    rss: "25m",
+                    hitMob: 60,
+                    mightRech: "1m2",
+                    mightTotal: "1m",
+                    tycoonBoss: 3,
+                    pack: 4,
+                    box: 20,
+                    topHell: 2,
+                    topSolo: 1,
+                    gems: "30k",
+                    pdg: "800k",
+                    stars: "25k",
+                    bossLabyElite: 1,
+                    loseTroops: "45k",
+                    merge: 30,
+                    mobLeg: 1,
+                    mergeSpeed: "2",
+                    frag: 60
+                },
+                color: [241, 196, 15] as ColorResolvable,
+                duration: 1,
+            },
+            185: {
+                quest: {
+                    boat: 16,
+                    admin: 185,
+                    guild: 185,
+                    stage: 100,
+                    hell: 3,
+                    rss: "35m",
+                    hitMob: 90,
+                    mightRech: "1m5",
+                    mightTotal: "2m",
+                    tycoonBoss: 6,
+                    pack: 6,
+                    box: 30,
+                    topHell: 2,
+                    topSolo: 2,
+                    gems: "50k",
+                    pdg: "1m2",
+                    stars: "40k",
+                    bossLabyElite: 1,
+                    loseTroops: "75k",
+                    merge: 70,
+                    mobLeg: 1,
+                    mergeSpeed: "6",
+                    frag: 120
+                },
+                color: [241, 196, 15] as ColorResolvable,
+                duration: 2,
+            },
+            225: {
+                quest: {
+                    boat: 28,
+                    admin: 280,
+                    guild: 280,
+                    stage: 150,
+                    hell: 5,
+                    rss: "50m",
+                    hitMob: 140,
+                    mightRech: "2m",
+                    mightTotal: "3m",
+                    tycoonBoss: 9,
+                    pack: 12,
+                    box: 40,
+                    topHell: 3,
+                    topSolo: 3,
+                    gems: "100k",
+                    pdg: "1m8",
+                    stars: "60k",
+                    bossLabyElite: 2,
+                    loseTroops: "200k",
+                    merge: 130,
+                    mobLeg: 2,
+                    mergeSpeed: "18",
+                    frag: 800
+                },
+                color: [241, 196, 15] as ColorResolvable,
+                duration: 3,
+            },
+            265: {
+                quest: {
+                    boat: 40,
+                    admin: 365,
+                    guild: 365,
+                    stage: 230,
+                    hell: 7,
+                    rss: "65m",
+                    hitMob: 190,
+                    mightRech: "3m",
+                    mightTotal: "4m",
+                    tycoonBoss: 12,
+                    pack: 16,
+                    box: 50,
+                    topHell: 5,
+                    topSolo: 4,
+                    gems: "150k",
+                    pdg: "2m4",
+                    stars: "90k",
+                    token: 120,
+                    bossLabyElite: 2,
+                    loseTroops: "325k",
+                    merge: 200,
+                    mobLeg: 3,
+                    mergeSpeed: "25",
+                    frag: 1200
+                },
+                color: [241, 196, 15] as ColorResolvable,
+                duration: 4,
+            },
+        },
+        difficulty: {
+            easy: ["help", "admin", "guild", "stage", "hell"],
+            medium: ["boat", "rss", "hitMob", "mightRech", "mightTotal", "tycoonBoss", "box", "pdg", "merge", "mobLeg", "frag"],
+            hard: ["pack", "topHell", "topSolo", "gems", "stars", "token", "bossLabyElite", "loseTroops", "mergeSpeed"],
         }
     }
 }

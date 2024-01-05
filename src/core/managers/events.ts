@@ -9,7 +9,8 @@ import { ServerManager } from "./servers.js";
 export abstract class EventManager {
 
     static async interactionHandler(intera: Interaction<CacheType>): Promise<void> {
-        ServerManager.createIfServerIsNotInDb(intera.guild?.id);
+        if(intera.guild)
+            ServerManager.createIfServerIsNotInDb(intera.guild.id);
 
         let language = (await db.fetchUserData(intera.user.id))?.preferredLanguage;
         if (!language)
