@@ -227,6 +227,70 @@
                 "donate": "You want to contribute to the bot's development without any computer skills and without spending your nights on it? I have a solution !\n\nBy giving money, you will help the developer to pay the bot hosting and boost his ego ! Hit two gryphons with one stone ! <:thumbsup:751774481781096468>\n{text}"
             }
         },
+        "guildfest": {
+            "name": "guildfest",
+            "description": "Get information about the Guild Fest event",
+            "subcommand": {
+                "random": {
+                    "name": "random",
+                    "description": "Learn about the random quest’s possible issues",
+                    "options": {
+                        "points": {
+                            "name": "points",
+                            "description": "The points received by completing your intended quest"
+                        }
+                    }
+                }
+            },
+            "text": {
+                "embedTitle": "Random quest: {text} points",
+                "embedDescription": "*Difficulty ranking is purely informative and is not absolute, it could obviously change from a player to another depending of their playing style*",
+                "fieldDuration": "__Quest duration:__",
+                "days": "{text} days",
+                "day": "{text} day",
+                "easyField": "__Easy quests:__",
+                "mediumField": "__Long or normal quests:__",
+                "hardField": "__Hard or payment-requiring quests:__",
+
+                "help": "Send **{text}** helps to your guildmates",
+                "admin": "Fulfill **{text}** admin quest",
+                "guild": "Fulfill **{text}** guild quest",
+                "stage": "Make **{text}** heros stages",
+                "hell": "Complete **{text}** hell events",
+                "boat": "Fulfill **{text}** boat exchanges",
+                "rss": "Farm **{text}** ressources",
+                "hitMob": "Hit monsters **{text}** times",
+                "mightRech": "Increase your research might by **{text}**",
+                "mightTotal": "Increase your research might by **{text}**",
+                "tycoonBoss": "Find **{text}** tycoon bosses",
+                "box": "Open **{text}** mystery box",
+                "pdg": "Spend **{text}** guild coins",
+                "merge": "Merge **{text}** pacts",
+                "mobLeg": "Get **{text}** legendary monster loot",
+                "frag": "Spend **{text}** familiar fragment",
+                "pack": "Buy **{text}** shop's pack",
+                "topHell": "Faire **{text}** top 70 en événements infernaux",
+                "topSolo": "Faire **{text}** top 70 en événements solo",
+                "gems": "Spend **{text}** gems",
+                "stars": "Spend **{text}** holy stars",
+                "token": "Spend **{text}** tycoon's token",
+                "bossLabyElite": "Find **{text}** elite labyrinth bosses",
+                "loseTroops": "Lose **{text}** t4 troops",
+                "mergeSpeed": "Speed up **{text}** merge days"
+            },
+            "choices": {
+                "points": {
+                    "145": "Master Gauntlet (145 points)",
+                    "185": "Master Gauntlet (185 points)",
+                    "225": "Master Gauntlet (225 points)",
+                    "265": "Master Gauntlet (265 points)",
+                    "125": "Expert Gauntlet (125 points)",
+                    "150": "Expert Gauntlet (150 points)",
+                    "175": "Expert Gauntlet (175 points)",
+                    "200": "Expert Gauntlet (200 points)"
+                }
+            }
+        },
         "help": {
             "name": "help",
             "description": "Get the command list",
@@ -548,13 +612,13 @@
                 "boardMenuPlaceholder": "Chose your subscriptions",
 
                 "success": "Done! <#{text}> and <#{text2}> channels were successfully created\nYou're free to rename them or move them in the channels list as long as you delete nothing :wink:\nType `/{text3}` to delete them and the roles\n*Note that reports are made by the bot staff, some events could be missed*"
-            },
-            "watcher-refresh":{
-                "name": "watcher-refresh",
-                "description": "Check if every roles is set up, and create these wich are missing",
-                "text": {
-                    
-                }
+            }
+        },
+        "watcher-refresh":{
+            "name": "watcher-refresh",
+            "description": "Check if every roles is set up, and create these wich are missing",
+            "text": {
+                
             }
         }
     },
