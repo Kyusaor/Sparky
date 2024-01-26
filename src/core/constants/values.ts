@@ -259,7 +259,7 @@ export abstract class Constants {
                     admin: 120,
                     guild: 120,
                     stage: 15,
-                    inf: 1,
+                    hell: 1,
                     rss: "20m",
                     hitMob: 45,
                     mightRech: "1m2",

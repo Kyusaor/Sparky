@@ -101,7 +101,7 @@
                 },
                 "train": {
                     "name": "training",
-                    "description": "Get the cost (ressources/time) to train troops",
+                    "description": "Get the cost (resources/time) to train troops",
                     "options": {
                         "speed": {
                             "name": "speed",
@@ -154,12 +154,12 @@
                 "missingItemForGems": "Depending of how much {text} you buy:\n",
                 "missingGemsCosts": "By {text}: {text2}\n",
                 "buildEmbedTitle": "Building calculator",
-                "buildEmbedDescription": "*Here are the missing ressources for maxing your {text} from __level {text2} to {text3}__. Gems amount take into account the gold hammer cost*",
+                "buildEmbedDescription": "*Here are the missing resources for maxing your {text} from __level {text2} to {text3}__. Gems amount take into account the gold hammer cost*",
                 "gemsEquivalence": "Gems equivalence:",
-                "noRessources": "Nothing",
+                "noresources": "Nothing",
 
                 "trainEmbedTitle": "Troop calculator",
-                "trainEmbedDescription": "*Here is the ressources cost to train your troops!\nNote: gems cost decreasing when troop amount increase, it's not showed there*",
+                "trainEmbedDescription": "*Here is the resources cost to train your troops!\nNote: gems cost decreasing when troop amount increase, it's not showed there*",
                 "trainEmbedTrainSpeed" : "__Train speed:__",
                 "trainEmbedCostReduction" : "__Cost reduction:__",
                 "trainEmbedTroopAmount" : "__Amount of troops to train:__",
@@ -255,10 +255,10 @@
                 "help": "Send **{text}** helps to your guildmates",
                 "admin": "Fulfill **{text}** admin quest",
                 "guild": "Fulfill **{text}** guild quest",
-                "stage": "Make **{text}** heros stages",
-                "hell": "Complete **{text}** hell events",
+                "stage": "Make **{text}** hero's stages",
+                "hell": "Complete **{text}** hell event(s)",
                 "boat": "Fulfill **{text}** boat exchanges",
-                "rss": "Farm **{text}** ressources",
+                "rss": "Farm **{text}** resources",
                 "hitMob": "Hit monsters **{text}** times",
                 "mightRech": "Increase your research might by **{text}**",
                 "mightTotal": "Increase your research might by **{text}**",
@@ -266,11 +266,11 @@
                 "box": "Open **{text}** mystery box",
                 "pdg": "Spend **{text}** guild coins",
                 "merge": "Merge **{text}** pacts",
-                "mobLeg": "Get **{text}** legendary monster loot",
+                "mobLeg": "Get **{text}** legendary monster loot(s)",
                 "frag": "Spend **{text}** familiar fragment",
                 "pack": "Buy **{text}** shop's pack",
-                "topHell": "Faire **{text}** top 70 en événements infernaux",
-                "topSolo": "Faire **{text}** top 70 en événements solo",
+                "topHell": "Reach top 70 **{text}** time(s) on hell events",
+                "topSolo": "Reach top 70 **{text}** time(s) on solo events",
                 "gems": "Spend **{text}** gems",
                 "stars": "Spend **{text}** holy stars",
                 "token": "Spend **{text}** tycoon's token",
@@ -431,8 +431,8 @@
                 }
             }
         },
-        "ressources": {
-            "name": "ressources",
+        "resources": {
+            "name": "resources",
             "description": "Documents and useful links",
             "text": {
                 "igg": "If you have a problem, you can reach IGG by these emails:\n-__Android__:help.lordsmobile.android@igg.com\n-__iOS__:ihelp.lordsmobile@igg.com",
@@ -667,7 +667,7 @@
                 "item": "soul crystal"
             }
         },
-        "ressources": {
+        "resources": {
             "food": "food",
             "stone": "stone",
             "wood": "wood",

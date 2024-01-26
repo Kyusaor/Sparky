@@ -431,7 +431,7 @@
                 }
             }
         },
-        "ressources": {
+        "resources": {
             "name": "ressources",
             "description": "Des documents et liens utiles",
             "text": {
