@@ -145,7 +145,14 @@ export abstract class Constants {
         },
     }
 
-    static readonly paypalLink = 'https://paypal.me/SparkyBot'
+    static readonly links = {
+        paypal: 'https://paypal.me/SparkyBot',
+        resources: {
+            chest: "https://lordsmobile.igg.com/project/probability/?game_id=1051029902",
+            igg: "-__Android__: help.lordsmobile.android@igg.com\n-__iOS__: ihelp.lordsmobile@igg.com",
+            reedemCode: "https://lordsmobile.igg.com/gifts/"
+        }
+    }
 
     static readonly troops = {
         1: {

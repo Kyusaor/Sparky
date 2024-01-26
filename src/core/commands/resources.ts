@@ -3,15 +3,17 @@ import { CommandInterface } from "../constants/types.js";
 import { Command, CommandManager } from "../managers/commands.js";
 import { existsSync } from "fs";
 import { Translations } from "../constants/translations.js";
+import { Constants } from "../constants/values.js";
+import { TranslationsCache } from "../../main.js";
 
-export const ressources:CommandInterface = {
+export const resources:CommandInterface = {
     
     permissionLevel: 1,
 
-    commandStructure: CommandManager.baseSlashCommandBuilder("ressources", "member")
+    commandStructure: CommandManager.baseSlashCommandBuilder("resources", "member")
         .addStringOption(
-            (Command.generateCommandOptionBuilder("ressources", "target", "string") as SlashCommandStringOption)
-                .addChoices(...Command.getChoices("ressources", "target"))
+            (Command.generateCommandOptionBuilder("resources", "target", "string") as SlashCommandStringOption)
+                .addChoices(...Command.getChoices("resources", "target"))
                 .setRequired(true)
         ),
 
@@ -19,13 +21,14 @@ export const ressources:CommandInterface = {
 
     run({ intera, commandText }) {
 
-        let option = intera.options.getString('target');
+        let option = intera.options.getString('target')! as keyof typeof TranslationsCache.en.commands.resources.choices.target;
 
         let path = `../../../ressources/images/rss-cmd/${option}.png`
-        let text = commandText[option as keyof typeof commandText];
-        let reviver = commandText[`${option}-reviver` as keyof typeof commandText];
-        if(commandText[`${option}-reviver` as keyof typeof commandText])
+        let text = commandText[option];
+        if(Object.keys(Constants.links.resources).includes(option)) {
+            let reviver = Constants.links.resources[option as keyof typeof Constants.links.resources];
             text = Translations.displayText(text, { text: reviver });
+        }
 
         let payload:InteractionReplyOptions = {
         };

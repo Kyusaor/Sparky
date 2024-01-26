@@ -435,17 +435,17 @@
             "name": "resources",
             "description": "Documents and useful links",
             "text": {
-                "igg": "If you have a problem, you can reach IGG by these emails:\n-__Android__:help.lordsmobile.android@igg.com\n-__iOS__:ihelp.lordsmobile@igg.com",
-                "discord": "You can join the official Lords Mobile Discord server there:\n{text}",
+                "igg": "If you have a problem, you can reach IGG by these emails:\n[{text}]",
+                "discord": "You can join the official Lords Mobile Discord server there:\nhttps://discord.gg/lordsmobile",
                 "chest": "Official chest droprates are available [right there]({text})!",
-                "chest-reviver": "https://lordsmobile.igg.com/project/probability/?game_id=1051029902",
-                "discord-reviver": "https://discord.gg/lordsmobile"
+                "reedemCode": "To claim gift code, you can [go there]({text})!"
             },
             "choices": {
                 "target": {
                     "igg": "Contact IGG",
                     "discord": "Join the official LM discord",
-                    "chest": "Chest droprates"
+                    "chest": "Chest droprates",
+                    "reedemCode": "Claim gift codes"
                 }
             },
             "options": {
