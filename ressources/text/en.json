@@ -156,7 +156,7 @@
                 "buildEmbedTitle": "Building calculator",
                 "buildEmbedDescription": "*Here are the missing resources for maxing your {text} from __level {text2} to {text3}__. Gems amount take into account the gold hammer cost*",
                 "gemsEquivalence": "Gems equivalence:",
-                "noresources": "Nothing",
+                "noResources": "Nothing",
 
                 "trainEmbedTitle": "Troop calculator",
                 "trainEmbedDescription": "*Here is the resources cost to train your troops!\nNote: gems cost decreasing when troop amount increase, it's not showed there*",

@@ -156,7 +156,7 @@
                 "buildEmbedTitle": "Calculateur de batiment",
                 "buildEmbedDescription": "*Voici les ressources qu'il vous manque pour maxer votre {text} du __niveau {text2} au niveau {text3}__. Le compte des gemmes prend en compte le coût du marteau d'or pour le niveau 25*",
                 "gemsEquivalence": "Équivalent en gemmes:",
-                "noRessources": "Aucun",
+                "noResources": "Aucun",
 
                 "trainEmbedTitle": "Calculateur de troupes",
                 "trainEmbedDescription": "*Voici le coût en ressources pour former vos troupes !\nNote: le coût en gemmes diminuant au fur et à mesure que le nombre de troupes augmente, il n'est pas affiché dans ce calculateur*",
@@ -667,7 +667,7 @@
                 "item": "cristaux d'âme"
             }
         },
-        "ressources": {
+        "resources": {
             "food": "blé",
             "stone": "pierre",
             "wood": "bois",

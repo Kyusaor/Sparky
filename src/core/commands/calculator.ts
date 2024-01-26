@@ -74,44 +74,44 @@ export const calculator: CommandInterface = {
                 let rss = Constants.buildings[build];
                 let lvlImage: string = getBuildingImage(build, lvl);
                 let buildingtO = TranslationsCache[language].others.buildings[build];
-                let rsstO = TranslationsCache[language].others.ressources;
+                let rsstO = TranslationsCache[language].others.resources;
 
-                let missingRessources: Record<string, string> = {}
+                let missingResources: Record<string, string> = {}
 
                 if (lvl == 25 || (build == 'trove' && lvl > 8)) {
-                    for (let i of Object.keys(rss.ressources))
-                        missingRessources[i] = commandText.noRessources;
-                    missingRessources.gems = commandText.noRessources;
+                    for (let i of Object.keys(rss.resources))
+                        missingResources[i] = commandText.noResources;
+                    missingResources.gems = commandText.noResources;
                     lvl = 9
                 }
                 else {
-                    //Add missing ressources (w/o gems)
-                    for (let i of Object.keys(rss.ressources))
-                        missingRessources[i] = Utils.format3DigitsSeparation(rss.ressources[i as keyof typeof Constants.buildings.altar.ressources].slice(lvl).reduce((somme, num) => somme + num)).toString();
+                    //Add missing resources (w/o gems)
+                    for (let i of Object.keys(rss.resources))
+                        missingResources[i] = Utils.format3DigitsSeparation(rss.resources[i as keyof typeof Constants.buildings.altar.resources].slice(lvl).reduce((somme, num) => somme + num)).toString();
 
                     //Add missing gems
-                    missingRessources.gems = Translations.displayText(commandText.missingItemForGems, { text: buildingtO.item })
+                    missingResources.gems = Translations.displayText(commandText.missingItemForGems, { text: buildingtO.item })
                     for (let i of Object.keys(rss.itemCost)) {
                         let key = parseInt(i) as 1 | 10 | 100 | 1000;
-                        let value = parseInt(missingRessources.items.replace(/\s+/g, '')) / key * rss.itemCost[key] + 2000
-                        missingRessources.gems += Translations.displayText(commandText.missingGemsCosts, { text: i, text2: Utils.format3DigitsSeparation(value) })
+                        let value = parseInt(missingResources.items.replace(/\s+/g, '')) / key * rss.itemCost[key] + 2000
+                        missingResources.gems += Translations.displayText(commandText.missingGemsCosts, { text: i, text2: Utils.format3DigitsSeparation(value) })
                     }
                 }
 
                 //Build embed
-                let embedDescription = Translations.displayText(commandText.buildEmbedDescription, { text: buildingtO.name, text2: lvl.toString(), text3: rss.ressources.food.length.toString() })
+                let embedDescription = Translations.displayText(commandText.buildEmbedDescription, { text: buildingtO.name, text2: lvl.toString(), text3: rss.resources.food.length.toString() })
 
                 let buildEmbed = Utils.EmbedBaseBuilder(language)
                     .setTitle(commandText.buildEmbedTitle)
                     .setThumbnail(lvlImage)
                     .setDescription(embedDescription)
                     .addFields([
-                        { name: `${rsstO.food}:`, value: missingRessources.food },
-                        { name: `${rsstO.stone}:`, value: missingRessources.stone },
-                        { name: `${rsstO.wood}:`, value: missingRessources.wood },
-                        { name: `${rsstO.ore}:`, value: missingRessources.ore },
-                        { name: buildingtO.item + ":", value: missingRessources.items },
-                        { name: commandText.gemsEquivalence, value: missingRessources.gems }
+                        { name: `${rsstO.food}:`, value: missingResources.food },
+                        { name: `${rsstO.stone}:`, value: missingResources.stone },
+                        { name: `${rsstO.wood}:`, value: missingResources.wood },
+                        { name: `${rsstO.ore}:`, value: missingResources.ore },
+                        { name: buildingtO.item + ":", value: missingResources.items },
+                        { name: commandText.gemsEquivalence, value: missingResources.gems }
                     ])
 
                 Command.prototype.reply({ embeds: [buildEmbed] }, intera);
@@ -137,10 +137,10 @@ export const calculator: CommandInterface = {
                     { name: commandText.trainEmbedMightGained, value: Utils.format3DigitsSeparation(args.amount * Constants.troops[args.tier].might)}
                 ];
 
-                for (let rss of Object.keys(TranslationsCache.fr.others.ressources)) {
+                for (let rss of Object.keys(TranslationsCache.fr.others.resources)) {
                     if (rss == "gems")
                         continue;
-                    fieldValues.push({ name: Translations.displayText(commandText.trainEmbedRssCost, { text: TranslationsCache[language].others.ressources[rss as keyof typeof TranslationsCache.fr.others.ressources] }), value: Utils.format3DigitsSeparation(rssCost(rss as keyof typeof TranslationsCache.fr.others.ressources, args.type, args.tier) * args.amount * (100 - Constants.troops.subv[args.tier][args.subsidy]) / 100), inline: true })
+                    fieldValues.push({ name: Translations.displayText(commandText.trainEmbedRssCost, { text: TranslationsCache[language].others.resources[rss as keyof typeof TranslationsCache.fr.others.resources] }), value: Utils.format3DigitsSeparation(rssCost(rss as keyof typeof TranslationsCache.fr.others.resources, args.type, args.tier) * args.amount * (100 - Constants.troops.subv[args.tier][args.subsidy]) / 100), inline: true })
                 }
 
                 let trainEmbed = Utils.EmbedBaseBuilder(language)
@@ -172,7 +172,7 @@ function getBuildingImage(building: keyof typeof Constants.buildings, level: num
 }
 
 let rssCost = function (
-    rss: keyof typeof TranslationsCache.fr.others.ressources,
+    rss: keyof typeof TranslationsCache.fr.others.resources,
     type: keyof typeof TranslationsCache.fr.commands.calculator.choices.type,
     tier: keyof typeof TranslationsCache.fr.commands.calculator.choices.tier
 ) {
