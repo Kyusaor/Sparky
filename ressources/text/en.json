@@ -22,7 +22,7 @@
             "DBerror": "Database error",
             "RoleNotEditable": "Impossible to edit user's roles",
             "noServerInDbAndNotFound": "Impossible to find the server not in db",
-            "notAGuild": "Ceci n'est pas un serveur"
+            "notAGuild": "This is not a guild"
         },
         "cancelledCommand": "Command aborted",
         "commandIsLocked": "This command is already being executed",
