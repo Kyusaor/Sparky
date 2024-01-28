@@ -26,6 +26,7 @@
         },
         "cancelledCommand": "Commande annulée",
         "commandIsLocked": "Cette commande est déjà en cours d'exécution",
+        "autoDmResponse": "Réponse auto envoyée",
         "noLinkInDm": ":flag_fr: Bonjour, pour m'ajouter à votre serveur utilisez plutôt ce lien!",
         "noCommandOffServer": ":flag_fr: Les commandes sont à réaliser sur un serveur !",
         "CommandExecutionError": "Une erreur est survenue pendant l'éxecution de la commande",

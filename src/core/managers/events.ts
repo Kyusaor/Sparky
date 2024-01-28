@@ -1,7 +1,7 @@
 import { CacheType, ChannelType, Interaction, InteractionType, Message } from "discord.js";
 import { Translations } from "../constants/translations.js";
 import { Utils } from "../utils.js";
-import { DiscordValues } from "../constants/values.js";
+import { Constants, DiscordValues } from "../constants/values.js";
 import { Console, StatusCache, TranslationsCache, bot, chanList, db } from "../../main.js";
 import { CommandManager, WatcherManager } from "./commands.js";
 import { ServerManager } from "./servers.js";
@@ -59,6 +59,10 @@ export abstract class EventManager {
 
         let msgFiles: string[] = [];
         let chanDM = chanList.LOGS_DM;
+        let language = (await db.fetchUserData(msg.author.id))?.preferredLanguage;
+        if(!language)
+            language = Constants.defaultLanguage;
+        
         if (!chanDM)
             throw "Logs DM impossible à récupérer"
 
@@ -70,15 +74,22 @@ export abstract class EventManager {
             await chanDM.send(msg.author.id);
             await chanDM.send(`__**${msg.author.tag} a envoyé:**__`);
 
-            if (msg.stickers.size == 1)
-                await chanDM.send(`sticker: ${msg.stickers.first()?.name}`)
-            else
-                await chanDM.send({ content: msg.content, files: msgFiles });
+            let content:string = "";
+            msg.stickers.size == 1 ? 
+                content = `sticker: ${msg.stickers.first()?.name}` :
+                content = msg.content;
 
-            if (msg.content.includes('discord.gg/'))
+            //Auto response
+            if (msg.content.includes('discord.gg/')) {
+                content += `\n${TranslationsCache.fr.global.autoDmResponse}: ${TranslationsCache.fr.global.noLinkInDm}`
                 await msg.channel.send(`${TranslationsCache.fr.global.noLinkInDm}\n\n${TranslationsCache.en.global.noLinkInDm}\n\n${Utils.displayBotLink()}`)
-            if(msg.content.startsWith('!') || msg.content.startsWith('/'))
-                msg.channel.send(`${TranslationsCache.fr.global.noCommandOffServer}\n\n${TranslationsCache.en.global.noCommandOffServer}`)
+            }
+            if(msg.content.startsWith('!') || msg.content.startsWith('/')) {
+                content += `\n${TranslationsCache.fr.global.autoDmResponse}: ${TranslationsCache.fr.global.noCommandOffServer}`
+                await msg.channel.send(`${TranslationsCache.fr.global.noCommandOffServer}\n\n${TranslationsCache.en.global.noCommandOffServer}`)
+            }
+
+            await chanDM.send({ content: content, files: msgFiles });
 
         }
         catch (err) {

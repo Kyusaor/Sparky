@@ -26,6 +26,7 @@
         },
         "cancelledCommand": "Command aborted",
         "commandIsLocked": "This command is already being executed",
+        "autoDmResponse": "Auto reply sent",
         "noLinkInDm": ":flag_us: Hello, to add me to your server use this link!",
         "noCommandOffServer": ":flag_us: Commands must be done on a server!",
         "CommandExecutionError": "An error has occured during the command's execution",
