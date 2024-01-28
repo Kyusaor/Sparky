@@ -241,6 +241,10 @@
                             "description": "The points received by completing your intended quest"
                         }
                     }
+                },
+                "bonus": {
+                    "name": "bonus",
+                    "description": "Get information about bonus quests (expert gauntlet)"
                 }
             },
             "text": {
@@ -277,7 +281,27 @@
                 "token": "Spend **{text}** tycoon's token",
                 "bossLabyElite": "Find **{text}** elite labyrinth bosses",
                 "loseTroops": "Lose **{text}** t4 troops",
-                "mergeSpeed": "Speed up **{text}** merge days"
+                "mergeSpeed": "Speed up **{text}** merge days",
+
+
+                "troopMight": "Increase your troop might by **{text}**",
+                "challenge": "Complete **{text}** 24h challenges",
+                "artifactQuest": "Complete **{text}** artifacts related quests",
+                "darknest": "Complete **{text}** darknest related quests",
+                "latsDay": "Complete **{text}** quests on the last day",
+                "firstDay": "Complete **{text}** quests on the first day",
+                "ptsQuest": "Complete **{text}** quests that are worth more than 150 points",
+                "hellQuest": "Complete **{text}** hell events related quests",
+                "farmQuest": "Complete **{text}** gathering quests",
+                "labTycoonQuest": "Complete **{text}** gemming gremlin/labyrinth guardian related quests",
+                "labBossQuest": "Complete **{text}** labyrinth guardian quests",
+                "huntQuest": "Complete **{text}** monster hunting related quests",
+                "bundleQuest": "Complete **{text}** special bundle  quests",
+                "shipQuest": "Complete **{text}** cargo ship quests",
+                "randomQuest": "Complete **{text}** random quests",
+
+                "bonusTitle": "Bonus quest list",
+                "bonusDescription": "When your guild reach expert gauntlet, guild members access a bonus quest in addition of regular quests: three from this list will be given for each mate, and they will have to complete one of those three to earn 175 bonus points. Members who have done this will appear in green in the guild leaderboard."
             },
             "choices": {
                 "points": {

@@ -241,6 +241,10 @@
                             "description": "Le nombre de points de la quête que vous voulez"
                         }
                     }
+                },
+                "bonus": {
+                    "name": "bonus",
+                    "description": "Obtenez la liste des quêtes bonus (gantelet expert)"
                 }
             },
             "text": {
@@ -277,7 +281,27 @@
                 "token": "Dépenser **{text}** jetons au royaume du pouvoir",
                 "bossLabyElite": "Rencontrer **{text}** boss au labyrinthe élite",
                 "loseTroops": "Perdre **{text}** de vos troupes T4",
-                "mergeSpeed": "Accélérer **{text}** jours de fusion de pactes"
+                "mergeSpeed": "Accélérer **{text}** jours de fusion de pactes",
+
+
+                "troopMight": "Augmenter votre puissance troupes de **{text}** puissance",
+                "challenge": "Compléter **{text}** challenges 24h",
+                "artifactQuest": "Compléter **{text}** quêtes liées aux artefacts",
+                "darknest": "Compléter **{text}** quêtes liées aux sombres nids",
+                "latsDay": "Compléter **{text}** quêtes le dernier jour",
+                "firstDay": "Compléter **{text}** quêtes le premier jour",
+                "ptsQuest": "Compléter **{text}** quêtes de plus de 150 points",
+                "hellQuest": "Compléter **{text}** quêtes liées aux évènements infernaux",
+                "farmQuest": "Compléter **{text}** quêtes de récolte",
+                "labTycoonQuest": "Compléter **{text}** quêtes de boss labyrinthe/royaume du pouvoir",
+                "labBossQuest": "Compléter **{text}** quêtes liées aux boss de labyrinthe",
+                "huntQuest": "Compléter **{text}** quêtes liées à la chasse aux monstres",
+                "bundleQuest": "Compléter **{text}** quêtes liées aux achats de packs",
+                "shipQuest": "Compléter **{text}** quêtes liées au navire de charge",
+                "randomQuest": "Compléter **{text}** quêtes aléatoires",
+
+                "bonusTitle": "Liste des quêtes bonus",
+                "bonusDescription": "Lorsque votre guilde atteint le gantelet expert, les membres ont accès à une quête bonus en plus des quêtes habituelles: trois parmi cette liste seront attribuées à chacun, et il faudra compléter une des trois pour recevoir 175 point bonus. Les membres ayant complété cette quête bonus auront leur score affiché en vert dans la liste des scores de la guilde"
             },
             "choices": {
                 "points": {
