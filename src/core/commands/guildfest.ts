@@ -1,7 +1,7 @@
 import { PermissionFlagsBits, SlashCommandStringOption } from "discord.js";
 import { CommandInterface } from "../constants/types.js";
 import { Command, CommandManager } from "../managers/commands.js";
-import { Constants } from "../constants/values.js";
+import { Constants, DiscordValues } from "../constants/values.js";
 import { Utils } from "../utils.js";
 import { Translations } from "../constants/translations.js";
 
@@ -21,6 +21,9 @@ export const guildfest:CommandInterface = {
                         .addChoices(...Command.getChoices("guildfest", "points"))
                         .setRequired(true)
                 )
+        )
+        .addSubcommand(
+            Command.generateSubcommandBuilder("guildfest", "bonus")
         ),
     
     run({ intera, language, commandText }) {
@@ -57,6 +60,22 @@ export const guildfest:CommandInterface = {
                     randomEmbed.addFields([{ name, value }])
                 }
                 Command.prototype.reply({embeds: [randomEmbed]}, intera);
+                break;
+
+            case 'bonus':
+                let bonusData = Constants.bonusGF;
+
+                let bonusEmbed = Utils.EmbedBaseBuilder(language)
+                    .setTitle(commandText.bonusTitle)
+                    .setDescription(commandText.bonusDescription)
+                    .setColor(Constants.randomGF.data[265].color)
+
+                let bonusText = "";
+                for(let data of Object.keys(bonusData)) 
+                    bonusText += Translations.displayText(`-${commandText[data]}\n`, {text: bonusData[data as keyof typeof bonusData]});
+                bonusEmbed.addFields({name: DiscordValues.emptyEmbedField.name, value: bonusText})
+                
+                Command.prototype.reply({embeds: [bonusEmbed]}, intera);
                 break;
         }
     },

@@ -479,4 +479,29 @@ export abstract class Constants {
             hard: ["pack", "topHell", "topSolo", "gems", "stars", "token", "bossLabyElite", "loseTroops", "mergeSpeed"],
         }
     }
+
+    static readonly bonusGF = {
+        box: "135",
+        token: "400",
+        stars: "250k",
+        pdg: "3m6",
+        mightRech: "12m",
+        mightTotal: "25m",
+        troopMight: "24m",
+        rss: "150m",
+        artifactQuest: "4",
+        challenge: "3",
+        darknest: "6",
+        latsDay: "6",
+        firstDay: "6",
+        ptsQuest: "6",
+        hellQuest: "5",
+        farmQuest: "5",
+        labTycoonQuest: "5",
+        labBossQuest: "5",
+        huntQuest: "5",
+        bundleQuest: "4",
+        shipQuest: "3",
+        randomQuest: "3",
+    }
 }
