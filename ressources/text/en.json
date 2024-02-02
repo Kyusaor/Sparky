@@ -301,7 +301,7 @@
                 "randomQuest": "Complete **{text}** random quests",
 
                 "bonusTitle": "Bonus quest list",
-                "bonusDescription": "When your guild reach expert gauntlet, guild members access a bonus quest in addition of regular quests: three from this list will be given for each mate, and they will have to complete one of those three to earn 175 bonus points. Members who have done this will appear in green in the guild leaderboard."
+                "bonusDescription": "When your guild reaches expert gauntlet, guild members access a bonus quest in addition to regular quests: three bonus quests will be given to each mate, and they will have to complete one of them to earn 175 bonus points. Members who have done this will appear in green in the guild leaderboard."
             },
             "choices": {
                 "points": {
