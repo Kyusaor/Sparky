@@ -22,10 +22,11 @@
             "DBerror": "Database error",
             "RoleNotEditable": "Impossible to edit user's roles",
             "noServerInDbAndNotFound": "Impossible to find the server not in db",
-            "notAGuild": "Ceci n'est pas un serveur"
+            "notAGuild": "This is not a guild"
         },
         "cancelledCommand": "Command aborted",
         "commandIsLocked": "This command is already being executed",
+        "autoDmResponse": "Auto reply sent",
         "noLinkInDm": ":flag_us: Hello, to add me to your server use this link!",
         "noCommandOffServer": ":flag_us: Commands must be done on a server!",
         "CommandExecutionError": "An error has occured during the command's execution",
@@ -101,7 +102,7 @@
                 },
                 "train": {
                     "name": "training",
-                    "description": "Get the cost (ressources/time) to train troops",
+                    "description": "Get the cost (resources/time) to train troops",
                     "options": {
                         "speed": {
                             "name": "speed",
@@ -154,12 +155,12 @@
                 "missingItemForGems": "Depending of how much {text} you buy:\n",
                 "missingGemsCosts": "By {text}: {text2}\n",
                 "buildEmbedTitle": "Building calculator",
-                "buildEmbedDescription": "*Here are the missing ressources for maxing your {text} from __level {text2} to {text3}__. Gems amount take into account the gold hammer cost*",
+                "buildEmbedDescription": "*Here are the missing resources for maxing your {text} from __level {text2} to {text3}__. Gems amount take into account the gold hammer cost*",
                 "gemsEquivalence": "Gems equivalence:",
-                "noRessources": "Nothing",
+                "noResources": "Nothing",
 
                 "trainEmbedTitle": "Troop calculator",
-                "trainEmbedDescription": "*Here is the ressources cost to train your troops!\nNote: gems cost decreasing when troop amount increase, it's not showed there*",
+                "trainEmbedDescription": "*Here is the resources cost to train your troops!\nNote: gems cost decreasing when troop amount increase, it's not showed there*",
                 "trainEmbedTrainSpeed" : "__Train speed:__",
                 "trainEmbedCostReduction" : "__Cost reduction:__",
                 "trainEmbedTroopAmount" : "__Amount of troops to train:__",
@@ -240,6 +241,10 @@
                             "description": "The points received by completing your intended quest"
                         }
                     }
+                },
+                "bonus": {
+                    "name": "bonus",
+                    "description": "Get information about bonus quests (expert gauntlet)"
                 }
             },
             "text": {
@@ -255,10 +260,10 @@
                 "help": "Send **{text}** helps to your guildmates",
                 "admin": "Fulfill **{text}** admin quest",
                 "guild": "Fulfill **{text}** guild quest",
-                "stage": "Make **{text}** heros stages",
-                "hell": "Complete **{text}** hell events",
+                "stage": "Make **{text}** hero's stages",
+                "hell": "Complete **{text}** hell event(s)",
                 "boat": "Fulfill **{text}** boat exchanges",
-                "rss": "Farm **{text}** ressources",
+                "rss": "Farm **{text}** resources",
                 "hitMob": "Hit monsters **{text}** times",
                 "mightRech": "Increase your research might by **{text}**",
                 "mightTotal": "Increase your research might by **{text}**",
@@ -266,17 +271,37 @@
                 "box": "Open **{text}** mystery box",
                 "pdg": "Spend **{text}** guild coins",
                 "merge": "Merge **{text}** pacts",
-                "mobLeg": "Get **{text}** legendary monster loot",
+                "mobLeg": "Get **{text}** legendary monster loot(s)",
                 "frag": "Spend **{text}** familiar fragment",
                 "pack": "Buy **{text}** shop's pack",
-                "topHell": "Faire **{text}** top 70 en événements infernaux",
-                "topSolo": "Faire **{text}** top 70 en événements solo",
+                "topHell": "Reach top 70 **{text}** time(s) on hell events",
+                "topSolo": "Reach top 70 **{text}** time(s) on solo events",
                 "gems": "Spend **{text}** gems",
                 "stars": "Spend **{text}** holy stars",
                 "token": "Spend **{text}** tycoon's token",
                 "bossLabyElite": "Find **{text}** elite labyrinth bosses",
                 "loseTroops": "Lose **{text}** t4 troops",
-                "mergeSpeed": "Speed up **{text}** merge days"
+                "mergeSpeed": "Speed up **{text}** merge days",
+
+
+                "troopMight": "Increase your troop might by **{text}**",
+                "challenge": "Complete **{text}** 24h challenges",
+                "artifactQuest": "Complete **{text}** artifacts related quests",
+                "darknest": "Complete **{text}** darknest related quests",
+                "latsDay": "Complete **{text}** quests on the last day",
+                "firstDay": "Complete **{text}** quests on the first day",
+                "ptsQuest": "Complete **{text}** quests that are worth more than 150 points",
+                "hellQuest": "Complete **{text}** hell events related quests",
+                "farmQuest": "Complete **{text}** gathering quests",
+                "labTycoonQuest": "Complete **{text}** gemming gremlin/labyrinth guardian related quests",
+                "labBossQuest": "Complete **{text}** labyrinth guardian quests",
+                "huntQuest": "Complete **{text}** monster hunting related quests",
+                "bundleQuest": "Complete **{text}** special bundle  quests",
+                "shipQuest": "Complete **{text}** cargo ship quests",
+                "randomQuest": "Complete **{text}** random quests",
+
+                "bonusTitle": "Bonus quest list",
+                "bonusDescription": "When your guild reaches expert gauntlet, guild members access a bonus quest in addition to regular quests: three bonus quests will be given to each mate, and they will have to complete one of them to earn 175 bonus points. Members who have done this will appear in green in the guild leaderboard."
             },
             "choices": {
                 "points": {
@@ -431,21 +456,21 @@
                 }
             }
         },
-        "ressources": {
-            "name": "ressources",
+        "resources": {
+            "name": "resources",
             "description": "Documents and useful links",
             "text": {
-                "igg": "If you have a problem, you can reach IGG by these emails:\n-__Android__:help.lordsmobile.android@igg.com\n-__iOS__:ihelp.lordsmobile@igg.com",
-                "discord": "You can join the official Lords Mobile Discord server there:\n{text}",
+                "igg": "If you have a problem, you can reach IGG by these emails:\n[{text}]",
+                "discord": "You can join the official Lords Mobile Discord server there:\nhttps://discord.gg/lordsmobile",
                 "chest": "Official chest droprates are available [right there]({text})!",
-                "chest-reviver": "https://lordsmobile.igg.com/project/probability/?game_id=1051029902",
-                "discord-reviver": "https://discord.gg/lordsmobile"
+                "reedemCode": "To claim gift code, you can [go there]({text})!"
             },
             "choices": {
                 "target": {
                     "igg": "Contact IGG",
                     "discord": "Join the official LM discord",
-                    "chest": "Chest droprates"
+                    "chest": "Chest droprates",
+                    "reedemCode": "Claim gift codes"
                 }
             },
             "options": {
@@ -667,7 +692,7 @@
                 "item": "soul crystal"
             }
         },
-        "ressources": {
+        "resources": {
             "food": "food",
             "stone": "stone",
             "wood": "wood",

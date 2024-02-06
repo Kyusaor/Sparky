@@ -26,6 +26,7 @@
         },
         "cancelledCommand": "Commande annulée",
         "commandIsLocked": "Cette commande est déjà en cours d'exécution",
+        "autoDmResponse": "Réponse auto envoyée",
         "noLinkInDm": ":flag_fr: Bonjour, pour m'ajouter à votre serveur utilisez plutôt ce lien!",
         "noCommandOffServer": ":flag_fr: Les commandes sont à réaliser sur un serveur !",
         "CommandExecutionError": "Une erreur est survenue pendant l'éxecution de la commande",
@@ -156,7 +157,7 @@
                 "buildEmbedTitle": "Calculateur de batiment",
                 "buildEmbedDescription": "*Voici les ressources qu'il vous manque pour maxer votre {text} du __niveau {text2} au niveau {text3}__. Le compte des gemmes prend en compte le coût du marteau d'or pour le niveau 25*",
                 "gemsEquivalence": "Équivalent en gemmes:",
-                "noRessources": "Aucun",
+                "noResources": "Aucun",
 
                 "trainEmbedTitle": "Calculateur de troupes",
                 "trainEmbedDescription": "*Voici le coût en ressources pour former vos troupes !\nNote: le coût en gemmes diminuant au fur et à mesure que le nombre de troupes augmente, il n'est pas affiché dans ce calculateur*",
@@ -240,6 +241,10 @@
                             "description": "Le nombre de points de la quête que vous voulez"
                         }
                     }
+                },
+                "bonus": {
+                    "name": "bonus",
+                    "description": "Obtenez la liste des quêtes bonus (gantelet expert)"
                 }
             },
             "text": {
@@ -276,7 +281,27 @@
                 "token": "Dépenser **{text}** jetons au royaume du pouvoir",
                 "bossLabyElite": "Rencontrer **{text}** boss au labyrinthe élite",
                 "loseTroops": "Perdre **{text}** de vos troupes T4",
-                "mergeSpeed": "Accélérer **{text}** jours de fusion de pactes"
+                "mergeSpeed": "Accélérer **{text}** jours de fusion de pactes",
+
+
+                "troopMight": "Augmenter votre puissance troupes de **{text}** puissance",
+                "challenge": "Compléter **{text}** challenges 24h",
+                "artifactQuest": "Compléter **{text}** quêtes liées aux artefacts",
+                "darknest": "Compléter **{text}** quêtes liées aux sombres nids",
+                "latsDay": "Compléter **{text}** quêtes le dernier jour",
+                "firstDay": "Compléter **{text}** quêtes le premier jour",
+                "ptsQuest": "Compléter **{text}** quêtes de plus de 150 points",
+                "hellQuest": "Compléter **{text}** quêtes liées aux évènements infernaux",
+                "farmQuest": "Compléter **{text}** quêtes de récolte",
+                "labTycoonQuest": "Compléter **{text}** quêtes de boss labyrinthe/royaume du pouvoir",
+                "labBossQuest": "Compléter **{text}** quêtes liées aux boss de labyrinthe",
+                "huntQuest": "Compléter **{text}** quêtes liées à la chasse aux monstres",
+                "bundleQuest": "Compléter **{text}** quêtes liées aux achats de packs",
+                "shipQuest": "Compléter **{text}** quêtes liées au navire de charge",
+                "randomQuest": "Compléter **{text}** quêtes aléatoires",
+
+                "bonusTitle": "Liste des quêtes bonus",
+                "bonusDescription": "Lorsque votre guilde atteint le gantelet expert, les membres ont accès à une quête bonus en plus des quêtes habituelles: trois parmi cette liste seront attribuées à chacun, et il faudra compléter une des trois pour recevoir 175 point bonus. Les membres ayant complété cette quête bonus auront leur score affiché en vert dans la liste des scores de la guilde"
             },
             "choices": {
                 "points": {
@@ -431,21 +456,21 @@
                 }
             }
         },
-        "ressources": {
+        "resources": {
             "name": "ressources",
             "description": "Des documents et liens utiles",
             "text": {
-                "igg": "En cas de souci, vous pouvez contacter l'assistance d'igg via ces adresses mail:\n-__Android__: help.lordsmobile.android@igg.com\n-__iOS__: ihelp.lordsmobile@igg.com",
-                "discord": "Vous pouvez rejoindre le serveur Discord Lords Mobile officiel avec ce lien:\n{text}",
+                "igg": "En cas de souci, vous pouvez contacter l'assistance d'igg via ces adresses mail:\n{text}",
+                "discord": "Vous pouvez rejoindre le serveur Discord Lords Mobile officiel avec ce lien:\nhttps://discord.gg/lordsmobilefr",
                 "chest": "Les taux de drop de coffres officiels sont disponibles [par ici]({text})! (:warning: les noms sont en anglais)",
-                "chest-reviver": "https://lordsmobile.igg.com/project/probability/?game_id=1051029902",
-                "discord-reviver": "https://discord.gg/lordsmobilefr"
+                "reedemCode": "Pour utiliser des codes cadeaux, vous pouvez passer [par ici]({text})!"
             },
             "choices": {
                 "target": {
                     "igg": "Contacter IGG",
                     "discord": "Rejoindre le discord LM officiel",
-                    "chest": "Taux de drop des coffres"
+                    "chest": "Taux de drop des coffres",
+                    "reedemCode": "Utiliser des codes cadeaux"
                 }
             },
             "options": {
@@ -667,7 +692,7 @@
                 "item": "cristaux d'âme"
             }
         },
-        "ressources": {
+        "resources": {
             "food": "blé",
             "stone": "pierre",
             "wood": "bois",

@@ -12,7 +12,7 @@ export const donate:CommandInterface = {
     commandStructure: CommandManager.baseSlashCommandBuilder("donate", "member"),
 
     run({ intera, commandText }) {
-        let reply = Translations.displayText(commandText.donate, { text: Constants.paypalLink});
+        let reply = Translations.displayText(commandText.donate, { text: Constants.links.paypal });
 
         Command.prototype.reply(reply, intera);
     },
