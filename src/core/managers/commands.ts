@@ -398,7 +398,7 @@ export class Command implements CommandInterface {
         if (pageData.current + pageData.target == 1) {
             components = this.generatePageButtons(command, pageData.language, pageData.filter?.toString(), "first")
         }
-        else if (pageData.current + pageData.target == pageData.total) {
+        else if (pageData.current + pageData.target >= pageData.total) {
             components = this.generatePageButtons(command, pageData.language, pageData.filter?.toString(), "last")
         }
         else {
