@@ -80,7 +80,7 @@ export abstract class EventManager {
                 content = msg.content;
 
             //Auto response
-            if (msg.content.includes('discord.gg/')) {
+            if (msg.content.includes('discord.gg/') || msg.content.includes('discord.com/')) {
                 content += `\n${TranslationsCache.fr.global.autoDmResponse}: ${TranslationsCache.fr.global.noLinkInDm}`
                 await msg.channel.send(`${TranslationsCache.fr.global.noLinkInDm}\n\n${TranslationsCache.en.global.noLinkInDm}\n\n${Utils.displayBotLink()}`)
             }
