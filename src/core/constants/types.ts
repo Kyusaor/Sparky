@@ -85,6 +85,16 @@ export type hellEventData = {
     reward: keyof typeof Constants.WatcherMentionsTemplates;
 }
 
+export type familiarData = {
+    image: string;
+    pactTier: "1A" | "1B" | "2A" | "2B" | "3" | "4" | "5";
+    tier: 1 | 2 | 3 | 4 | 5;
+    ability1: { type: "war" | "production" | "development" };
+    ability2?: { type: "war" | "production" | "development" };
+    ability3?: { type: "war" | "production" | "development" };
+    activableActivity?: { type: "war" | "production" | "development", requireStone: boolean, unlock: "adult" | "elder", cooldown:string };
+    warSkill: boolean;
+}
 
 //Database related
 export type RolesData = {
