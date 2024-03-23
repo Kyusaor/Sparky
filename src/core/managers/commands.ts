@@ -81,7 +81,7 @@ export abstract class CommandManager {
             await command.run(args);
             StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName)
             Console.log(userCommandLogString(intera));
-            await chanList.LOGS_USERS?.send(`__**New command**__\nUser: \`${intera.user.username}\`\nId: \`${intera.user.id}\`\nCommand: \`${intera.commandName}\`\nLanguage: \`${language}\`\nServer: \`${intera.guild?.name}\`\nID: \`${intera.guildId}\``)
+            await chanList.LOGS_USERS?.send(`__**New command**__\nUser: \`${intera.user.username}\`\nId: \`${intera.user.id}\`\nCommand: \`${intera.commandName}\`\nSubcommand: \`${intera.options.getSubcommand(false) || "No"}\`\nLanguage: \`${language}\`\nServer: \`${intera.guild?.name}\`\nID: \`${intera.guildId}\``)
         }
         catch (err) {
             try {
@@ -707,7 +707,7 @@ export class WatcherManager {
 }
 
 function userCommandLogString(intera: ChatInputCommandInteraction): string {
-    let baseText = `${intera.user.username} (${intera.user.id}) a executé la commande ${intera.commandName} `;
+    let baseText = `${intera.user.username} (${intera.user.id}) a executé la commande ${intera.commandName} ${intera.options.getSubcommand(false) ? `(` + intera.options.getSubcommand(false) + ') ' : ``}`;
     let chanText: string = "";
     intera.channel!.type == ChannelType.DM ?
         chanText = `en mp` :
