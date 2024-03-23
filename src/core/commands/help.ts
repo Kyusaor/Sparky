@@ -15,7 +15,7 @@ export const help: CommandInterface = {
     commandStructure: CommandManager.baseSlashCommandBuilder("help", "member")
         .setDMPermission(true),
 
-    async run({intera, language, commandText }) {
+    async run({ intera, language, commandText }) {
         if (intera.channel?.type == ChannelType.DM || !intera.guildId)
             return Command.prototype.reply(`${commandText.commandInDM}`, intera)
 
@@ -29,15 +29,15 @@ export const help: CommandInterface = {
             thumb = DiscordValues.botIcon.help :
             thumb = DiscordValues.botIcon.helpAdmin;
 
-        let helpEmbed = Utils.EmbedBaseBuilder(language)
+        let helpEmbeds: EmbedBuilder[] = [Utils.EmbedBaseBuilder(language)
             .setThumbnail(thumb)
-            .setDescription(Translations.displayText(commandText.embedDescription, { username: intera.user.displayName }))
+            .setDescription(Translations.displayText(commandText.embedDescription, { username: intera.user.displayName }))]
 
 
-        let CommandsEmbedFields = buildCommandsEmbeds({ intera, language, commandText});
-        addHelpCommandFields(helpEmbed, intera, memberPerks, commandText, CommandsEmbedFields);
+        let CommandsEmbedFields = buildCommandsEmbeds({ intera, language, commandText });
+        addHelpCommandFields(helpEmbeds, intera, memberPerks, commandText, CommandsEmbedFields);
 
-        Command.prototype.reply({ embeds: [helpEmbed] }, intera);
+        Command.prototype.reply({ embeds: helpEmbeds }, intera);
     }
 }
 
@@ -54,7 +54,7 @@ function getMemberPermissionPerk(member: GuildMember): perksType {
     return value;
 }
 
-function buildCommandsEmbeds({language}: CommandArgs) {
+function buildCommandsEmbeds({ language }: CommandArgs) {
     let helpCommands: RestOrArray<APIEmbedField> = [];
     let adminCommands: RestOrArray<APIEmbedField> = [];
     let devCommands: RestOrArray<APIEmbedField> = [];
@@ -88,18 +88,44 @@ function buildCommandsEmbeds({language}: CommandArgs) {
     }
 }
 
-function addHelpCommandFields(embed: EmbedBuilder, intera:ChatInputCommandInteraction, memberPerks: perksType, text: Record<string, string>, data: { helpCommands: APIEmbedField[]; adminCommands: APIEmbedField[]; devCommands: APIEmbedField[]; }) {
-    embed.addFields([
+function addHelpCommandFields(embeds: EmbedBuilder[], intera: ChatInputCommandInteraction, memberPerks: perksType, text: Record<string, string>, data: { helpCommands: APIEmbedField[]; adminCommands: APIEmbedField[]; devCommands: APIEmbedField[]; }) {
+    var embedIndex = 0;
+
+    embeds[embedIndex].addFields([
         { name: text.memberFieldTitle, value: DiscordValues.emptyEmbedFieldValue },
         ...data.helpCommands,
+    ]);
+
+    if(checkEmbedLength(embedIndex, embeds, data.adminCommands.length + 2)) {
+        embeds.push(new EmbedBuilder({color: embeds[embedIndex].data.color, footer: embeds[embedIndex].data.footer }));
+        embeds[embedIndex].setFooter(null);
+        embedIndex++;
+    };
+
+    embeds[embedIndex].addFields([
         DiscordValues.emptyEmbedField,
         { name: text.adminFieldTitle, value: (memberPerks == "member" ? text.memberNotAdminWarning : DiscordValues.emptyEmbedFieldValue) },
         ...data.adminCommands
-    ])
-    if (memberPerks == "dev" && intera.guildId == DiscordValues.MAIN_GUILD)
-        embed.addFields([
+    ]);
+
+    if (memberPerks == "dev" && intera.guildId == DiscordValues.MAIN_GUILD) {
+        if(checkEmbedLength(embedIndex, embeds, data.devCommands.length + 2)) {
+            embeds.push(new EmbedBuilder({color: embeds[embedIndex].data.color, footer: embeds[embedIndex].data.footer }));
+            embeds[embedIndex].setFooter(null);
+            embedIndex++;
+        };
+
+        embeds[embedIndex].addFields([
             DiscordValues.emptyEmbedField,
             { name: text.devFieldTitle, value: DiscordValues.emptyEmbedFieldValue },
             ...data.devCommands
         ])
+    }
+}
+
+function checkEmbedLength(index: number, builders: EmbedBuilder[], addedLength: number) {
+    let totalLength = 0;
+    builders.slice(index).forEach(e => totalLength += e.data.fields?.length || 0);
+
+    return totalLength + addedLength > 24
 }
