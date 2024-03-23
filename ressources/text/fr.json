@@ -1,17 +1,30 @@
 {
     "global": {
-        "languagesFullName":{
+        "languagesFullName": {
             "fr": "français",
             "en": "anglais"
         },
         "welcomeMsg": "Je me présente: je suis Sparky, un bot discord Lords Mobile, conçu pour les serveurs de guilde.\n\nLa liste de mes commandes se trouve en faisant **\\/aide\\** sur votre serveur\n\nMerci de m'avoir ajouté!",
         "tipsFooter": [
-            {"text": "Faites la commande /aide pour obtenir de l'aide !"},
-            {"text": "Développé avec amour par {dev_username}", "iconURL": "{dev_avatar_url}"},
-            {"text": "Faites la commande /langage pour changer la langue du bot!"},
-            {"text": "Faites /veilleur pour avoir les notifications d'évènements infernaux"},
-            {"text": "Fun fact: je suis le meilleur bot du monde"},
-            {"text": "Soutenez le bot avec la commande /donner"}
+            {
+                "text": "Faites la commande /aide pour obtenir de l'aide !"
+            },
+            {
+                "text": "Développé avec amour par {dev_username}",
+                "iconURL": "{dev_avatar_url}"
+            },
+            {
+                "text": "Faites la commande /langage pour changer la langue du bot!"
+            },
+            {
+                "text": "Faites /veilleur pour avoir les notifications d'évènements infernaux"
+            },
+            {
+                "text": "Fun fact: je suis le meilleur bot du monde"
+            },
+            {
+                "text": "Soutenez le bot avec la commande /donner"
+            }
         ],
         "errors": {
             "notInAGuild": "La command doit être exécutée sur un serveur",
@@ -89,7 +102,7 @@
                 "buildings": {
                     "name": "batiments",
                     "description": "Calcule les ressources qu'il vous manque pour vos bâtiments payants",
-                    "options":{
+                    "options": {
                         "building": {
                             "name": "batiment",
                             "description": "Le bâtiment à calculer"
@@ -158,15 +171,14 @@
                 "buildEmbedDescription": "*Voici les ressources qu'il vous manque pour maxer votre {text} du __niveau {text2} au niveau {text3}__. Le compte des gemmes prend en compte le coût du marteau d'or pour le niveau 25*",
                 "gemsEquivalence": "Équivalent en gemmes:",
                 "noResources": "Aucun",
-
                 "trainEmbedTitle": "Calculateur de troupes",
                 "trainEmbedDescription": "*Voici le coût en ressources pour former vos troupes !\nNote: le coût en gemmes diminuant au fur et à mesure que le nombre de troupes augmente, il n'est pas affiché dans ce calculateur*",
-                "trainEmbedTrainSpeed" : "__Vitesse d'entraînement:__",
-                "trainEmbedCostReduction" : "__Réduction du coût:__",
-                "trainEmbedTroopAmount" : "__Nombre de troupe à former:__",
-                "trainEmbedBatchAmount" : "__Nombre de fournées nécessaires:__",
-                "trainEmbedRssCost" : "__Coût en {text}:__ ",
-                "trainEmbedTimeCost" : "__Durée nécessaire:__",
+                "trainEmbedTrainSpeed": "__Vitesse d'entraînement:__",
+                "trainEmbedCostReduction": "__Réduction du coût:__",
+                "trainEmbedTroopAmount": "__Nombre de troupe à former:__",
+                "trainEmbedBatchAmount": "__Nombre de fournées nécessaires:__",
+                "trainEmbedRssCost": "__Coût en {text}:__ ",
+                "trainEmbedTimeCost": "__Durée nécessaire:__",
                 "trainEmbedMightGained": "__Puissance obtenue:__"
             }
         },
@@ -182,10 +194,22 @@
             "description": "Remerciements",
             "text": {
                 "thanks": [
-                    ["Les bêta testeurs", "Qui ont accepté de servir de cobayes pour un bot presque fini"],
-                    ["Les quelques donateurs", "Pour m'avoir aidé à soutenir le coût du bot (commande **/donner** si jamais :eyes:)"],
-                    ["Les traducteurs", "Pour avoir corrigé mon anglais douteux"],
-                    ["Et enfin...", "Tous les utilisateurs du bot pour avoir accordé leur confiance à ce projet :heart:"]
+                    [
+                        "Les bêta testeurs",
+                        "Qui ont accepté de servir de cobayes pour un bot presque fini"
+                    ],
+                    [
+                        "Les quelques donateurs",
+                        "Pour m'avoir aidé à soutenir le coût du bot (commande **/donner** si jamais :eyes:)"
+                    ],
+                    [
+                        "Les traducteurs",
+                        "Pour avoir corrigé mon anglais douteux"
+                    ],
+                    [
+                        "Et enfin...",
+                        "Tous les utilisateurs du bot pour avoir accordé leur confiance à ce projet :heart:"
+                    ]
                 ],
                 "embedDescription": "La liste des personnes qui ont aidé de près ou de loin au développement du bot",
                 "embedTitle": "Remerciements"
@@ -228,6 +252,43 @@
                 "donate": "Vous voulez contribuer au développement du bot sans rien y connaître en informatique et sans passer des nuits blanches? J'ai la solution !\n\nEn donnant de l'argent, vous aiderez le développeur à financer l'hébergement du bot et booster son égo, d'une pierre deux coups ! <:thumbsup:751774481781096468>\n{text}"
             }
         },
+        "familiar": {
+            "name": "familier",
+            "description": "Des informations diverses sur les familiers",
+            "subcommand": {
+                "famidex": {
+                    "name": "famidex",
+                    "description": "Une liste complète des familiers, leurs coûts, compétences etc !",
+                    "options": {
+                        "tier": {
+                            "name": "tier",
+                            "description": "Le niveau de pactes requis"
+                        }
+                    }
+                }
+            },
+            "choices": {
+                "tier": {
+                    "all": "Liste complète",
+                    "1a": "Pactes 1A (cime)",
+                    "1b": "Pactes 1B (cime)",
+                    "2a": "Pactes 2A (cime)",
+                    "2b": "Pactes 2B (cime)",
+                    "3": "Pactes 3 (cime)",
+                    "4": "Pactes 4 (cime)",
+                    "5": "Pactes 5 (payant/royaume)"
+                }
+            },
+            "text": {
+                "1ApactName": "pactes 1A",
+                "1BpactName": "pactes 1B",
+                "2ApactName": "pactes 2A",
+                "2BpactName": "pactes 2B",
+                "3pactName": "pactes 3",
+                "4pactName": "pactes 4",
+                "5pactName": "pactes 5"
+            }
+        },
         "guildfest": {
             "name": "guildfest",
             "description": "Infos utiles sur la Guild Fest",
@@ -256,7 +317,6 @@
                 "easyField": "__Quêtes faciles:__",
                 "mediumField": "__Quête longues ou normales:__",
                 "hardField": "__Quêtes difficiles ou payantes:__",
-
                 "help": "Envoyer **{text}** aides aux membres de la guilde",
                 "admin": "Effectuer **{text}** quêtes admin",
                 "guild": "Effectuer **{text}** quêtes de guilde",
@@ -282,8 +342,6 @@
                 "bossLabyElite": "Rencontrer **{text}** boss au labyrinthe élite",
                 "loseTroops": "Perdre **{text}** de vos troupes T4",
                 "mergeSpeed": "Accélérer **{text}** jours de fusion de pactes",
-
-
                 "troopMight": "Augmenter votre puissance troupes de **{text}** puissance",
                 "challenge": "Compléter **{text}** challenges 24h",
                 "artifactQuest": "Compléter **{text}** quêtes liées aux artefacts",
@@ -299,7 +357,6 @@
                 "bundleQuest": "Compléter **{text}** quêtes liées aux achats de packs",
                 "shipQuest": "Compléter **{text}** quêtes liées au navire de charge",
                 "randomQuest": "Compléter **{text}** quêtes aléatoires",
-
                 "bonusTitle": "Liste des quêtes bonus",
                 "bonusDescription": "Lorsque votre guilde atteint le gantelet expert, les membres ont accès à une quête bonus en plus des quêtes habituelles: trois parmi cette liste seront attribuées à chacun, et il faudra compléter une des trois pour recevoir 175 point bonus. Les membres ayant complété cette quête bonus auront leur score affiché en vert dans la liste des scores de la guilde"
             },
@@ -332,15 +389,15 @@
             "name": "info",
             "description": "Obtenez des infos sur un utilisateur discord, le serveur ou le bot",
             "subcommand": {
-                "user": { 
-                    "name": "utilisateur", 
-                    "description": "Obtenez des infos sur un compte discord", 
-                    "options": { 
+                "user": {
+                    "name": "utilisateur",
+                    "description": "Obtenez des infos sur un compte discord",
+                    "options": {
                         "user": {
-                            "name": "utilisateur", 
+                            "name": "utilisateur",
                             "description": "Le compte discord dont vous voulez les informations"
-                            }
-                        } 
+                        }
+                    }
                 },
                 "bot": {
                     "name": "bot",
@@ -374,7 +431,7 @@
                 "clicHere": "Cliquez ici!"
             }
         },
-        "language" : {
+        "language": {
             "name": "langage",
             "description": "Change la langue du bot (ou du serveur, si vous avez la permission admin)",
             "options": {
@@ -550,7 +607,7 @@
             },
             "options": {
                 "id": {
-                    "name":"id",
+                    "name": "id",
                     "description": "L'id du serveur cible"
                 }
             }
@@ -619,9 +676,7 @@
                 "rolesAndChanDeletionReason": "Reparamétrage du panneau Veilleur",
                 "channelsNotFound": "Impossible de trouver le salon {text} (serveur {text2} ({id}))",
                 "noRoles": "Échec de récupération des rôles du serveur",
-
                 "loadingText": "<a:loading:739785338347585598> Paramétrage en cours...",
-
                 "boardName": "tableau-veilleur-dragon",
                 "boardTopic": "Abonnez-vous aux notifications d'évènements infernaux et challenge !",
                 "boardReason": "création du salon d'abonnement aux notifications",
@@ -629,7 +684,6 @@
                 "mentionTopic": "Abonnez-vous aux notifications d'évènements infernaux et challenge pour recevoir les mentions!",
                 "mentionReason": "création du salon d'abonnement aux notifications",
                 "hell": "infernal ",
-
                 "boardEmbedTitle": "__**Signalement des Veilleurs et Dragons**__",
                 "boardEmbedDescription": "Sélectionnez les évènements infernaux et les challenges qui vous intéressent. Les mentions seront faites dans le salon <#{id}>",
                 "boardEmbedFieldName": "__Comment ça marche?__",
@@ -637,16 +691,13 @@
                 "boardEmbedFooter": "Développé avec amour par {dev_username}",
                 "boardMenuOptionDescription": "Soyez notifié quand il y a un évènement {text}",
                 "boardMenuPlaceholder": "Choissez vos abonnements",
-
                 "success": "Terminé ! Les salons <#{text}> et <#{text2}> ont bien été créés\nVous êtes libres de renommer ou déplacer les salons et rôles, du moment que vous ne supprimez rien :wink:\nFaites `/{text3}` pour les supprimer ainsi que les rôles\n*À noter: les signalements sont fait à la main par le staff du bot, certains évènements peuvent être ratés*"
             }
         },
-        "watcher-refresh":{
+        "watcher-refresh": {
             "name": "veilleur-verif",
             "description": "Vérifie que tous les rôles sont correctement paramétré, et créée les éléments qui manquent",
-            "text": {
-                
-            }
+            "text": {}
         }
     },
     "others": {
@@ -713,10 +764,10 @@
             "challengeTroops": "challenge dragon entraînement"
         },
         "hellMentions": {
-            "watcher":"veilleur",
-            "dragon":"dragon",
-            "redOrb":"orbes rouges",
-            "yellowOrb":"orbes jaunes",
+            "watcher": "veilleur",
+            "dragon": "dragon",
+            "redOrb": "orbes rouges",
+            "yellowOrb": "orbes jaunes",
             "research": "recherche",
             "building": "construction",
             "troop": "entraînement",
@@ -736,9 +787,336 @@
             "remainingTimeAfterBegining": "Il commencera dans **{text}** minutes",
             "logMentions": "{id} a signalé un évènement {text} {text2} {text3}",
             "temporaryLogMentions": "Un évènement {text} {text2} {text3} a été signalé\n",
-
             "updateRolesMsg": "Vos rôles ont été modifiés:\n",
             "missingRoles": ":warning: Certains rôles mentions sont introuvables"
+        },
+        "familiars": {
+            "jaziek": {
+                "name": "Jaziek",
+                "ability1Name": "Gardien des cryptes",
+                "ability1Description": "Stockage de la chambre forte +10%"
+            },
+            "engineer": {
+                "name": "Ingénieur",
+                "ability1Name": "Prospecteur de minerai",
+                "ability1Description": "Production de minerai +25%"
+            },
+            "oakroot": {
+                "name": "Chênecine",
+                "ability1Name": "Bucheron",
+                "ability1Description": "Production de bois +25%"
+            },
+            "magmalord": {
+                "name": "Seigneur Magme",
+                "ability1Name": "Rolling stones",
+                "ability1Description": "Production de pierre +25%"
+            },
+            "territe": {
+                "name": "Territe",
+                "ability1Name": "Force du sol",
+                "ability1Description": "Vitesse de fusion (pactes) +20%",
+                "activableAbilityName": "Colère des terres",
+                "activableAbilityDescription": "Donne 3 quantités de fragments aléatoires (5 à 30 par coup)"
+            },
+            "yeti": {
+                "name": "Yéti",
+                "ability1Name": "Débandade",
+                "ability1Description": "Vitesse de déplacement troupes de collecte +25%"
+            },
+            "beastmaster": {
+                "name": "Maître des bêtes",
+                "ability1Name": "Route de la soie",
+                "ability1Description": "Vitesse de déplacement de troupes d'approvisionnement +25%"
+            },
+            "terraspike": {
+                "name": "Tortépines",
+                "ability1Name": "Engrais",
+                "ability1Description": "Production de nourriture +25%"
+            },
+            "gnome": {
+                "name": "Gnome",
+                "ability1Name": "Conseiller financier",
+                "ability1Description": "Production d'or +25%"
+            },
+            "aquiris": {
+                "name": "Aquiris",
+                "ability1Name": "Epanouissement",
+                "ability1Description": "Production d'anima +40%",
+                "activableAbilityName": "Source",
+                "activableAbilityDescription": "Donne entre 60 et 120 STA"
+            },
+            "sorcerer": {
+                "name": "Sorcier",
+                "ability1Name": "Renforcement",
+                "ability1Description": "Vitesse de deplacement troupes alliées +25%",
+                "activableAbilityName": "Magie noire",
+                "activableAbilityDescription": "Termine la transmutation en cours"
+            },
+            "strix": {
+                "name": "Strige",
+                "ability1Name": "Sac-à-sang",
+                "ability1Description": "Vitesse de soin de l'infirmerie +25%",
+                "ability2Name": "Exécution",
+                "ability2Description": "Attente avant exécution de chef emprisonné réduit de 3 heures"
+            },
+            "evilWeevil": {
+                "name": "Charançon maléfique",
+                "ability1Name": "Boost nourriture",
+                "ability1Description": "Production de blé +35%",
+                "activableAbilityName": "Récolte exceptionnelle",
+                "activableAbilityDescription": "Donne instantanément l'équivalent de 4 heures de production de ressources"
+            },
+            "totempest": {
+                "name": "Totempestes",
+                "ability1Name": "Boost bois",
+                "ability1Description": "Production de bois +35%",
+                "activableAbilityName": "Amarrage",
+                "activableAbilityDescription": "Renouvelle le navire de charge"
+            },
+            "tempestite": {
+                "name": "Tempêtite",
+                "ability1Name": "Gardien du vent",
+                "ability1Description": "DEF remparts +20%",
+                "ability2Name": "Mistral",
+                "ability2Description": "Vitesse de récupération d'énergie +10%",
+                "activableAbilityName": "Air frais",
+                "activableAbilityDescription": "Donne 20k troupes T1 d'un type aléatoire"
+            },
+            "harpy": {
+                "name": "Harpie",
+                "ability1Name": "Ecran de nuage",
+                "ability1Description": "Capacité refuge +50k",
+                "activableAbilityName": "Première classe",
+                "activableAbilityDescription": "Donne 3 points vip aléatoires ( 100 / 500 / 1000 / 5000)"
+            },
+            "bonehead": {
+                "name": "Tête d'os",
+                "ability1Name": "Potentiel dévoilé",
+                "ability1Description": "Stockage d'anima +20%",
+                "activableAbilityName": "Duel",
+                "activableAbilityDescription": "Donne 10 entrées au colisée"
+            },
+            "krabby": {
+                "name": "Krabby",
+                "ability1Name": "Boost minéraux",
+                "ability1Description": "Production de minerai +35%",
+                "ability2Name": "Coeur d'acier",
+                "ability2Description": "EXP joueur +10%"
+            },
+            "bouldur": {
+                "name": "Graniti",
+                "ability1Name": "Boost pierre",
+                "ability1Description": "Production de pierre +35%",
+                "activableAbilityName": "Maître de l'architecture",
+                "activableAbilityDescription": "Remplit la barre d'aide de la construction en cours instantanément"
+            },
+            "pyris": {
+                "name": "Flamis",
+                "ability1Name": "Sauvetage",
+                "ability1Description": "Fournitures supplémentaire +20%",
+                "ability2Name": "Melting pot",
+                "ability2Description": "Temps de transmutaion d'essence noire -10%",
+                "activableAbilityName": "Sentier flamboyant",
+                "activableAbilityDescription": "Tue 7500 à 12500 troupes dans la caserne ennemies du rang le plus bas (max 5% des troupes totales)"
+            },
+            "moleShaman": {
+                "name": "Taupe chaman",
+                "ability1Name": "Remède naturel",
+                "ability1Description": "Capacité infirmerie +5%",
+                "ability2Name": "Pouvoir fruité",
+                "ability2Description": "ATT infanterie +10%",
+                "activableAbilityName": "Réparation rapide",
+                "activableAbilityDescription": "Répare 50% du max des PV remparts"
+            },
+            "magus": {
+                "name": "Magus",
+                "ability1Name": "Lien mystique",
+                "ability1Description": "Capacité de fusion de pactes +5",
+                "ability2Name": "Offrande",
+                "ability2Description": "Durée boost autel +3 heures",
+                "activableAbilityName": "Assitance noire",
+                "activableAbilityDescription": "Remplit la barre d'aide de la recherche en cours instantanément"
+            },
+            "goblin": {
+                "name": "Gobelin",
+                "ability1Name": "Super récolte",
+                "ability1Description": "Vitesse de collecte +25%",
+                "ability2Name": "Boost or",
+                "ability2Description": "Production d'or +35%",
+                "activableAbilityName": "Chercheur d'or",
+                "activableAbilityDescription": "Donne entre 6M et 12M d'or"
+            },
+            "gemmingGremlin": {
+                "name": "Diablotin",
+                "ability1Name": "Architecte",
+                "ability1Description": "Vitesse de construction +5%",
+                "ability2Name": "Boost projet",
+                "ability2Description": "Vitesse de collecte de gemmes +10% (filons)",
+                "activableAbilityName": "Coup de fortune",
+                "activableAbilityDescription": "Donne entre 1500 et 3000 gemmes"
+            },
+            "trickstar": {
+                "name": "Trickstar",
+                "ability1Name": "Intelligence stellaire",
+                "ability1Description": "Vitesse de recherche +5%",
+                "ability2Name": "Aide divine",
+                "ability2Description": "ATT distance +10%",
+                "activableAbilityName": "Bonne étoile",
+                "activableAbilityDescription": "Donne 3 étoiles sacrées aléatoires (100 / 1 000 / 10 000)"
+            },
+            "noceros": {
+                "name": "Nocéros",
+                "ability1Name": "Charge accrue",
+                "ability1Description": "Capacité armée +35%",
+                "ability2Name": "Frappe foudroyante",
+                "ability2Description": "ATT cavalerie +10%",
+                "activableAbilityName": "En un éclair",
+                "activableAbilityDescription": "Termine instantanément 5 collectes en cours (hors filons de gemmes)"
+            },
+            "gryphon": {
+                "name": "Griffon",
+                "ability1Name": "Aide aérienne",
+                "ability1Description": "Capacité de renforts alliés +50k",
+                "ability2Name": "Polymathe",
+                "ability2Description": "Vitesse d'entraînement +5%",
+                "activableAbilityName": "Retour immédiat",
+                "activableAbilityDescription": "Rappelle toutes les troupes en 6 secondes (hors troupes de coalition)"
+            },
+            "snowBeast": {
+                "name": "Bête des neiges",
+                "ability1Name": "Martèlement",
+                "ability1Description": "Vitesse de déplacement de coalition (sombre nid) +25%",
+                "ability2Name": "Bouclier de givre",
+                "ability2Description": "DEF distance +10%",
+                "activableAbilityName": "Transport de masse",
+                "activableAbilityDescription": "Multiplie la capacité d'approvisionnement de ressources par 4 pendant 1 heure"
+            },
+            "megaMaggot": {
+                "name": "Méga-larve",
+                "ability1Name": "Motivation",
+                "ability1Description": "Capacité de caserne +5000",
+                "ability2Name": "Coquille solide",
+                "ability2Description": "DEF infanterie +10%",
+                "activableAbilityName": "Contamination",
+                "activableAbilityDescription": "Réduit une production de ressource ennemie pendant 3 heures"
+            },
+            "saberfang": {
+                "name": "Sabrecroc",
+                "ability1Name": "Prédateur",
+                "ability1Description": "Vitesse de déplacement chasse aux monstres +25%",
+                "ability2Name": "Esprit sauvage",
+                "ability2Description": "DEF cavalerie +10%",
+                "activableAbilityName": "Chasse fatale",
+                "activableAbilityDescription": "Ajoute 15 combo au prochain monstre que vous chassez dans les 15 minutes après activation (ne dépasse pas la limite de chasses consécutives)"
+            },
+            "hoarder": {
+                "name": "Syllogomane",
+                "ability1Name": "Expansion du trésor",
+                "ability1Description": "Capacité de dépôt de la salle au trésor +10k",
+                "ability2Name": "Mains d'or",
+                "ability2Description": "Vitesse de fusion (pierre de compétence) +20%",
+                "activableAbilityName": "Trésor de la ville",
+                "activableAbilityDescription": "Donne 3 joyaux de type et rareté aléatoires (joyaux de base uniquement)"
+            },
+            "mechaTrojan": {
+                "name": "Mécha Troyen",
+                "ability1Name": "Etalon puissant",
+                "ability1Description": "PV cavalerie +10%",
+                "ability2Name": "Y'a pas d'lézard",
+                "ability2Description": "DEF armée (fureur de bataille) +10%",
+                "activableAbilityName": "Cheval de Troie",
+                "activableAbilityDescription": "Augmente la taille max de coalition de 125k pendant 30 minutes"
+            },
+            "tidal": {
+                "name": "Titan des marées",
+                "ability1Name": "Fontaine de jouvence",
+                "ability1Description": "PV infanterie +10%",
+                "ability2Name": "Mur d'eau",
+                "ability2Description": "DEF armée +10%",
+                "activableAbilityName": "Marée haute",
+                "activableAbilityDescription": "Téléporte aléatoirement le territoire ennemi après la première attaque réussie dans les 15 minutes après activation"
+            },
+            "drider": {
+                "name": "Drider infernal",
+                "ability1Name": "Esprit infernal",
+                "ability1Description": "PV infanterie +10%",
+                "ability2Name": "Sortie assurée",
+                "ability2Description": "Chance d'évasion du chef à la capture +10%",
+                "activableAbilityName": "Convocation",
+                "activableAbilityDescription": "Donne 15k troupes d'un type aléatoire, du rang le plus haut débloqué (T4 max)"
+            },
+            "grimReaper": {
+                "name": "La Faucheuse",
+                "ability1Name": "Esprit vagabond",
+                "ability1Description": "Vitesse de déplacement +10%",
+                "ability2Name": "Transcendance",
+                "ability2Description": "PV distance +10%",
+                "activableAbilityName": "Baiser de la mort",
+                "activableAbilityDescription": "Tue 20k à 50k troupes de la caserne ennemie (max 5% du total, cible les troupes au niveau le plus élevé)"
+            },
+            "hueyHops": {
+                "name": "Lapinou",
+                "ability1Name": "Bouclier carapacé",
+                "ability1Description": "DEF distance +20%",
+                "ability2Name": "Inspiration",
+                "ability2Description": "PV armée +10%",
+                "activableAbilityName": "Chaud lapin",
+                "activableAbilityDescription": "Votre chef s'échappera la première fois qu'il est capturé dans les 30 minutes après activation"
+            },
+            "bonAppeti": {
+                "name": "Morfalange",
+                "ability1Name": "Ange gardien",
+                "ability1Description": "Attaque infanterie +10%",
+                "ability2Name": "Eclat angélique",
+                "ability2Description": "ATT armée de coalition +10%",
+                "activableAbilityName": "Rétribution divine",
+                "activableAbilityDescription": "Détruit 7 à 15% des ressources du territoire ennemi (max: 100m)"
+            },
+            "gargantua": {
+                "name": "Gargantua",
+                "ability1Name": "Avocat du diable",
+                "ability1Description": "DEF cavalerie +20%",
+                "ability2Name": "Coup géant",
+                "ability2Description": "ATT cavalerie +10%",
+                "activableAbilityName": "Grâce salvatrice",
+                "activableAbilityDescription": "Allonge le délai d'une quête Guild Fest de 30%. Marche également sur les quêtes déjà expirées"
+            },
+            "frostwing": {
+                "name": "Aile-de-Givre",
+                "ability1Name": "Bouclier de glace",
+                "ability1Description": "DEF infanterie + 20%",
+                "ability2Name": "Brise glaciale",
+                "ability2Description": "ATT armée +5%",
+                "activableAbilityName": "Morsure de givre",
+                "activableAbilityDescription": "Augmente le temps de déplacement d'escouade de 300% pendant 1h"
+            },
+            "queenBee": {
+                "name": "Reine Abeille",
+                "ability1Name": "Bois miellé",
+                "ability1Description": "PV cavalerie +10%",
+                "ability2Name": "Flèche tueuse",
+                "ability2Description": "ATT distance +10%",
+                "activableAbilityName": "Piqûre de poison",
+                "activableAbilityDescription": "Envoie 10 000 troupes de la caserne ennemie à l'infirmerie toutes les 10 minutes (niveau aléatoire, ne dépasse pas 1,25% du total des troupes) et réduit l'ATT armée de 15% pendant 4h"
+            },
+            "blackwing": {
+                "name": "Ailes noires",
+                "ability1Name": "Rugissement",
+                "ability1Description": "Attaque armée +5%",
+                "ability2Name": "Sanguin",
+                "ability2Description": "PV Armée (fureur de bataille) +10%",
+                "activableAbilityName": "Feu d'enfer",
+                "activableAbilityDescription": "Vos troupes d'invasion tuent 100% des troupes ennemies blessées (garnison et renforts inclus)"
+            },
+            "jadeWyrm": {
+                "name": "Wyrm de jade",
+                "ability1Name": "Bénediction ardente - Infanterie",
+                "ability1Description": "Boost impact Infanterie vs Archers +15%",
+                "ability2Name": "Bénediction ardente - Archers",
+                "ability2Description": "Boost impact Archers vs Cavalerie +15%",
+                "activableAbilityName": "Bénediction ardente - Cavalerie",
+                "activableAbilityDescription": "Boost impact Cavalerie vs Infanterie +15%"
+            }
         }
     }
 }
