@@ -162,7 +162,7 @@ export class ConsoleLogger {
         };
 
         //Check if directory exists and create it if not
-        let dir = `./logs/${formatDate.month}-${formatDate.year}`
+        let dir = `./logs/${formatDate.year}-${formatDate.month}`
         if (!existsSync(dir)) {
             mkdirSync(dir)
         }
