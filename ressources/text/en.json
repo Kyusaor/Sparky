@@ -463,14 +463,16 @@
                 "igg": "If you have a problem, you can reach IGG by these emails:\n[{text}]",
                 "discord": "You can join the official Lords Mobile Discord server there:\nhttps://discord.gg/lordsmobile",
                 "chest": "Official chest droprates are available [right there]({text})!",
-                "reedemCode": "To claim gift code, you can [go there]({text})!"
+                "reedemCode": "To claim gift code, you can [go there]({text})!",
+                "migration": "## __Migration cost (scrolls)__:\n*Migration cost only depends on your might position in the target kingdom's leaderboard*\n*Migration scrolls can be bought with guilds coins (810k), or by buying the \"Up and away\" pack*\n*To check a kingdom's migration cost, you can open the target kingdom's map, click on a position then \"migrate\", cost will be displayed on the confirm button*\n\n**1st place:** 90\n**2nd place**: 65\n**3rd place**: 50\n**4th place**: 35\n**5th place**: 30\n**6th place**: 28\n**7th place**: 26\n**8th place**: 24\n**9th place**: 22\n**10th place**: 20\n\n**11-13th place**: 18\n**14-16th place**: 16\n**17-18th place**: 14\n**19-20th place**: 13\n**21-22nd place**: 12\n**23-24th place**: 11\n\n**25-26th place**: 10\n**27-28th place**: 9\n**29-30th place**: 8\n**31-32nd place**: 7\n**33-35th place**: 6\n\n**36-38th place**: 5\n**39-41st place**: 4\n**42-45th place**: 3\n**46-50th place**: 2\n**51st place and less**: 1"
             },
             "choices": {
                 "target": {
                     "igg": "Contact IGG",
                     "discord": "Join the official LM discord",
                     "chest": "Chest droprates",
-                    "reedemCode": "Claim gift codes"
+                    "reedemCode": "Claim gift codes",
+                    "migration": "Migration cost"
                 }
             },
             "options": {

@@ -463,14 +463,16 @@
                 "igg": "En cas de souci, vous pouvez contacter l'assistance d'igg via ces adresses mail:\n{text}",
                 "discord": "Vous pouvez rejoindre le serveur Discord Lords Mobile officiel avec ce lien:\nhttps://discord.gg/lordsmobilefr",
                 "chest": "Les taux de drop de coffres officiels sont disponibles [par ici]({text})! (:warning: les noms sont en anglais)",
-                "reedemCode": "Pour utiliser des codes cadeaux, vous pouvez passer [par ici]({text})!"
+                "reedemCode": "Pour utiliser des codes cadeaux, vous pouvez passer [par ici]({text})!",
+                "migration": "## __Coût de migration (vélins)__:\n*-Le coût pour migrer dépend uniquement du classement de puissance que vous aurez dans le royaume ciblé*\n*-Les vélins de migration peuvent être achetés en pièces de guilde (810k) ou en payant le pack \"Haut et loin\"*\n*-Si vous voulez connaître le coût pour un royaume, vous pouvez aller sur la map du royaume cible et cliquer sur une position puis sur \"migrer\", le coût sera affiché sur le bouton pour confirmer la migration*\n\n**1ere place:** 90\n**2e place**: 65\n**3e place**: 50\n**4e place**: 35\n**5e place**: 30\n**6e place**: 28\n**7e place**: 26\n**8e place**: 24\n**9e place**: 22\n**10e place**: 20\n\n**11-13e place**: 18\n**14-16e place**: 16\n**17-18e place**: 14\n**19-20e place**: 13\n**21-22e place**: 12\n**23-24e place**: 11\n\n**25-26e place**: 10\n**27-28e place**: 9\n**29-30e place**: 8\n**31-32e place**: 7\n**33-35e place**: 6\n\n**36-38e place**: 5\n**39-41e place**: 4\n**42-45e place**: 3\n**46-50e place**: 2\n**51e place et moins**: 1"
             },
             "choices": {
                 "target": {
                     "igg": "Contacter IGG",
                     "discord": "Rejoindre le discord LM officiel",
                     "chest": "Taux de drop des coffres",
-                    "reedemCode": "Utiliser des codes cadeaux"
+                    "reedemCode": "Utiliser des codes cadeaux",
+                    "migration": "Coût de migration"
                 }
             },
             "options": {
