@@ -82,7 +82,8 @@ export const calculator: CommandInterface = {
                     for (let i of Object.keys(rss.resources))
                         missingResources[i] = commandText.noResources;
                     missingResources.gems = commandText.noResources;
-                    lvl = 9
+                    if (build == 'trove')
+                        lvl = 9;
                 }
                 else {
                     //Add missing resources (w/o gems)
@@ -134,7 +135,7 @@ export const calculator: CommandInterface = {
                     { name: commandText.trainEmbedCostReduction, value: `${Constants.troops.subv[args.tier][args.subsidy]}%`, inline: true },
                     { name: commandText.trainEmbedTroopAmount, value: `${Utils.format3DigitsSeparation(args.amount)} ${troopData.type[args.type]} T${args.tier}`, inline: true },
                     { name: commandText.trainEmbedBatchAmount, value: Math.ceil(args.amount / args.capacity).toString(), inline: true },
-                    { name: commandText.trainEmbedMightGained, value: Utils.format3DigitsSeparation(args.amount * Constants.troops[args.tier].might)}
+                    { name: commandText.trainEmbedMightGained, value: Utils.format3DigitsSeparation(args.amount * Constants.troops[args.tier].might) }
                 ];
 
                 for (let rss of Object.keys(TranslationsCache.fr.others.resources)) {
