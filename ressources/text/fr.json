@@ -286,7 +286,10 @@
                 "2BpactName": "pactes 2B",
                 "3pactName": "pactes 3",
                 "4pactName": "pactes 4",
-                "5pactName": "pactes 5"
+                "5pactName": "pactes 5",
+
+                "listEmbedTitle": "Répartition des familiers par pactes",
+                "listEmbedDescription": "*Les chiffres devant les familiers représentent leur rang. Ce dernier détermine le coût d'amélioration des différentes compétences du familier*"
             }
         },
         "guildfest": {
@@ -794,84 +797,112 @@
             "jaziek": {
                 "name": "Jaziek",
                 "ability1Name": "Gardien des cryptes",
-                "ability1Description": "Stockage de la chambre forte +10%"
+                "ability1Description": "Stockage de la chambre forte +10%",
+                "warTalentName": "Slash mortel",
+                "warTalentDesctiption": "Réduit les PV cavalerie adverses de 40%"
             },
             "engineer": {
                 "name": "Ingénieur",
                 "ability1Name": "Prospecteur de minerai",
-                "ability1Description": "Production de minerai +25%"
+                "ability1Description": "Production de minerai +25%",
+                "warTalentName": "Aux armes !",
+                "warTalentDesctiption": "Augmente l'ATT infanterie de 15%"
             },
             "oakroot": {
                 "name": "Chênecine",
                 "ability1Name": "Bucheron",
-                "ability1Description": "Production de bois +25%"
+                "ability1Description": "Production de bois +25%",
+                "warTalentName": "Pourriture immonde",
+                "warTalentDesctiption": "Réduit la DEF infanterie adverse de 40%"
             },
             "magmalord": {
                 "name": "Seigneur Magme",
                 "ability1Name": "Rolling stones",
-                "ability1Description": "Production de pierre +25%"
+                "ability1Description": "Production de pierre +25%",
+                "warTalentName": "Souffle ardent",
+                "warTalentDesctiption": "Réduit les PV à distance adverses de 40%"
             },
             "territe": {
                 "name": "Territe",
                 "ability1Name": "Force du sol",
                 "ability1Description": "Vitesse de fusion (pactes) +20%",
                 "activableAbilityName": "Colère des terres",
-                "activableAbilityDescription": "Donne 3 quantités de fragments aléatoires (5 à 30 par coup)"
+                "activableAbilityDescription": "Donne 3 quantités de fragments aléatoires (5 à 30 par coup)",
+                "warTalentName": "Séisme",
+                "warTalentDesctiption": "Réduit la DEF armée adverse de 15%"
             },
             "yeti": {
                 "name": "Yéti",
                 "ability1Name": "Débandade",
-                "ability1Description": "Vitesse de déplacement troupes de collecte +25%"
+                "ability1Description": "Vitesse de déplacement troupes de collecte +25%",
+                "warTalentName": "Choc effroyable",
+                "warTalentDesctiption": "Augmente l'ATT cavalerie de 15%"
             },
             "beastmaster": {
                 "name": "Maître des bêtes",
                 "ability1Name": "Route de la soie",
-                "ability1Description": "Vitesse de déplacement de troupes d'approvisionnement +25%"
+                "ability1Description": "Vitesse de déplacement de troupes d'approvisionnement +25%",
+                "warTalentName": "Hurlement sauvage",
+                "warTalentDesctiption": "Réduit la DEF cavalerie adverses de 40%"
             },
             "terraspike": {
                 "name": "Tortépines",
                 "ability1Name": "Engrais",
-                "ability1Description": "Production de nourriture +25%"
+                "ability1Description": "Production de nourriture +25%",
+                "warTalentName": "Lance perçante",
+                "warTalentDesctiption": "Réduit les PV infanterie adverses de 40%"
             },
             "gnome": {
                 "name": "Gnome",
                 "ability1Name": "Conseiller financier",
-                "ability1Description": "Production d'or +25%"
+                "ability1Description": "Production d'or +25%",
+                "warTalentName": "Flèches empoisonnées",
+                "warTalentDesctiption": "Augmente l'ATT distance de 15%"
             },
             "aquiris": {
                 "name": "Aquiris",
                 "ability1Name": "Epanouissement",
                 "ability1Description": "Production d'anima +40%",
                 "activableAbilityName": "Source",
-                "activableAbilityDescription": "Donne entre 60 et 120 STA"
+                "activableAbilityDescription": "Donne entre 60 et 120 STA",
+                "warTalentName": "Noyade",
+                "warTalentDesctiption": "Réduit les PV armée adverses de 15%"
             },
             "sorcerer": {
                 "name": "Sorcier",
                 "ability1Name": "Renforcement",
                 "ability1Description": "Vitesse de deplacement troupes alliées +25%",
                 "activableAbilityName": "Magie noire",
-                "activableAbilityDescription": "Termine la transmutation en cours"
+                "activableAbilityDescription": "Termine la transmutation en cours",
+                "warTalentName": "Étrange sorcellerie",
+                "warTalentDesctiption": "Augmente les PV à distance de 80% pendant 10 secondes quand 10% de vos troupes à distance sont tombées"
             },
             "strix": {
                 "name": "Strige",
                 "ability1Name": "Sac-à-sang",
                 "ability1Description": "Vitesse de soin de l'infirmerie +25%",
                 "ability2Name": "Exécution",
-                "ability2Description": "Attente avant exécution de chef emprisonné réduit de 3 heures"
+                "ability2Description": "Attente avant exécution de chef emprisonné réduit de 3 heures",
+                "warTalentName": "Coup de fouet",
+                "warTalentDesctiption": "Augmente les PV cavalerie de 80% pendant 10 secondes quand 10% de vos troupes cavalerie sont tombées"
             },
             "evilWeevil": {
                 "name": "Charançon maléfique",
                 "ability1Name": "Boost nourriture",
                 "ability1Description": "Production de blé +35%",
                 "activableAbilityName": "Récolte exceptionnelle",
-                "activableAbilityDescription": "Donne instantanément l'équivalent de 4 heures de production de ressources"
+                "activableAbilityDescription": "Donne instantanément l'équivalent de 4 heures de production de ressources",
+                "warTalentName": "Copieux festin",
+                "warTalentDesctiption": "Augmente les PV armée de 15%"
             },
             "totempest": {
                 "name": "Totempestes",
                 "ability1Name": "Boost bois",
                 "ability1Description": "Production de bois +35%",
                 "activableAbilityName": "Amarrage",
-                "activableAbilityDescription": "Renouvelle le navire de charge"
+                "activableAbilityDescription": "Renouvelle le navire de charge",
+                "warTalentName": "Blindage de bois",
+                "warTalentDesctiption": "Augmente la DEF à distance de 80% pendant 10 secondes quand 10% de vos troupes à distance sont tombées"
             },
             "tempestite": {
                 "name": "Tempêtite",
@@ -880,35 +911,45 @@
                 "ability2Name": "Mistral",
                 "ability2Description": "Vitesse de récupération d'énergie +10%",
                 "activableAbilityName": "Air frais",
-                "activableAbilityDescription": "Donne 20k troupes T1 d'un type aléatoire"
+                "activableAbilityDescription": "Donne 20k troupes T1 d'un type aléatoire",
+                "warTalentName": "Ouragan",
+                "warTalentDesctiption": "Étourdit une des plus grosses escouades adverses pendant 8 secondes quand 10% de vos troupes sont tombées"
             },
             "harpy": {
                 "name": "Harpie",
                 "ability1Name": "Ecran de nuage",
                 "ability1Description": "Capacité refuge +50k",
                 "activableAbilityName": "Première classe",
-                "activableAbilityDescription": "Donne 3 points vip aléatoires ( 100 / 500 / 1000 / 5000)"
+                "activableAbilityDescription": "Donne 3 points vip aléatoires ( 100 / 500 / 1000 / 5000)",
+                "warTalentName": "Dernière danse",
+                "warTalentDesctiption": "Augmente les PV infanterie de 80% pendant 10 secondes quand 10% de vos troupes d'infanterie sont tombées"
             },
             "bonehead": {
                 "name": "Tête d'os",
                 "ability1Name": "Potentiel dévoilé",
                 "ability1Description": "Stockage d'anima +20%",
                 "activableAbilityName": "Duel",
-                "activableAbilityDescription": "Donne 10 entrées au colisée"
+                "activableAbilityDescription": "Donne 10 entrées au colisée",
+                "warTalentName": "Rites funéraires",
+                "warTalentDesctiption": "Augmente la DEF infanterie de 80% pendant 10 secondes quand 10% de vos troupes d'infanterie sont tombées"
             },
             "krabby": {
                 "name": "Krabby",
                 "ability1Name": "Boost minéraux",
                 "ability1Description": "Production de minerai +35%",
                 "ability2Name": "Coeur d'acier",
-                "ability2Description": "EXP joueur +10%"
+                "ability2Description": "EXP joueur +10%",
+                "warTalentName": "Armure renforcée",
+                "warTalentDesctiption": "Augmente la DEF armée de 15%"
             },
             "bouldur": {
                 "name": "Graniti",
                 "ability1Name": "Boost pierre",
                 "ability1Description": "Production de pierre +35%",
                 "activableAbilityName": "Maître de l'architecture",
-                "activableAbilityDescription": "Remplit la barre d'aide de la construction en cours instantanément"
+                "activableAbilityDescription": "Remplit la barre d'aide de la construction en cours instantanément",
+                "warTalentName": "Carapace de pierre",
+                "warTalentDesctiption": "Augmente la DEF cavalerie de 80% pendant 10 secondes quand 10% de vos troupes cavalerie sont tombées"
             },
             "pyris": {
                 "name": "Flamis",
@@ -917,7 +958,9 @@
                 "ability2Name": "Melting pot",
                 "ability2Description": "Temps de transmutaion d'essence noire -10%",
                 "activableAbilityName": "Sentier flamboyant",
-                "activableAbilityDescription": "Tue 7500 à 12500 troupes dans la caserne ennemies du rang le plus bas (max 5% des troupes totales)"
+                "activableAbilityDescription": "Tue 7500 à 12500 troupes dans la caserne ennemies du rang le plus bas (max 5% des troupes totales)",
+                "warTalentName": "Charge turbo",
+                "warTalentDesctiption": "Au début de la bataille, confère un boost de 60% aux talents tactiques du héros, augmentant les dégats d'escouade infligées pendant 10 secondes"
             },
             "moleShaman": {
                 "name": "Taupe chaman",
@@ -926,7 +969,9 @@
                 "ability2Name": "Pouvoir fruité",
                 "ability2Description": "ATT infanterie +10%",
                 "activableAbilityName": "Réparation rapide",
-                "activableAbilityDescription": "Répare 50% du max des PV remparts"
+                "activableAbilityDescription": "Répare 50% du max des PV remparts",
+                "warTalentName": "Bénédiction du chaman",
+                "warTalentDesctiption": "Augmente l'ATT et les PV de l'infanterie de 60% pendant 15 secondes lorsque 5% de vos troupes d'infanterie sont tombées"
             },
             "magus": {
                 "name": "Magus",
@@ -935,7 +980,9 @@
                 "ability2Name": "Offrande",
                 "ability2Description": "Durée boost autel +3 heures",
                 "activableAbilityName": "Assitance noire",
-                "activableAbilityDescription": "Remplit la barre d'aide de la recherche en cours instantanément"
+                "activableAbilityDescription": "Remplit la barre d'aide de la recherche en cours instantanément",
+                "warTalentName": "Sacrifice de l'esprit",
+                "warTalentDesctiption": "Augmente l'ATT et les PV de vos troupes à distance de 60% pendant 15 secondes lorsque 5% de vos troupes à distance sont tombées"
             },
             "goblin": {
                 "name": "Gobelin",
@@ -944,7 +991,9 @@
                 "ability2Name": "Boost or",
                 "ability2Description": "Production d'or +35%",
                 "activableAbilityName": "Chercheur d'or",
-                "activableAbilityDescription": "Donne entre 6M et 12M d'or"
+                "activableAbilityDescription": "Donne entre 6M et 12M d'or",
+                "warTalentName": "Chasseur de primes",
+                "warTalentDesctiption": "Augmente l'ATT de cavalerie de 100% quand 10% de vos troupes de cavalerie sont tombées (cumulable, le nombre requis sera recalculé après chaque activation)"
             },
             "gemmingGremlin": {
                 "name": "Diablotin",
@@ -953,7 +1002,9 @@
                 "ability2Name": "Boost projet",
                 "ability2Description": "Vitesse de collecte de gemmes +10% (filons)",
                 "activableAbilityName": "Coup de fortune",
-                "activableAbilityDescription": "Donne entre 1500 et 3000 gemmes"
+                "activableAbilityDescription": "Donne entre 1500 et 3000 gemmes",
+                "warTalentName": "Arme de cristal",
+                "warTalentDesctiption": "Augmente l'ATT d'infanterie de 100% quand 10% de vos troupes d'infanterie sont tombées (cumulable, le nombre requis sera recalculé après chaque activation)"
             },
             "trickstar": {
                 "name": "Trickstar",
@@ -962,7 +1013,9 @@
                 "ability2Name": "Aide divine",
                 "ability2Description": "ATT distance +10%",
                 "activableAbilityName": "Bonne étoile",
-                "activableAbilityDescription": "Donne 3 étoiles sacrées aléatoires (100 / 1 000 / 10 000)"
+                "activableAbilityDescription": "Donne 3 étoiles sacrées aléatoires (100 / 1 000 / 10 000)",
+                "warTalentName": "Distance améliorée",
+                "warTalentDesctiption": "Augmente l'ATT à distance de 100% quand 10% de vos troupes à distance sont tombées (cumulable, le nombre requis sera recalculé après chaque activation)"
             },
             "noceros": {
                 "name": "Nocéros",
@@ -971,7 +1024,9 @@
                 "ability2Name": "Frappe foudroyante",
                 "ability2Description": "ATT cavalerie +10%",
                 "activableAbilityName": "En un éclair",
-                "activableAbilityDescription": "Termine instantanément 5 collectes en cours (hors filons de gemmes)"
+                "activableAbilityDescription": "Termine instantanément 5 collectes en cours (hors filons de gemmes)",
+                "warTalentName": "Frappe de foudre",
+                "warTalentDesctiption": "Augmente l'ATT et les PV de la cavalerie de 60% pendant 15 secondes lorsque 5% de vos troupes de cavalerie sont tombées"
             },
             "gryphon": {
                 "name": "Griffon",
@@ -980,7 +1035,9 @@
                 "ability2Name": "Polymathe",
                 "ability2Description": "Vitesse d'entraînement +5%",
                 "activableAbilityName": "Retour immédiat",
-                "activableAbilityDescription": "Rappelle toutes les troupes en 6 secondes (hors troupes de coalition)"
+                "activableAbilityDescription": "Rappelle toutes les troupes en 6 secondes (hors troupes de coalition)",
+                "warTalentName": "Vent arrière",
+                "warTalentDesctiption": "Augmente l'ATT armée pendant 10 secondes quand 10% de vos troupes sont tombées"
             },
             "snowBeast": {
                 "name": "Bête des neiges",
@@ -989,7 +1046,9 @@
                 "ability2Name": "Bouclier de givre",
                 "ability2Description": "DEF distance +10%",
                 "activableAbilityName": "Transport de masse",
-                "activableAbilityDescription": "Multiplie la capacité d'approvisionnement de ressources par 4 pendant 1 heure"
+                "activableAbilityDescription": "Multiplie la capacité d'approvisionnement de ressources par 4 pendant 1 heure",
+                "warTalentName": "Bouclier de glace",
+                "warTalentDesctiption": "Invoque un bouclier protégeant 7% de vos troupes à distance quand 12% de vos troupes à distance sont tombées (invoqué une seule fois)"
             },
             "megaMaggot": {
                 "name": "Méga-larve",
@@ -998,7 +1057,9 @@
                 "ability2Name": "Coquille solide",
                 "ability2Description": "DEF infanterie +10%",
                 "activableAbilityName": "Contamination",
-                "activableAbilityDescription": "Réduit une production de ressource ennemie pendant 3 heures"
+                "activableAbilityDescription": "Réduit une production de ressource ennemie pendant 3 heures",
+                "warTalentName": "Vermiphobie",
+                "warTalentDesctiption": "Étourdit les héros ennemis pendant 5 secondes quand 15% de vos troupes sont tombées"
             },
             "saberfang": {
                 "name": "Sabrecroc",
@@ -1007,7 +1068,9 @@
                 "ability2Name": "Esprit sauvage",
                 "ability2Description": "DEF cavalerie +10%",
                 "activableAbilityName": "Chasse fatale",
-                "activableAbilityDescription": "Ajoute 15 combo au prochain monstre que vous chassez dans les 15 minutes après activation (ne dépasse pas la limite de chasses consécutives)"
+                "activableAbilityDescription": "Ajoute 15 combo au prochain monstre que vous chassez dans les 15 minutes après activation (ne dépasse pas la limite de chasses consécutives)",
+                "warTalentName": "Garde férale",
+                "warTalentDesctiption": "Invoque un bouclier protégeant 7% de vos troupes de cavalerie quand 12% de vos troupes de cavalerie sont tombées (invoqué une seule fois)"
             },
             "hoarder": {
                 "name": "Syllogomane",
@@ -1016,7 +1079,9 @@
                 "ability2Name": "Mains d'or",
                 "ability2Description": "Vitesse de fusion (pierre de compétence) +20%",
                 "activableAbilityName": "Trésor de la ville",
-                "activableAbilityDescription": "Donne 3 joyaux de type et rareté aléatoires (joyaux de base uniquement)"
+                "activableAbilityDescription": "Donne 3 joyaux de type et rareté aléatoires (joyaux de base uniquement)",
+                "warTalentName": "Garde dorée",
+                "warTalentDesctiption": "Invoque un bouclier protégeant 7% de vos troupes d'infanterie quand 12% de vos troupes d'infanterie sont tombées (invoqué une seule fois)"
             },
             "mechaTrojan": {
                 "name": "Mécha Troyen",
@@ -1043,7 +1108,9 @@
                 "ability2Name": "Sortie assurée",
                 "ability2Description": "Chance d'évasion du chef à la capture +10%",
                 "activableAbilityName": "Convocation",
-                "activableAbilityDescription": "Donne 15k troupes d'un type aléatoire, du rang le plus haut débloqué (T4 max)"
+                "activableAbilityDescription": "Donne 15k troupes d'un type aléatoire, du rang le plus haut débloqué (T4 max)",
+                "warTalentName": "Malédiction infernale",
+                "warTalentDesctiption": "Pétrifie l'une des plus grandes escouades adverses pendant 11 secondes lorsque 7% de vos troupes sont tombées"
             },
             "grimReaper": {
                 "name": "La Faucheuse",
@@ -1061,7 +1128,9 @@
                 "ability2Name": "Inspiration",
                 "ability2Description": "PV armée +10%",
                 "activableAbilityName": "Chaud lapin",
-                "activableAbilityDescription": "Votre chef s'échappera la première fois qu'il est capturé dans les 30 minutes après activation"
+                "activableAbilityDescription": "Votre chef s'échappera la première fois qu'il est capturé dans les 30 minutes après activation",
+                "warTalentName": "Lapin brutal",
+                "warTalentDesctiption": "Inflige 150% de dégâts (basés sur l'ATT initale de vos troupes infanterie) toutes les 4 secondes jusqu'à 5 fois à une des plus grosses escouades ennemies quand 8% de vos troupes sont tombées"
             },
             "bonAppeti": {
                 "name": "Morfalange",
@@ -1070,7 +1139,9 @@
                 "ability2Name": "Eclat angélique",
                 "ability2Description": "ATT armée de coalition +10%",
                 "activableAbilityName": "Rétribution divine",
-                "activableAbilityDescription": "Détruit 7 à 15% des ressources du territoire ennemi (max: 100m)"
+                "activableAbilityDescription": "Détruit 7 à 15% des ressources du territoire ennemi (max: 100m)",
+                "warTalentName": "Terreur des cieux",
+                "warTalentDesctiption": "Inflige 600% de dégâts basés sur l'ATT initiale de vos troupes infanterie à une des plus grosses escouades ennemies quand 4% de vos troupes sont tombées"
             },
             "gargantua": {
                 "name": "Gargantua",
@@ -1079,7 +1150,9 @@
                 "ability2Name": "Coup géant",
                 "ability2Description": "ATT cavalerie +10%",
                 "activableAbilityName": "Grâce salvatrice",
-                "activableAbilityDescription": "Allonge le délai d'une quête Guild Fest de 30%. Marche également sur les quêtes déjà expirées"
+                "activableAbilityDescription": "Allonge le délai d'une quête Guild Fest de 30%. Marche également sur les quêtes déjà expirées",
+                "warTalentName": "Force gigantesque",
+                "warTalentDesctiption": "Inflige 600% de dégâts basés sur l'ATT initiale de vos troupes cavalerie à une des plus grosses escouades ennemies quand 4% de vos troupes sont tombées"
             },
             "frostwing": {
                 "name": "Aile-de-Givre",
@@ -1088,7 +1161,9 @@
                 "ability2Name": "Brise glaciale",
                 "ability2Description": "ATT armée +5%",
                 "activableAbilityName": "Morsure de givre",
-                "activableAbilityDescription": "Augmente le temps de déplacement d'escouade de 300% pendant 1h"
+                "activableAbilityDescription": "Augmente le temps de déplacement d'escouade de 300% pendant 1h",
+                "warTalentName": "Givre meurtrier",
+                "warTalentDesctiption": "Inflige 150% de dégâts (basés sur l'ATT initale de vos troupes de cavalerie) toutes les 4 secondes jusqu'à 5 fois à une des plus grosses escouades ennemies quand 8% de vos troupes sont tombées"
             },
             "queenBee": {
                 "name": "Reine Abeille",
@@ -1097,7 +1172,9 @@
                 "ability2Name": "Flèche tueuse",
                 "ability2Description": "ATT distance +10%",
                 "activableAbilityName": "Piqûre de poison",
-                "activableAbilityDescription": "Envoie 10 000 troupes de la caserne ennemie à l'infirmerie toutes les 10 minutes (niveau aléatoire, ne dépasse pas 1,25% du total des troupes) et réduit l'ATT armée de 15% pendant 4h"
+                "activableAbilityDescription": "Envoie 10 000 troupes de la caserne ennemie à l'infirmerie toutes les 10 minutes (niveau aléatoire, ne dépasse pas 1,25% du total des troupes) et réduit l'ATT armée de 15% pendant 4h",
+                "warTalentName": "Essaim cinglant",
+                "warTalentDesctiption": "Inflige 150% de dégâts (basés sur l'ATT initale de vos troupes à distance) toutes les 4 secondes jusqu'à 5 fois à une des plus grosses escouades ennemies quand 8% de vos troupes sont tombées"
             },
             "blackwing": {
                 "name": "Ailes noires",
@@ -1106,7 +1183,9 @@
                 "ability2Name": "Sanguin",
                 "ability2Description": "PV Armée (fureur de bataille) +10%",
                 "activableAbilityName": "Feu d'enfer",
-                "activableAbilityDescription": "Vos troupes d'invasion tuent 100% des troupes ennemies blessées (garnison et renforts inclus)"
+                "activableAbilityDescription": "Vos troupes d'invasion tuent 100% des troupes ennemies blessées (garnison et renforts inclus)",
+                "warTalentName": "Souffle mortel",
+                "warTalentDesctiption": "Inflige 600% de dégâts basés sur l'ATT initiale de vos troupes à distance à une des plus grosses escouades ennemies quand 4% de vos troupes sont tombées"
             },
             "jadeWyrm": {
                 "name": "Wyrm de jade",
@@ -1115,7 +1194,9 @@
                 "ability2Name": "Bénediction ardente - Archers",
                 "ability2Description": "Boost impact Archers vs Cavalerie +15%",
                 "activableAbilityName": "Bénediction ardente - Cavalerie",
-                "activableAbilityDescription": "Boost impact Cavalerie vs Infanterie +15%"
+                "activableAbilityDescription": "Boost impact Cavalerie vs Infanterie +15%",
+                "warTalentName": "Feu divin",
+                "warTalentDesctiption": "Réduit les dégâts infligés par les ennemis de 9% lorsque 4% de vos troupes sont tombées"
             }
         }
     }

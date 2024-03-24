@@ -1,5 +1,6 @@
 import { ColorResolvable, PermissionsBitField } from "discord.js";
 import { familiarData } from "./types";
+import { TranslationsCache } from "../../main";
 
 export abstract class DiscordValues {
 
@@ -33,7 +34,8 @@ export abstract class DiscordValues {
         trainCalculator: 'https://media.discordapp.net/attachments/659758501865717790/1059497225711005696/latest.png',
         credits: 'https://cdn.discordapp.com/emojis/751774895024898188.webp?size=96&quality=lossless',
         hellBoard: 'https://media.discordapp.net/attachments/659758501865717790/1007676744330903602/infernaux.png',
-        randomGF: 'https://media.discordapp.net/attachments/659758501865717790/1059831455695507506/image.png'
+        randomGF: 'https://media.discordapp.net/attachments/659758501865717790/1059831455695507506/image.png',
+        pact: 'https://media.discordapp.net/attachments/659758501865717790/1221474459274182676/pacte.png?ex=6612b5bc&is=660040bc&hm=fc2a34f6e7ee991d3c6fd24c362a5550a622346714b3b7e953e4823d6a293ef4&=&format=webp&quality=lossless'
     }
 
     static readonly emotes = {
@@ -80,7 +82,27 @@ export abstract class DiscordValues {
         hunt: {
             name: "chasse",
             id: "614816781420199937"
-        }
+        },
+        familiarRank1: {
+            name: 'famRank1',
+            id: '1221467697691496588'
+        },
+        familiarRank2: {
+            name: 'famRank2',
+            id: '1221467695858319370'
+        },
+        familiarRank3: {
+            name: 'famRank3',
+            id: '1221467693681741927'
+        },
+        familiarRank4: {
+            name: 'famRank4',
+            id: '1221467692008214598'
+        },
+        familiarRank5: {
+            name: 'famRank5',
+            id: '1221467689701081169'
+        },
     }
 
     static readonly defaultEmotes = {
@@ -529,7 +551,7 @@ export abstract class Constants {
         }
     }
 
-    static readonly familiarsData: Record<string, familiarData> = {
+    static readonly familiarsData: Record<keyof typeof TranslationsCache.fr.others.familiars, familiarData> = {
         jaziek: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221123632181415997/56.png?ex=66116f01&is=65fefa01&hm=d81e95891504e6da6a71148b80fcd021a9d5aa8d3d266032dfad82bc8a0beca4&=&format=webp&quality=lossless",
             pactTier: "1A",
@@ -624,7 +646,7 @@ export abstract class Constants {
             ability1: {
                 type: "production"
             },
-            activableActivity:{
+            activableActivity: {
                 type: "development",
                 requireStone: false,
                 unlock: "adult",

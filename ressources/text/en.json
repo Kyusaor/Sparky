@@ -1,17 +1,30 @@
 {
     "global": {
-        "languagesFullName":{
+        "languagesFullName": {
             "fr": "french",
             "en": "english"
         },
         "welcomeMsg": "Let me introduce myself: I am Sparky, a Lords Mobile Discord bot, made for guild servers.\n\nMy commands list can be found by typing **/help** on your server. Thanks for adding me !",
         "tipsFooter": [
-            {"text": "Type the /help command to get some help!"},
-            {"text": "Made with love by {dev_username}", "iconURL": "{dev_avatar_url}"},
-            {"text": "Use the /language command to change the bot's language!"},
-            {"text": "Use /watcher to get notifications on hell events"},
-            {"text": "Fun fact: I'm the best bot in the world"},
-            {"text": "Support the bot with /donate"}
+            {
+                "text": "Type the /help command to get some help!"
+            },
+            {
+                "text": "Made with love by {dev_username}",
+                "iconURL": "{dev_avatar_url}"
+            },
+            {
+                "text": "Use the /language command to change the bot's language!"
+            },
+            {
+                "text": "Use /watcher to get notifications on hell events"
+            },
+            {
+                "text": "Fun fact: I'm the best bot in the world"
+            },
+            {
+                "text": "Support the bot with /donate"
+            }
         ],
         "errors": {
             "notInAGuild": "Commands must be done on a server",
@@ -89,7 +102,7 @@
                 "buildings": {
                     "name": "buildings",
                     "description": "Get your missing resources for your gem buildings",
-                    "options":{
+                    "options": {
                         "building": {
                             "name": "building",
                             "description": "The building to get"
@@ -158,15 +171,14 @@
                 "buildEmbedDescription": "*Here are the missing resources for maxing your {text} from __level {text2} to {text3}__. Gems amount take into account the gold hammer cost*",
                 "gemsEquivalence": "Gems equivalence:",
                 "noResources": "Nothing",
-
                 "trainEmbedTitle": "Troop calculator",
                 "trainEmbedDescription": "*Here is the resources cost to train your troops!\nNote: gems cost decreasing when troop amount increase, it's not showed there*",
-                "trainEmbedTrainSpeed" : "__Train speed:__",
-                "trainEmbedCostReduction" : "__Cost reduction:__",
-                "trainEmbedTroopAmount" : "__Amount of troops to train:__",
-                "trainEmbedBatchAmount" : "__Amount of batches needed:__",
-                "trainEmbedRssCost" : "__{text}'s cost:__",
-                "trainEmbedTimeCost" : "__Time needed:__",
+                "trainEmbedTrainSpeed": "__Train speed:__",
+                "trainEmbedCostReduction": "__Cost reduction:__",
+                "trainEmbedTroopAmount": "__Amount of troops to train:__",
+                "trainEmbedBatchAmount": "__Amount of batches needed:__",
+                "trainEmbedRssCost": "__{text}'s cost:__",
+                "trainEmbedTimeCost": "__Time needed:__",
                 "trainEmbedMightGained": "__Might obtained:__"
             }
         },
@@ -182,10 +194,22 @@
             "description": "Special thanks",
             "text": {
                 "thanks": [
-                    ["Bêta testers", "Who accepted to be my laboratory rats for an almost-ready bot"],
-                    ["The donators", "Who helped me to support the bot hosting cost (don't hesitate to **/donate** by the way :eyes:)"],
-                    ["The translators", "Who helped me to correct my questionable english skills"],
-                    ["And then...", "To all the bot users who gave me their trust with this project :heart:"]
+                    [
+                        "Bêta testers",
+                        "Who accepted to be my laboratory rats for an almost-ready bot"
+                    ],
+                    [
+                        "The donators",
+                        "Who helped me to support the bot hosting cost (don't hesitate to **/donate** by the way :eyes:)"
+                    ],
+                    [
+                        "The translators",
+                        "Who helped me to correct my questionable english skills"
+                    ],
+                    [
+                        "And then...",
+                        "To all the bot users who gave me their trust with this project :heart:"
+                    ]
                 ],
                 "embedDescription": "The list of people who offered their support during the bot's development",
                 "embedTitle": "Special thanks"
@@ -228,6 +252,46 @@
                 "donate": "You want to contribute to the bot's development without any computer skills and without spending your nights on it? I have a solution !\n\nBy giving money, you will help the developer to pay the bot hosting and boost his ego ! Hit two gryphons with one stone ! <:thumbsup:751774481781096468>\n{text}"
             }
         },
+        "familiar": {
+            "name": "familiar",
+            "description": "Get data about familiars",
+            "subcommand": {
+                "famidex": {
+                    "name": "famidex",
+                    "description": "A whole encyclopedia of familiars, their cost, abilities and more!",
+                    "options": {
+                        "tier": {
+                            "name": "tier",
+                            "description": "The pact tier required"
+                        }
+                    }
+                }
+            },
+            "choices": {
+                "tier": {
+                    "all": "Whole list",
+                    "1a": "1A pacts (spire)",
+                    "1b": "1B pacts (spire)",
+                    "2a": "2A pacts (spire)",
+                    "2b": "2B pacts (spire)",
+                    "3": "3 pacts (spire)",
+                    "4": "4 pacts (spire)",
+                    "5": "5 pacts (buyable/tycoon)"
+                }
+            },
+            "text": {
+                "1ApactName": "pactes 1A",
+                "1BpactName": "pactes 1B",
+                "2ApactName": "pactes 2A",
+                "2BpactName": "pactes 2B",
+                "3pactName": "pactes 3",
+                "4pactName": "pactes 4",
+                "5pactName": "pactes 5",
+
+                "listEmbedTitle": "",
+                "listEmbedDescription": ""
+            }
+        },
         "guildfest": {
             "name": "guildfest",
             "description": "Get information about the Guild Fest event",
@@ -256,7 +320,6 @@
                 "easyField": "__Easy quests:__",
                 "mediumField": "__Long or normal quests:__",
                 "hardField": "__Hard or payment-requiring quests:__",
-
                 "help": "Send **{text}** helps to your guildmates",
                 "admin": "Fulfill **{text}** admin quest",
                 "guild": "Fulfill **{text}** guild quest",
@@ -282,8 +345,6 @@
                 "bossLabyElite": "Find **{text}** elite labyrinth bosses",
                 "loseTroops": "Lose **{text}** t4 troops",
                 "mergeSpeed": "Speed up **{text}** merge days",
-
-
                 "troopMight": "Increase your troop might by **{text}**",
                 "challenge": "Complete **{text}** 24h challenges",
                 "artifactQuest": "Complete **{text}** artifacts related quests",
@@ -299,7 +360,6 @@
                 "bundleQuest": "Complete **{text}** special bundle  quests",
                 "shipQuest": "Complete **{text}** cargo ship quests",
                 "randomQuest": "Complete **{text}** random quests",
-
                 "bonusTitle": "Bonus quest list",
                 "bonusDescription": "When your guild reaches expert gauntlet, guild members access a bonus quest in addition to regular quests: three bonus quests will be given to each mate, and they will have to complete one of them to earn 175 bonus points. Members who have done this will appear in green in the guild leaderboard."
             },
@@ -333,14 +393,14 @@
             "description": "Get informations about a Discord user, this server or the bot",
             "subcommand": {
                 "user": {
-                    "name": "user", 
-                    "description": "Get information about a Discord user", 
+                    "name": "user",
+                    "description": "Get information about a Discord user",
                     "options": {
                         "user": {
-                            "name": "user", 
+                            "name": "user",
                             "description": "The discord user you want the informations for"
                         }
-                    } 
+                    }
                 },
                 "bot": {
                     "name": "bot",
@@ -374,7 +434,7 @@
                 "clicHere": "Clic here!"
             }
         },
-        "language" : {
+        "language": {
             "name": "language",
             "description": "Change the bot language for you (or the server, if you have admin permission)",
             "options": {
@@ -429,7 +489,7 @@
                     "serrulule": "Hootclaw",
                     "titan": "Tidal Titan",
                     "wyrm": "Jade Wyrm"
-                }            
+                }
             }
         },
         "link": {
@@ -550,7 +610,7 @@
             },
             "options": {
                 "id": {
-                    "name":"id",
+                    "name": "id",
                     "description": "Target server id"
                 }
             }
@@ -619,9 +679,7 @@
                 "rolesAndChanDeletionReason": "Reparametrization of the hell mention board",
                 "channelsNotFound": "Impossible to find the {text} channel (server {text2} ({id}))",
                 "noRoles": "Impossible to fetch the roles",
-
                 "loadingText": "<a:loading:739785338347585598> Setting up...",
-
                 "boardName": "hell-event-board",
                 "boardTopic": "Subscribe to hell events and challenges notifications!",
                 "boardReason": "Subscribing channel creation",
@@ -629,7 +687,6 @@
                 "mentionTopic": "Subscribe to hell events and challenges notifications to get mentionned when one start!",
                 "mentionReason": "Mentions channel creation",
                 "hell": "hell ",
-
                 "boardEmbedTitle": "__**Watcher and Dragons Reporting**__",
                 "boardEmbedDescription": "Select hell events and challenges you're interested in. Mentions will be done in the <#{id}> channel",
                 "boardEmbedFieldName": "__How does it work?__",
@@ -637,16 +694,13 @@
                 "boardEmbedFooter": "Made with love by {dev_username}",
                 "boardMenuOptionDescription": "Get notified when a {text} event starts",
                 "boardMenuPlaceholder": "Chose your subscriptions",
-
                 "success": "Done! <#{text}> and <#{text2}> channels were successfully created\nYou're free to rename them or move them in the channels list as long as you delete nothing :wink:\nType `/{text3}` to delete them and the roles\n*Note that reports are made by the bot staff, some events could be missed*"
             }
         },
-        "watcher-refresh":{
+        "watcher-refresh": {
             "name": "watcher-refresh",
             "description": "Check if every roles is set up, and create these wich are missing",
-            "text": {
-                
-            }
+            "text": {}
         }
     },
     "others": {
@@ -713,10 +767,10 @@
             "challengeTroops": "challenge dragon training"
         },
         "hellMentions": {
-            "watcher":"watcher",
-            "dragon":"dragon",
-            "redOrb":"red orb",
-            "yellowOrb":"yellow orb",
+            "watcher": "watcher",
+            "dragon": "dragon",
+            "redOrb": "red orb",
+            "yellowOrb": "yellow orb",
             "research": "research",
             "building": "building",
             "merge": "merge",
@@ -736,10 +790,414 @@
             "remainingTimeAfterBegining": "It will start in **{text}** minutes",
             "logMentions": "{id} has reported a {text3} {text2} {text} event",
             "temporaryLogMentions": "A {text3} {text2} {text} event has been reported!\n",
-
             "updateRolesMsg": "Your roles have been updated:\n",
             "missingRoles": ":warning: Some of the mentions roles are unavailable"
+        },
+        "familiars": {
+            "jaziek": {
+                "name": "Jaziek",
+                "ability1Name": "",
+                "ability1Description": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "engineer": {
+                "name": "Engineer",
+                "ability1Name": "",
+                "ability1Description": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "oakroot": {
+                "name": "Oakroot",
+                "ability1Name": "",
+                "ability1Description": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "magmalord": {
+                "name": "Magmalord",
+                "ability1Name": "",
+                "ability1Description": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "territe": {
+                "name": "Territe",
+                "ability1Name": "",
+                "ability1Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "yeti": {
+                "name": "Yeti",
+                "ability1Name": "",
+                "ability1Description": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "beastmaster": {
+                "name": "Beastmaster",
+                "ability1Name": "",
+                "ability1Description": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "terraspike": {
+                "name": "Terraspike",
+                "ability1Name": "",
+                "ability1Description": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "gnome": {
+                "name": "Gnome",
+                "ability1Name": "",
+                "ability1Description": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "aquiris": {
+                "name": "Aquiris",
+                "ability1Name": "",
+                "ability1Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "sorcerer": {
+                "name": "Sorcerer",
+                "ability1Name": "",
+                "ability1Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "strix": {
+                "name": "Strix",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "evilWeevil": {
+                "name": "Evil Weevil",
+                "ability1Name": "",
+                "ability1Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "totempest": {
+                "name": "Totempest",
+                "ability1Name": "",
+                "ability1Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "tempestite": {
+                "name": "Tempestite",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "harpy": {
+                "name": "Harpy",
+                "ability1Name": "",
+                "ability1Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "bonehead": {
+                "name": "Bonehead",
+                "ability1Name": "",
+                "ability1Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "krabby": {
+                "name": "Krabby",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "bouldur": {
+                "name": "Bouldur",
+                "ability1Name": "",
+                "ability1Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "pyris": {
+                "name": "Pyris",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "moleShaman": {
+                "name": "Mole Shaman",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "magus": {
+                "name": "Magus",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "goblin": {
+                "name": "Goblin",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "gemmingGremlin": {
+                "name": "Gemming Gremlin",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "trickstar": {
+                "name": "Trickstar",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "noceros": {
+                "name": "Noceros",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "gryphon": {
+                "name": "Gryphon",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "snowBeast": {
+                "name": "Snow Beast",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "megaMaggot": {
+                "name": "Mega Maggot",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "saberfang": {
+                "name": "Saberfang",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "hoarder": {
+                "name": "Hoarder",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "mechaTrojan": {
+                "name": "Mecha Trojan",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": ""
+            },
+            "tidal": {
+                "name": "Tidal",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": ""
+            },
+            "drider": {
+                "name": "Hell Drider",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "grimReaper": {
+                "name": "Grim Reaper",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": ""
+            },
+            "hueyHops": {
+                "name": "Huey Hops",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "bonAppeti": {
+                "name": "Bon Appeti",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "gargantua": {
+                "name": "Gargantua",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "frostwing": {
+                "name": "Frostwing",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "queenBee": {
+                "name": "Queen Bee",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "blackwing": {
+                "name": "Blackwing",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            },
+            "jadeWyrm": {
+                "name": "Jade Wyrm",
+                "ability1Name": "",
+                "ability1Description": "",
+                "ability2Name": "",
+                "ability2Description": "",
+                "activableAbilityName": "",
+                "activableAbilityDescription": "",
+                "warTalentName": "",
+                "warTalentDesctiption": ""
+            }
         }
     }
-
 }

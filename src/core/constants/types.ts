@@ -87,7 +87,7 @@ export type hellEventData = {
 
 export type familiarData = {
     image: string;
-    pactTier: "1A" | "1B" | "2A" | "2B" | "3" | "4" | "5";
+    pactTier: typeof pactList[number];
     tier: 1 | 2 | 3 | 4 | 5;
     ability1: { type: "war" | "production" | "development" };
     ability2?: { type: "war" | "production" | "development" };
@@ -95,6 +95,8 @@ export type familiarData = {
     activableActivity?: { type: "war" | "production" | "development", requireStone: boolean, unlock: "adult" | "elder", cooldown:string };
     warSkill: boolean;
 }
+
+export const pactList = ["1A", "1B", "2A", "2B", "3", "4", "5"] as const;
 
 //Database related
 export type RolesData = {
