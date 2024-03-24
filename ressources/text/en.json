@@ -289,7 +289,11 @@
                 "5pactName": "pactes 5",
 
                 "listEmbedTitle": "",
-                "listEmbedDescription": ""
+                "listEmbedDescription": "",
+                "selectorEmbedTitle": "",
+                "selectorEmbedDescription": "",
+                "selectorEmbedField": ""
+
             }
         },
         "guildfest": {
