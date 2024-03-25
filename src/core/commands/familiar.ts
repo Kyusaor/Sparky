@@ -66,7 +66,6 @@ async function famidex({ intera, language, commandText }: CommandArgs) {
     let buttonsList: ActionRowBuilder<ButtonBuilder>[] = [];
     let rows = new ActionRowBuilder<ButtonBuilder>();
 
-    let value = ``;
     Object.keys(Constants.familiarsData).forEach(fam => {
         let famData = Constants.familiarsData[fam as keyof typeof Constants.familiarsData];
         let famName = famTranslations[fam as keyof typeof Constants.familiarsData].name;
@@ -78,7 +77,7 @@ async function famidex({ intera, language, commandText }: CommandArgs) {
             }
             rows.addComponents(
                 new ButtonBuilder()
-                    .setCustomId(`${Command.generateButtonCustomId("familiar", language)}-${tier}-${fam}`)
+                    .setCustomId(`${Command.generateButtonCustomId("familiar", language)}-${fam}`)
                     .setLabel(famName)
                     .setEmoji(DiscordValues.emotes[`familiarRank${famData.tier}`].id)
                     .setStyle(ButtonStyle.Primary)
