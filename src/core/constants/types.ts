@@ -89,14 +89,20 @@ export type familiarData = {
     image: string;
     pactTier: typeof pactList[number];
     tier: 1 | 2 | 3 | 4 | 5;
-    ability1: { type: "war" | "production" | "development" };
-    ability2?: { type: "war" | "production" | "development" };
-    ability3?: { type: "war" | "production" | "development" };
-    activableActivity?: { type: "war" | "production" | "development", requireStone: boolean, unlock: "adult" | "elder", cooldown:string };
-    warSkill: boolean;
+    ability1: { type: "war" | "production" | "development", interestLevel: interestLevel };
+    ability2?: { type: "war" | "production" | "development", interestLevel: interestLevel };
+    ability3?: { type: "war" | "production" | "development", interestLevel: interestLevel };
+    activableActivity?: { type: "war" | "production" | "development", requireStone: boolean, unlock: "adult" | "elder", cooldown:string, interestLevel: interestLevel };
+    warSkill?: {
+        mixInterest: interestLevel,
+        blastInterest: interestLevel,
+        defenseInterest: interestLevel,
+    };
 }
 
 export const pactList = ["1A", "1B", "2A", "2B", "3", "4", "5"] as const;
+
+export type interestLevel = 0 | 1 | 2 | 3;
 
 //Database related
 export type RolesData = {

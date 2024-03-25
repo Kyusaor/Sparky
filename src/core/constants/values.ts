@@ -557,645 +557,898 @@ export abstract class Constants {
             pactTier: "1A",
             tier: 1,
             ability1: {
-                type: "development"
+                type: "development",
+                interestLevel: 0
             },
-            warSkill: true,
+            warSkill:{
+                mixInterest: 1,
+                blastInterest: 1,
+                defenseInterest: 2,
+            },
         },
         engineer: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221123632466755594/56.png?ex=66116f01&is=65fefa01&hm=5d34c700329082360b349fa9aec33c28ff9d33f46dd5b13a74ee4ec83e911e37&=&format=webp&quality=lossless",
             pactTier: "1A",
             tier: 1,
             ability1: {
-                type: "production"
+                type: "production",
+                interestLevel: 0
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 1,
+                blastInterest: 1,
+                defenseInterest: 1,
+            },
         },
         oakroot: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221123632756035614/56.png?ex=66116f01&is=65fefa01&hm=1fd8e23d62d179461561f2728b2b5014536ce67abedf20b5e6fbbe21490e18db&=&format=webp&quality=lossless",
             pactTier: "1A",
             tier: 1,
             ability1: {
-                type: "production"
+                type: "production",
+                interestLevel: 0
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 0,
+                blastInterest: 0,
+                defenseInterest: 0,
+            },
         },
         magmalord: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221123632982659183/56.png?ex=66116f01&is=65fefa01&hm=e6c2107192a6d7361f1deab934ef94f81dfc4d175eff28dd150e7cc0c06cee8e&=&format=webp&quality=lossless",
             pactTier: "1A",
             tier: 1,
             ability1: {
-                type: "production"
+                type: "production",
+                interestLevel: 0
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 1,
+                blastInterest: 1,
+                defenseInterest: 2,
+            },
         },
         territe: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221123633355948222/56.png?ex=66116f01&is=65fefa01&hm=bffb396df8bb5fa0ba8b899004817d7ab6a7e70e1ced7663b7ea35fb1c2ca187&=&format=webp&quality=lossless",
             pactTier: "1A",
             tier: 2,
             ability1: {
-                type: "development"
+                type: "development",
+                interestLevel: 2
             },
             activableActivity: {
                 type: "development",
                 requireStone: false,
                 unlock: "adult",
-                cooldown: "24h"
+                cooldown: "24h",
+                interestLevel: 2
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 0,
+                blastInterest: 0,
+                defenseInterest: 1,
+            },
         },
         yeti: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221123510403993711/56.png?ex=66116ee4&is=65fef9e4&hm=192c1008f2bb867eae541e5679f8610ec670a7a2779cf8fbaa1a4904fa46636d&=&format=webp&quality=lossless",
             pactTier: "1B",
             tier: 1,
             ability1: {
-                type: "production"
+                type: "production",
+                interestLevel: 0
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 1,
+                blastInterest: 1,
+                defenseInterest: 1,
+            },
         },
         beastmaster: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221123510697726102/56.png?ex=66116ee4&is=65fef9e4&hm=4c33c23bb5cd19f990199ea2037d0e012db5ddf3f13e94483208a1ddcb872f57&=&format=webp&quality=lossless",
             pactTier: "1B",
             tier: 1,
             ability1: {
-                type: "development"
+                type: "development",
+                interestLevel: 0
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 0,
+                blastInterest: 0,
+                defenseInterest: 0,
+            },
         },
         terraspike: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221123511007842384/56.png?ex=66116ee4&is=65fef9e4&hm=6c7ae076d6f090ab0ebad03775b6520157b8693a8dce1975b192cf8db18fd731&=&format=webp&quality=lossless",
             pactTier: "1B",
             tier: 1,
             ability1: {
-                type: "production"
+                type: "production",
+                interestLevel: 0
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 1,
+                blastInterest: 1,
+                defenseInterest: 2,
+            },
         },
         gnome: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221123511368683540/56.png?ex=66116ee4&is=65fef9e4&hm=92d4c92d30f3711ed1bc2cbe91d6b9922d7a3209cd14b3eb62fc8bc596d0e31f&=&format=webp&quality=lossless",
             pactTier: "1B",
             tier: 1,
             ability1: {
-                type: "production"
+                type: "production",
+                interestLevel: 0
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 0,
+                blastInterest: 1,
+                defenseInterest: 1,
+            },
         },
         aquiris: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221123511691776010/56.png?ex=66116ee4&is=65fef9e4&hm=31b49661217e6ef1c3378c9837c8557417f8b7e63064870b0d313d984fb2a5ba&=&format=webp&quality=lossless",
             pactTier: "1B",
             tier: 2,
             ability1: {
-                type: "production"
+                type: "production",
+                interestLevel: 1
             },
             activableActivity: {
                 type: "development",
                 requireStone: false,
                 unlock: "adult",
-                cooldown: "12h"
+                cooldown: "12h",
+                interestLevel: 2
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 2,
+                blastInterest: 2,
+                defenseInterest: 2,
+            },
         },
         sorcerer: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221123280908320778/56.png?ex=66116ead&is=65fef9ad&hm=4bdec692ec9d07749ac66c94c6c0f6360b543e4f5eb730d1371b6e7639a8f89c&=&format=webp&quality=lossless",
             pactTier: "2A",
             tier: 2,
             ability1: {
-                type: "development"
+                type: "development",
+                interestLevel: 1
             },
             activableActivity: {
                 type: "development",
                 requireStone: false,
                 unlock: "adult",
-                cooldown: "24h"
+                cooldown: "24h",
+                interestLevel: 1
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 1,
+                blastInterest: 1,
+                defenseInterest: 1,
+            },
         },
         strix: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221123281105588324/56.png?ex=66116ead&is=65fef9ad&hm=21fb72366d5d342375e14ea4c02c69740568322eacc2e7404c83208f35432fcb&=&format=webp&quality=lossless",
             pactTier: "2A",
             tier: 2,
             ability1: {
-                type: "development"
+                type: "development",
+                interestLevel: 0
             },
             ability2: {
                 type: "development",
+                interestLevel: 0
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 1,
+                blastInterest: 1,
+                defenseInterest: 1,
+            },
         },
         evilWeevil: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221123281382277130/56.png?ex=66116ead&is=65fef9ad&hm=f6a2929bd942a2d3d889dfbda830fcb065ab056019ce1ce81aa3dbda85607b0b&=&format=webp&quality=lossless",
             pactTier: "2A",
             tier: 2,
             ability1: {
-                type: "development"
+                type: "development",
+                interestLevel: 0
             },
             activableActivity: {
                 type: "production",
                 requireStone: false,
                 unlock: "adult",
-                cooldown: "24h"
+                cooldown: "24h",
+                interestLevel: 3
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 2,
+                blastInterest: 1,
+                defenseInterest: 3,
+            },
         },
         totempest: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221123281667752008/56.png?ex=66116ead&is=65fef9ad&hm=442826602110855fe8e97b5eb360aac870c2584c5cf3c61b4d08bf7422e17166&=&format=webp&quality=lossless",
             pactTier: "2A",
             tier: 2,
             ability1: {
-                type: "production"
+                type: "production",
+                interestLevel: 0
             },
             activableActivity: {
                 type: "development",
                 requireStone: false,
                 unlock: "adult",
-                cooldown: "24h"
+                cooldown: "24h",
+                interestLevel: 2
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 0,
+                blastInterest: 0,
+                defenseInterest: 0,
+            },
         },
         tempestite: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221123281923342396/56.png?ex=66116ead&is=65fef9ad&hm=2fc6643c3589575d1b665c3ad6eb7600465d3f28e154d9343f87f1955bf45829&=&format=webp&quality=lossless",
             pactTier: "2A",
             tier: 3,
             ability1: {
-                type: "war"
+                type: "war",
+                interestLevel: 0
             },
             ability2: {
-                type: "development"
+                type: "development",
+                interestLevel: 1
             },
             activableActivity: {
                 type: "war",
                 requireStone: false,
                 unlock: "elder",
                 cooldown: "3d",
+                interestLevel: 1
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 1,
+                blastInterest: 1,
+                defenseInterest: 2,
+            },
         },
         harpy: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221123133738582046/56.png?ex=66116e8a&is=65fef98a&hm=8cf9ca440c4b17c13c8a1ef60fd499b845d7c60a3a20acfd80219bc2e1767983&=&format=webp&quality=lossless",
             pactTier: "2B",
             tier: 2,
             ability1: {
-                type: "war"
+                type: "war",
+                interestLevel: 2
             },
             activableActivity: {
                 type: "development",
                 requireStone: false,
                 unlock: "adult",
                 cooldown: "24h",
+                interestLevel: 3
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 1,
+                blastInterest: 1,
+                defenseInterest: 1,
+            },
         },
         bonehead: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221123133461762048/56.png?ex=66116e8a&is=65fef98a&hm=9fe69904ac279e19aefb0c2eb74bc0573b2e2e2d0881b5f90ae8de9132048930&=&format=webp&quality=lossless",
             pactTier: "2B",
             tier: 2,
             ability1: {
-                type: "development"
+                type: "development",
+                interestLevel: 0
             },
             activableActivity: {
                 type: "development",
                 requireStone: false,
                 unlock: "adult",
                 cooldown: "24h",
+                interestLevel: 3
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 0,
+                blastInterest: 0,
+                defenseInterest: 0,
+            },
         },
         krabby: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221123133222682764/56.png?ex=66116e8a&is=65fef98a&hm=4fba43d8900ea8958b8f80a331571ba5a1de5378fba73a4a58e9cb934c194d0a&=&format=webp&quality=lossless",
             pactTier: "2B",
             tier: 2,
             ability1: {
-                type: "production"
+                type: "production",
+                interestLevel: 0
             },
             ability2: {
-                type: "development"
+                type: "development",
+                interestLevel: 1
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 0,
+                blastInterest: 0,
+                defenseInterest: 0,
+            },
         },
         bouldur: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221123132983611452/56.png?ex=66116e8a&is=65fef98a&hm=56f959c7c25a1665e9c13ebf56d073d7d9e252d81eb7d523b0408484345ba18c&=&format=webp&quality=lossless",
             pactTier: "2B",
             tier: 2,
             ability1: {
-                type: "production"
+                type: "production",
+                interestLevel: 0
             },
             activableActivity: {
                 type: "development",
                 requireStone: false,
                 unlock: "adult",
                 cooldown: "24h",
+                interestLevel: 0
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 0,
+                blastInterest: 0,
+                defenseInterest: 0,
+            },
         },
         pyris: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221123132790931477/56.png?ex=66116e8a&is=65fef98a&hm=63510d467b451da6256ecf8d51196686bb22fd7d10b03d584fdf4483d8486f5c&=&format=webp&quality=lossless",
             pactTier: "2B",
             tier: 3,
             ability1: {
-                type: "war"
+                type: "war",
+                interestLevel: 2
             },
             ability2: {
-                type: "development"
+                type: "development",
+                interestLevel: 1
             },
             activableActivity: {
                 type: "war",
                 requireStone: true,
                 unlock: "elder",
                 cooldown: "30m",
+                interestLevel: 1
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 1,
+                blastInterest: 1,
+                defenseInterest: 2,
+            },
         },
         moleShaman: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122967740612708/56.png?ex=66116e62&is=65fef962&hm=ad50155a482eb3072a5f9bf5be1f4903673ea907bb8c0696872d08bbe8f1474e&=&format=webp&quality=lossless",
             pactTier: "3",
             tier: 3,
             ability1: {
-                type: "development"
+                type: "development",
+                interestLevel: 2
             },
             ability2: {
-                type: "war"
+                type: "war",
+                interestLevel: 2
             },
             activableActivity: {
                 type: "war",
                 requireStone: false,
                 unlock: "elder",
                 cooldown: "24h",
+                interestLevel: 2
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 2,
+                blastInterest: 1,
+                defenseInterest: 3,
+            },
         },
         magus: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122967522512896/56.png?ex=66116e62&is=65fef962&hm=f873bd29dccd1dbfef889c7581d97e21a33f49f755b0a2c25fa4c00260e29d57&=&format=webp&quality=lossless",
             pactTier: "3",
             tier: 3,
             ability1: {
-                type: "development"
+                type: "development",
+                interestLevel: 1
             },
             ability2: {
-                type: "war"
+                type: "war",
+                interestLevel: 1
             },
             activableActivity: {
                 type: "development",
                 requireStone: false,
                 unlock: "elder",
                 cooldown: "24h",
+                interestLevel: 0
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 2,
+                blastInterest: 1,
+                defenseInterest: 3,
+            },
         },
         goblin: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122967216590968/56.png?ex=66116e62&is=65fef962&hm=cd7bd7c5b5b82ec9b667aaec6d6c524bf079e409832d9a710526769c414125a6&=&format=webp&quality=lossless",
             pactTier: "3",
             tier: 3,
             ability1: {
-                type: "production"
+                type: "production",
+                interestLevel: 0
             },
             ability2: {
-                type: "production"
+                type: "production",
+                interestLevel: 1
             },
             activableActivity: {
                 type: "production",
                 requireStone: false,
                 unlock: "elder",
                 cooldown: "24h",
+                interestLevel: 3
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 1,
+                blastInterest: 3,
+                defenseInterest: 0,
+            },
         },
         gemmingGremlin: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122967010807940/56.png?ex=66116e62&is=65fef962&hm=778ee3e668f879beafa3b1fd06b8852b00f5efa3bdf0167e1f316a1a361fe7e8&=&format=webp&quality=lossless",
             pactTier: "3",
             tier: 3,
             ability1: {
-                type: "development"
+                type: "development",
+                interestLevel: 1
             },
             ability2: {
-                type: "production"
+                type: "production",
+                interestLevel: 0
             },
             activableActivity: {
                 type: "development",
                 requireStone: false,
                 unlock: "elder",
                 cooldown: "2d",
+                interestLevel: 3
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 1,
+                blastInterest: 3,
+                defenseInterest: 0,
+            },
         },
         trickstar: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122966293577818/56.png?ex=66116e62&is=65fef962&hm=592dbc628445557fac691387aa06c03496a5c7c7cbdbc56d29d644181ec09768&=&format=webp&quality=lossless",
             pactTier: "3",
             tier: 3,
             ability1: {
-                type: "development"
+                type: "development",
+                interestLevel: 1
             },
             ability2: {
-                type: "war"
+                type: "war",
+                interestLevel: 2
             },
             activableActivity: {
                 type: "development",
                 requireStone: false,
                 unlock: "elder",
                 cooldown: "2d",
+                interestLevel: 3
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 1,
+                blastInterest: 3,
+                defenseInterest: 0,
+            },
         },
         noceros: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122965974814790/56.png?ex=66116e62&is=65fef962&hm=6c37a050b807effb5023d8d12fd27deb50699375ecfb3239709de46381953a92&=&format=webp&quality=lossless",
             pactTier: "3",
             tier: 3,
             ability1: {
-                type: "production"
+                type: "production",
+                interestLevel: 0
             },
             ability2: {
-                type: "war"
+                type: "war",
+                interestLevel: 2
             },
             activableActivity: {
                 type: "production",
                 requireStone: false,
                 unlock: "elder",
                 cooldown: "24h",
+                interestLevel: 1
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 2,
+                blastInterest: 1,
+                defenseInterest: 2,
+            },
         },
         gryphon: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122965765361785/56.png?ex=66116e62&is=65fef962&hm=04c73b81135c2009c055196c1f09ed3f8d7126c3cce46fa6b32cd66cd0ac5335&=&format=webp&quality=lossless",
             pactTier: "3",
             tier: 4,
             ability1: {
-                type: "war"
+                type: "war",
+                interestLevel: 1
             },
             ability2: {
-                type: "development"
+                type: "development",
+                interestLevel: 1
             },
             activableActivity: {
                 type: "development",
                 requireStone: true,
                 unlock: "elder",
                 cooldown: "30m",
+                interestLevel: 2
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 1,
+                blastInterest: 3,
+                defenseInterest: 1,
+            },
         },
         snowBeast: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122779605372959/56.png?ex=66116e36&is=65fef936&hm=c717f62f6b7291a5f56d0e0ceed64c52f026df78bcc1d2bc9511d6241d698c7b&=&format=webp&quality=lossless",
             pactTier: "4",
             tier: 4,
             ability1: {
-                type: "development"
+                type: "development",
+                interestLevel: 0
             },
             ability2: {
-                type: "war"
+                type: "war",
+                interestLevel: 1
             },
             activableActivity: {
                 type: "production",
                 requireStone: false,
                 unlock: "elder",
                 cooldown: "8h",
+                interestLevel: 1
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 3,
+                blastInterest: 2,
+                defenseInterest: 3,
+            },
         },
         megaMaggot: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122778313261207/56.png?ex=66116e35&is=65fef935&hm=3910551b053b9fdbc44ce9f973295e695334e137cc797e2a8b1cf74276e8a9d0&=&format=webp&quality=lossless",
             pactTier: "4",
             tier: 4,
             ability1: {
-                type: "development"
+                type: "development",
+                interestLevel: 1
             },
             ability2: {
-                type: "war"
+                type: "war",
+                interestLevel: 1
             },
             activableActivity: {
                 type: "war",
                 requireStone: true,
                 unlock: "elder",
                 cooldown: "30m",
+                interestLevel: 0
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 2,
+                blastInterest: 2,
+                defenseInterest: 1,
+            },
         },
         saberfang: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122777856217128/56.png?ex=66116e35&is=65fef935&hm=6b645ccdbd847cf4d4d190ec6ee44c691c4383d4bcee2183baa5792debe88d7d&=&format=webp&quality=lossless",
             pactTier: "4",
             tier: 4,
             ability1: {
-                type: "development"
+                type: "development",
+                interestLevel: 1
             },
             ability2: {
-                type: "war"
+                type: "war",
+                interestLevel: 1
             },
             activableActivity: {
                 type: "development",
                 requireStone: false,
                 unlock: "elder",
                 cooldown: "24h",
+                interestLevel: 3
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 3,
+                blastInterest: 2,
+                defenseInterest: 2,
+            },
         },
         hoarder: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122777432723587/56.png?ex=66116e35&is=65fef935&hm=c83002c306f9fe431eefdef691052b0717ecd813888ddb02fb174ad289f8f22a&=&format=webp&quality=lossless",
             pactTier: "4",
             tier: 4,
             ability1: {
-                type: "development"
+                type: "development",
+                interestLevel: 3
             },
             ability2: {
-                type: "development"
+                type: "development",
+                interestLevel: 1
             },
             activableActivity: {
                 type: "development",
                 requireStone: false,
                 unlock: "elder",
                 cooldown: "3d",
+                interestLevel: 3
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 3,
+                blastInterest: 2,
+                defenseInterest: 3,
+            },
         },
         mechaTrojan: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122776933335151/56.png?ex=66116e35&is=65fef935&hm=71c42cae0e05d9c271fb2b0ad168a74743ca6809e3b164d1f263acc4996e120f&=&format=webp&quality=lossless",
             pactTier: "4",
             tier: 5,
             ability1: {
-                type: "war"
+                type: "war",
+                interestLevel: 2
             },
             ability2: {
-                type: "war"
+                type: "war",
+                interestLevel: 1
             },
             activableActivity: {
                 type: "war",
                 requireStone: true,
                 unlock: "elder",
                 cooldown: "4h",
+                interestLevel: 1
             },
-            warSkill: false,
         },
         tidal: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122776451125369/56.png?ex=66116e35&is=65fef935&hm=ca8f9a9f0256a79b87041d6b0dd06c8d80552dfd160eb06bcc34da6aea548e80&=&format=webp&quality=lossless",
             pactTier: "4",
             tier: 5,
             ability1: {
-                type: "war"
+                type: "war",
+                interestLevel: 2
             },
             ability2: {
-                type: "war"
+                type: "war",
+                interestLevel: 2
             },
             activableActivity: {
                 type: "war",
                 requireStone: true,
                 unlock: "elder",
                 cooldown: "12h",
+                interestLevel: 0
             },
-            warSkill: false,
         },
         drider: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122776082157568/56.png?ex=66116e35&is=65fef935&hm=e0dd94fb810a2a9945e439188e6d0f8eb17223654957aaff656bad0472eb98d8&=&format=webp&quality=lossless",
             pactTier: "4",
             tier: 5,
             ability1: {
-                type: "war"
+                type: "war",
+                interestLevel: 2
             },
             ability2: {
-                type: "war"
+                type: "war",
+                interestLevel: 3
             },
             activableActivity: {
                 type: "war",
                 requireStone: false,
                 unlock: "elder",
                 cooldown: "3d",
+                interestLevel: 3
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 3,
+                blastInterest: 3,
+                defenseInterest: 2,
+            },
         },
         grimReaper: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122775716987011/56.png?ex=66116e35&is=65fef935&hm=9cafac5f8f05700be2fb84ef61382711649aab4beea46c4072115d316b1c4fe9&=&format=webp&quality=lossless",
             pactTier: "4",
             tier: 5,
             ability1: {
-                type: "development"
+                type: "development",
+                interestLevel: 1
             },
             ability2: {
-                type: "war"
+                type: "war",
+                interestLevel: 2
             },
             activableActivity: {
                 type: "war",
                 requireStone: true,
                 unlock: "elder",
                 cooldown: "30m",
+                interestLevel: 1
             },
-            warSkill: false,
         },
         hueyHops: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122502332514394/56.png?ex=66116df3&is=65fef8f3&hm=af56e9ad6f1394912d3d644edfadefffe351e2d1e0280749101511d4521d9860&=&format=webp&quality=lossless",
             pactTier: "5",
             tier: 5,
             ability1: {
-                type: "war"
+                type: "war",
+                interestLevel: 1
             },
             ability2: {
-                type: "war"
+                type: "war",
+                interestLevel: 2
             },
             activableActivity: {
                 type: "war",
                 requireStone: true,
                 unlock: "elder",
                 cooldown: "24h",
+                interestLevel: 3
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 1,
+                blastInterest: 3,
+                defenseInterest: 1,
+            },
         },
         bonAppeti: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122502105763880/56.png?ex=66116df3&is=65fef8f3&hm=bb4a23f57c81c307c6484327a026184a934440625ba158ab276b32332c6c4753&=&format=webp&quality=lossless",
             pactTier: "5",
             tier: 5,
             ability1: {
-                type: "war"
+                type: "war",
+                interestLevel: 2
             },
             ability2: {
-                type: "war"
+                type: "war",
+                interestLevel: 2
             },
             activableActivity: {
                 type: "war",
                 requireStone: true,
                 unlock: "elder",
                 cooldown: "30m",
+                interestLevel: 1
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 2,
+                blastInterest: 3,
+                defenseInterest: 2,
+            },
         },
         gargantua: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122501875208212/56.png?ex=66116df3&is=65fef8f3&hm=6c2ab908fc13092b90ff3230aa67057fe5f1c7c4a6446f76e569e33920bace76&=&format=webp&quality=lossless",
             pactTier: "5",
             tier: 5,
             ability1: {
-                type: "war"
+                type: "war",
+                interestLevel: 1
             },
             ability2: {
-                type: "war"
+                type: "war",
+                interestLevel: 2
             },
             activableActivity: {
                 type: "development",
                 requireStone: true,
                 unlock: "elder",
                 cooldown: "2d",
+                interestLevel: 1
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 2,
+                blastInterest: 3,
+                defenseInterest: 2,
+            },
         },
         frostwing: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122501656969306/56.png?ex=66116df3&is=65fef8f3&hm=6ae2265e7719ddfda428702169ea8f9ede1540e267ef9c85bc274bbf417a5ed4&=&format=webp&quality=lossless",
             pactTier: "5",
             tier: 5,
             ability1: {
-                type: "war"
+                type: "war",
+                interestLevel: 1
             },
             ability2: {
-                type: "war"
+                type: "war",
+                interestLevel: 2
             },
             activableActivity: {
                 type: "war",
                 requireStone: true,
                 unlock: "elder",
                 cooldown: "8h",
+                interestLevel: 1
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 1,
+                blastInterest: 3,
+                defenseInterest: 1,
+            },
         },
         queenBee: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122501447258253/56.png?ex=66116df3&is=65fef8f3&hm=64d99090a60e1c2b5829f2078f7a249b6e3335889c9314130b2f37837eda69a1&=&format=webp&quality=lossless",
             pactTier: "5",
             tier: 5,
             ability1: {
-                type: "war"
+                type: "war",
+                interestLevel: 2
             },
             ability2: {
-                type: "war"
+                type: "war",
+                interestLevel: 2
             },
             activableActivity: {
                 type: "war",
                 requireStone: true,
                 unlock: "elder",
                 cooldown: "30m",
+                interestLevel: 1
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 1,
+                blastInterest: 3,
+                defenseInterest: 1,
+            },
         },
         blackwing: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122501204119632/56.png?ex=66116df3&is=65fef8f3&hm=06929fe26545c8881f6856b6e01044c4e974f53e4594ecf8b20446f7c8fddafc&=&format=webp&quality=lossless",
             pactTier: "5",
             tier: 5,
             ability1: {
-                type: "war"
+                type: "war",
+                interestLevel: 2
             },
             ability2: {
-                type: "war"
+                type: "war",
+                interestLevel: 2
             },
             activableActivity: {
                 type: "war",
                 requireStone: true,
                 unlock: "elder",
                 cooldown: "1h",
+                interestLevel: 2
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 2,
+                blastInterest: 3,
+                defenseInterest: 2,
+            },
         },
         jadeWyrm: {
             image: "https://media.discordapp.net/attachments/659758501865717790/1221122501015240754/56.png?ex=66116df3&is=65fef8f3&hm=aad41c6ff1ad391e7fd761d2b5fc7d696792b54b998e91c8f6b8d4659eaae67a&=&format=webp&quality=lossless",
             pactTier: "5",
             tier: 5,
             ability1: {
-                type: "war"
+                type: "war",
+                interestLevel: 3
             },
             ability2: {
-                type: "war"
+                type: "war",
+                interestLevel: 3
             },
             ability3: {
-                type: "war"
+                type: "war",
+                interestLevel: 3
             },
-            warSkill: true,
+            warSkill: {
+                mixInterest: 3,
+                blastInterest: 3,
+                defenseInterest: 3,
+            },
         },
     }
 }
