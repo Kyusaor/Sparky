@@ -528,27 +528,100 @@ export abstract class Constants {
         randomQuest: "3",
     }
 
-    static readonly talentCost: Record<number, { type: "red" | "yellow", cost: number[] }> = {
+    static readonly talentCost: Record<number, { type: "redOrb" | "yellowOrb", cost: number[] }> = {
         1: {
-            type: "red",
+            type: "redOrb",
             cost: [20, 9, 10, 12, 14, 16, 19, 24, 31, 45]
         },
         2: {
-            type: "red",
+            type: "redOrb",
             cost: [40, 18, 21, 24, 28, 32, 37, 48, 62, 90],
         },
         3: {
-            type: "red",
+            type: "redOrb",
             cost: [80, 36, 43, 50, 57, 64, 72, 94, 123, 181],
         },
         4: {
-            type: "yellow",
+            type: "yellowOrb",
             cost: [64, 29, 34, 39, 45, 51, 58, 76, 99, 145]
         },
         5: {
-            type: "yellow",
+            type: "yellowOrb",
             cost: [160, 72, 86, 100, 114, 129, 144, 188, 246, 361],
         }
+    }
+
+    static readonly PactCost: Record<number, {hatchling: {runes: number, maxExp: number}, adult: {runes: number, maxExp: number}, elder: {runes: number, maxExp: number}}> = {
+        1: {
+            hatchling: {
+                runes: 1,
+                maxExp: 5583
+            },
+            adult: {
+                runes: 5,
+                maxExp: 56992
+            },
+            elder: {
+                runes: 40,
+                maxExp: 45455
+            },
+        },
+        2: {
+            hatchling: {
+                runes: 1,
+                maxExp: 8367
+            },
+            adult: {
+                runes: 10,
+                maxExp: 85484
+            },
+            elder: {
+                runes: 80,
+                maxExp: 68178
+            },
+        },
+        3: {
+            hatchling: {
+                runes: 1,
+                maxExp: 16113
+            },
+            adult: {
+                runes: 15,
+                maxExp: 164703
+            },
+            elder: {
+                runes: 120,
+                maxExp: 197212
+            },
+        },
+        4: {
+            hatchling: {
+                runes: 1,
+                maxExp: 25754
+            },
+            adult: {
+                runes: 20,
+                maxExp: 264688
+            },
+            elder: {
+                runes: 160,
+                maxExp: 316948
+            },
+        },
+        5: {
+            hatchling: {
+                runes: 1,
+                maxExp: 46025
+            },
+            adult: {
+                runes: 25,
+                maxExp: 470547
+            },
+            elder: {
+                runes: 200,
+                maxExp: 563459
+            },
+        },
     }
 
     static readonly familiarsData: Record<keyof typeof TranslationsCache.fr.others.familiars, familiarData> = {
