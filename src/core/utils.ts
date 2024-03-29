@@ -2,7 +2,7 @@ import consoleStamp from "console-stamp";
 import { ActivityType, Client, EmbedBuilder, EmbedFooterData, Locale, PermissionsBitField, TextChannel } from "discord.js";
 import { createWriteStream, existsSync, mkdirSync } from "fs";
 import { bot, botCommands, chanList, Console, dev, TranslationsCache } from "../main.js";
-import { fetchedChannelsAtBoot, textLanguage } from "./constants/types.js";
+import { fetchedChannelsAtBoot, interestLevel, textLanguage } from "./constants/types.js";
 import { DiscordValues } from "./constants/values.js";
 import { Translations } from "./constants/translations.js";
 
@@ -26,6 +26,20 @@ export abstract class Utils {
 
     static displayEmoteInChat(emoteData: typeof DiscordValues.emotes.building): string {
         return `<:${emoteData.name}:${emoteData.id}>`
+    }
+
+    static displayInterestLevel(interest: interestLevel) {
+        let star = `⭐`;
+        let noStar = this.displayEmoteInChat(DiscordValues.emotes.blackStar);
+
+        let str = star;
+        for (let i = 0; i == 4; i++) {
+            i < interest ?
+                str += star :
+                str += noStar
+        }
+
+        return str
     }
 
     static EmbedBaseBuilder(language: textLanguage): EmbedBuilder {
