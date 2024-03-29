@@ -103,6 +103,22 @@ export abstract class DiscordValues {
             name: 'famRank5',
             id: '1221467689701081169'
         },
+        production: {
+            name: 'ble',
+            id: '1223202784262750268'
+        },
+        war: {
+            name: 'war',
+            id: '1223202782345957419'
+        },
+        development: {
+            name: "academie",
+            id: "607196986948452377"
+        },
+        blackStar: {
+            name: 'blackstar',
+            id: '1223215566697795585'
+        },
     }
 
     static readonly defaultEmotes = {
@@ -689,7 +705,7 @@ export abstract class Constants {
                 type: "development",
                 interestLevel: 2
             },
-            activableActivity: {
+            activableAbility: {
                 type: "development",
                 requireStone: false,
                 unlock: "adult",
@@ -766,7 +782,7 @@ export abstract class Constants {
                 type: "production",
                 interestLevel: 1
             },
-            activableActivity: {
+            activableAbility: {
                 type: "development",
                 requireStone: false,
                 unlock: "adult",
@@ -787,7 +803,7 @@ export abstract class Constants {
                 type: "development",
                 interestLevel: 1
             },
-            activableActivity: {
+            activableAbility: {
                 type: "development",
                 requireStone: false,
                 unlock: "adult",
@@ -826,7 +842,7 @@ export abstract class Constants {
                 type: "development",
                 interestLevel: 0
             },
-            activableActivity: {
+            activableAbility: {
                 type: "production",
                 requireStone: false,
                 unlock: "adult",
@@ -847,7 +863,7 @@ export abstract class Constants {
                 type: "production",
                 interestLevel: 0
             },
-            activableActivity: {
+            activableAbility: {
                 type: "development",
                 requireStone: false,
                 unlock: "adult",
@@ -872,7 +888,7 @@ export abstract class Constants {
                 type: "development",
                 interestLevel: 1
             },
-            activableActivity: {
+            activableAbility: {
                 type: "war",
                 requireStone: false,
                 unlock: "elder",
@@ -893,7 +909,7 @@ export abstract class Constants {
                 type: "war",
                 interestLevel: 2
             },
-            activableActivity: {
+            activableAbility: {
                 type: "development",
                 requireStone: false,
                 unlock: "adult",
@@ -914,7 +930,7 @@ export abstract class Constants {
                 type: "development",
                 interestLevel: 0
             },
-            activableActivity: {
+            activableAbility: {
                 type: "development",
                 requireStone: false,
                 unlock: "adult",
@@ -953,7 +969,7 @@ export abstract class Constants {
                 type: "production",
                 interestLevel: 0
             },
-            activableActivity: {
+            activableAbility: {
                 type: "development",
                 requireStone: false,
                 unlock: "adult",
@@ -978,7 +994,7 @@ export abstract class Constants {
                 type: "development",
                 interestLevel: 1
             },
-            activableActivity: {
+            activableAbility: {
                 type: "war",
                 requireStone: true,
                 unlock: "elder",
@@ -1003,7 +1019,7 @@ export abstract class Constants {
                 type: "war",
                 interestLevel: 2
             },
-            activableActivity: {
+            activableAbility: {
                 type: "war",
                 requireStone: false,
                 unlock: "elder",
@@ -1028,7 +1044,7 @@ export abstract class Constants {
                 type: "war",
                 interestLevel: 1
             },
-            activableActivity: {
+            activableAbility: {
                 type: "development",
                 requireStone: false,
                 unlock: "elder",
@@ -1053,7 +1069,7 @@ export abstract class Constants {
                 type: "production",
                 interestLevel: 1
             },
-            activableActivity: {
+            activableAbility: {
                 type: "production",
                 requireStone: false,
                 unlock: "elder",
@@ -1078,7 +1094,7 @@ export abstract class Constants {
                 type: "production",
                 interestLevel: 0
             },
-            activableActivity: {
+            activableAbility: {
                 type: "development",
                 requireStone: false,
                 unlock: "elder",
@@ -1103,7 +1119,7 @@ export abstract class Constants {
                 type: "war",
                 interestLevel: 2
             },
-            activableActivity: {
+            activableAbility: {
                 type: "development",
                 requireStone: false,
                 unlock: "elder",
@@ -1128,7 +1144,7 @@ export abstract class Constants {
                 type: "war",
                 interestLevel: 2
             },
-            activableActivity: {
+            activableAbility: {
                 type: "production",
                 requireStone: false,
                 unlock: "elder",
@@ -1153,7 +1169,7 @@ export abstract class Constants {
                 type: "development",
                 interestLevel: 1
             },
-            activableActivity: {
+            activableAbility: {
                 type: "development",
                 requireStone: true,
                 unlock: "elder",
@@ -1178,7 +1194,7 @@ export abstract class Constants {
                 type: "war",
                 interestLevel: 1
             },
-            activableActivity: {
+            activableAbility: {
                 type: "production",
                 requireStone: false,
                 unlock: "elder",
@@ -1203,7 +1219,7 @@ export abstract class Constants {
                 type: "war",
                 interestLevel: 1
             },
-            activableActivity: {
+            activableAbility: {
                 type: "war",
                 requireStone: true,
                 unlock: "elder",
@@ -1228,7 +1244,7 @@ export abstract class Constants {
                 type: "war",
                 interestLevel: 1
             },
-            activableActivity: {
+            activableAbility: {
                 type: "development",
                 requireStone: false,
                 unlock: "elder",
@@ -1253,7 +1269,7 @@ export abstract class Constants {
                 type: "development",
                 interestLevel: 1
             },
-            activableActivity: {
+            activableAbility: {
                 type: "development",
                 requireStone: false,
                 unlock: "elder",
@@ -1278,7 +1294,7 @@ export abstract class Constants {
                 type: "war",
                 interestLevel: 1
             },
-            activableActivity: {
+            activableAbility: {
                 type: "war",
                 requireStone: true,
                 unlock: "elder",
@@ -1298,7 +1314,7 @@ export abstract class Constants {
                 type: "war",
                 interestLevel: 2
             },
-            activableActivity: {
+            activableAbility: {
                 type: "war",
                 requireStone: true,
                 unlock: "elder",
@@ -1318,7 +1334,7 @@ export abstract class Constants {
                 type: "war",
                 interestLevel: 3
             },
-            activableActivity: {
+            activableAbility: {
                 type: "war",
                 requireStone: false,
                 unlock: "elder",
@@ -1343,7 +1359,7 @@ export abstract class Constants {
                 type: "war",
                 interestLevel: 2
             },
-            activableActivity: {
+            activableAbility: {
                 type: "war",
                 requireStone: true,
                 unlock: "elder",
@@ -1363,7 +1379,7 @@ export abstract class Constants {
                 type: "war",
                 interestLevel: 2
             },
-            activableActivity: {
+            activableAbility: {
                 type: "war",
                 requireStone: true,
                 unlock: "elder",
@@ -1388,7 +1404,7 @@ export abstract class Constants {
                 type: "war",
                 interestLevel: 2
             },
-            activableActivity: {
+            activableAbility: {
                 type: "war",
                 requireStone: true,
                 unlock: "elder",
@@ -1413,7 +1429,7 @@ export abstract class Constants {
                 type: "war",
                 interestLevel: 2
             },
-            activableActivity: {
+            activableAbility: {
                 type: "development",
                 requireStone: true,
                 unlock: "elder",
@@ -1438,7 +1454,7 @@ export abstract class Constants {
                 type: "war",
                 interestLevel: 2
             },
-            activableActivity: {
+            activableAbility: {
                 type: "war",
                 requireStone: true,
                 unlock: "elder",
@@ -1463,7 +1479,7 @@ export abstract class Constants {
                 type: "war",
                 interestLevel: 2
             },
-            activableActivity: {
+            activableAbility: {
                 type: "war",
                 requireStone: true,
                 unlock: "elder",
@@ -1488,7 +1504,7 @@ export abstract class Constants {
                 type: "war",
                 interestLevel: 2
             },
-            activableActivity: {
+            activableAbility: {
                 type: "war",
                 requireStone: true,
                 unlock: "elder",
