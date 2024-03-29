@@ -119,6 +119,10 @@ export abstract class DiscordValues {
             name: 'blackstar',
             id: '1223215566697795585'
         },
+        talent: {
+            name: 'talent',
+            id: '1223229260785778778'
+        }
     }
 
     static readonly defaultEmotes = {
