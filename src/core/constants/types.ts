@@ -51,6 +51,19 @@ export type ReplacerList = {
     text3?: string
 }
 
+export type FamiliarTranslation = {
+        name: string,
+        ability1Name: string,
+        ability1Description: string,
+        ability2Name?: string,
+        ability2Description?: string,
+        ability3Name?: string,
+        ability3Description?: string,
+        activableAbilityName?: string,
+        activableAbilityDescription?: string,
+        warTalentName?: string,
+        warTalentDesctiption?: string
+}
 
 //Commands
 export type CommandArgs = { intera: ChatInputCommandInteraction, language: textLanguage, commandText: Record<string, string> };
@@ -92,7 +105,7 @@ export type familiarData = {
     ability1: passiveAbilityType
     ability2?: passiveAbilityType
     ability3?: passiveAbilityType
-    activableActivity?: ActiveAbilityType
+    activableAbility?: ActiveAbilityType
     warSkill?: {
         mixInterest: interestLevel,
         blastInterest: interestLevel,
