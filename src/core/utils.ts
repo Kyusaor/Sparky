@@ -33,7 +33,7 @@ export abstract class Utils {
         let noStar = this.displayEmoteInChat(DiscordValues.emotes.blackStar);
 
         let str = star;
-        for (let i = 0; i == 4; i++) {
+        for (let i = 0; i < 3; i++) {
             i < interest ?
                 str += star :
                 str += noStar
