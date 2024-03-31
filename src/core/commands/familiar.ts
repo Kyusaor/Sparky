@@ -1,6 +1,6 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, SlashCommandStringOption } from "discord.js";
-import { CommandArgs, CommandInterface, pactList } from "../constants/types.js";
-import { Command, CommandManager } from "../managers/commands.js";
+import { APIEmbed, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, SlashCommandStringOption } from "discord.js";
+import { CommandArgs, CommandInterface, embedPageData, familiarName, pactList } from "../constants/types.js";
+import { Command, CommandManager, FamiliarManager } from "../managers/commands.js";
 import { Utils } from "../utils.js";
 import { Constants, DiscordValues } from "../constants/values.js";
 import { TranslationsCache } from "../../main.js";
@@ -86,4 +86,13 @@ async function famidex({ intera, language, commandText }: CommandArgs) {
     })
     buttonsList.push(rows);
     Command.prototype.reply({embeds: [selectorEmbed], components: buttonsList}, intera);
+}
+
+export function getEditedEmbed(data:embedPageData, embed: Readonly<APIEmbed>):EmbedBuilder {
+    let familiar = FamiliarManager.getFamiliarDataFromEmbed(embed);
+    let pactList = Object.keys(Constants.familiarsData).filter(fam => Constants.familiarsData[fam as familiarName].pactTier == Constants.familiarsData[familiar].pactTier) as familiarName[];
+    let newFamName = pactList[data.current + data.target -1];
+
+    let newEmbed = FamiliarManager.getFamiliarEmbed(newFamName, data.language);
+    return newEmbed;
 }
