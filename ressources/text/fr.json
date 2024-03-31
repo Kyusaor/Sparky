@@ -288,11 +288,37 @@
                 "4pactName": "pactes 4",
                 "5pactName": "pactes 5",
 
+                "hatchling": "jeune",
+                "adult": "adulte",
+                "elder": "mature",
+
+                "runes": "runes",
+
                 "listEmbedTitle": "Répartition des familiers par pactes",
                 "listEmbedDescription": "*Les chiffres devant les familiers représentent leur rang. Ce dernier détermine le coût d'amélioration des différentes compétences du familier*",
                 "selectorEmbedTitle": "Sélecteur de familier",
                 "selectorEmbedDescription": "*Voici la liste des familiers disponibles en {text}. Sélectionnez celui dont vous voulez les informations*",
-                "selectorEmbedField": "Familiers {text}:"
+                "selectorEmbedField": "Familiers {text}:",
+
+                "displayEmbedDescription": "*Voici les informations du familier. Les notes d'intérêts sont à moduler selon vos besoin et sont là à titre indicatif si vous ne savez pas par où commencer*",
+                "displayEmbedRank": "Tier",
+                "displayEmbedBaseData": "Caractéristiques de base",
+                "displayEmbedPact": "Pactes d'origine",
+                "displayEmbedActivableAbility": "Compétence activable",
+                "displayEmbedPassiveAbility": "Compétence passive",
+                "displayEmbedTalent": "Talent d'armée",
+                "displayEmbedTalentCost": "**Coût de déblocage**: {text2} {text}\n**Coût de maxage**: {text3} {text}",
+                "displayEmbedRequiredExpAmount": "Quantité d'expérience requise",
+                "displayEmbedMaxExp": "Expérience maximum",
+                "displayEmbedExpLevel": "Niveau d'expérience",
+                "displayEmbedAbilityFieldValue": "**Description**:*{text}*\n**Niveau d'intérêt**: {text2}",
+                "displayEmbedInterestLevel": "Niveau d'intérêt",
+
+                "mixInterest": "Mixte",
+                "blastInterest": "Mono",
+                "defenseInterest": "Défense",
+                "total": "total",
+                "level": "niveau"
             }
         },
         "guildfest": {
