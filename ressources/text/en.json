@@ -280,19 +280,45 @@
                 }
             },
             "text": {
-                "1ApactName": "pactes 1A",
-                "1BpactName": "pactes 1B",
-                "2ApactName": "pactes 2A",
-                "2BpactName": "pactes 2B",
-                "3pactName": "pactes 3",
-                "4pactName": "pactes 4",
-                "5pactName": "pactes 5",
+                "1ApactName": "pact 1A",
+                "1BpactName": "pact 1B",
+                "2ApactName": "pact 2A",
+                "2BpactName": "pact 2B",
+                "3pactName": "pact 3",
+                "4pactName": "pact 4",
+                "5pactName": "pact 5",
 
-                "listEmbedTitle": "",
-                "listEmbedDescription": "",
-                "selectorEmbedTitle": "",
-                "selectorEmbedDescription": "",
-                "selectorEmbedField": ""
+                "hatchling": "hatchling",
+                "adult": "adult",
+                "elder": "elder",
+
+                "runes": "runes",
+
+                "listEmbedTitle": "Familiars sorted by pact",
+                "listEmbedDescription": "*Numbers displayed in front of familiars' name represents their rank, which will determine upgrade costs for its skills and talent*",
+                "selectorEmbedTitle": "Familiar selector",
+                "selectorEmbedDescription": "*Here is the list of familiars available from {text}. Select the one you want information from*",
+                "selectorEmbedField": "{text} familiars:",
+
+                "displayEmbedDescription": "*Here is the familiar data. Interest scores are variable depending of your needs, and must be taken with a pinch of salt, if you don't really know where to start*",
+                "displayEmbedRank": "Tier",
+                "displayEmbedBaseData": "Basic informations",
+                "displayEmbedPact": "Pact of origin",
+                "displayEmbedActivableAbility": "Activable ability",
+                "displayEmbedPassiveAbility": "Passive ability",
+                "displayEmbedTalent": "Army talent",
+                "displayEmbedTalentCost": "**Unlock cost**: {text2} {text}\n**Maxing cost**: {text3} {text}",
+                "displayEmbedRequiredExpAmount": "Required experience amount",
+                "displayEmbedMaxExp": "Maximum experience",
+                "displayEmbedExpLevel": "Experience level",
+                "displayEmbedAbilityFieldValue": "**Description**:*{text}*\n**Interest score**: {text2}",
+                "displayEmbedInterestLevel": "Interest score",
+
+                "mixInterest": "Mix",
+                "blastInterest": "Blast",
+                "defenseInterest": "Defense",
+                "total": "total",
+                "level": "level"
 
             }
         },
