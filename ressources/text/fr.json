@@ -911,7 +911,7 @@
                 "ability1Name": "Sac-à-sang",
                 "ability1Description": "Vitesse de soin de l'infirmerie +25%",
                 "ability2Name": "Exécution",
-                "ability2Description": "Attente avant exécution de chef emprisonné réduit de 3 heures",
+                "ability2Description": "Attente avant exécution de chef emprisonné réduit de 6 heures",
                 "warTalentName": "Coup de fouet",
                 "warTalentDesctiption": "Augmente les PV cavalerie de 80% pendant 10 secondes quand 10% de vos troupes cavalerie sont tombées"
             },
@@ -1007,7 +1007,7 @@
                 "ability1Name": "Lien mystique",
                 "ability1Description": "Capacité de fusion de pactes +5",
                 "ability2Name": "Offrande",
-                "ability2Description": "Durée boost autel +3 heures",
+                "ability2Description": "Durée boost autel +6 heures",
                 "activableAbilityName": "Assitance noire",
                 "activableAbilityDescription": "Remplit la barre d'aide de la recherche en cours instantanément",
                 "warTalentName": "Sacrifice de l'esprit",
@@ -1086,7 +1086,7 @@
                 "ability2Name": "Coquille solide",
                 "ability2Description": "DEF infanterie +10%",
                 "activableAbilityName": "Contamination",
-                "activableAbilityDescription": "Réduit une production de ressource ennemie pendant 3 heures",
+                "activableAbilityDescription": "Réduit une production de ressource ennemie pendant 6 heures",
                 "warTalentName": "Vermiphobie",
                 "warTalentDesctiption": "Étourdit les héros ennemis pendant 5 secondes quand 15% de vos troupes sont tombées"
             },
@@ -1168,7 +1168,7 @@
                 "ability2Name": "Eclat angélique",
                 "ability2Description": "ATT armée de coalition +10%",
                 "activableAbilityName": "Rétribution divine",
-                "activableAbilityDescription": "Détruit 7 à 15% des ressources du territoire ennemi (max: 100m)",
+                "activableAbilityDescription": "Détruit 7 à 15% des ressources du territoire ennemi (max: 100m par ressource)",
                 "warTalentName": "Terreur des cieux",
                 "warTalentDesctiption": "Inflige 600% de dégâts basés sur l'ATT initiale de vos troupes infanterie à une des plus grosses escouades ennemies quand 4% de vos troupes sont tombées"
             },
@@ -1222,8 +1222,8 @@
                 "ability1Description": "Boost impact Infanterie vs Archers +15%",
                 "ability2Name": "Bénediction ardente - Archers",
                 "ability2Description": "Boost impact Archers vs Cavalerie +15%",
-                "activableAbilityName": "Bénediction ardente - Cavalerie",
-                "activableAbilityDescription": "Boost impact Cavalerie vs Infanterie +15%",
+                "ability3Name": "Bénediction ardente - Cavalerie",
+                "ability3Description": "Boost impact Cavalerie vs Infanterie +15%",
                 "warTalentName": "Feu divin",
                 "warTalentDesctiption": "Réduit les dégâts infligés par les ennemis de 9% lorsque 4% de vos troupes sont tombées"
             }
