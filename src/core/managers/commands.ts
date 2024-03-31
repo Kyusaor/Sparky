@@ -1,7 +1,7 @@
-import { APIApplicationCommandOptionChoice, APIEmbed, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, Embed, EmbedBuilder, GuildMember, GuildMemberRoleManager, InteractionReplyOptions, InteractionType, InteractionUpdateOptions, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, Role, RoleData, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, StringSelectMenuInteraction, TextBasedChannel, TextChannel, parseEmoji, time } from "discord.js";
+import { APIApplicationCommandOptionChoice, APIEmbed, APIEmbedField, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, EmbedBuilder, EmbedData, EmbedFooterOptions, GuildMemberRoleManager, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, RestOrArray, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, StringSelectMenuInteraction, TextBasedChannel, TextChannel } from "discord.js";
 import { Console, StatusCache, TranslationsCache, bot, botCommands, chanList, db } from "../../main.js";
 import { Translations } from "../constants/translations.js";
-import { CommandArgs, CommandInterface, CommandName, RolesData, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, cacheLockScope, embedPageData, hellEventData, hellEventTask, perksType, textLanguage } from "../constants/types.js";
+import { CommandArgs, CommandInterface, CommandName, FamiliarTranslation, RolesData, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, cacheLockScope, embedPageData, familiarName, hellEventData, perksType, textLanguage } from "../constants/types.js";
 import { readFileSync, readdirSync } from "fs";
 import { Utils } from "../utils.js";
 import { Constants, DiscordValues } from "../constants/values.js";
@@ -116,6 +116,16 @@ export abstract class CommandManager {
             case "setglobalping":
                 try {
                     await WatcherManager.MentionManager(button);
+                } catch (e) {
+                    Console.error(e)
+                }
+                break;
+
+            case 'familiar':
+                try {
+                    button.customId.includes('Page') ?
+                        await Command.defilePage("familiar", button) :
+                        await FamiliarManager.replyFamiliarPage(button, language);
                 } catch (e) {
                     Console.error(e)
                 }
@@ -705,6 +715,127 @@ export class WatcherManager {
         }))
 
     }
+}
+
+export class FamiliarManager {
+
+    static getComponent(components: ActionRowBuilder<ButtonBuilder>, embed: Readonly<APIEmbed>) {
+        let familiar = this.getFamiliarDataFromEmbed(embed);
+        let famData = Constants.familiarsData[familiar];
+        let pactList = Object.keys(Constants.familiarsData).filter(fam => Constants.familiarsData[fam as familiarName].pactTier == famData.pactTier);
+        let familiarNumber = pactList.indexOf(familiar);
+
+        components
+            .addComponents()
+
+        return components
+    }
+
+    static replyFamiliarPage(button: ButtonInteraction, language: textLanguage) {
+        let familiar = button.customId.split(`-`)[2] as familiarName;
+        let embed = this.getFamiliarEmbed(familiar, language);
+        let list = Object.keys(Constants.familiarsData).filter(fam => Constants.familiarsData[fam as familiarName].pactTier == Constants.familiarsData[familiar].pactTier);
+        let position: "last" | "first" | undefined = undefined;
+        if (list.indexOf(familiar) == 0)
+            position = "first";
+        if (list.indexOf(familiar) == list.length - 1)
+            position = "last";
+        let buttons = Command.generatePageButtons("familiar", language, familiar, position);
+
+        Command.prototype.reply({ embeds: [embed], components: [buttons] }, button);
+    }
+
+    static getFamiliarDataFromEmbed(embedData: EmbedData | Readonly<APIEmbed>): familiarName {
+        let text = embedData.title!;
+        let familiar:familiarName | undefined = undefined;
+        Object.keys(TranslationsCache).forEach(lang => {
+            let famiTranslations = TranslationsCache[lang as textLanguage].others.familiars
+            let fam = Object.keys(famiTranslations).find(fami =>
+                famiTranslations[fami as keyof typeof famiTranslations].name == text
+            ) as familiarName | undefined
+            if (fam) 
+                familiar = fam;
+        })
+        if(familiar)
+            return familiar
+        else
+            throw 'No familiar found in embed';
+    }
+
+    static getFamiliarEmbed(familiar: familiarName, language: textLanguage) {
+        let commandText = Translations.getCommandText("familiar")[language].text as typeof TranslationsCache.fr.commands.familiar.text;
+
+        let famData = Constants.familiarsData[familiar];
+        let familiarText = TranslationsCache[language].others.familiars[familiar] as FamiliarTranslation;
+
+
+        //Data collection
+        let tierEmote = Utils.displayEmoteInChat(DiscordValues.emotes[`familiarRank${famData.tier}`]);
+        let pactTier = Utils.capitalizeFirst(commandText[`${famData.pactTier}pactName`]);
+
+        let pactData = Constants.PactCost[famData.tier]
+        let expAmount = {
+            hatchling: `${commandText.level}19, ${Utils.format3DigitsSeparation(pactData.hatchling.maxExp)}XP`,
+            adult: `${commandText.level}49, ${Utils.format3DigitsSeparation(pactData.adult.maxExp)} XP (${commandText.total}: ${Utils.format3DigitsSeparation(pactData.hatchling.maxExp + pactData.adult.maxExp)})`,
+            elder: `${commandText.level}60, ${Utils.format3DigitsSeparation(pactData.elder.maxExp)} XP (${commandText.total}: ${Utils.format3DigitsSeparation(pactData.hatchling.maxExp + pactData.adult.maxExp + pactData.elder.maxExp)})`
+        };
+
+        function abilityField(ability: "ability1" | "ability2" | "ability3" | "activableAbility") {
+            let emote = Utils.displayEmoteInChat(DiscordValues.emotes[famData[ability]!.type]);
+            let abilityName = familiarText[`${ability}Name`];
+            let abilityDescription = familiarText[`${ability}Description`]
+
+            let name = `${emote} __${ability == "activableAbility" ? commandText.displayEmbedActivableAbility : commandText.displayEmbedPassiveAbility}__: ${abilityName}`;
+            let value = Translations.displayText(commandText.displayEmbedAbilityFieldValue, { text: abilityDescription, text2: Utils.displayInterestLevel(famData[ability]!.interestLevel) })
+
+            return { name, value };
+        }
+
+        let fields: RestOrArray<APIEmbedField> = [
+            { name: `__${commandText.displayEmbedBaseData}__`, value: `**${commandText.displayEmbedPact}**: ${pactTier}\n**${commandText.displayEmbedRank}**: ${tierEmote}` },
+            DiscordValues.emptyEmbedField,
+            { name: `__${commandText.displayEmbedRequiredExpAmount}__`, value: `-**${commandText.hatchling}**: ${expAmount.hatchling}\n-**${commandText.adult}**: ${expAmount.adult}\n-**${commandText.elder}**: ${expAmount.elder}\n` },
+            DiscordValues.emptyEmbedField,
+            abilityField('ability1'),
+            DiscordValues.emptyEmbedField,
+        ];
+
+        if (famData.ability2)
+            fields.push(abilityField('ability2'), DiscordValues.emptyEmbedField);
+        if (famData.ability3)
+            fields.push(abilityField('ability3'), DiscordValues.emptyEmbedField);
+        if (famData.activableAbility)
+            fields.push(abilityField('activableAbility'));
+
+        if (famData.warSkill) {
+            let orbCost = Utils.displayEmoteInChat(DiscordValues.emotes[Constants.talentCost[famData.tier].type]);
+            let unlockCost = Constants.talentCost[famData.tier].cost[0];
+            let maxCost = Constants.talentCost[famData.tier].cost.reduce((total, value) => total + value, 0);
+            let name = `${Utils.displayEmoteInChat(DiscordValues.emotes.talent)} __${commandText.displayEmbedTalent}__: ${familiarText.warTalentName}`;
+
+            let value = `*${familiarText.warTalentDesctiption}*\n${Translations.displayText(commandText.displayEmbedTalentCost, { text: orbCost, text2: unlockCost.toString(), text3: maxCost.toString() })}\n\n`;
+
+            value += `**${commandText.displayEmbedInterestLevel}**:\n`
+            for (let type of Object.keys(famData.warSkill)) {
+                value += `-${commandText[type as keyof typeof famData.warSkill]}: ${Utils.displayInterestLevel(famData.warSkill[type as keyof typeof famData.warSkill])}\n`
+            }
+
+            fields.push(DiscordValues.emptyEmbedField, { name, value });
+        }
+
+        let pactList = Object.keys(Constants.familiarsData).filter(fam => Constants.familiarsData[fam as familiarName].pactTier == famData.pactTier);
+        let familiarNumber = pactList.indexOf(familiar);
+        let footer: EmbedFooterOptions = { text: `${pactTier} [${familiarNumber + 1}/${pactList.length}]` };
+
+        return Utils.EmbedBaseBuilder(language)
+            .setTitle(familiarText.name)
+            .setDescription(commandText.displayEmbedDescription)
+            .setThumbnail(famData.image)
+            .addFields(fields)
+            .setFooter(footer)
+    };
+
+
 }
 
 function userCommandLogString(intera: ChatInputCommandInteraction): string {
