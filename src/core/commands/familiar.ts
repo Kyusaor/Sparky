@@ -46,9 +46,9 @@ async function famidex({ intera, language, commandText }: CommandArgs) {
             let name = commandText[`${pact}pactName`]
             let value = ``;
             Object.keys(Constants.familiarsData).forEach(fam => {
-                let famData = Constants.familiarsData[fam as keyof typeof Constants.familiarsData];
+                let famData = Constants.familiarsData[fam as familiarName];
                 if (famData.pactTier == pact)
-                    value += `-${Utils.displayEmoteInChat(DiscordValues.emotes[`familiarRank${famData.tier}`])} ${famTranslations[fam as keyof typeof Constants.familiarsData].name}\n`
+                    value += `-${Utils.displayEmoteInChat(DiscordValues.emotes[`familiarRank${famData.tier}`])} ${famTranslations[fam as familiarName].name}\n`
             })
             listEmbed.addFields([{ name, value }])
         }
@@ -67,8 +67,8 @@ async function famidex({ intera, language, commandText }: CommandArgs) {
     let rows = new ActionRowBuilder<ButtonBuilder>();
 
     Object.keys(Constants.familiarsData).forEach(fam => {
-        let famData = Constants.familiarsData[fam as keyof typeof Constants.familiarsData];
-        let famName = famTranslations[fam as keyof typeof Constants.familiarsData].name;
+        let famData = Constants.familiarsData[fam as familiarName];
+        let famName = famTranslations[fam as familiarName].name;
 
         if (famData.pactTier == tier) {
             if (rows.components.length == 5) {

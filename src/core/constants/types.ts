@@ -113,6 +113,7 @@ export type familiarData = {
     };
 }
 
+export type familiarName = keyof typeof frTranslationJSON.others.familiars;
 export type passiveAbilityType = { type: "war" | "production" | "development", interestLevel: interestLevel };
 export type ActiveAbilityType = { type: "war" | "production" | "development", requireStone: boolean, unlock: "adult" | "elder", cooldown:string, interestLevel: interestLevel };
 
