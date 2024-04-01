@@ -1,5 +1,6 @@
 {
     "global": {
+        "flag": ":flag_us:",
         "languagesFullName": {
             "fr": "french",
             "en": "english"
