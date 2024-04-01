@@ -1,15 +1,16 @@
-import { CacheType, ChannelType, Interaction, InteractionType, Message } from "discord.js";
+import { CacheType, ChannelType, Interaction, InteractionType, Message, MessageCreateOptions } from "discord.js";
 import { Translations } from "../constants/translations.js";
 import { Utils } from "../utils.js";
 import { Constants, DiscordValues } from "../constants/values.js";
 import { Console, StatusCache, TranslationsCache, bot, chanList, db } from "../../main.js";
 import { CommandManager, WatcherManager } from "./commands.js";
 import { ServerManager } from "./servers.js";
+import { textLanguage } from "../constants/types.js";
 
 export abstract class EventManager {
 
     static async interactionHandler(intera: Interaction<CacheType>): Promise<void> {
-        if(intera.guild)
+        if (intera.guild)
             ServerManager.createIfServerIsNotInDb(intera.guild.id);
 
         let language = (await db.fetchUserData(intera.user.id))?.preferredLanguage;
@@ -60,9 +61,9 @@ export abstract class EventManager {
         let msgFiles: string[] = [];
         let chanDM = chanList.LOGS_DM;
         let language = (await db.fetchUserData(msg.author.id))?.preferredLanguage;
-        if(!language)
+        if (!language)
             language = Constants.defaultLanguage;
-        
+
         if (!chanDM)
             throw "Logs DM impossible à récupérer"
 
@@ -74,8 +75,8 @@ export abstract class EventManager {
             await chanDM.send(msg.author.id);
             await chanDM.send(`__**${msg.author.tag} a envoyé:**__`);
 
-            let content:string = "";
-            msg.stickers.size == 1 ? 
+            let content: string = "";
+            msg.stickers.size == 1 ?
                 content = `sticker: ${msg.stickers.first()?.name}` :
                 content = msg.content;
 
@@ -84,12 +85,22 @@ export abstract class EventManager {
                 content += `\n${TranslationsCache.fr.global.autoDmResponse}: ${TranslationsCache.fr.global.noLinkInDm}`
                 await msg.channel.send(`${TranslationsCache.fr.global.noLinkInDm}\n\n${TranslationsCache.en.global.noLinkInDm}\n\n${Utils.displayBotLink()}`)
             }
-            if(msg.content.startsWith('!') || msg.content.startsWith('/')) {
+            if (msg.content.startsWith('!') || msg.content.startsWith('/')) {
                 content += `\n${TranslationsCache.fr.global.autoDmResponse}: ${TranslationsCache.fr.global.noCommandOffServer}`
                 await msg.channel.send(`${TranslationsCache.fr.global.noCommandOffServer}\n\n${TranslationsCache.en.global.noCommandOffServer}`)
             }
+            if (msg.mentions.has(bot.user!.id, { ignoreRoles: true, ignoreEveryone: true, ignoreRepliedUser: true })) {
+                let embed = (await Utils.EmbedBaseBuilder("en"))
+                    .setThumbnail(DiscordValues.botIcon.help)
+                
+                for(let lang of Object.keys(TranslationsCache))
+                    embed.addFields({ name: TranslationsCache[lang as textLanguage].global.flag + TranslationsCache[lang as textLanguage].helpMention.title, value: TranslationsCache[lang as textLanguage].helpMention.description });
 
-            await chanDM.send({ content: content, files: msgFiles });
+                content += `\n${TranslationsCache.fr.global.autoDmResponse}: ${TranslationsCache.fr.helpMention.title}`
+                await msg.channel.send({embeds: [embed]})
+            }
+
+            await chanDM.send({ content, files: msgFiles});
 
         }
         catch (err) {
