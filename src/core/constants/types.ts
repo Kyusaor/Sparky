@@ -51,6 +51,19 @@ export type ReplacerList = {
     text3?: string
 }
 
+export type FamiliarTranslation = {
+        name: string,
+        ability1Name: string,
+        ability1Description: string,
+        ability2Name?: string,
+        ability2Description?: string,
+        ability3Name?: string,
+        ability3Description?: string,
+        activableAbilityName?: string,
+        activableAbilityDescription?: string,
+        warTalentName?: string,
+        warTalentDesctiption?: string
+}
 
 //Commands
 export type CommandArgs = { intera: ChatInputCommandInteraction, language: textLanguage, commandText: Record<string, string> };
@@ -85,6 +98,28 @@ export type hellEventData = {
     reward: keyof typeof Constants.WatcherMentionsTemplates;
 }
 
+export type familiarData = {
+    image: string;
+    pactTier: typeof pactList[number];
+    tier: 1 | 2 | 3 | 4 | 5;
+    ability1: passiveAbilityType
+    ability2?: passiveAbilityType
+    ability3?: passiveAbilityType
+    activableAbility?: ActiveAbilityType
+    warSkill?: {
+        mixInterest: interestLevel,
+        blastInterest: interestLevel,
+        defenseInterest: interestLevel,
+    };
+}
+
+export type familiarName = keyof typeof frTranslationJSON.others.familiars;
+export type passiveAbilityType = { type: "war" | "production" | "development", interestLevel: interestLevel };
+export type ActiveAbilityType = { type: "war" | "production" | "development", requireStone: boolean, unlock: "adult" | "elder", cooldown:string, interestLevel: interestLevel };
+
+export const pactList = ["1A", "1B", "2A", "2B", "3", "4", "5"] as const;
+
+export type interestLevel = 0 | 1 | 2 | 3;
 
 //Database related
 export type RolesData = {

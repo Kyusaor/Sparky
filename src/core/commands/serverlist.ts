@@ -35,7 +35,7 @@ export const serverlist:CommandInterface = {
             .setDescription(Translations.displayText(commandText.embedDescription, { text: TranslationsCache[language].commands.serverlist.choices.filter[filter]}))
             .setFooter({ text: Translations.displayText(commandText.embedFooter, {text: "1", text2: totalPages, text3: members.toString()})})
 
-        buildFields(embed, serverList, commandText.embedFiledValue)
+        buildFields(embed, serverList, commandText.embedFiledValue, 0);
 
         let buttons = Command.generatePageButtons("serverlist", language, filter, "first");
 
@@ -74,12 +74,12 @@ function sortServerList(list:serverData[], filter: "members" | "name" | "none"):
         list.sort((a, b) => a.name.localeCompare(b.name))
 }
 
-function buildFields(embed:EmbedBuilder, list:serverData[], text: string):void {
+function buildFields(embed:EmbedBuilder, list:serverData[], text: string, startingPosition:number):void {
     for(let i = 0; i < 25 && list[i]; i++) {
         let serv = list[i];
 
         embed.addFields({
-            name: `${(i + 1)}. **${serv.name}**`,
+            name: `${(startingPosition + i + 1)}. **${serv.name}**`,
             value: Translations.displayText(text, { id: serv.id, text: serv.members.toString(), text2: serv.owner})
         })
     }
@@ -93,7 +93,7 @@ export function getEditedEmbed(data:embedPageData, embed: Readonly<APIEmbed>):Em
     let servList = filedata[data.filter as keyof typeof filedata] as serverData[]
 
     let newPage = data.current + data.target;
-    buildFields(newEmbed, servList.slice(25*(newPage - 1), 25 * newPage + 1), TranslationsCache[data.language].commands.serverlist.text.embedFiledValue)
+    buildFields(newEmbed, servList.slice(25*(newPage - 1), 25 * newPage + 1), TranslationsCache[data.language].commands.serverlist.text.embedFiledValue, (newPage - 1) * 25)
 
     let oldFooter = embed.footer!.text
     let newFooter = oldFooter.split("[")[0] + "[" + newPage + "/" + oldFooter.split("/")[1]

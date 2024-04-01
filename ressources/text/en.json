@@ -1,17 +1,31 @@
 {
     "global": {
-        "languagesFullName":{
+        "flag": ":flag_us:",
+        "languagesFullName": {
             "fr": "french",
             "en": "english"
         },
         "welcomeMsg": "Let me introduce myself: I am Sparky, a Lords Mobile Discord bot, made for guild servers.\n\nMy commands list can be found by typing **/help** on your server. Thanks for adding me !",
         "tipsFooter": [
-            {"text": "Type the /help command to get some help!"},
-            {"text": "Made with love by {dev_username}", "iconURL": "{dev_avatar_url}"},
-            {"text": "Use the /language command to change the bot's language!"},
-            {"text": "Use /watcher to get notifications on hell events"},
-            {"text": "Fun fact: I'm the best bot in the world"},
-            {"text": "Support the bot with /donate"}
+            {
+                "text": "Type the /help command to get some help!"
+            },
+            {
+                "text": "Made with love by {dev_username}",
+                "iconURL": "{dev_avatar_url}"
+            },
+            {
+                "text": "Use the /language command to change the bot's language!"
+            },
+            {
+                "text": "Use /watcher to get notifications on hell events"
+            },
+            {
+                "text": "Fun fact: I'm the best bot in the world"
+            },
+            {
+                "text": "Support the bot with /donate"
+            }
         ],
         "errors": {
             "notInAGuild": "Commands must be done on a server",
@@ -89,7 +103,7 @@
                 "buildings": {
                     "name": "buildings",
                     "description": "Get your missing resources for your gem buildings",
-                    "options":{
+                    "options": {
                         "building": {
                             "name": "building",
                             "description": "The building to get"
@@ -158,15 +172,14 @@
                 "buildEmbedDescription": "*Here are the missing resources for maxing your {text} from __level {text2} to {text3}__. Gems amount take into account the gold hammer cost*",
                 "gemsEquivalence": "Gems equivalence:",
                 "noResources": "Nothing",
-
                 "trainEmbedTitle": "Troop calculator",
                 "trainEmbedDescription": "*Here is the resources cost to train your troops!\nNote: gems cost decreasing when troop amount increase, it's not showed there*",
-                "trainEmbedTrainSpeed" : "__Train speed:__",
-                "trainEmbedCostReduction" : "__Cost reduction:__",
-                "trainEmbedTroopAmount" : "__Amount of troops to train:__",
-                "trainEmbedBatchAmount" : "__Amount of batches needed:__",
-                "trainEmbedRssCost" : "__{text}'s cost:__",
-                "trainEmbedTimeCost" : "__Time needed:__",
+                "trainEmbedTrainSpeed": "__Train speed:__",
+                "trainEmbedCostReduction": "__Cost reduction:__",
+                "trainEmbedTroopAmount": "__Amount of troops to train:__",
+                "trainEmbedBatchAmount": "__Amount of batches needed:__",
+                "trainEmbedRssCost": "__{text}'s cost:__",
+                "trainEmbedTimeCost": "__Time needed:__",
                 "trainEmbedMightGained": "__Might obtained:__"
             }
         },
@@ -182,10 +195,22 @@
             "description": "Special thanks",
             "text": {
                 "thanks": [
-                    ["Bêta testers", "Who accepted to be my laboratory rats for an almost-ready bot"],
-                    ["The donators", "Who helped me to support the bot hosting cost (don't hesitate to **/donate** by the way :eyes:)"],
-                    ["The translators", "Who helped me to correct my questionable english skills"],
-                    ["And then...", "To all the bot users who gave me their trust with this project :heart:"]
+                    [
+                        "Bêta testers",
+                        "Who accepted to be my laboratory rats for an almost-ready bot"
+                    ],
+                    [
+                        "The donators",
+                        "Who helped me to support the bot hosting cost (don't hesitate to **/donate** by the way :eyes:)"
+                    ],
+                    [
+                        "The translators",
+                        "Who helped me to correct my questionable english skills"
+                    ],
+                    [
+                        "And then...",
+                        "To all the bot users who gave me their trust with this project :heart:"
+                    ]
                 ],
                 "embedDescription": "The list of people who offered their support during the bot's development",
                 "embedTitle": "Special thanks"
@@ -228,6 +253,76 @@
                 "donate": "You want to contribute to the bot's development without any computer skills and without spending your nights on it? I have a solution !\n\nBy giving money, you will help the developer to pay the bot hosting and boost his ego ! Hit two gryphons with one stone ! <:thumbsup:751774481781096468>\n{text}"
             }
         },
+        "familiar": {
+            "name": "familiar",
+            "description": "Get data about familiars",
+            "subcommand": {
+                "famidex": {
+                    "name": "famidex",
+                    "description": "A whole encyclopedia of familiars, their cost, abilities and more!",
+                    "options": {
+                        "tier": {
+                            "name": "tier",
+                            "description": "The pact tier required"
+                        }
+                    }
+                }
+            },
+            "choices": {
+                "tier": {
+                    "all": "Whole list",
+                    "1a": "1A pacts (spire)",
+                    "1b": "1B pacts (spire)",
+                    "2a": "2A pacts (spire)",
+                    "2b": "2B pacts (spire)",
+                    "3": "3 pacts (spire)",
+                    "4": "4 pacts (spire)",
+                    "5": "5 pacts (buyable/tycoon)"
+                }
+            },
+            "text": {
+                "1ApactName": "pact 1A",
+                "1BpactName": "pact 1B",
+                "2ApactName": "pact 2A",
+                "2BpactName": "pact 2B",
+                "3pactName": "pact 3",
+                "4pactName": "pact 4",
+                "5pactName": "pact 5",
+
+                "hatchling": "hatchling",
+                "adult": "adult",
+                "elder": "elder",
+
+                "runes": "runes",
+
+                "listEmbedTitle": "Familiars sorted by pact",
+                "listEmbedDescription": "*Numbers displayed in front of familiars' name represents their rank, which will determine upgrade costs for its skills and talent*",
+                "selectorEmbedTitle": "Familiar selector",
+                "selectorEmbedDescription": "*Here is the list of familiars available from {text}. Select the one you want information from*",
+                "selectorEmbedField": "{text} familiars:",
+
+                "displayEmbedDescription": "*Here is the familiar data. Interest scores are variable depending of your needs, and must be taken with a pinch of salt, if you don't really know where to start*",
+                "displayEmbedRank": "Tier",
+                "displayEmbedBaseData": "Basic informations",
+                "displayEmbedPact": "Pact of origin",
+                "displayEmbedActivableAbility": "Activable ability",
+                "displayEmbedPassiveAbility": "Passive ability",
+                "displayEmbedTalent": "Army talent",
+                "displayEmbedTalentCost": "**Unlock cost**: {text2} {text}\n**Maxing cost**: {text3} {text}",
+                "displayEmbedRequiredExpAmount": "Required experience amount",
+                "displayEmbedMaxExp": "Maximum experience",
+                "displayEmbedExpLevel": "Experience level",
+                "displayEmbedAbilityFieldValue": "**Description**:*{text}*\n**Interest score**: {text2}",
+                "displayEmbedInterestLevel": "Interest score",
+
+                "mixInterest": "Mix",
+                "blastInterest": "Blast",
+                "defenseInterest": "Defense",
+                "total": "total",
+                "level": "level"
+
+            }
+        },
         "guildfest": {
             "name": "guildfest",
             "description": "Get information about the Guild Fest event",
@@ -256,7 +351,6 @@
                 "easyField": "__Easy quests:__",
                 "mediumField": "__Long or normal quests:__",
                 "hardField": "__Hard or payment-requiring quests:__",
-
                 "help": "Send **{text}** helps to your guildmates",
                 "admin": "Fulfill **{text}** admin quest",
                 "guild": "Fulfill **{text}** guild quest",
@@ -282,8 +376,6 @@
                 "bossLabyElite": "Find **{text}** elite labyrinth bosses",
                 "loseTroops": "Lose **{text}** t4 troops",
                 "mergeSpeed": "Speed up **{text}** merge days",
-
-
                 "troopMight": "Increase your troop might by **{text}**",
                 "challenge": "Complete **{text}** 24h challenges",
                 "artifactQuest": "Complete **{text}** artifacts related quests",
@@ -299,7 +391,6 @@
                 "bundleQuest": "Complete **{text}** special bundle  quests",
                 "shipQuest": "Complete **{text}** cargo ship quests",
                 "randomQuest": "Complete **{text}** random quests",
-
                 "bonusTitle": "Bonus quest list",
                 "bonusDescription": "When your guild reaches expert gauntlet, guild members access a bonus quest in addition to regular quests: three bonus quests will be given to each mate, and they will have to complete one of them to earn 175 bonus points. Members who have done this will appear in green in the guild leaderboard."
             },
@@ -333,14 +424,14 @@
             "description": "Get informations about a Discord user, this server or the bot",
             "subcommand": {
                 "user": {
-                    "name": "user", 
-                    "description": "Get information about a Discord user", 
+                    "name": "user",
+                    "description": "Get information about a Discord user",
                     "options": {
                         "user": {
-                            "name": "user", 
+                            "name": "user",
                             "description": "The discord user you want the informations for"
                         }
-                    } 
+                    }
                 },
                 "bot": {
                     "name": "bot",
@@ -374,7 +465,7 @@
                 "clicHere": "Clic here!"
             }
         },
-        "language" : {
+        "language": {
             "name": "language",
             "description": "Change the bot language for you (or the server, if you have admin permission)",
             "options": {
@@ -429,7 +520,7 @@
                     "serrulule": "Hootclaw",
                     "titan": "Tidal Titan",
                     "wyrm": "Jade Wyrm"
-                }            
+                }
             }
         },
         "link": {
@@ -463,14 +554,16 @@
                 "igg": "If you have a problem, you can reach IGG by these emails:\n[{text}]",
                 "discord": "You can join the official Lords Mobile Discord server there:\nhttps://discord.gg/lordsmobile",
                 "chest": "Official chest droprates are available [right there]({text})!",
-                "reedemCode": "To claim gift code, you can [go there]({text})!"
+                "reedemCode": "To claim gift code, you can [go there]({text})!",
+                "migration": "## __Migration cost (scrolls)__:\n*Migration cost only depends on your might position in the target kingdom's leaderboard*\n*Migration scrolls can be bought with guilds coins (810k), or by buying the \"Up and away\" pack*\n*To check a kingdom's migration cost, you can open the target kingdom's map, click on a position, then \"migrate\". The cost will be displayed on the confirm button*\n\n**1st place:** 90\n**2nd place**: 65\n**3rd place**: 50\n**4th place**: 35\n**5th place**: 30\n**6th place**: 28\n**7th place**: 26\n**8th place**: 24\n**9th place**: 22\n**10th place**: 20\n\n**11-13th place**: 18\n**14-16th place**: 16\n**17-18th place**: 14\n**19-20th place**: 13\n**21-22nd place**: 12\n**23-24th place**: 11\n\n**25-26th place**: 10\n**27-28th place**: 9\n**29-30th place**: 8\n**31-32nd place**: 7\n**33-35th place**: 6\n\n**36-38th place**: 5\n**39-41st place**: 4\n**42-45th place**: 3\n**46-50th place**: 2\n**51st place and less**: 1"
             },
             "choices": {
                 "target": {
                     "igg": "Contact IGG",
                     "discord": "Join the official LM discord",
                     "chest": "Chest droprates",
-                    "reedemCode": "Claim gift codes"
+                    "reedemCode": "Claim gift codes",
+                    "migration": "Migration cost"
                 }
             },
             "options": {
@@ -548,7 +641,7 @@
             },
             "options": {
                 "id": {
-                    "name":"id",
+                    "name": "id",
                     "description": "Target server id"
                 }
             }
@@ -617,9 +710,7 @@
                 "rolesAndChanDeletionReason": "Reparametrization of the hell mention board",
                 "channelsNotFound": "Impossible to find the {text} channel (server {text2} ({id}))",
                 "noRoles": "Impossible to fetch the roles",
-
                 "loadingText": "<a:loading:739785338347585598> Setting up...",
-
                 "boardName": "hell-event-board",
                 "boardTopic": "Subscribe to hell events and challenges notifications!",
                 "boardReason": "Subscribing channel creation",
@@ -627,7 +718,6 @@
                 "mentionTopic": "Subscribe to hell events and challenges notifications to get mentionned when one start!",
                 "mentionReason": "Mentions channel creation",
                 "hell": "hell ",
-
                 "boardEmbedTitle": "__**Watcher and Dragons Reporting**__",
                 "boardEmbedDescription": "Select hell events and challenges you're interested in. Mentions will be done in the <#{id}> channel",
                 "boardEmbedFieldName": "__How does it work?__",
@@ -635,16 +725,13 @@
                 "boardEmbedFooter": "Made with love by {dev_username}",
                 "boardMenuOptionDescription": "Get notified when a {text} event starts",
                 "boardMenuPlaceholder": "Chose your subscriptions",
-
                 "success": "Done! <#{text}> and <#{text2}> channels were successfully created\nYou're free to rename them or move them in the channels list as long as you delete nothing :wink:\nType `/{text3}` to delete them and the roles\n*Note that reports are made by the bot staff, some events could be missed*"
             }
         },
-        "watcher-refresh":{
+        "watcher-refresh": {
             "name": "watcher-refresh",
             "description": "Check if every roles is set up, and create these wich are missing",
-            "text": {
-                
-            }
+            "text": {}
         }
     },
     "others": {
@@ -711,10 +798,10 @@
             "challengeTroops": "challenge dragon training"
         },
         "hellMentions": {
-            "watcher":"watcher",
-            "dragon":"dragon",
-            "redOrb":"red orb",
-            "yellowOrb":"yellow orb",
+            "watcher": "watcher",
+            "dragon": "dragon",
+            "redOrb": "red orb",
+            "yellowOrb": "yellow orb",
             "research": "research",
             "building": "building",
             "merge": "merge",
@@ -734,10 +821,414 @@
             "remainingTimeAfterBegining": "It will start in **{text}** minutes",
             "logMentions": "{id} has reported a {text3} {text2} {text} event",
             "temporaryLogMentions": "A {text3} {text2} {text} event has been reported!\n",
-
             "updateRolesMsg": "Your roles have been updated:\n",
             "missingRoles": ":warning: Some of the mentions roles are unavailable"
+        },
+        "familiars": {
+            "jaziek": {
+                "name": "Jaziek",
+                "ability1Name": "Vault keeper",
+                "ability1Description": "Vault storage +10%",
+                "warTalentName": "Deadly slash",
+                "warTalentDesctiption": "Reduces enemy's cavalry HP by 40%"
+            },
+            "engineer": {
+                "name": "Engineer",
+                "ability1Name": "Ore prospector",
+                "ability1Description": "Ore production +25%",
+                "warTalentName": "Suit up",
+                "warTalentDesctiption": "Increases infantry ATT by 15%"
+            },
+            "oakroot": {
+                "name": "Oakroot",
+                "ability1Name": "Lumberjack",
+                "ability1Description": "Timber production +25%",
+                "warTalentName": "Ruthless rot",
+                "warTalentDesctiption": "Reduces enemy's infantry DEF by 40%"
+            },
+            "magmalord": {
+                "name": "Magmalord",
+                "ability1Name": "Rolling stones",
+                "ability1Description": "Stone production +25%",
+                "warTalentName": "Scorching sear",
+                "warTalentDesctiption": "Reduces enemy's ranged HP by 40%"
+            },
+            "territe": {
+                "name": "Territe",
+                "ability1Name": "Ground breaker",
+                "ability1Description": "Merging speed (pacts) +20%",
+                "activableAbilityName": "Nether quake",
+                "activableAbilityDescription": "Grants a random amount of fragments (5~30) 3 times",
+                "warTalentName": "Earthquake",
+                "warTalentDesctiption": "Reduces enemy's army DEF by 15%"
+            },
+            "yeti": {
+                "name": "Yeti",
+                "ability1Name": "Go wild",
+                "ability1Description": "Gathering troops travel speed +25%",
+                "warTalentName": "Abominable strike",
+                "warTalentDesctiption": "Increases cavalry ATT by 15%"
+            },
+            "beastmaster": {
+                "name": "Beastmaster",
+                "ability1Name": "Trade route",
+                "ability1Description": "Supply troops travel speed +25%",
+                "warTalentName": "Wild wall",
+                "warTalentDesctiption": "Reduces enemy's cavalry DEF by 40%"
+            },
+            "terraspike": {
+                "name": "Terraspike",
+                "ability1Name": "Fertilizer",
+                "ability1Description": "Food production +25%",
+                "warTalentName": "Piercing spike",
+                "warTalentDesctiption": "Reduces enemy's infantry HP by 40%"
+            },
+            "gnome": {
+                "name": "Gnome",
+                "ability1Name": "Financial advice",
+                "ability1Description": "Gold production +25%",
+                "warTalentName": "Deadly tips",
+                "warTalentDesctiption": "Increases ranged ATT by 15%"
+            },
+            "aquiris": {
+                "name": "Aquiris",
+                "ability1Name": "Overflow",
+                "ability1Description": "Anima production +40%",
+                "activableAbilityName": "Refreshed",
+                "activableAbilityDescription": "Get 60 to 120 STA",
+                "warTalentName": "Drown out",
+                "warTalentDesctiption": "Reduces enemy's army HP by 15%"
+            },
+            "sorcerer": {
+                "name": "Sorcerer",
+                "ability1Name": "Speed force",
+                "ability1Description": "Allied troops travel speed +25%",
+                "activableAbilityName": "Dark magic",
+                "activableAbilityDescription": "Instantly completes an ongoing transmutation",
+                "warTalentName": "Strange sorcery",
+                "warTalentDesctiption": "Increses ranged max HP by 80% for 10 secondes when 10% of your ranged troops have fallen"
+            },
+            "strix": {
+                "name": "Strix",
+                "ability1Name": "Blood bag",
+                "ability1Description": "Infirmary heal speed +25%",
+                "ability2Name": "Quick fix",
+                "ability2Description": "Reduces execution wait time by 6 hours",
+                "warTalentName": "Lash out",
+                "warTalentDesctiption": "Increses cavalry max HP by 80% for 10 secondes when 10% of your ranged troops have fallen"
+            },
+            "evilWeevil": {
+                "name": "Evil Weevil",
+                "ability1Name": "Food hoarder",
+                "ability1Description": "Food production +35%",
+                "activableAbilityName": "Gather round",
+                "activableAbilityDescription": "Get 4 hours worth of resources production",
+                "warTalentName": "Hearty feast",
+                "warTalentDesctiption": "Increases army HP by 15%"
+            },
+            "totempest": {
+                "name": "Totempest",
+                "ability1Name": "Timber hoarder",
+                "ability1Description": "Timber production +35%",
+                "activableAbilityName": "Ship ahoy",
+                "activableAbilityDescription": "Refreshes the cargo ship immediatly",
+                "warTalentName": "Knock wood",
+                "warTalentDesctiption": "Increses ranged max DEF by 80% for 10 secondes when 10% of your ranged troops have fallen"
+            },
+            "tempestite": {
+                "name": "Tempestite",
+                "ability1Name": "Aero guard",
+                "ability1Description": "Wall DEF +20%",
+                "ability2Name": "Second wind",
+                "ability2Description": "Energy regain speed +10%",
+                "activableAbilityName": "Fresh air",
+                "activableAbilityDescription": "Get 20k T1 troops from a random type",
+                "warTalentName": "Whirlwind",
+                "warTalentDesctiption": "Stuns one of your enemy's largest squad for 8 seconds when 10% of your troops have fallen"
+            },
+            "harpy": {
+                "name": "Harpy",
+                "ability1Name": "Cloud cover",
+                "ability1Description": "Shelter capacity +50k",
+                "activableAbilityName": "First class",
+                "activableAbilityDescription": "Get 3 random VIP points items ( 100 / 500 / 1000 / 5000 )",
+                "warTalentName": "Last dance",
+                "warTalentDesctiption": "Increses infantry max HP by 80% for 10 secondes when 10% of your ranged troops have fallen"
+            },
+            "bonehead": {
+                "name": "Bonehead",
+                "ability1Name": "Animated",
+                "ability1Description": "Max anima storage +20%",
+                "activableAbilityName": "Ready to rumble",
+                "activableAbilityDescription": "Get 10 colosseum entries",
+                "warTalentName": "Funeral rites",
+                "warTalentDesctiption": "Increses infantry max DEF by 80% for 10 secondes when 10% of your infantry troops have fallen"
+            },
+            "krabby": {
+                "name": "Krabby",
+                "ability1Name": "Ore hoarder",
+                "ability1Description": "Ore production +35%",
+                "ability2Name": "Rocky resolve",
+                "ability2Description": "Player EXP boost +10%",
+                "warTalentName": "Shell tier",
+                "warTalentDesctiption": "Increases army DEF by 15%"
+            },
+            "bouldur": {
+                "name": "Bouldur",
+                "ability1Name": "Stone hoarder",
+                "ability1Description": "Stone production +35%",
+                "activableAbilityName": "Overtime",
+                "activableAbilityDescription": "Maxes out help bar for ongoing construction",
+                "warTalentName": "Rock on",
+                "warTalentDesctiption": "Increses cavalry max DEF by 80% for 10 secondes when 10% of your cavalry troops have fallen"
+            },
+            "pyris": {
+                "name": "Pyris",
+                "ability1Name": "Friendly fires",
+                "ability1Description": "Extra supplies +20%",
+                "ability2Name": "Melting pot",
+                "ability2Description": "Reduces transmutation time by 10%",
+                "activableAbilityName": "Blazing trail",
+                "activableAbilityDescription": "Kills 7,500~12,500 T1 troops in the target's barracks (will not exceed 5% of total troops)",
+                "warTalentName": "Turbo charge",
+                "warTalentDesctiption": "At the start of the battle, grants 60% of tactical boost to Heroes's tactics skills, increasing squad ATT dealt as DMG to enemy troops for 10 seconds"
+            },
+            "moleShaman": {
+                "name": "Mole Shaman",
+                "ability1Name": "Natural remedy",
+                "ability1Description": "Infirmary capacity +5%",
+                "ability2Name": "Nutty power",
+                "ability2Description": "Infantry ATT +10%",
+                "activableAbilityName": "Rapid repair",
+                "activableAbilityDescription": "Repair 50% of your wall (based on your wall max HP)",
+                "warTalentName": "Shaman's blessing",
+                "warTalentDesctiption": "Increases infantry ATT and HP by 60% for 15 seconds when 5% of your infantry troops have fallen"
+            },
+            "magus": {
+                "name": "Magus",
+                "ability1Name": "Mystic bonds",
+                "ability1Description": "Pact merging capacity +5",
+                "ability2Name": "Sacrificial offering",
+                "ability2Description": "Altar stats boost duration +6 hours",
+                "activableAbilityName": "Dark assistance",
+                "activableAbilityDescription": "Maxes out help bar for ongoing research",
+                "warTalentName": "Spirit sacrifice",
+                "warTalentDesctiption": "Increases ranged ATT and HP by 60% for 15 seconds when 5% of your ranged troops have fallen"
+            },
+            "goblin": {
+                "name": "Goblin",
+                "ability1Name": "Harvest frenzy",
+                "ability1Description": "Gathering speed +25%",
+                "ability2Name": "Gold hoarder",
+                "ability2Description": "Gold production +35%",
+                "activableAbilityName": "Gold digger",
+                "activableAbilityDescription": "Get 6m ~ 12M gold",
+                "warTalentName": "Booby prize",
+                "warTalentDesctiption": "Increases cavalry ATT by 100% when 10% of your cavalry troops have fallen (this effect will stack, number required will be recalculated after each activation)"
+            },
+            "gemmingGremlin": {
+                "name": "Gemming Gremlin",
+                "ability1Name": "Busy hands",
+                "ability1Description": "Construction speed +5%",
+                "ability2Name": "Loded up",
+                "ability2Description": "Gem gathering speed +10%",
+                "activableAbilityName": "Stroke of fortune",
+                "activableAbilityDescription": "Grants 1500 ~ 3000 gems",
+                "warTalentName": "Fear spike",
+                "warTalentDesctiption": "Increases infantry ATT by 100% when 10% of your infantry troops have fallen (this effect will stack, number required will be recalculated after each activation)"
+            },
+            "trickstar": {
+                "name": "Trickstar",
+                "ability1Name": "Stellar intellect",
+                "ability1Description": "Research speed +5%",
+                "ability2Name": "Astral assistance",
+                "ability2Description": "Ranged ATT +10%",
+                "activableAbilityName": "Lucky stars",
+                "activableAbilityDescription": "Grants 3 random holy star items (100 / 1 000 / 10 000)",
+                "warTalentName": "Long shot",
+                "warTalentDesctiption": "Increases ranged ATT by 100% when 10% of your ranged troops have fallen (this effect will stack, number required will be recalculated after each activation)"
+            },
+            "noceros": {
+                "name": "Noceros",
+                "ability1Name": "Beast of burden",
+                "ability1Description": "Army capacity +35%",
+                "ability2Name": "Thundering blitz",
+                "ability2Description": "Cavalry ATT +10%",
+                "activableAbilityName": "In a flash",
+                "activableAbilityDescription": "Completes gathering for 5 random gathering armies (except gem lodes)",
+                "warTalentName": "Lightining strike",
+                "warTalentDesctiption": "Increases cavalry ATT and HP by 60% for 15 seconds when 5% of your cavalry troops have fallen"
+            },
+            "gryphon": {
+                "name": "Gryphon",
+                "ability1Name": "Air support",
+                "ability1Description": "Max allied army size +50k",
+                "ability2Name": "Quick learner",
+                "ability2Description": "Training speed +5%",
+                "activableAbilityName": "Homeward bind",
+                "activableAbilityDescription": "Recall all troops within 6 seconds (except coalition troops)",
+                "warTalentName": "Tailwind",
+                "warTalentDesctiption": "Increases army ATT by 200% for 10 seconds when 10% of your troops have fallen"
+            },
+            "snowBeast": {
+                "name": "Snow Beast",
+                "ability1Name": "Pound the ground",
+                "ability1Description": "Darknest coalition army travel speed +25%",
+                "ability2Name": "Frost shield",
+                "ability2Description": "Ranged DEF +10%",
+                "activableAbilityName": "Seasoned courier",
+                "activableAbilityDescription": "Increase supply capacity by 300% for 1 hour",
+                "warTalentName": "Snow shield",
+                "warTalentDesctiption": "Summons a shield that protects 7% of your ranged troops from a killing blow when 12% of your ranged troops have fallen"
+            },
+            "megaMaggot": {
+                "name": "Mega Maggot",
+                "ability1Name": "Motivation",
+                "ability1Description": "Barracks capacity +5000",
+                "ability2Name": "Tough carapace",
+                "ability2Description": "Infantry DEF +10%",
+                "activableAbilityName": "Contaminate",
+                "activableAbilityDescription": "Reduces an enemy's resource production by 95% for 6 hours",
+                "warTalentName": "Vermiphobia",
+                "warTalentDesctiption": "Stuns all enemy Heroes for 5 seconds when 15% of your troops have fallen"
+            },
+            "saberfang": {
+                "name": "Saberfang",
+                "ability1Name": "Swift predator",
+                "ability1Description": "Monster hunt travel speed +25%",
+                "ability2Name": "Wild spirit",
+                "ability2Description": "Cavalry DEF +10%",
+                "activableAbilityName": "Hunting ground",
+                "activableAbilityDescription": "Adds 15 hunt in a row for the next hunt within 15 minutes (will not exceed hunt in a row limit)",
+                "warTalentName": "Feral ward",
+                "warTalentDesctiption": "Summons a shield that protects 7% of your cavalry troops from a killing blow when 12% of your cavalry troops have fallen"
+            },
+            "hoarder": {
+                "name": "Hoarder",
+                "ability1Name": "Trove expansion",
+                "ability1Description": "Max deposit +10k",
+                "ability2Name": "Skillfull hands",
+                "ability2Description": "Merging speed (skillstones) +20%",
+                "activableAbilityName": "Pay day",
+                "activableAbilityDescription": "Grants 3 random jewels",
+                "warTalentName": "Guilded guard",
+                "warTalentDesctiption": "Summons a shield that protects 7% of your infantry troops from a killing blow when 12% of your infantry troops have fallen"
+            },
+            "mechaTrojan": {
+                "name": "Mecha Trojan",
+                "ability1Name": "Mighty stallion",
+                "ability1Description": "Cavalry HP +10%",
+                "ability2Name": "Bet on it",
+                "ability2Description": "Army DEF (battle fury) +10%",
+                "activableAbilityName": "Trojan horse",
+                "activableAbilityDescription": "Increases max coalition army size by 125k for 30 minutes"
+            },
+            "tidal": {
+                "name": "Tidal",
+                "ability1Name": "Fountain of youth",
+                "ability1Description": "Infantry HP +10%",
+                "ability2Name": "Water wall",
+                "ability2Description": "Army DEF +10%",
+                "activableAbilityName": "High tide",
+                "activableAbilityDescription": "Relocates the first enemy turf you will burn in the next 6 minutes"
+            },
+            "drider": {
+                "name": "Hell Drider",
+                "ability1Name": "Hellish spirit",
+                "ability1Description": "Infantry HP +10%",
+                "ability2Name": "Prison break",
+                "ability2Description": "Leader's chances of escaping when captured +10%",
+                "activableAbilityName": "Convocation",
+                "activableAbilityDescription": "Grants 15k troops of a random type from your highest tier unlocked (T1 to T4 only)",
+                "warTalentName": "Hellish curse",
+                "warTalentDesctiption": "Petrifies one of the largest enemy squads for 11 seconds when 7% of your troops have fallen"
+            },
+            "grimReaper": {
+                "name": "Grim Reaper",
+                "ability1Name": "Swift soul",
+                "ability1Description": "Travel speed +10%",
+                "ability2Name": "Soul contract",
+                "ability2Description": "Ranged HP +10%",
+                "activableAbilityName": "Kiss of death",
+                "activableAbilityDescription": "Kills 20k~50k troops in the target's barracks (highest tier first, will not exceed 5% of the total troops)"
+            },
+            "hueyHops": {
+                "name": "Huey Hops",
+                "ability1Name": "Shell shield",
+                "ability1Description": "Ranged DEF +20%",
+                "ability2Name": "Buck up",
+                "ability2Description": "Army HP +10%",
+                "activableAbilityName": "Rascally rabbit",
+                "activableAbilityDescription": "Your leader will escape once if they are captured in battle within the next 30 minutes",
+                "warTalentName": "Brutal bunny",
+                "warTalentDesctiption": "Deals 150% damages every 4 seconds for up to 5 times to one of the largest enemy squads when 8% of of your troops have fallen. Damages are based on your initial infantry ATT"
+            },
+            "bonAppeti": {
+                "name": "Bon Appeti",
+                "ability1Name": "Guardian angel",
+                "ability1Description": "Infantry ATT +10%",
+                "ability2Name": "Radiant aura",
+                "ability2Description": "Coalition army ATT +10%",
+                "activableAbilityName": "Divine retribution",
+                "activableAbilityDescription": "Destroys 7%~15% of all resources in an enemy's turf. 100M max of each resource",
+                "warTalentName": "Holy terror",
+                "warTalentDesctiption": "Deals 600% damages based on your inital ranged ATT to one of the largest enemy squads when 4% of your troops have fallen"
+            },
+            "gargantua": {
+                "name": "Gargantua",
+                "ability1Name": "Protective layer",
+                "ability1Description": "Cavalry DEF +20%",
+                "ability2Name": "Big shot",
+                "ability2Description": "Cavalry ATT +10%",
+                "activableAbilityName": "Saving grace",
+                "activableAbilityDescription": "Extends guild fest quest duration by 30%. Affects ongoing and expired quests",
+                "warTalentName": "Giant fist",
+                "warTalentDesctiption": "Deals 600% damages based on your inital cavalry ATT to one of the largest enemy squads when 4% of your troops have fallen"
+            },
+            "frostwing": {
+                "name": "Frostwing",
+                "ability1Name": "Ice shield",
+                "ability1Description": "Infantry DEF +20%",
+                "ability2Name": "Glacial blast",
+                "ability2Description": "Army ATT 5%",
+                "activableAbilityName": "Frost bite",
+                "activableAbilityDescription": "Increses an enemy's travel speed by 300% during 1 hour (does not affect troops that are currently on the move)",
+                "warTalentName": "Killing frost",
+                "warTalentDesctiption": "Deals 150% damages every 4 seconds for up to 5 times to one of the largest enemy squads when 8% of of your troops have fallen. Damages are based on your initial cavalry ATT"
+            },
+            "queenBee": {
+                "name": "Queen Bee",
+                "ability1Name": "Honeyed words",
+                "ability1Description": "Cavalry HP +10%",
+                "ability2Name": "Buzz kill",
+                "ability2Description": "Ranged ATT +10%",
+                "activableAbilityName": "Poison sting",
+                "activableAbilityDescription": "Reduces army ATT by 15% and causes 10k troops in the target's barracks (random tier, will not exceed 1.25% of total troops) to be sent to the infirmary every 10 minutes for 4 hours",
+                "warTalentName": "Stinging swarm",
+                "warTalentDesctiption": "Deals 150% damages every 4 seconds for up to 5 times to one of the largest enemy squads when 8% of of your troops have fallen. Damages are based on your initial ranged ATT"
+            },
+            "blackwing": {
+                "name": "Blackwing",
+                "ability1Name": "Soulburst",
+                "ability1Description": "Army ATT +5%",
+                "ability2Name": "Bad blood",
+                "ability2Description": "Army HP (battle fury) +10%",
+                "activableAbilityName": "Hell fire",
+                "activableAbilityDescription": "Kills every enemy wounded troops (including garnison and allied troops) in your first attack within the next 30 minutes",
+                "warTalentName": "Savage breath",
+                "warTalentDesctiption": "Deals 600% damages based on your inital infantry ATT to one of the largest enemy squads when 4% of your troops have fallen"
+            },
+            "jadeWyrm": {
+                "name": "Jade Wyrm",
+                "ability1Name": "Fiery blessing - Infantry",
+                "ability1Description": "Infantry vs Ranged counter boost +15%",
+                "ability2Name": "Fiery blessing - Ranged",
+                "ability2Description": "Ranged vs Cavalry counter boost +15%",
+                "ability3Name": "Fiery blessing - Cavalry",
+                "ability3Description": "Cavalry vs Infantry counter boost +15%",
+                "warTalentName": "Divine fire",
+                "warTalentDesctiption": "Reduces damages inflicted by enemies by 9% when 4% of your troops have fallen"
+            }
         }
     }
-
 }
