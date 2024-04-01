@@ -834,7 +834,7 @@
             "engineer": {
                 "name": "Engineer",
                 "ability1Name": "Ore prospector",
-                "ability1Descriptison": "Ore production +25%",
+                "ability1Description": "Ore production +25%",
                 "warTalentName": "Suit up",
                 "warTalentDesctiption": "Increases infantry ATT by 15%"
             },
