@@ -4,7 +4,7 @@ import { Command, CommandManager } from "../managers/commands.js";
 import { Translations } from "../constants/translations.js";
 import { DiscordValues } from "../constants/values.js";
 import { Utils } from "../utils.js";
-import { botCommands } from "../../main.js";
+import { botCommands, dev } from "../../main.js";
 
 export const help: CommandInterface = {
 
@@ -82,6 +82,14 @@ function buildCommandsEmbeds({ language }: CommandArgs) {
                 devCommands.push(data);
         }
     }
+
+    function sortHelp(list:RestOrArray<APIEmbedField>) {
+        list.sort((a, b) => (a as APIEmbedField).name.localeCompare((b as APIEmbedField).name))
+    }
+    
+    sortHelp(helpCommands);
+    sortHelp(adminCommands);
+    sortHelp(devCommands);
 
     return {
         helpCommands, adminCommands, devCommands
