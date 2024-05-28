@@ -4,7 +4,7 @@ import { Console } from '../../main.js';
 import { Utils } from '../utils.js';
 import mysqldump from 'mysqldump';
 import { Config } from '../../../data/config.js';
-import { ChanData, RolesData, Server, UserData, fullServer, queryArgs, textLanguage } from '../constants/types.js';
+import { ChanData, RolesData, Server, UserData, queryArgs, textLanguage } from '../constants/types.js';
 import { Guild } from 'discord.js';
 import { Constants } from '../constants/values.js';
 
