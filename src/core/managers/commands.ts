@@ -124,7 +124,7 @@ export abstract class CommandManager {
             case 'familiar':
                 try {
                     button.customId.includes('Page') ?
-                        await Command.defilePage("familiar", button) :
+                        await FamiliarManager.defilePage(button, language, "familiar") :
                         await FamiliarManager.replyFamiliarPage(button, language);
                 } catch (e) {
                     Console.error(e)
@@ -719,44 +719,69 @@ export class WatcherManager {
 
 export class FamiliarManager {
 
-    static getComponent(components: ActionRowBuilder<ButtonBuilder>, embed: Readonly<APIEmbed>) {
-        let familiar = this.getFamiliarDataFromEmbed(embed);
-        let famData = Constants.familiarsData[familiar];
-        let pactList = Object.keys(Constants.familiarsData).filter(fam => Constants.familiarsData[fam as familiarName].pactTier == famData.pactTier);
-        let familiarNumber = pactList.indexOf(familiar);
+    static async defilePage(button: ButtonInteraction, language: textLanguage, command: CommandName) {
+        let customId = button.customId;
+        let embed = button.message.embeds[0].data;
+        let pageData: embedPageData = getPageData(embed, customId, command);
 
-        components
-            .addComponents()
 
-        return components
+        let components: ActionRowBuilder<ButtonBuilder>
+        let newEmbedPage = await (await import(`../commands/${command}.js`)).getEditedEmbed(pageData, embed);
+        let familiar = this.getFamiliarDataFromEmbed(newEmbedPage.data);
+        components = this.getFamiliarButtonsPage(language, familiar);
+        await button.update({ embeds: [newEmbedPage], components: [components] });
     }
+
 
     static replyFamiliarPage(button: ButtonInteraction, language: textLanguage) {
         let familiar = button.customId.split(`-`)[2] as familiarName;
         let embed = this.getFamiliarEmbed(familiar, language);
-        let list = Object.keys(Constants.familiarsData).filter(fam => Constants.familiarsData[fam as familiarName].pactTier == Constants.familiarsData[familiar].pactTier);
-        let position: "last" | "first" | undefined = undefined;
-        if (list.indexOf(familiar) == 0)
-            position = "first";
-        if (list.indexOf(familiar) == list.length - 1)
-            position = "last";
-        let buttons = Command.generatePageButtons("familiar", language, familiar, position);
+        let buttons = this.getFamiliarButtonsPage(language, familiar);
+        button.channel?.send({ embeds: [embed], components: [buttons] });
+        button.message.delete();
+    }
 
-        Command.prototype.reply({ embeds: [embed], components: [buttons] }, button);
+
+    static getFamiliarButtonsPage(language: textLanguage, familiar: familiarName) {
+        let list = Object.keys(Constants.familiarsData).filter(fam => Constants.familiarsData[fam as familiarName].pactTier == Constants.familiarsData[familiar].pactTier) as familiarName[];
+
+        let famDataIndex = list.indexOf(familiar);
+        let previousIndex = famDataIndex - 1;
+        let nextIndex = famDataIndex + 1;
+        let lastIndex = list.length - 1;
+
+        if (previousIndex == -1)
+            previousIndex = lastIndex;
+        if (famDataIndex == lastIndex)
+            nextIndex = 0;
+
+        let previous = new ButtonBuilder()
+            .setLabel(TranslationsCache[language].others.familiars[list[previousIndex]].name)
+            .setCustomId(`${Command.generateButtonCustomId("familiar", language)}${("-" + familiar)}-previousPage`)
+            .setStyle(ButtonStyle.Primary)
+            .setEmoji('◀');
+
+        let next = new ButtonBuilder()
+            .setLabel(TranslationsCache[language].others.familiars[list[nextIndex]].name)
+            .setCustomId(`${Command.generateButtonCustomId("familiar", language)}${("-" + familiar)}-nextPage`)
+            .setStyle(ButtonStyle.Primary)
+            .setEmoji('▶');
+
+        return new ActionRowBuilder<ButtonBuilder>().addComponents([previous, next]);
     }
 
     static getFamiliarDataFromEmbed(embedData: EmbedData | Readonly<APIEmbed>): familiarName {
         let text = embedData.title!;
-        let familiar:familiarName | undefined = undefined;
+        let familiar: familiarName | undefined = undefined;
         Object.keys(TranslationsCache).forEach(lang => {
             let famiTranslations = TranslationsCache[lang as textLanguage].others.familiars
             let fam = Object.keys(famiTranslations).find(fami =>
                 famiTranslations[fami as keyof typeof famiTranslations].name == text
             ) as familiarName | undefined
-            if (fam) 
+            if (fam)
                 familiar = fam;
         })
-        if(familiar)
+        if (familiar)
             return familiar
         else
             throw 'No familiar found in embed';
