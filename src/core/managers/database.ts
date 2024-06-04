@@ -281,6 +281,7 @@ export class DBManager {
 
     async generateBackup() {
         try {
+            let path = DBManager.createAndDisplayBackupPath();
             await mysqldump({
                 connection: {
                     host: Config.DBConfig.host,
@@ -288,9 +289,10 @@ export class DBManager {
                     password: Config.DBConfig.password,
                     database: Config.DBConfig.database
                 },
-                dumpToFile: DBManager.createAndDisplayBackupPath()
+                dumpToFile: path
             })
-            Console.logDb(`Backup générée`)
+            Console.logDb(`Backup générée`, path);
+
         } catch (err) {
             Console.error(err);
         }

@@ -1,5 +1,5 @@
 import consoleStamp from "console-stamp";
-import { ActivityType, Client, EmbedBuilder, EmbedFooterData, Locale, PermissionsBitField, TextChannel } from "discord.js";
+import { ActivityType, Client, EmbedBuilder, EmbedFooterData, Locale, MessagePayload, PermissionsBitField, TextChannel } from "discord.js";
 import { createWriteStream, existsSync, mkdirSync } from "fs";
 import { bot, botCommands, chanList, Console, dev, TranslationsCache } from "../main.js";
 import { fetchedChannelsAtBoot, interestLevel, textLanguage } from "./constants/types.js";
@@ -200,11 +200,15 @@ export class ConsoleLogger {
     };
 
 
-    logDb(input: any) {
+    logDb(input: any, path?: string) {
         console.log(`[DATA] ${input}`);
         this.logger.log(`[DATA] ${input}`);
 
-        chanList.LOGS_DB?.send(input.stack || input)
+        let payload;
+        path ?
+            payload = {content: input.stack || input, files: [path]} :
+            payload = input.stack || input;
+        chanList.LOGS_DB?.send(payload)
             .catch(e => Console.error(e))
     };
 
