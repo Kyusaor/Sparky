@@ -1,5 +1,5 @@
 import { APIApplicationCommandOptionChoice, APIEmbed, APIEmbedField, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, EmbedBuilder, EmbedData, EmbedFooterOptions, GuildMemberRoleManager, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, RestOrArray, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, StringSelectMenuInteraction, TextBasedChannel, TextChannel } from "discord.js";
-import { Console, StatusCache, TranslationsCache, bot, botCommands, chanList, db } from "../../main.js";
+import { Console, StatusCache, TranslationsCache, bot, botCommands, chanList, db, pingMessagesCache } from "../../main.js";
 import { Translations } from "../constants/translations.js";
 import { CommandArgs, CommandInterface, CommandName, FamiliarTranslation, RolesData, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, cacheLockScope, embedPageData, familiarName, hellEventData, perksType, textLanguage } from "../constants/types.js";
 import { readFileSync, readdirSync } from "fs";
@@ -651,7 +651,14 @@ export class WatcherManager {
             })
             message += msg
         }
-        button.channel?.send(message)
+
+        let confirmationMsg = await button.channel?.send(message);
+        if (!confirmationMsg)
+            return;
+
+        data.hellOrChallenge == "challenge" ?
+            pingMessagesCache.challenge.push(confirmationMsg.id) :
+            pingMessagesCache.hourly.push(confirmationMsg.id);
     }
 
 
