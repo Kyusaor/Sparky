@@ -43,6 +43,7 @@ if(todo) {
 		) as RestOrArray<SlashCommandBuilder>;
 
 		console.log(`${dataGlobal.length} commandes globales rechargées avec succès`);
+        process.exit();
 
     } 
     catch (e) {
@@ -75,6 +76,8 @@ else {
             await Promise.all(promises);
             console.log(`${promises.length} commandes globales supprimées avec succès`);
         });
+        
+        process.exit();
 
     }
     catch (e) {
