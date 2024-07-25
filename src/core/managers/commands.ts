@@ -177,8 +177,10 @@ export class Command implements CommandInterface {
 
         try {
             if (intera.replied) {
-                await intera.deleteReply().catch(e => e);
-                await intera.followUp(data);
+                await intera.editReply(data).catch(async e => {
+                    await intera.deleteReply().catch(e => e);
+                    await intera.followUp(data);
+                })
             }
             if (intera.deferred) {
                 await intera.editReply(data);

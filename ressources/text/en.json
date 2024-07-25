@@ -683,40 +683,40 @@
                 "success": "Board has been successfully sent"
             }
         },
-        "stopwatcher": {
-            "name": "stopwatcher",
-            "description": "Delete the hell mention channels",
-            "text": {
-                "watcherIsNotDefined": "The hell mention channels are not defined on this server. Type `/{text}` to define it",
-                "askIfDelete": "Do you want to delete the  <#{text}> and <#{text2}> channels?\n\n:warning: **This action is irreversible!**",
-                "loadingText": "<a:loading:739785338347585598> Deleting...",
-                "roleTooHigh": "The {text} role is beyond my abilities, I can't delete it. You will have to do it yourself",
-                "rolesNotFound": "Impossible to find the {text} role (server {text2} ({id}))",
-                "rolesNotCancellable": "Impossible to delete the {text} role (server {text2} ({id}))",
-                "rolesAndChanDeletionReason": "Reparametrization of the hell mention board",
-                "channelsNotFound": "Impossible to find the {text} channel (server {text2} ({id}))",
-                "success": "Hell mention channels were deleted !\nTo define them again, use `/{text}`"
-            }
-        },
         "watcher": {
             "name": "watcher",
             "description": "Define the hell mention board",
+            "subcommand": {
+                "create": {
+                    "name": "create",
+                    "description": "Create the board and roles"
+                },
+                "refresh": {
+                    "name": "refresh",
+                    "description": "Recreate the missing channels and roles"
+                },
+                "delete": {
+                    "name": "delete",
+                    "description": "Delete the board and roles"
+                }
+            },
             "text": {
                 "missingPerm": "I can't define the notification board without the required permissions. I miss these permissions:\n",
-                "askIfReparam": "Hell mentions are already defined, do you want to define them again?\n\n:warning: Members will have to subscribe again if you do this",
+                "askIfReparam": "Hell mentions are already defined, do you want to define them again?\n\n:warning: Members will have to subscribe again if you do this, if you want to keep already created roles and only redefine the missing ones, use **/watcher refresh** instead",
                 "roleTooHigh": "The {text} role is beyond my abilities, I can't delete it. You will have to do it yourself",
+                "boardAlreadyCreated": "The notification board have already been created, you can refresh the missing roles and channels with the **/watcher refresh** command",
                 "rolesNotFound": "Impossible to find the {text} role (server {text2} ({id}))",
                 "rolesNotCancellable": "Impossible to delete the {text} role (server {text2} ({id}))",
                 "rolesAndChanDeletionReason": "Reparametrization of the hell mention board",
                 "channelsNotFound": "Impossible to find the {text} channel (server {text2} ({id}))",
                 "noRoles": "Impossible to fetch the roles",
-                "loadingText": "<a:loading:739785338347585598> Setting up...",
+                "createLoadingText": "<a:loading:739785338347585598> Setting up...",
                 "boardName": "hell-event-board",
                 "boardTopic": "Subscribe to hell events and challenges notifications!",
                 "boardReason": "Subscribing channel creation",
-                "mentionName": "hell-event-notifications",
-                "mentionTopic": "Subscribe to hell events and challenges notifications to get mentionned when one start!",
-                "mentionReason": "Mentions channel creation",
+                "pingName": "hell-event-notifications",
+                "pingTopic": "Subscribe to hell events and challenges notifications to get mentionned when one start!",
+                "pingReason": "Mentions channel creation",
                 "hell": "hell ",
                 "boardEmbedTitle": "__**Watcher and Dragons Reporting**__",
                 "boardEmbedDescription": "Select hell events and challenges you're interested in. Mentions will be done in the <#{id}> channel",
@@ -725,13 +725,21 @@
                 "boardEmbedFooter": "Made with love by {dev_username}",
                 "boardMenuOptionDescription": "Get notified when a {text} event starts",
                 "boardMenuPlaceholder": "Chose your subscriptions",
-                "success": "Done! <#{text}> and <#{text2}> channels were successfully created\nYou're free to rename them or move them in the channels list as long as you delete nothing :wink:\nType `/{text3}` to delete them and the roles\n*Note that reports are made by the bot staff, some events could be missed*"
-            }
-        },
-        "watcher-refresh": {
-            "name": "watcher-refresh",
-            "description": "Check if every roles is set up, and create these wich are missing",
-            "text": {}
+                "createSuccess": "Done! <#{text}> and <#{text2}> channels were successfully created\nYou're free to rename them or move them in the channels list as long as you delete nothing :wink:\nType `/{text3}` to delete them and the roles\n*Note that reports are made by the bot staff, some events could be missed*",
+            
+            
+                "watcherIsNotDefined": "The hell mention channels are not defined on this server. Type `/{text}` to define it",
+                "askIfDelete": "Do you want to delete the  <#{text}> and <#{text2}> channels?\n\n:warning: **This action is irreversible!**",
+                "deleteLoadingText": "<a:loading:739785338347585598> Deleting...",
+                "deleteSuccess": "Hell mention channels were deleted !\nTo define them again, use `/{text}`",
+
+                "refreshRolesLoadingText": "<a:loading:739785338347585598> Refreshing roles...",
+                "refreshRolesSuccessText": "Roles have been checked, I added what was missing !",
+                "refreshChannelsLoadingText": "<a:loading:739785338347585598> Refreshing channels...",
+                "refreshChannelsSuccessText": "Channels have been checked, I added what was missing !",
+                "refreshChannelsNothingChangedText": "Channels have been checked, everything was already defined !",
+                "refreshRolesNothingChangedText": "Roles have been checked, everything was already defined !"
+}
         }
     },
     "others": {
