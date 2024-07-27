@@ -66,7 +66,7 @@ export const watcher: CommandInterface = {
                 if (!hasWatcher)
                     return Command.prototype.reply({ content: Translations.displayText(commandText.watcherIsNotDefined, { text: getSubcommandName("create", language) }) }, intera)
                 
-                await Command.prototype.reply({ content: commandText.refreshChannelLoadingText, components: [] }, intera);
+                await Command.prototype.reply({ content: commandText.refreshChannelsLoadingText, components: [] }, intera);
                 let checkChan = await refreshChanOrRole("channels", intera.guild, commandText, intera, language);
                 checkChan ?
                     await Command.prototype.reply({ content: commandText.refreshChannelsSuccessText, components: [] }, intera) :
