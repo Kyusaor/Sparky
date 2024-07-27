@@ -83,6 +83,10 @@ export abstract class DiscordValues {
             name: "chasse",
             id: "614816781420199937"
         },
+        artifact: {
+            name: "artefact",
+            id: "1266748669919498290"
+        },
         familiarRank1: {
             name: 'famRank1',
             id: '1221467697691496588'
@@ -269,7 +273,7 @@ export abstract class Constants {
     }
 
     static readonly WatcherMentionsTemplates = {
-        watcher: ["research", "building", "merge", "labyrinth", "tycoon", "hunt"],
+        watcher: ["research", "building", "merge", "labyrinth", "tycoon", "hunt", "artifact"],
         dragon: ["research", "building", "merge", "labyrinth", "tycoon", "hunt", "challengeResearch", "challengeTroops"],
         redOrb: [
             ["merge", "troop"],
