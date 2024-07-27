@@ -819,6 +819,7 @@
             "challenge": "challenge",
             "hell": "hell",
             "hunt": "hunt",
+            "artifact": "artifacts",
             "challengeResearch": "dragon research",
             "challengeTroops": "dragon training",
             "baseTypeMsg": "__Chose the event type {text}:__",
