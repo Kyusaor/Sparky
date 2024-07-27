@@ -176,20 +176,21 @@ export class Command implements CommandInterface {
             data = await Command.returnMissingPermissionMessage(missingPerm, intera.guildId!);
 
         try {
-            if (intera.replied) {
+            if (intera.replied)
                 await intera.editReply(data).catch(async e => {
                     await intera.deleteReply().catch(e => e);
-                    await intera.followUp(data);
+                    return await intera.followUp(data);
                 })
-            }
-            if (intera.deferred) {
-                await intera.editReply(data);
-            }
-            await intera.reply(data);
+            
+            else if (intera.deferred) 
+                return await intera.editReply(data);
+            
+            else 
+                await intera.reply(data);
         }
         catch (e) {
-            console.log(e)
-            console.error(TranslationsCache.fr.global.errors.unableToReply)
+            Console.log(e)
+            Console.error(TranslationsCache.fr.global.errors.unableToReply)
         }
     };
 
