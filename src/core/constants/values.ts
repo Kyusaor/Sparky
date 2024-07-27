@@ -19,7 +19,7 @@ export abstract class DiscordValues {
         LOGS_USERS: "656141824590872576",
         LOGS_DB: "784919405896400916",
         LOGS_HELL_EVENTS: "1013478125004398683",
-        HELL_EVENTS_BOARD: "647042988358238208"
+        HELL_EVENTS_BOARD: "647042988358238208" /* "633437214201741330"*/ // test channel
     };
 
     static readonly embedColor: ColorResolvable = [59, 229, 53];
