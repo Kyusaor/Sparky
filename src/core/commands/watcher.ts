@@ -65,7 +65,7 @@ export const watcher: CommandInterface = {
             case 'refresh':
                 if (!hasWatcher)
                     return Command.prototype.reply({ content: Translations.displayText(commandText.watcherIsNotDefined, { text: getSubcommandName("create", language) }) }, intera)
-                
+
                 await Command.prototype.reply({ content: commandText.refreshChannelsLoadingText, components: [] }, intera);
                 let checkChan = await refreshChanOrRole("channels", intera.guild, commandText, intera, language);
                 checkChan ?
@@ -147,20 +147,22 @@ async function refreshChanOrRole(type: "channels" | "roles", guild: Guild, comma
     let hasChangedAnything: boolean = false;
     let data = await guildManager.getData(type) as ChanData | RolesData;
 
-    for (let dataName of Object.keys(data).slice(1)) {
+    for (let dataName of Object.keys(data)) {
         let dataId = data[dataName as keyof typeof data];
         let roleOrChannel;
         try {
             type == "channels" ?
                 roleOrChannel = await guildManager.guild.channels.fetch(dataId) :
-                roleOrChannel = await guildManager.guild.roles.cache.get(dataId);
+                roleOrChannel = await guildManager.guild.roles.fetch(dataId);
+
+            if(!roleOrChannel)
+                throw 'Absent';
         }
         catch {
             hasChangedAnything = true;
             if (type == "channels") {
                 let chan = await createChannel(dataName as keyof ChanData, guild, commandText, intera, language);
                 (data as ChanData)[dataName as keyof ChanData] = chan.id;
-                console.log("ajout salon " + dataName)
             }
             else {
                 let hellText = TranslationsCache[language].others.hellEvents;
@@ -171,15 +173,16 @@ async function refreshChanOrRole(type: "channels" | "roles", guild: Guild, comma
                     hoist: false
                 });
                 (data as RolesData)[dataName as keyof RolesData] = role.id;
-                console.log("ajout role " + dataName)
             }
+            Console.log(`Add ping ${type} ${dataName} (Server ${intera.guild?.name} - ${intera.guildId})`)
         }
 
-        if(hasChangedAnything)
-            await guildManager.updateHellData(type, data)
-
-        return hasChangedAnything
     }
+
+    if (hasChangedAnything)
+        await guildManager.updateHellData(type, data)
+
+    return hasChangedAnything
 }
 
 function getSubcommandName(sub: keyof typeof TranslationsCache.fr.commands.watcher.subcommand, language: textLanguage) {
@@ -188,8 +191,10 @@ function getSubcommandName(sub: keyof typeof TranslationsCache.fr.commands.watch
 
 async function createChannel(type: "board" | "ping", guild: Guild, text: Record<string, string>, intera: ChatInputCommandInteraction<CacheType>, language: textLanguage) {
     let chan = await createEmptyChannel(type, guild, text);
-    let boardMessageData = buildBoardEmbedMessage(text, intera.commandName as CommandName, language, chan);
-    await chan.send(boardMessageData);
+    if (type == "board") {
+        let boardMessageData = buildBoardEmbedMessage(text, intera.commandName as CommandName, language, chan);
+        await chan.send(boardMessageData);
+    }
     return chan;
 }
 
