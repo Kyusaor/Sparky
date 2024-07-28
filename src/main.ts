@@ -1,4 +1,4 @@
-import { Client, User } from 'discord.js';
+import { Client, Snowflake, User } from 'discord.js';
 import { readFileSync } from 'fs';
 import { Config } from '../data/config.js';
 import { ConsoleLogger, Utils } from './core/utils.js';
@@ -14,12 +14,15 @@ import { Translations } from './core/constants/translations.js';
 let Console = new ConsoleLogger();
 const VERSION = JSON.parse(readFileSync('./package.json', 'utf-8')).version; // app version
 const bot = new Client(Config.clientParam);
+
 cron.schedule('0 0 * * *', () => {
     Console = new ConsoleLogger();
     Console.log("Refresh des logs effectué avec succès")
 });
+
 let TranslationsCache: TranslationCacheType = await Translations.generateTranslationsCache();
 let consoleErrors = TranslationsCache.fr.global.errors;
+let pingMessagesCache: { hourly: Snowflake[], challenge: Snowflake[] } = { hourly: [], challenge: [] }
 
 bot.login(Config.CURRENT_TOKEN);
 let botCommands: Command[];
@@ -44,6 +47,23 @@ bot.on('ready', async () => {
         StatusCache = new StatusCacheClass(botCommands);
         await chanList.LOGS_CONNEXIONS?.send(VERSION);
         bootLocked = false;
+
+        cron.schedule('0 * * * *', () => {
+            if (pingMessagesCache.hourly.length !== 0)
+                pingMessagesCache.hourly.forEach(e => {
+                    chanList.HELL_EVENTS_BOARD?.messages.fetch(e).then(m => m.delete())
+                    pingMessagesCache.hourly = [];
+                })
+        }, { timezone: 'Europe/Paris' });
+
+        cron.schedule('0 6 * * *', () => {
+            if (pingMessagesCache.challenge.length !== 0)
+                pingMessagesCache.challenge.forEach(e => {
+                    chanList.HELL_EVENTS_BOARD?.messages.fetch(e).then(m => m.delete());
+                    pingMessagesCache.challenge = [];
+                })
+        }, { timezone: "Europe/Paris" });
+
         await test();
     }
     catch (err) {
@@ -54,7 +74,7 @@ bot.on('ready', async () => {
 
 //Discord events listeners
 bot.on('guildCreate', async guild => {
-    if(bootLocked)
+    if (bootLocked)
         return console.log("Erreur démarrage: guildCreate");
     try {
         let server = new ServerManager(guild);
@@ -66,7 +86,7 @@ bot.on('guildCreate', async guild => {
 });
 
 bot.on('guildDelete', async guild => {
-    if(bootLocked)
+    if (bootLocked)
         return console.log("Erreur démarrage: guildDelete");
     try {
         let server = new ServerManager(guild);
@@ -78,7 +98,7 @@ bot.on('guildDelete', async guild => {
 })
 
 bot.on('messageCreate', async msg => {
-    if(bootLocked)
+    if (bootLocked)
         return console.log("Erreur démarrage: message");
     try {
         await EventManager.MessageCreateHandler(msg);
@@ -89,7 +109,7 @@ bot.on('messageCreate', async msg => {
 })
 
 bot.on('interactionCreate', async intera => {
-    if(bootLocked)
+    if (bootLocked)
         return console.log("Erreur démarrage: intera");
     try {
         await EventManager.interactionHandler(intera);
@@ -102,9 +122,9 @@ bot.on('interactionCreate', async intera => {
 process.on('uncaughtException', error => {
     Console.error('UncaughtException catched:')
     Console.error(error.stack || error);
- });
+});
 
-export { bot, Console, chanList, dev, db, botCommands, TranslationsCache, consoleErrors, StatusCache };
+export { bot, Console, chanList, dev, db, botCommands, TranslationsCache, consoleErrors, StatusCache, pingMessagesCache };
 
 
 async function test() {

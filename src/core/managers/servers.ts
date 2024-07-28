@@ -49,6 +49,13 @@ export class ServerManager {
         await this.editServerData({ hellEvent: '1' })
     }
 
+    async updateHellData(type: "channels" | "roles", data: ChanData | RolesData) {
+        if(type == "channels")
+            await db.updateServerChannels(this.guild.id, this.guild.name, data as ChanData);
+        if(type == "roles")
+            await db.updateServerRoles(this.guild.id, this.guild.name, data as RolesData);
+    }
+
     async deleteHellData(): Promise<void> {
         await db.deleteServerChannels(this.guild.id, this.guild.name);
         await db.deleteServerRoles(this.guild.id, this.guild.name);

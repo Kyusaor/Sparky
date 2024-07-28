@@ -4,7 +4,7 @@ import { Console } from '../../main.js';
 import { Utils } from '../utils.js';
 import mysqldump from 'mysqldump';
 import { Config } from '../../../data/config.js';
-import { ChanData, RolesData, Server, UserData, fullServer, queryArgs, textLanguage } from '../constants/types.js';
+import { ChanData, RolesData, Server, UserData, queryArgs, textLanguage } from '../constants/types.js';
 import { Guild } from 'discord.js';
 import { Constants } from '../constants/values.js';
 
@@ -281,6 +281,7 @@ export class DBManager {
 
     async generateBackup() {
         try {
+            let path = DBManager.createAndDisplayBackupPath();
             await mysqldump({
                 connection: {
                     host: Config.DBConfig.host,
@@ -288,9 +289,10 @@ export class DBManager {
                     password: Config.DBConfig.password,
                     database: Config.DBConfig.database
                 },
-                dumpToFile: DBManager.createAndDisplayBackupPath()
+                dumpToFile: path
             })
-            Console.logDb(`Backup générée`)
+            Console.logDb(`Backup générée`, path);
+
         } catch (err) {
             Console.error(err);
         }

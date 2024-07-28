@@ -78,8 +78,8 @@
             "name": "about",
             "description": "Some additionals information about the bot and its related topics",
             "text": {
-                "bot": "Hello,\nI'm Sparky, a french Discord bot for Lords Mobile players. I was created by Kyusaki in 2020, to help guild's servers as best as I can in their Lord lives. A server exists to help and group players (/**contact** command), if you have any questions about me don't hesitate to join and inquire!\n\nAbout a technical part, I'm coded in Typescript using the discord.js library, with a SQL database",
-                "dev": "Hi,\nI'm Kyusaki and I’ve been a Lords Mobile player, and part of the French guild imp, since 2016. I’ve also been a Discord bot developer and a moderator, then main admin, of the French Lords Mobile Discord since 2019. I originally made the server's bot to add a bunch of useful functions (to the game… to the server… whatever the noun should be here lol) and due to several member demands to be able to use these functions in their own servers, I developed Sparky. Please don't hesitate to contact me if you need anything! 😉",
+                "bot": "Hello,\nI'm Sparky, a french Discord bot for Lords Mobile players. I was created by Kyusaor in 2020, to help guild's servers as best as I can in their Lord lives. A server exists to help and group players (/**contact** command), if you have any questions about me don't hesitate to join and inquire!\n\nAbout a technical part, I'm coded in Typescript using the discord.js library, with a SQL database",
+                "dev": "Hi,\nI'm Kyusaor and I’ve been a Lords Mobile player, and part of the French guild imp, since 2016. I’ve also been a Discord bot developer and a moderator, then main admin, of the French Lords Mobile Discord since 2019. I originally made the server's bot to add a bunch of useful functions (to the game… to the server… whatever the noun should be here lol) and due to several member demands to be able to use these functions in their own servers, I developed Sparky. Please don't hesitate to contact me if you need anything! 😉",
                 "permissions": "Here are the permissions I need to work, and the reason why I need them:\n> __The essentials:__\n> -Send messages: I guess this one is kinda obvious isn't it? :blobowo: \n> -Embed links: most of my messages are in embeds, the bots' rectangular message format\n> -Attach files: to be able to send images for serveral commands (**/lineup** for instance)\n> \n> __The optionnals:__\n> -Manage roles: to be able to create/delete the **/watcher** command's roles (hell events mentions)\n> -Manage channels: same, but for the channels\n> -Use external emojis: Some of the emotes I use are from my server, so they wouldn't appear if I don't have this permission (a weird <:anemote:123456789> would appear instead, not dramatic but could be annoying)"
             },
             "choices": {
@@ -683,40 +683,39 @@
                 "success": "Board has been successfully sent"
             }
         },
-        "stopwatcher": {
-            "name": "stopwatcher",
-            "description": "Delete the hell mention channels",
-            "text": {
-                "watcherIsNotDefined": "The hell mention channels are not defined on this server. Type `/{text}` to define it",
-                "askIfDelete": "Do you want to delete the  <#{text}> and <#{text2}> channels?\n\n:warning: **This action is irreversible!**",
-                "loadingText": "<a:loading:739785338347585598> Deleting...",
-                "roleTooHigh": "The {text} role is beyond my abilities, I can't delete it. You will have to do it yourself",
-                "rolesNotFound": "Impossible to find the {text} role (server {text2} ({id}))",
-                "rolesNotCancellable": "Impossible to delete the {text} role (server {text2} ({id}))",
-                "rolesAndChanDeletionReason": "Reparametrization of the hell mention board",
-                "channelsNotFound": "Impossible to find the {text} channel (server {text2} ({id}))",
-                "success": "Hell mention channels were deleted !\nTo define them again, use `/{text}`"
-            }
-        },
         "watcher": {
             "name": "watcher",
             "description": "Define the hell mention board",
+            "subcommand": {
+                "create": {
+                    "name": "create",
+                    "description": "Create the board and roles"
+                },
+                "refresh": {
+                    "name": "refresh",
+                    "description": "Recreate the missing channels and roles"
+                },
+                "delete": {
+                    "name": "delete",
+                    "description": "Delete the board and roles"
+                }
+            },
             "text": {
                 "missingPerm": "I can't define the notification board without the required permissions. I miss these permissions:\n",
-                "askIfReparam": "Hell mentions are already defined, do you want to define them again?\n\n:warning: Members will have to subscribe again if you do this",
                 "roleTooHigh": "The {text} role is beyond my abilities, I can't delete it. You will have to do it yourself",
+                "boardAlreadyCreated": "The notification board has already been created, you can refresh the missing roles and channels with the **/watcher refresh** command",
                 "rolesNotFound": "Impossible to find the {text} role (server {text2} ({id}))",
                 "rolesNotCancellable": "Impossible to delete the {text} role (server {text2} ({id}))",
                 "rolesAndChanDeletionReason": "Reparametrization of the hell mention board",
                 "channelsNotFound": "Impossible to find the {text} channel (server {text2} ({id}))",
                 "noRoles": "Impossible to fetch the roles",
-                "loadingText": "<a:loading:739785338347585598> Setting up...",
+                "createLoadingText": "<a:loading:739785338347585598> Setting up...",
                 "boardName": "hell-event-board",
                 "boardTopic": "Subscribe to hell events and challenges notifications!",
                 "boardReason": "Subscribing channel creation",
-                "mentionName": "hell-event-notifications",
-                "mentionTopic": "Subscribe to hell events and challenges notifications to get mentionned when one start!",
-                "mentionReason": "Mentions channel creation",
+                "pingName": "hell-event-notifications",
+                "pingTopic": "Subscribe to hell events and challenges notifications to get mentionned when one start!",
+                "pingReason": "Mentions channel creation",
                 "hell": "hell ",
                 "boardEmbedTitle": "__**Watcher and Dragons Reporting**__",
                 "boardEmbedDescription": "Select hell events and challenges you're interested in. Mentions will be done in the <#{id}> channel",
@@ -725,13 +724,21 @@
                 "boardEmbedFooter": "Made with love by {dev_username}",
                 "boardMenuOptionDescription": "Get notified when a {text} event starts",
                 "boardMenuPlaceholder": "Chose your subscriptions",
-                "success": "Done! <#{text}> and <#{text2}> channels were successfully created\nYou're free to rename them or move them in the channels list as long as you delete nothing :wink:\nType `/{text3}` to delete them and the roles\n*Note that reports are made by the bot staff, some events could be missed*"
-            }
-        },
-        "watcher-refresh": {
-            "name": "watcher-refresh",
-            "description": "Check if every roles is set up, and create these wich are missing",
-            "text": {}
+                "createSuccess": "Done! <#{text}> and <#{text2}> channels were successfully created\nYou're free to rename them or move them in the channels list as long as you delete nothing :wink:\nType `/{text3}` to delete them and the roles\n*Note that reports are made by the bot staff, some events could be missed*",
+            
+            
+                "watcherIsNotDefined": "The hell mention channels are not defined on this server. Type `/{text}` to define it",
+                "askIfDelete": "Do you want to delete the  <#{text}> and <#{text2}> channels?\n\n:warning: **This action is irreversible!**",
+                "deleteLoadingText": "<a:loading:739785338347585598> Deleting...",
+                "deleteSuccess": "Hell mention channels were deleted !\nTo define them again, use `/{text}`",
+
+                "refreshRolesLoadingText": "<a:loading:739785338347585598> Refreshing roles...",
+                "refreshRolesSuccessText": "Roles have been checked, I added what was missing !",
+                "refreshChannelsLoadingText": "<a:loading:739785338347585598> Refreshing channels...",
+                "refreshChannelsSuccessText": "Channels have been checked, I added what was missing !",
+                "refreshChannelsNothingChangedText": "Channels have been checked, everything was already defined !",
+                "refreshRolesNothingChangedText": "Roles have been checked, everything was already defined !"
+}
         }
     },
     "others": {
@@ -811,6 +818,7 @@
             "challenge": "challenge",
             "hell": "hell",
             "hunt": "hunt",
+            "artifact": "artifacts",
             "challengeResearch": "dragon research",
             "challengeTroops": "dragon training",
             "baseTypeMsg": "__Chose the event type {text}:__",

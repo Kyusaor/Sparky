@@ -91,7 +91,12 @@ async function famidex({ intera, language, commandText }: CommandArgs) {
 export function getEditedEmbed(data:embedPageData, embed: Readonly<APIEmbed>):EmbedBuilder {
     let familiar = FamiliarManager.getFamiliarDataFromEmbed(embed);
     let pactList = Object.keys(Constants.familiarsData).filter(fam => Constants.familiarsData[fam as familiarName].pactTier == Constants.familiarsData[familiar].pactTier) as familiarName[];
-    let newFamName = pactList[data.current + data.target -1];
+    let newFamIndex = data.current + data.target -1;
+    if(newFamIndex == -1)
+        newFamIndex = pactList.length - 1;
+    if(newFamIndex == pactList.length)
+        newFamIndex = 0;
+    let newFamName = pactList[newFamIndex];
 
     let newEmbed = FamiliarManager.getFamiliarEmbed(newFamName, data.language);
     return newEmbed;

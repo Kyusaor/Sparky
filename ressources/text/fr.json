@@ -78,8 +78,8 @@
             "name": "a-propos",
             "description": "Informations additionnels sur le bot et ce qui tourne autour",
             "text": {
-                "bot": "Bonjour,\nJe suis Sparky, un bot Discord français d'aide pour les joueurs de Lords Mobile. J'ai été créé par Kyusaki en 2020, afin d'aider les serveurs de guilde au mieux dans leur vie de lord. Un serveur existe pour aider et regrouper les joueurs (commande **/contact**), si vous avez des questions à mon sujet n'hésitez pas à le rejoindre pour les poser!\n\nSur le côté technique, je suis codé en Typescript en utilisant la librairie discord.js, avec une base de donnée en SQL",
-                "dev": "Salut,\nMoi c'est Kyusaki, joueur de Lords Mobile depuis 2016, dans la guilde française imp que je j'ai rejoins et jamais quitté, développeur de bots discord depuis 2019 et modérateur puis gérant du serveur discord Lords Mobile FR depuis la même année. J'avais fait le bot du serveur discord en y mettant quelques fonctions utiles et j'ai créé Sparky suite aux nombreuses demandes de membres d'avoir la possibilité d'utiliser ces fonctions sur leurs propres serveurs. N'hésitez pas à me contacter si vous avez besoin de quelque chose ! 😉",
+                "bot": "Bonjour,\nJe suis Sparky, un bot Discord français d'aide pour les joueurs de Lords Mobile. J'ai été créé par Kyusaor en 2020, afin d'aider les serveurs de guilde au mieux dans leur vie de lord. Un serveur existe pour aider et regrouper les joueurs (commande **/contact**), si vous avez des questions à mon sujet n'hésitez pas à le rejoindre pour les poser!\n\nSur le côté technique, je suis codé en Typescript en utilisant la librairie discord.js, avec une base de donnée en SQL",
+                "dev": "Salut,\nMoi c'est Kyusaor, joueur de Lords Mobile depuis 2016, dans la guilde française imp que je j'ai rejoins et jamais quitté, développeur de bots discord depuis 2019 et modérateur puis gérant du serveur discord Lords Mobile FR depuis la même année. J'avais fait le bot du serveur discord en y mettant quelques fonctions utiles et j'ai créé Sparky suite aux nombreuses demandes de membres d'avoir la possibilité d'utiliser ces fonctions sur leurs propres serveurs. N'hésitez pas à me contacter si vous avez besoin de quelque chose ! 😉",
                 "permissions": "Voilà les permissions dont j'ai besoin pour fonctionner, ainsi que la raison:\n> __Les indispensables:__\n> -Envoyer des messages: J'imagine que celui là est plutôt évident non? :blobowo:\n> -Intégrer des liens: La plupart des messages sont dans des embeds, les messages rectangulaires des bots, et il faut cette permission pour pouvoir les envoyer\n> -Intégrer des liens: Pour être capable d'envoyer des images pour plusieurs commandes (**/compo** par exemple)\n> \n> __Les optionnelles:__\n> -Gérer les rôles: pour que je sois capable de créer/supprimer les rôles de la commande **/veilleur** (mentions des évènements infernaux)\n> -Gérer les salons: Pareil, mais pour les salons\n> -Utiliser des emojis externes: Certains des emojis que j'utilise viennent de mon serveur, donc elles n'apparaîtront pas si je n'ai pas cette permission (un <:emoji:123456789> moche apparaîtra à la place par contre, pas dramatique mais ça peut être pénible)"
             },
             "choices": {
@@ -682,40 +682,39 @@
                 "success": "Le panneau a bien été redéfini"
             }
         },
-        "stopwatcher": {
-            "name": "stopveilleur",
-            "description": "Efface les salons de signalement des challenges et évènements infernaux",
-            "text": {
-                "watcherIsNotDefined": "Le signalement des évènements infernaux n'est pas paramétré sur ce serveur. Faites `/{text}` pour le définir",
-                "askIfDelete": "Voulez-vous supprimer les salons <#{text}> et <#{text2}>?\n\n:warning: **Cette action est irréversible!**",
-                "loadingText": "<a:loading:739785338347585598> Suppression en cours...",
-                "rolesNotFound": "Impossible de trouver le role {text} (serveur {text2} ({id}))",
-                "channelsNotFound": "Impossible de trouver le salon {text} (serveur {text2} ({id}))",
-                "rolesNotCancellable": "Impossible de supprimer le role {text} (serveur {text2} ({id}))",
-                "rolesAndChanDeletionReason": "Reparamétrage du panneau Veilleur",
-                "roleTooHigh": "Le rôle {text} est au dessus de mes rôles, je ne peux donc pas le supprimer. Il faudra le supprimer vous-même",
-                "success": "Les salons de signalements d'évènements infernaux ont été supprimés!\nPour les redéfinir, faites `/{text}`"
-            }
-        },
         "watcher": {
             "name": "veilleur",
-            "description": "Définit le panneau de notifications d'évènements infernaux",
+            "description": "Gère le panneau de notifications d'évènements infernaux",
+            "subcommand": {
+                "create": {
+                    "name": "ajout",
+                    "description": "Créée le panneau d'abonnement et les rôles"
+                },
+                "refresh": {
+                    "name": "actualiser",
+                    "description": "Actualise les rôles et salons manquants"
+                },
+                "delete": {
+                    "name": "suppression",
+                    "description": "Supprime le panneau d'abonnement et les rôles"
+                }
+            },
             "text": {
                 "missingPerm": "Je ne peux pas définir le panneau de notifications sans les permissions nécessaires. Il me manque ces permissions:\n",
-                "askIfReparam": "Les notifications d'infernaux sont déjà définies, voulez-vous les reparamétrer?\n\n:warning: Les membres devront se réabonner si vous faites cela",
                 "roleTooHigh": "Le rôle {text} est au dessus de mes rôles, je ne peux donc pas le supprimer. Il faudra le supprimer vous-même",
+                "boardAlreadyCreated": "Le panneau de notifications a déjà été créé, vous pouvez actualiser les roles ou salons manquants avec la commande `/{text}`",
                 "rolesNotFound": "Impossible de trouver le role {text} (serveur {text2} ({id}))",
                 "rolesNotCancellable": "Impossible de supprimer le role {text} (serveur {text2} ({id}))",
                 "rolesAndChanDeletionReason": "Reparamétrage du panneau Veilleur",
                 "channelsNotFound": "Impossible de trouver le salon {text} (serveur {text2} ({id}))",
                 "noRoles": "Échec de récupération des rôles du serveur",
-                "loadingText": "<a:loading:739785338347585598> Paramétrage en cours...",
+                "createLoadingText": "<a:loading:739785338347585598> Paramétrage en cours...",
                 "boardName": "tableau-veilleur-dragon",
                 "boardTopic": "Abonnez-vous aux notifications d'évènements infernaux et challenge !",
                 "boardReason": "création du salon d'abonnement aux notifications",
-                "mentionName": "notifs-veilleurs-dragons",
-                "mentionTopic": "Abonnez-vous aux notifications d'évènements infernaux et challenge pour recevoir les mentions!",
-                "mentionReason": "création du salon d'abonnement aux notifications",
+                "pingName": "notifs-veilleurs-dragons",
+                "pingTopic": "Abonnez-vous aux notifications d'évènements infernaux et challenge pour recevoir les mentions!",
+                "pingReason": "création du salon d'abonnement aux notifications",
                 "hell": "infernal ",
                 "boardEmbedTitle": "__**Signalement des Veilleurs et Dragons**__",
                 "boardEmbedDescription": "Sélectionnez les évènements infernaux et les challenges qui vous intéressent. Les mentions seront faites dans le salon <#{id}>",
@@ -724,13 +723,21 @@
                 "boardEmbedFooter": "Développé avec amour par {dev_username}",
                 "boardMenuOptionDescription": "Soyez notifié quand il y a un évènement {text}",
                 "boardMenuPlaceholder": "Choissez vos abonnements",
-                "success": "Terminé ! Les salons <#{text}> et <#{text2}> ont bien été créés\nVous êtes libres de renommer ou déplacer les salons et rôles, du moment que vous ne supprimez rien :wink:\nFaites `/{text3}` pour les supprimer ainsi que les rôles\n*À noter: les signalements sont fait à la main par le staff du bot, certains évènements peuvent être ratés*"
+                "createSuccess": "Terminé ! Les salons <#{text}> et <#{text2}> ont bien été créés\nVous êtes libres de renommer ou déplacer les salons et rôles, du moment que vous ne supprimez rien :wink:\nFaites `/{text3}` pour les supprimer ainsi que les rôles\n*À noter: les signalements sont fait à la main par le staff du bot, certains évènements peuvent être ratés*",
+
+
+                "watcherIsNotDefined": "Le signalement des évènements infernaux n'est pas paramétré sur ce serveur. Faites `/{text}` pour le définir",
+                "askIfDelete": "Voulez-vous supprimer les salons <#{text}> et <#{text2}>?\n\n:warning: **Cette action est irréversible!**",
+                "deleteLoadingText": "<a:loading:739785338347585598> Suppression en cours...",
+                "deleteSuccess": "Les salons de signalements d'évènements infernaux ont été supprimés!\nPour les redéfinir, faites `/{text}`",
+
+                "refreshRolesLoadingText": "<a:loading:739785338347585598> Vérification des rôles en cours...",
+                "refreshRolesSuccessText": "Les rôles ont été vérifiés, j'ai ajouté ceux qui manquaient!",
+                "refreshChannelsLoadingText": "<a:loading:739785338347585598> Vérification des salons en cours...",
+                "refreshChannelsSuccessText": "Les salons ont été vérifiés, j'ai ajouté ceux qui manquaient!",
+                "refreshChannelsNothingChangedText": "Les salons ont été vérifiés, tout était déjà en place!",
+                "refreshRolesNothingChangedText": "Les rôles ont été vérifiés, tout était déjà en place!"
             }
-        },
-        "watcher-refresh": {
-            "name": "veilleur-verif",
-            "description": "Vérifie que tous les rôles sont correctement paramétré, et créée les éléments qui manquent",
-            "text": {}
         }
     },
     "others": {
@@ -808,6 +815,7 @@
             "labyrinth": "labyrinthe",
             "tycoon": "royaume du pouvoir",
             "hunt": "chasse",
+            "artifact": "artefacts",
             "challenge": "challenge",
             "hell": "infernal",
             "challengeResearch": "dragon recherche",

@@ -1,5 +1,5 @@
-import { APISelectMenuOption, ActionRowBuilder, CacheType, ChatInputCommandInteraction, EmbedBuilder, Guild, GuildMember, PermissionFlagsBits, Role, RoleData, StringSelectMenuBuilder, TextChannel } from "discord.js";
-import { ChanData, CommandInterface, CommandName, RolesData, textLanguage } from "../constants/types.js";
+import { APISelectMenuOption, ActionRowBuilder, CacheType, ChatInputCommandInteraction, EmbedBuilder, Guild, GuildMember, PermissionFlagsBits, Role, StringSelectMenuBuilder, TextChannel } from "discord.js";
+import { ChanData, CommandInterface, CommandName, fullServer, RolesData, textLanguage } from "../constants/types.js";
 import { Command, CommandManager } from "../managers/commands.js";
 import { Console, TranslationsCache, bot, consoleErrors, db, dev } from "../../main.js";
 import { ServerManager } from "../managers/servers.js";
@@ -14,9 +14,14 @@ export const watcher: CommandInterface = {
 
     cacheLockScope: "guild",
 
-    commandStructure: CommandManager.baseSlashCommandBuilder("watcher", "admin"),
+    commandStructure: CommandManager.baseSlashCommandBuilder("watcher", "admin")
+        .addSubcommand(Command.generateSubcommandBuilder("watcher", "create"))
+        .addSubcommand(Command.generateSubcommandBuilder("watcher", "refresh"))
+        .addSubcommand(Command.generateSubcommandBuilder("watcher", "delete")),
 
     async run({ intera, language, commandText }) {
+
+        let subcommand = intera.options.getSubcommand();
 
         if (!intera.guild)
             return Console.error(consoleErrors.notInAGuild, true)
@@ -28,40 +33,78 @@ export const watcher: CommandInterface = {
 
         //Check DB
         let guild = new ServerManager(intera.guild);
-        let guildData = await guild.getData("full");
-        if (!guildData)
+        let guildData = await guild.getData("full") as fullServer;
+        if (!guildData) {
             await db.createServer(intera.guild.id, intera.guild.name, Utils.getLanguageFromLocale(intera.guild.preferredLocale));
-
-        //manage roles and channels deletion if watcher is already defined
-        let hasWatcher = await guild.hasWatcher()
-        if (hasWatcher) {
-            let confirm = await Command.getConfirmationMessage(intera, intera.commandName as CommandName, language, { text: commandText.askIfReparam });
-            if (confirm !== 'yes')
-                return Command.prototype.reply({ content: TranslationsCache[language].global.cancelledCommand, components: [] }, intera);
-
-            await Command.prototype.reply({ content: commandText.loadingText, components: [] }, intera);
-            await deleteChanOrRole("roles", intera.guild, botmember, commandText, intera);
-            await deleteChanOrRole("channels", intera.guild, botmember, commandText, intera);
+            if (subcommand !== "create")
+                return Command.prototype.reply({ content: Translations.displayText(commandText.watcherIsNotDefined, { text: getSubcommandName("create", language) }) }, intera)
         }
 
-        await Command.prototype.reply({ content: commandText.loadingText, components: [] }, intera);
+        let hasWatcher = await guild.hasWatcher();
 
-        let boardChan = await createChannel("board", intera.guild, commandText);
-        let mentionsChan = await createChannel("mention", intera.guild, commandText);
+        switch (subcommand) {
 
-        let boardMessageData = buildBoardEmbedMessage(commandText, intera.commandName as CommandName, language, mentionsChan);
-        await boardChan.send(boardMessageData);
+            case 'create':
+                if (hasWatcher)
+                    return Command.prototype.reply({ content: Translations.displayText(commandText.boardAlreadyCreated, { text: getSubcommandName('refresh', language) }) }, intera)
 
-        let chans: ChanData = { board: boardChan.id, ping: mentionsChan.id };
-        let roles: RolesData = await buildRoles(language, intera.guild);
-        await guild.registerHellData(chans, roles, hasWatcher);
+                await Command.prototype.reply({ content: commandText.createLoadingText, components: [] }, intera);
 
-        let successString = Translations.displayText(commandText.success, { text: boardChan.id, text2: mentionsChan.id, text3: TranslationsCache[language].commands.stopwatcher.name })
-        await Command.prototype.reply({ content: successString, components: [] }, intera);
+                let boardChan = await createChannel("board", intera.guild, commandText, intera, language);
+                let mentionsChan = await createChannel("ping", intera.guild, commandText, intera, language);
+
+                let chans: ChanData = { board: boardChan.id, ping: mentionsChan.id };
+                let roles: RolesData = await buildRoles(language, intera.guild);
+                await guild.registerHellData(chans, roles, hasWatcher);
+
+                let successString = Translations.displayText(commandText.createSuccess, { text: boardChan.id, text2: mentionsChan.id, text3: getSubcommandName("delete", language) })
+                await Command.prototype.reply({ content: successString, components: [] }, intera);
+                return;
+
+
+            case 'refresh':
+                if (!hasWatcher)
+                    return Command.prototype.reply({ content: Translations.displayText(commandText.watcherIsNotDefined, { text: getSubcommandName("create", language) }) }, intera)
+
+                await Command.prototype.reply({ content: commandText.refreshChannelsLoadingText, components: [] }, intera);
+                let checkChan = await refreshChanOrRole("channels", intera.guild, commandText, intera, language);
+                checkChan ?
+                    await Command.prototype.reply({ content: commandText.refreshChannelsSuccessText, components: [] }, intera) :
+                    await Command.prototype.reply({ content: commandText.refreshChannelsNothingChangedText, components: [] }, intera);
+
+                let msg = await intera.channel?.send(commandText.refreshRolesLoadingText);
+                let checkRoles = await refreshChanOrRole("roles", intera.guild, commandText, intera, language);
+                checkRoles ?
+                    msg?.edit(commandText.refreshRolesSuccessText) :
+                    msg?.edit(commandText.refreshRolesNothingChangedText)
+                return;
+
+
+            case 'delete':
+                if (!hasWatcher)
+                    return Command.prototype.reply({ content: Translations.displayText(commandText.watcherIsNotDefined, { text: getSubcommandName("create", language) }) }, intera)
+
+                let confirm = await Command.getConfirmationMessage(intera, intera.commandName as CommandName, language, { text: Translations.displayText(commandText.askIfDelete, { text: guildData.chans?.board, text2: guildData.chans?.ping }) });
+                if (confirm !== 'yes')
+                    return Command.prototype.reply({ content: TranslationsCache[language].global.cancelledCommand, components: [] }, intera);
+
+                await Command.prototype.reply({ content: commandText.deleteLoadingText, components: [] }, intera);
+                await deleteChanOrRole("roles", intera.guild, botmember, commandText, intera);
+                await deleteChanOrRole("channels", intera.guild, botmember, commandText, intera);
+
+                Command.prototype.reply(Translations.displayText(commandText.deleteSuccess, { text: TranslationsCache[language].commands.watcher.name }), intera);
+
+                await guild.deleteHellData();
+                return;
+
+
+            default:
+                break;
+        }
     }
 }
 
-export function checkPerm(bot: GuildMember, language: textLanguage): string | undefined {
+function checkPerm(bot: GuildMember, language: textLanguage): string | undefined {
     let text = TranslationsCache[language].permissions
     let str = "";
     if (!bot.permissions.has([PermissionFlagsBits.ManageRoles])) str += text.flags.ManageRoles;
@@ -71,9 +114,9 @@ export function checkPerm(bot: GuildMember, language: textLanguage): string | un
         return Translations.displayText(text.MissingPermissions, { text: str })
 }
 
-export async function deleteChanOrRole(type: "channels" | "roles", guild: Guild, botmember: GuildMember, commandText: Record<string, string>, intera: ChatInputCommandInteraction<CacheType>): Promise<string | void> {
+async function deleteChanOrRole(type: "channels" | "roles", guild: Guild, botmember: GuildMember, commandText: Record<string, string>, intera: ChatInputCommandInteraction<CacheType>): Promise<string | void> {
     let guildManager = new ServerManager(guild);
-    let data = await guildManager.getData(type) as ChanData | RoleData;
+    let data = await guildManager.getData(type) as ChanData | RolesData;
 
     for (let dataId of Object.values(data).slice(1)) {
         let roleOrChannel;
@@ -99,7 +142,63 @@ export async function deleteChanOrRole(type: "channels" | "roles", guild: Guild,
     }
 }
 
-async function createChannel(type: "board" | "mention", guild: Guild, text: Record<string, string>): Promise<TextChannel> {
+async function refreshChanOrRole(type: "channels" | "roles", guild: Guild, commandText: Record<string, string>, intera: ChatInputCommandInteraction<CacheType>, language: textLanguage) {
+    let guildManager = new ServerManager(guild);
+    let hasChangedAnything: boolean = false;
+    let data = await guildManager.getData(type) as ChanData | RolesData;
+
+    for (let dataName of Object.keys(data)) {
+        let dataId = data[dataName as keyof typeof data];
+        let roleOrChannel;
+        try {
+            type == "channels" ?
+                roleOrChannel = await guildManager.guild.channels.fetch(dataId) :
+                roleOrChannel = await guildManager.guild.roles.fetch(dataId);
+
+            if(!roleOrChannel)
+                throw 'Absent';
+        }
+        catch {
+            hasChangedAnything = true;
+            if (type == "channels") {
+                let chan = await createChannel(dataName as keyof ChanData, guild, commandText, intera, language);
+                (data as ChanData)[dataName as keyof ChanData] = chan.id;
+            }
+            else {
+                let hellText = TranslationsCache[language].others.hellEvents;
+                let role = await guild.roles.create({
+                    name: Utils.capitalizeFirst(hellText[dataName as keyof typeof hellText]),
+                    mentionable: true,
+                    permissions: [],
+                    hoist: false
+                });
+                (data as RolesData)[dataName as keyof RolesData] = role.id;
+            }
+            Console.log(`Add ping ${type} ${dataName} (Server ${intera.guild?.name} - ${intera.guildId})`)
+        }
+
+    }
+
+    if (hasChangedAnything)
+        await guildManager.updateHellData(type, data)
+
+    return hasChangedAnything
+}
+
+function getSubcommandName(sub: keyof typeof TranslationsCache.fr.commands.watcher.subcommand, language: textLanguage) {
+    return `${TranslationsCache[language].commands.watcher.name} ${TranslationsCache[language].commands.watcher.subcommand[sub].name}`;
+}
+
+async function createChannel(type: "board" | "ping", guild: Guild, text: Record<string, string>, intera: ChatInputCommandInteraction<CacheType>, language: textLanguage) {
+    let chan = await createEmptyChannel(type, guild, text);
+    if (type == "board") {
+        let boardMessageData = buildBoardEmbedMessage(text, intera.commandName as CommandName, language, chan);
+        await chan.send(boardMessageData);
+    }
+    return chan;
+}
+
+async function createEmptyChannel(type: "board" | "ping", guild: Guild, text: Record<string, string>): Promise<TextChannel> {
     let chan;
     try {
         chan = await guild.channels.create({

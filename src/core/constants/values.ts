@@ -19,7 +19,7 @@ export abstract class DiscordValues {
         LOGS_USERS: "656141824590872576",
         LOGS_DB: "784919405896400916",
         LOGS_HELL_EVENTS: "1013478125004398683",
-        HELL_EVENTS_BOARD: "647042988358238208"
+        HELL_EVENTS_BOARD: "647042988358238208" /* "633437214201741330"*/ // test channel
     };
 
     static readonly embedColor: ColorResolvable = [59, 229, 53];
@@ -82,6 +82,10 @@ export abstract class DiscordValues {
         hunt: {
             name: "chasse",
             id: "614816781420199937"
+        },
+        artifact: {
+            name: "artefact",
+            id: "1266748669919498290"
         },
         familiarRank1: {
             name: 'famRank1',
@@ -269,7 +273,7 @@ export abstract class Constants {
     }
 
     static readonly WatcherMentionsTemplates = {
-        watcher: ["research", "building", "merge", "labyrinth", "tycoon", "hunt"],
+        watcher: ["research", "building", "merge", "labyrinth", "tycoon", "hunt", "artifact"],
         dragon: ["research", "building", "merge", "labyrinth", "tycoon", "hunt", "challengeResearch", "challengeTroops"],
         redOrb: [
             ["merge", "troop"],
