@@ -702,9 +702,8 @@
             },
             "text": {
                 "missingPerm": "I can't define the notification board without the required permissions. I miss these permissions:\n",
-                "askIfReparam": "Hell mentions are already defined, do you want to define them again?\n\n:warning: Members will have to subscribe again if you do this, if you want to keep already created roles and only redefine the missing ones, use **/watcher refresh** instead",
                 "roleTooHigh": "The {text} role is beyond my abilities, I can't delete it. You will have to do it yourself",
-                "boardAlreadyCreated": "The notification board have already been created, you can refresh the missing roles and channels with the **/watcher refresh** command",
+                "boardAlreadyCreated": "The notification board has already been created, you can refresh the missing roles and channels with the **/watcher refresh** command",
                 "rolesNotFound": "Impossible to find the {text} role (server {text2} ({id}))",
                 "rolesNotCancellable": "Impossible to delete the {text} role (server {text2} ({id}))",
                 "rolesAndChanDeletionReason": "Reparametrization of the hell mention board",

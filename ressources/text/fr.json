@@ -701,7 +701,6 @@
             },
             "text": {
                 "missingPerm": "Je ne peux pas définir le panneau de notifications sans les permissions nécessaires. Il me manque ces permissions:\n",
-                "askIfReparam": "Les notifications d'infernaux sont déjà définies, voulez-vous les reparamétrer?\n\n:warning: Les membres devront se réabonner si vous faites cela, si vous voulez conserver les rôles actuels et recréer ceux qui manquent, utilisez plutôt `/{text}`",
                 "roleTooHigh": "Le rôle {text} est au dessus de mes rôles, je ne peux donc pas le supprimer. Il faudra le supprimer vous-même",
                 "boardAlreadyCreated": "Le panneau de notifications a déjà été créé, vous pouvez actualiser les roles ou salons manquants avec la commande `/{text}`",
                 "rolesNotFound": "Impossible de trouver le role {text} (serveur {text2} ({id}))",
