@@ -48,7 +48,7 @@ bot.on('ready', async () => {
         await chanList.LOGS_CONNEXIONS?.send(VERSION);
         bootLocked = false;
 
-        cron.schedule('0 * * * *', () => {
+        cron.schedule('55 * * * *', () => {
             if (pingMessagesCache.hourly.length !== 0)
                 pingMessagesCache.hourly.forEach(e => {
                     chanList.HELL_EVENTS_BOARD?.messages.fetch(e).then(m => m.delete())
