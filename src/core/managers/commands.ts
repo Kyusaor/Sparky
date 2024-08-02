@@ -77,6 +77,9 @@ export abstract class CommandManager {
         };
 
         try {
+            let checkPerm = Command.getMissingPermissions(command.neededPermissions || [], intera.channel, intera.guildId);
+            if (checkPerm.length > 0)
+                return Command.prototype.reply(await Command.returnMissingPermissionMessage(checkPerm, intera.guild!.id, language), intera);
             StatusCache.lock(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName)
             await command.run(args);
             StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName)
@@ -390,8 +393,9 @@ export class Command implements CommandInterface {
         return missingPermissions;
     };
 
-    static async returnMissingPermissionMessage(perms: string[], guildId: string): Promise<string> {
-        let language = await db.returnServerLanguage(guildId);
+    static async returnMissingPermissionMessage(perms: string[], guildId: string, language?: textLanguage): Promise<string> {
+        if (!language)
+            language = await db.returnServerLanguage(guildId);
         let permList: string = "";
 
         for (let perm of perms) {

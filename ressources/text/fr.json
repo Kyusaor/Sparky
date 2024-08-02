@@ -66,7 +66,8 @@
             "ManageRoles": "Gérer les rôles",
             "ManageChannels": "Gérer les salons",
             "SendMessages": "Envoyer des messages",
-            "UseExternalEmojis": "Utiliser des emojis externes"
+            "UseExternalEmojis": "Utiliser des emojis externes",
+            "ViewChannel": "Voir les salons"
         }
     },
     "helpMention": {
