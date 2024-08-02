@@ -271,10 +271,10 @@
             "choices": {
                 "tier": {
                     "all": "Liste complète",
-                    "1a": "Pactes 1A (cime)",
-                    "1b": "Pactes 1B (cime)",
-                    "2a": "Pactes 2A (cime)",
-                    "2b": "Pactes 2B (cime)",
+                    "1A": "Pactes 1A (cime)",
+                    "1B": "Pactes 1B (cime)",
+                    "2A": "Pactes 2A (cime)",
+                    "2B": "Pactes 2B (cime)",
                     "3": "Pactes 3 (cime)",
                     "4": "Pactes 4 (cime)",
                     "5": "Pactes 5 (payant/royaume)"

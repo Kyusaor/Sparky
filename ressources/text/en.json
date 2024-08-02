@@ -271,10 +271,10 @@
             "choices": {
                 "tier": {
                     "all": "Whole list",
-                    "1a": "1A pacts (spire)",
-                    "1b": "1B pacts (spire)",
-                    "2a": "2A pacts (spire)",
-                    "2b": "2B pacts (spire)",
+                    "1A": "1A pacts (spire)",
+                    "1B": "1B pacts (spire)",
+                    "2A": "2A pacts (spire)",
+                    "2B": "2B pacts (spire)",
                     "3": "3 pacts (spire)",
                     "4": "4 pacts (spire)",
                     "5": "5 pacts (buyable/tycoon)"
