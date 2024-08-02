@@ -10,7 +10,7 @@ import { Constants, DiscordValues } from "../constants/values.js";
 export const watcher: CommandInterface = {
     permissionLevel: 2,
 
-    neededPermissions: [PermissionFlagsBits.ManageChannels, PermissionFlagsBits.ManageRoles, PermissionFlagsBits.UseExternalEmojis, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.ViewChannel],
+    neededPermissions: [PermissionFlagsBits.ManageChannels, PermissionFlagsBits.ManageRoles, PermissionFlagsBits.UseExternalEmojis, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AddReactions],
 
     cacheLockScope: "guild",
 
