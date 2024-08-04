@@ -1,4 +1,4 @@
-import { ChatInputCommandInteraction, PermissionFlags, SlashCommandBuilder, SlashCommandSubcommandsOnlyBuilder, TextChannel } from "discord.js";
+import { ChatInputCommandInteraction, SlashCommandBuilder, SlashCommandOptionsOnlyBuilder, SlashCommandSubcommandsOnlyBuilder, TextChannel } from "discord.js";
 import { Constants, DiscordValues } from "./values.js";
 import frTranslationJSON from '../../../ressources/text/fr.json';
 
@@ -72,7 +72,7 @@ export interface CommandInterface {
     permissionLevel: 1 | 2 | 3;
     neededPermissions?: bigint[];
     cacheLockScope: cacheLockScope;
-    commandStructure: SlashCommandSubcommandsOnlyBuilder | SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
+    commandStructure: SlashCommandSubcommandsOnlyBuilder | SlashCommandOptionsOnlyBuilder| SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
     run: ({ intera, language, commandText }: CommandArgs) => unknown
 };
 
