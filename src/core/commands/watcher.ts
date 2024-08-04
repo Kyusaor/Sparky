@@ -10,7 +10,7 @@ import { Constants, DiscordValues } from "../constants/values.js";
 export const watcher: CommandInterface = {
     permissionLevel: 2,
 
-    neededPermissions: [PermissionFlagsBits.ManageChannels, PermissionFlagsBits.ManageRoles, PermissionFlagsBits.UseExternalEmojis, PermissionFlagsBits.EmbedLinks],
+    neededPermissions: [PermissionFlagsBits.ManageChannels, PermissionFlagsBits.ManageRoles, PermissionFlagsBits.UseExternalEmojis, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AddReactions],
 
     cacheLockScope: "guild",
 
@@ -85,7 +85,7 @@ export const watcher: CommandInterface = {
                     return Command.prototype.reply({ content: Translations.displayText(commandText.watcherIsNotDefined, { text: getSubcommandName("create", language) }) }, intera)
 
                 let confirm = await Command.getConfirmationMessage(intera, intera.commandName as CommandName, language, { text: Translations.displayText(commandText.askIfDelete, { text: guildData.chans?.board, text2: guildData.chans?.ping }) });
-                if (confirm !== 'yes')
+                if (typeof confirm == "string")
                     return Command.prototype.reply({ content: TranslationsCache[language].global.cancelledCommand, components: [] }, intera);
 
                 await Command.prototype.reply({ content: commandText.deleteLoadingText, components: [] }, intera);

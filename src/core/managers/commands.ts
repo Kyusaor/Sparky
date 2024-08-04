@@ -1,4 +1,4 @@
-import { APIApplicationCommandOptionChoice, APIEmbed, APIEmbedField, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, EmbedBuilder, EmbedData, EmbedFooterOptions, GuildMemberRoleManager, InteractionReplyOptions, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, RestOrArray, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, StringSelectMenuInteraction, TextBasedChannel, TextChannel } from "discord.js";
+import { APIApplicationCommandOptionChoice, APIEmbed, APIEmbedField, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, EmbedBuilder, EmbedData, EmbedFooterOptions, GuildMemberRoleManager, InteractionReplyOptions, MappedInteractionTypes, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, RestOrArray, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandOptionsOnlyBuilder, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, StringSelectMenuInteraction, TextBasedChannel, TextChannel } from "discord.js";
 import { Console, StatusCache, TranslationsCache, bot, botCommands, chanList, db, pingMessagesCache } from "../../main.js";
 import { Translations } from "../constants/translations.js";
 import { CommandArgs, CommandInterface, CommandName, FamiliarTranslation, RolesData, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, cacheLockScope, embedPageData, familiarName, hellEventData, perksType, textLanguage } from "../constants/types.js";
@@ -77,6 +77,9 @@ export abstract class CommandManager {
         };
 
         try {
+            let checkPerm = Command.getMissingPermissions(command.neededPermissions || [], intera.channel, intera.guildId);
+            if (checkPerm.length > 0)
+                return Command.prototype.reply(await Command.returnMissingPermissionMessage(checkPerm, intera.guild!.id, language), intera);
             StatusCache.lock(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName)
             await command.run(args);
             StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName)
@@ -159,7 +162,7 @@ export class Command implements CommandInterface {
     permissionLevel: 1 | 2 | 3;
     neededPermissions?: bigint[];
     cacheLockScope: "guild" | "user" | "none";
-    commandStructure: SlashCommandSubcommandsOnlyBuilder | SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
+    commandStructure: SlashCommandSubcommandsOnlyBuilder | SlashCommandOptionsOnlyBuilder | SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
     run: (args: CommandArgs) => unknown;
 
     constructor(args: CommandInterface) {
@@ -346,7 +349,7 @@ export class Command implements CommandInterface {
         return buttons
     }
 
-    static async getConfirmationMessage(intera: ChatInputCommandInteraction | ButtonInteraction, commandname: CommandName, language: textLanguage, options?: { text?: string, embeds?: EmbedBuilder[], time?: number, ephemeral?: boolean, deleteMsg?: boolean }): Promise<"yes" | "no" | "error"> {
+    static async getConfirmationMessage(intera: ChatInputCommandInteraction | ButtonInteraction, commandname: CommandName, language: textLanguage, options?: { text?: string, embeds?: EmbedBuilder[], time?: number, ephemeral?: boolean, deleteMsg?: boolean }): Promise<"no" | "error" | ButtonInteraction> {
         let payload: MessagePayload | InteractionReplyOptions = { content: options?.text, components: [Command.generateYesNoButtons(commandname, language)], ephemeral: options?.ephemeral };
         if (options?.embeds)
             payload.embeds = options?.embeds
@@ -368,8 +371,9 @@ export class Command implements CommandInterface {
                 confirmationResponse?.message.delete().catch(e => Console.error(e));
             }
         }
+
         if (confirmationResponse?.customId.endsWith('yes'))
-            return "yes"
+            return confirmationResponse
         else if (confirmationResponse?.customId.endsWith('no'))
             return "no"
         else return "error"
@@ -390,8 +394,9 @@ export class Command implements CommandInterface {
         return missingPermissions;
     };
 
-    static async returnMissingPermissionMessage(perms: string[], guildId: string): Promise<string> {
-        let language = await db.returnServerLanguage(guildId);
+    static async returnMissingPermissionMessage(perms: string[], guildId: string, language?: textLanguage): Promise<string> {
+        if (!language)
+            language = await db.returnServerLanguage(guildId);
         let permList: string = "";
 
         for (let perm of perms) {
@@ -480,19 +485,19 @@ export class WatcherManager {
         let payload = this.generateTypeEventMessage(button, language);
         await Command.prototype.reply({ content: payload.message, components: payload.buttons }, button);
 
-        let event = await this.getEventType(button, payload.list);
+        let event = await this.getEventType(button, payload.list); //Replace button as the interaction
         if (event == "error")
             return Command.prototype.reply({ content: TranslationsCache[language].global.cancelledCommand, ephemeral: true, components: [] }, button);
 
-        let eventData = this.getEventData(event, button.customId);
-        let confirmation = await Command.getConfirmationMessage(button, "setglobalping", language, { text: this.getConfirmationMessage(language, eventData), deleteMsg: true });
+        let eventData = this.getEventData(event.customId as keyof typeof TranslationsCache.fr.others.hellMentions, button.customId);
+        let confirmation = await Command.getConfirmationMessage(event, "setglobalping", language, { text: this.getConfirmationMessage(language, eventData), deleteMsg: true });
 
-        if (confirmation !== 'yes') {
+        if (typeof confirmation == "string") {
             return Command.prototype.reply({ content: TranslationsCache[language].global.cancelledCommand, ephemeral: true, components: [] }, button);
         }
 
         await this.sendMentions(eventData);
-        this.logMention(eventData, button);
+        this.logMention(eventData, event);
     }
 
     static generateTypeEventMessage(button: ButtonInteraction, language: textLanguage) {
@@ -542,7 +547,7 @@ export class WatcherManager {
         return { message, buttons, list }
     }
 
-    static async getEventType(button: ButtonInteraction, customIdList: string[]): Promise<keyof typeof TranslationsCache.fr.others.hellMentions | "error"> {
+    static async getEventType(button: ButtonInteraction, customIdList: string[]): Promise<ButtonInteraction | "error"> {
         let confirmationResponse;
         try {
             let filter = (buttonReply: ButtonInteraction<"cached">) => buttonReply.user.id === button.user.id && customIdList.includes(buttonReply.customId)
@@ -550,7 +555,8 @@ export class WatcherManager {
         } catch {
             return "error"
         }
-        return confirmationResponse.customId as keyof typeof TranslationsCache.fr.others.hellMentions
+        button.deleteReply();
+        return confirmationResponse
     }
 
     static getEventData(event: keyof typeof TranslationsCache.fr.others.hellMentions, customId: string): hellEventData {
