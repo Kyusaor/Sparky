@@ -110,6 +110,9 @@ function checkPerm(bot: GuildMember, language: textLanguage): string | undefined
     if (!bot.permissions.has([PermissionFlagsBits.ManageRoles])) str += text.flags.ManageRoles;
     if (!bot.permissions.has([PermissionFlagsBits.ManageChannels])) str += text.flags.ManageChannels;
     if (!bot.permissions.has([PermissionFlagsBits.EmbedLinks])) str += text.flags.EmbedLinks;
+    if (!bot.permissions.has([PermissionFlagsBits.SendMessages])) str += text.flags.SendMessages;
+    if (!bot.permissions.has([PermissionFlagsBits.AddReactions])) str += text.flags.AddReactions;
+
     if (str.length > 1)
         return Translations.displayText(text.MissingPermissions, { text: str })
 }

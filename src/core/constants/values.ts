@@ -274,8 +274,9 @@ export abstract class Constants {
 
     static readonly WatcherMentionsTemplates = {
         watcher: ["research", "building", "merge", "labyrinth", "tycoon", "hunt", "artifact"],
-        dragon: ["research", "building", "merge", "labyrinth", "tycoon", "hunt", "challengeResearch", "challengeTroops"],
+        dragon: ["research", "building", "merge", "labyrinth", "tycoon", "hunt", "artifact", "challengeResearch", "challengeTroops"],
         redOrb: [
+            ["artifact"],
             ["merge", "troop"],
             ["merge", "building"],
             ["merge", "research"],
@@ -285,6 +286,7 @@ export abstract class Constants {
             ["merge", "research", "troop", "building"]
         ],
         yellowOrb: [
+            ["artifact"],
             ["merge", "research"],
             ["merge", "troop", "building"],
             ["merge", "troop", "research"]

@@ -27,7 +27,7 @@ export const logs:CommandInterface = {
         let month = Utils.format2DigitsNumber(intera.options.getInteger('month')!);
         let day = Utils.format2DigitsNumber(intera.options.getInteger('day')!);
         let year = new Date().getFullYear();
-        let path = `./logs/${month}-${year}/logs-${day}-${month}-${year}.log`
+        let path = `./logs/${year}-${month}/logs-${day}-${month}-${year}.log`
 
         if(!existsSync(path))
             return Command.prototype.reply(commandText.noPath, intera);

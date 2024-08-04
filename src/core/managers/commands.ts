@@ -192,7 +192,7 @@ export class Command implements CommandInterface {
                 await intera.reply(data);
         }
         catch (e) {
-            Console.log(e)
+            Console.error(e)
             Console.error(TranslationsCache.fr.global.errors.unableToReply)
         }
     };
