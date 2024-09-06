@@ -1114,7 +1114,7 @@
                 "warTalentName": "Guilded guard",
                 "warTalentDesctiption": "Summons a shield that protects 7% of your infantry troops from a killing blow when 12% of your infantry troops have fallen"
             },
-            "mechatrojanTrojan": {
+            "mechaTrojan": {
                 "name": "Mecha Trojan",
                 "ability1Name": "Mighty stallion",
                 "ability1Description": "Cavalry HP +10%",
