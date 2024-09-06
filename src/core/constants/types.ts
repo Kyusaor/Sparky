@@ -125,17 +125,17 @@ export type RarityNoMythic = "common" | "uncommon" | "rare" | "epic" | "legendar
 export type RarityWithMythic = "common" | "uncommon" | "rare" | "epic" | "legendary" | "mythic";
 export type GearSet = "champion" | "steampath" | "hunter" | "emperor" | "emperor-dominion" | "baron" | "none" | "gladiator" | "flipper" | "necrosis" | "gawrilla" | "cottageroar" | "hootclaw" | "hardrox" | "shaman" | "tidal" | "bonappeti" | "queen" | "trojan" | "blackwing" | "saberfang" | "noceros" | "reaper" | "drider" | "maggot" | "gargantua" | "terrorthorn" | "wyrm" | "beast" | "gryphon" | "frostwing";
 export type GearPiece = "helmet" | "armor" | "legs" | "main-hand" | "off-hand" | "accessory";
-export type StatType = "inf-atk" | "inf-def" | "inf-hp" | "snip-atk" | "snip-def" | "snip-hp" | "cav-atk" | "cav-def" | "cav-hp" | "siege-atk" | "siege-def" | "siege-hp" | "army-atk" | "army-def" | "army-hp" | "reaserch" | "building" | "forging-speed" | "gathering-speed" | "food-prod" | "gold-prod" | "stone-prod" | "timber-prod" | "ore-prod" | "player-exp" | "train-speed" | "upkeep" | "wall-def" | "craft-capacity" | "craft-speed" | "trap-def" | "trap-atk" | "trap-hp" | "army-capacity" | "debuff-hp" | "debuff-def" | "inf-atk-wonder" | "inf-def-wonder" | "snip-atk-wonder" | "snip-def-wonder" | "cav-atk-wonder" | "cav-def-wonder" | "travelSpeed-wonder" | "travelSpeed" | "energy-saver" | "energy-max" | "hunt-dmg" | "hunt-mp" | "hunt-speed" | "merge-speed-pact" | "merge-speed-skill" | "familiar-xp-train" | "familiar-xp-skill"
+export type StatType = "inf-atk" | "inf-def" | "inf-hp" | "range-atk" | "range-def" | "range-hp" | "cav-atk" | "cav-def" | "cav-hp" | "siege-atk" | "siege-def" | "siege-hp" | "army-atk" | "army-def" | "army-hp" | "research" | "building" | "forging-speed" | "gathering-speed" | "food-prod" | "gold-prod" | "stone-prod" | "timber-prod" | "ore-prod" | "player-exp" | "train-speed" | "upkeep" | "wall-def" | "craft-capacity" | "craft-speed" | "trap-def" | "trap-atk" | "trap-hp" | "army-capacity" | "debuff-hp" | "debuff-def" | "inf-atk-wonder" | "inf-def-wonder" | "range-atk-wonder" | "range-def-wonder" | "cav-atk-wonder" | "cav-def-wonder" | "travel-speed-wonder" | "travel-speed" | "energy-saver" | "energy-max" | "hunt-dmg" | "hunt-mp" | "hunt-speed" | "merge-speed-pact" | "merge-speed-skill" | "familiar-xp-train" | "familiar-xp-skill"
 export type CraftingItemSource = keyof typeof frTranslationJSON.others.mobs | keyof typeof frTranslationJSON.others.gear.sources;
 
 export type GearObject = {
     id: number,
-    image: string,
+    name: string,
     set: GearSet,
     piece: GearPiece,
     requiredLevel: number,
     isCollab?: boolean,
-    craft:Record<keyof typeof Constants.craftingItemData, number>,
+    craft:Record<Partial<keyof typeof Constants.craftingItemData>, number>,
     ember?: {amount: number, rarity: RarityNoMythic}
     stats: Record<StatType, [number, number, number, number, number, number]>
     temperedStats?: Record<StatType, [number, number, number, number, number, number, number, number, number, number, number, number]>
