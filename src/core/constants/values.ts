@@ -296,12 +296,12 @@ export abstract class Constants {
     static readonly cycleEvents = {
         labyrinth: {
             origin: 1698987600,
-            events: ["agivre", "drider", "agivre", "wyrm", "agivre", "epinator", "agivre", "gargantua"],
+            events: ["frostwing", "helldrider", "frostwing", "wyrm", "frostwing", "terrorthorn", "frostwing", "gargantua"],
             duration: 604800
         },
         tycoon: {
             origin: 1698296400,
-            events: ["chaman", "abeille", "morfalange", "titan"],
+            events: ["voodooshaman", "queenbee", "bonappeti", "tidaltitan"],
             duration: 604800
         }
     }
