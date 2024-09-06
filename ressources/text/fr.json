@@ -318,6 +318,26 @@
                 "level": "niveau"
             }
         },
+        "gear": {
+            "name": "stuff",
+            "description": "Donne des infos sur les pièeces de stuff",
+            "subcommand": {
+                "data": {
+                    "name": "info",
+                    "description": "Obtenez des informations sur une pièece spécifique",
+                    "options": {
+                        "name": {
+                            "name": "nom",
+                            "description": "Le nom de la pièce"
+                        }
+                    }
+                }
+            },
+            "text": {
+                "dataEmbedTitle": "Sélecteur d'équipement",
+                "dataEmbedDescription": "*Sélectionner ci-dessous la collection à laquelle appartient la pièce voulue, puis la pièece concernée"
+            }
+        },
         "guildfest": {
             "name": "guildfest",
             "description": "Infos utiles sur la Guild Fest",

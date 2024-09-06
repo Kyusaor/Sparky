@@ -318,7 +318,13 @@
                 "level": "level"
             }
         },
-        "guildfest": {
+        "gear": {
+            "name": "gear",
+            "description": "get data about gear parts",
+            "text": {
+                
+            }
+        },        "guildfest": {
             "name": "guildfest",
             "description": "Get information about the Guild Fest event",
             "subcommand": {
