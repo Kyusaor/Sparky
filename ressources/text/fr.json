@@ -1421,8 +1421,8 @@
                 "helmet": "casque",
                 "armor": "plastron",
                 "legs": "jambes",
-                "main-hand": "main principale",
-                "off-hand": "main secondaire",
+                "mainhand": "main principale",
+                "offhand": "main secondaire",
                 "accessory": "accessoire"
             },
             "setNames": {

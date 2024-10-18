@@ -1419,8 +1419,8 @@
 				"helmet": "helmet",
 				"armor": "armor",
 				"legs": "legs",
-				"main-hand": "main-hand",
-				"off-hand": "off-hand",
+				"mainhand": "main-hand",
+				"offhand": "off-hand",
 				"accessory": "accessory"
 			},
 			"setNames": {

@@ -148,11 +148,11 @@ export abstract class DiscordValues {
             name: 'legs',
             id: '1293507808477839360'
         },
-        'off-hand': {
+        offhand: {
             name: 'offhand',
             id: '1293507812197924948'
         },
-        'main-hand': {
+        mainhand: {
             name: 'mainhand',
             id: '1293507810373668865'
         },
