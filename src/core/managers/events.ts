@@ -15,7 +15,6 @@ import {Console, StatusCache, TranslationsCache, bot, chanList, db, GearCache} f
 import {Command, CommandManager} from './commands.js';
 import {ServerManager} from './servers.js';
 import {
-    CraftingItemSource,
     GearObject,
     GearPiece,
     GearSet,
