@@ -1,6 +1,7 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder, SlashCommandOptionsOnlyBuilder, SlashCommandSubcommandsOnlyBuilder, TextChannel } from "discord.js";
 import { Constants, DiscordValues } from "./values.js";
 import frTranslationJSON from '../../../ressources/text/fr.json';
+import {TranslationsCache} from "../../main";
 
 
 //Global
@@ -123,23 +124,24 @@ export type interestLevel = 0 | 1 | 2 | 3;
 
 export type RarityNoMythic = "common" | "uncommon" | "rare" | "epic" | "legendary";
 export type RarityWithMythic = "common" | "uncommon" | "rare" | "epic" | "legendary" | "mythic";
-export type GearSet = "champion" | "steampath" | "hunter" | "emperor" | "emperor-dominion" | "baron" | "none" | "gladiator" | "flipper" | "necrosis" | "gawrilla" | "cottageroar" | "hootclaw" | "hardrox" | "shaman" | "tidal" | "bonappeti" | "queen" | "trojan" | "blackwing" | "saberfang" | "noceros" | "reaper" | "drider" | "maggot" | "gargantua" | "terrorthorn" | "wyrm" | "beast" | "gryphon" | "frostwing";
+export type GearSet = keyof typeof TranslationsCache.fr.others.mobs | keyof typeof TranslationsCache.fr.others.gear.setNames;
 export type GearPiece = "helmet" | "armor" | "legs" | "main-hand" | "off-hand" | "accessory";
 export type StatType = "inf-atk" | "inf-def" | "inf-hp" | "range-atk" | "range-def" | "range-hp" | "cav-atk" | "cav-def" | "cav-hp" | "siege-atk" | "siege-def" | "siege-hp" | "army-atk" | "army-def" | "army-hp" | "research" | "building" | "forging-speed" | "gathering-speed" | "food-prod" | "gold-prod" | "stone-prod" | "timber-prod" | "ore-prod" | "player-exp" | "train-speed" | "upkeep" | "wall-def" | "craft-capacity" | "craft-speed" | "trap-def" | "trap-atk" | "trap-hp" | "army-capacity" | "debuff-hp" | "debuff-def" | "inf-atk-wonder" | "inf-def-wonder" | "range-atk-wonder" | "range-def-wonder" | "cav-atk-wonder" | "cav-def-wonder" | "travel-speed-wonder" | "travel-speed" | "energy-saver" | "energy-max" | "hunt-dmg" | "hunt-mp" | "hunt-speed" | "merge-speed-pact" | "merge-speed-skill" | "familiar-xp-train" | "familiar-xp-skill"
 export type CraftingItemSource = keyof typeof frTranslationJSON.others.mobs | keyof typeof frTranslationJSON.others.gear.sources;
 
 export type GearObject = {
-    id: number,
     name: string,
     set: GearSet,
     piece: GearPiece,
     requiredLevel: number,
     isCollab?: boolean,
-    craft:Record<Partial<keyof typeof Constants.craftingItemData>, number>,
+    craft:Partial<Record<keyof typeof Constants.craftingItemSources, number>>,
     ember?: {amount: number, rarity: RarityNoMythic}
-    stats: Record<StatType, [number, number, number, number, number, number]>
+    stats: Partial<Record<StatType, [number, number, number, number, number, number] | [number, number] | number>>
     temperedStats?: Record<StatType, [number, number, number, number, number, number, number, number, number, number, number, number]>
 }
+
+export type GearCacheType = Record<GearSet, Record<Partial<GearPiece>, GearObject[]>>
 
 //Database related
 export type RolesData = {
