@@ -341,7 +341,8 @@
 				"objectEmbedSource": "Source",
 				"objectEmbedCraft": "Ingredients (source)",
 				"objectEmbedEmberCost": "Mythic cost",
-				"objectEmbedStats": "Stats"
+				"objectEmbedStats": "Stats",
+				"astraliteLvl":  "Astralite lv.{text}"
 			}
 		},
 		"guildfest": {

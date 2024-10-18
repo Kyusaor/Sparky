@@ -343,7 +343,8 @@
                 "objectEmbedSource": "Moyen d'obtention",
                 "objectEmbedCraft": "Ingrédients (source)",
                 "objectEmbedEmberCost": "Coût pour mythique",
-                "objectEmbedStats": "Statistiques"
+                "objectEmbedStats": "Statistiques",
+                "astraliteLvl":  "Astralite niv.{text}"
             }
         },
         "guildfest": {
