@@ -50,6 +50,7 @@
         "yes": "Oui",
         "no": "Non",
         "cancel": "annuler",
+        "back": "retour",
         "timeNames": {
             "day": "jours",
             "hour": "heures",
