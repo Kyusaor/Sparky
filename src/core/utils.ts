@@ -1,4 +1,4 @@
-import consoleStamp from "console-stamp";
+import consoleStamp from 'console-stamp';
 import {
     ActivityType,
     Client,
@@ -6,14 +6,13 @@ import {
     EmbedFooterData,
     Locale,
     PermissionsBitField,
-    StringSelectMenuInteraction,
     TextChannel
 } from 'discord.js';
-import { createWriteStream, existsSync, mkdirSync } from "fs";
-import { bot, botCommands, chanList, Console, dev, TranslationsCache } from "../main.js";
-import { fetchedChannelsAtBoot, interestLevel, textLanguage } from "./constants/types.js";
-import { DiscordValues } from "./constants/values.js";
-import { Translations } from "./constants/translations.js";
+import {createWriteStream, existsSync, mkdirSync} from 'fs';
+import {bot, botCommands, chanList, Console, dev, TranslationsCache} from '../main.js';
+import {fetchedChannelsAtBoot, interestLevel, textLanguage} from './constants/types.js';
+import {DiscordValues} from './constants/values.js';
+import {Translations} from './constants/translations.js';
 
 export abstract class Utils {
 
@@ -25,8 +24,7 @@ export abstract class Utils {
         if (date instanceof Date)
             date = date.getTime();
         let mtn = Date.now();
-        let ecart = Math.floor((mtn - date) / 86400000);
-        return ecart
+        return Math.floor((mtn - date) / 86400000)
     }
 
     static displayBotLink(): string {
@@ -61,11 +59,9 @@ export abstract class Utils {
                 iconURL: Translations.displayText(rdmFooter.iconURL!, { dev_avatar_url: dev.displayAvatarURL() })
             }
 
-        let embed = new EmbedBuilder()
-            .setColor(DiscordValues.embedColor)
-            .setFooter(rdmFooter)
-
-        return embed;
+        return new EmbedBuilder()
+            .setColor(DiscordValues.embedDefaultColor)
+            .setFooter(rdmFooter);
     };
 
     static async fetchChannelsAtBoot(): Promise<fetchedChannelsAtBoot> {
@@ -230,7 +226,7 @@ export class ConsoleLogger {
         this.logger.trace(`[ERROR] ${input.stack || input}`);
 
         chanList?.LOGS_ERRORS?.send(input.stack || input)
-            .then(e => {
+            .then(() => {
                 if (crash)
                     process.exit(1)
             })
