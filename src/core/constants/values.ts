@@ -1,5 +1,5 @@
 import {ColorResolvable, PermissionsBitField} from 'discord.js';
-import {CraftingItemSource, familiarData, GearObject} from './types';
+import {CraftingItemSource, familiarData, GearObject, RarityWithMythic} from './types';
 import {TranslationsCache} from '../../main';
 
 export abstract class DiscordValues {
@@ -150,6 +150,34 @@ export abstract class DiscordValues {
         accessory: {
             name: 'accessory',
             id: '1293507803117518848'
+        },
+        common: {
+            name: 'common',
+            id: '1295998195750539367'
+        },
+        uncommon: {
+            name: 'uncommon',
+            id: '1295998206077046784'
+        },
+        rare: {
+            name: 'rare',
+            id: '1295998202524209162'
+        },
+        epic: {
+            name: 'epic',
+            id: '1295998197428125716'
+        },
+        legendary: {
+            name: 'legendary',
+            id: '1295998199189864458'
+        },
+        mythic: {
+            name: 'mythic',
+            id: '1295998200913727488'
+        },
+        tempered: {
+            name: 'temper',
+            id: '1295998203996667959'
         }
     };
 
@@ -1579,7 +1607,7 @@ export abstract class Constants {
         }
     };
 
-    static readonly craftingItemData: Record<keyof typeof TranslationsCache.fr.others.gear.craftingItems, CraftingItemSource[]> = {
+    static readonly craftingItemSources: Record<keyof typeof TranslationsCache.fr.others.gear.craftingItems, CraftingItemSource[]> = {
         adamant_plate: ['champion'],
         aged_dragonglass: ['hardrox'],
         aged_leather: ['hunt'],
@@ -1655,7 +1683,7 @@ export abstract class Constants {
         logs: ['woods'],
         lunar_crest: ['hootclaw'],
         lustrous_crystal: ['arcticflipper'],
-        lux_bracers: ['bonappeti'],
+        lux_braces: ['bonappeti'],
         maggot_tail: ['megamaggot'],
         maggot_teeth: ['megamaggot'],
         mark_of_fury: ['gawrilla'],
@@ -1718,4 +1746,6 @@ export abstract class Constants {
         },
         'stats': {}
     };
+
+    static readonly rarityList:(RarityWithMythic | 'tempered')[] = ['common', 'uncommon', 'rare', 'epic', 'legendary', 'mythic', 'tempered'];
 }
