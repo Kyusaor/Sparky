@@ -1,4 +1,11 @@
-import { ChatInputCommandInteraction, SlashCommandBuilder, SlashCommandOptionsOnlyBuilder, SlashCommandSubcommandsOnlyBuilder, TextChannel } from "discord.js";
+import {
+    AttachmentBuilder,
+    ChatInputCommandInteraction,
+    SlashCommandBuilder,
+    SlashCommandOptionsOnlyBuilder,
+    SlashCommandSubcommandsOnlyBuilder,
+    TextChannel
+} from 'discord.js';
 import { Constants, DiscordValues } from "./values.js";
 import frTranslationJSON from '../../../ressources/text/fr.json';
 import {TranslationsCache} from "../../main";
@@ -11,6 +18,10 @@ export type fetchedChannelsAtBoot = {
 
 export type queryArgs = string | number | boolean | null | queryArgs[] | undefined;
 
+
+//API return types
+export type ImageAPICall = {attachment: AttachmentBuilder, display: string};
+export type AstraliteStats = Record<StatType, [number, number, number, number, number, number, number, number, number, number, number, number]>
 
 //Translations
 export type textLanguage = "fr" | "en";
@@ -129,6 +140,7 @@ export type GearSet = keyof typeof TranslationsCache.fr.others.mobs | keyof type
 export type GearPiece = "helmet" | "armor" | "legs" | "main-hand" | "off-hand" | "accessory";
 export type StatType = "inf-atk" | "inf-def" | "inf-hp" | "range-atk" | "range-def" | "range-hp" | "cav-atk" | "cav-def" | "cav-hp" | "siege-atk" | "siege-def" | "siege-hp" | "army-atk" | "army-def" | "army-hp" | "research" | "building" | "forging-speed" | "gathering-speed" | "food-prod" | "gold-prod" | "stone-prod" | "timber-prod" | "ore-prod" | "player-exp" | "train-speed" | "upkeep" | "wall-def" | "craft-capacity" | "craft-speed" | "trap-def" | "trap-atk" | "trap-hp" | "army-capacity" | "debuff-hp" | "debuff-def" | "inf-atk-wonder" | "inf-def-wonder" | "range-atk-wonder" | "range-def-wonder" | "cav-atk-wonder" | "cav-def-wonder" | "travel-speed-wonder" | "travel-speed" | "energy-saver" | "energy-max" | "hunt-dmg" | "hunt-mp" | "hunt-speed" | "merge-speed-pact" | "merge-speed-skill" | "familiar-xp-train" | "familiar-xp-skill"
 export type CraftingItemSource = keyof typeof frTranslationJSON.others.mobs | keyof typeof frTranslationJSON.others.gear.sources;
+export type ButtonOutputType = 'classic' | 'tempered';
 
 export type GearObject = {
     name: string,
