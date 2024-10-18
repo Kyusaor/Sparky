@@ -1,28 +1,37 @@
 import {
-    ActionRowBuilder, ButtonBuilder, ButtonStyle,
+    ActionRowBuilder, APIEmbed,
+    ButtonBuilder,
+    ButtonStyle,
     CacheType,
-    ChannelType, EmbedBuilder, GuildMemberRoleManager,
+    ChannelType,
+    EmbedBuilder,
+    GuildMemberRoleManager,
     Interaction,
     InteractionType,
     Message,
-    SelectMenuBuilder, SelectMenuOptionBuilder, StringSelectMenuBuilder,
+    SelectMenuBuilder,
+    SelectMenuOptionBuilder,
+    StringSelectMenuBuilder,
     StringSelectMenuInteraction
 } from 'discord.js';
 import {Translations} from '../constants/translations.js';
 import {Utils} from '../utils.js';
 import {Constants, DiscordValues} from '../constants/values.js';
-import {Console, StatusCache, TranslationsCache, bot, chanList, db, GearCache} from '../../main.js';
+import {bot, chanList, Console, db, GearCache, StatusCache, TranslationsCache} from '../../main.js';
 import {Command, CommandManager} from './commands.js';
 import {ServerManager} from './servers.js';
 import {
+    ButtonOutputType,
     GearObject,
     GearPiece,
-    GearSet,
+    GearSet, ImageAPICall,
     RarityNoMythic,
     RarityWithMythic,
-    RolesData,
+    RarityWithTempered,
+    RolesData, StatType,
     textLanguage
 } from '../constants/types.js';
+import APIManager from './apicalls.js';
 
 export abstract class EventHandler {
 
@@ -199,6 +208,8 @@ async function SelectMenuManager(intera: StringSelectMenuInteraction, language: 
             let set: GearSet;
             let gearText = TranslationsCache[language].others.gear;
             let commandText = TranslationsCache[language].commands.gear.text;
+            let embed: EmbedBuilder;
+
             switch (intera.customId.split('-')[2]) {
                 //Manage the message edit from the set selector to the set piece selector
                 case 'menu':
@@ -208,7 +219,7 @@ async function SelectMenuManager(intera: StringSelectMenuInteraction, language: 
                     if (!gearList.includes(set))
                         throw `Set ${set} inconnu`;
 
-                    let embed = new EmbedBuilder(intera.message.embeds[0]!.data)
+                    embed = new EmbedBuilder(intera.message.embeds[0]!.data)
                         .setThumbnail('attachment://image.png')
                         .setFields();
 
@@ -262,13 +273,19 @@ async function SelectMenuManager(intera: StringSelectMenuInteraction, language: 
                 case 'set':
                     set = intera.customId.split('-')[3] as GearSet;
                     let itemData: GearObject = fetchItemFromName(intera.values[0], set);
+                    let itemImage = await APIManager.getImage(APIManager.getGearImagePathFromItem(itemData));
 
-                    let gearItemEmbed = buildItemGearDataEmbed(itemData, language);
+                    let gearItemEmbed = buildItemGearDataEmbed(itemData, language)
+                        .setThumbnail(itemImage.display);
 
-                    let rarityButtons = createRarityGearButtons(itemData, language);
-                    intera.message.edit({embeds: [gearItemEmbed], components: rarityButtons});
+                    let rarityButtons = createRarityGearButtons(itemData, language, 'classic');
+                    intera.message.edit({embeds: [gearItemEmbed], components: rarityButtons, files: [itemImage.attachment]});
                     break;
+
+                default:
+                    Console.error(`Case ${intera.customId.split('-')[2]} inexistant dans les menus gear`);
             }
+
             intera.deleteReply();
             break;
     }
@@ -285,17 +302,15 @@ function buildItemGearDataEmbed(itemData: GearObject, language: textLanguage) {
 
         if (Object.keys(Constants.craftingItemSources).includes(item)) {
             let itemTO = gearText.craftingItems[item as keyof typeof Constants.craftingItemSources];
-            let sourceListTO:string[] = [];
-            Constants.craftingItemSources[item as keyof typeof Constants.craftingItemSources].forEach( sourceName => {
-                if(!sourceListTO.includes(sourcesTO[sourceName]))
-                    sourceListTO.push(sourcesTO[sourceName])
-            })
-            craftList.push(`${itemTO} x${itemData.craft[item as keyof typeof Constants.craftingItemSources]} (${sourceListTO.join(', ')})`)
-        }
-        else if (Object.keys(gearText.specificSources).includes(item)) {
-            craftList.push(Translations.displayText(gearText.specificSources[item as keyof typeof gearText.specificSources], {text: itemData.craft[item as keyof typeof itemData.craft]?.toString()}))
-        }
-        else Console.info(`L'item ${item} est absent, verifiez la typo`);
+            let sourceListTO: string[] = [];
+            Constants.craftingItemSources[item as keyof typeof Constants.craftingItemSources].forEach(sourceName => {
+                if (!sourceListTO.includes(sourcesTO[sourceName]))
+                    sourceListTO.push(sourcesTO[sourceName]);
+            });
+            craftList.push(`${itemTO} x${itemData.craft[item as keyof typeof Constants.craftingItemSources]} (${sourceListTO.join(', ')})`);
+        } else if (Object.keys(gearText.specificSources).includes(item)) {
+            craftList.push(Translations.displayText(gearText.specificSources[item as keyof typeof gearText.specificSources], {text: itemData.craft[item as keyof typeof itemData.craft]?.toString()}));
+        } else Console.info(`L'item ${item} est absent, verifiez la typo`);
 
     });
 
@@ -313,32 +328,65 @@ function buildItemGearDataEmbed(itemData: GearObject, language: textLanguage) {
                 ]);
 }
 
-function createRarityGearButtons(gear: GearObject, language: textLanguage) {
+export function createRarityGearButtons(gear: GearObject, language: textLanguage, step: ButtonOutputType) {
     let output: ActionRowBuilder<ButtonBuilder>[] = [];
     let row = new ActionRowBuilder<ButtonBuilder>();
-    Constants.rarityList.forEach(rarity => {
-        if (row.components.length == 5) {
-            output.push(row);
-            row = new ActionRowBuilder<ButtonBuilder>();
+
+    if (step !== 'tempered') {
+        Constants.rarityList.forEach(rarity => {
+            if (row.components.length == 5) {
+                output.push(row);
+                row = new ActionRowBuilder<ButtonBuilder>();
+            }
+            let button = new ButtonBuilder()
+                .setCustomId(`${Command.generateButtonCustomId('gear', language)}-rarity-${gear.set}-${gear.piece}-${gear.name}-${rarity}-${step}`)
+                .setLabel(TranslationsCache[language].others.rarity[rarity as RarityWithMythic])
+                .setEmoji(DiscordValues.emotes[rarity as RarityNoMythic].id)
+                .setStyle(ButtonStyle.Primary);
+
+            let isBattlegroundReward = ['emperor', 'exalted'].includes(gear.set);
+
+            if (
+                (gear.requiredLevel < 50 && rarity == 'mythic' && !isBattlegroundReward) ||
+                (gear.requiredLevel < 55 && rarity == 'tempered' && !isBattlegroundReward) ||
+                (isBattlegroundReward && !['mythic', 'legendary', 'tempered'].includes(rarity)) ||
+                (gear.set == 'collab' && rarity !== 'legendary')
+            )
+                button.setDisabled(true);
+
+            row.addComponents(button);
+        });
+    } else {
+        let maxAstra: number;
+        ['emperor', 'exalted'].includes(gear.set) ?
+            maxAstra = 3 :
+            maxAstra = 15;
+
+        for (let i = 1; i <= maxAstra; i++) {
+            if (row.components.length == 5) {
+                output.push(row);
+                row = new ActionRowBuilder<ButtonBuilder>();
+            }
+
+            let button = new ButtonBuilder()
+                .setCustomId(`${Command.generateButtonCustomId('gear', language)}-rarity-${gear.set}-${gear.piece}-${gear.name}-"tempered"-${step}-${i}`)
+                .setEmoji(DiscordValues.emotes.tempered.id)
+                .setLabel(i.toString())
+                .setStyle(ButtonStyle.Primary);
+
+            row.addComponents(button);
         }
+
+        output.push(row);
+        row = new ActionRowBuilder<ButtonBuilder>();
         let button = new ButtonBuilder()
-            .setCustomId(`${Command.generateButtonCustomId('gear', language)}-rarity-${rarity}-${gear.name}`)
-            .setLabel(TranslationsCache[language].others.rarity[rarity as RarityWithMythic])
-            .setEmoji(DiscordValues.emotes[rarity as RarityNoMythic].id)
-            .setStyle(ButtonStyle.Primary);
-
-        let isBattlegroundReward = ['emperor', 'exalted'].includes(gear.set);
-
-        if (
-            (gear.requiredLevel < 50 && rarity == 'mythic' && !isBattlegroundReward) ||
-            (gear.requiredLevel < 55 && rarity == 'tempered' && !isBattlegroundReward) ||
-            (isBattlegroundReward && !["mythic", "legendary", "tempered"].includes(rarity)) ||
-            (gear.set == "collab" && rarity !== "legendary")
-        )
-            button.setDisabled(true);
+            .setCustomId(`${Command.generateButtonCustomId('gear', language)}-rarity-${gear.set}-${gear.piece}-${gear.name}-"tempered"-${step}-back`)
+            .setEmoji('⏪')
+            .setLabel(TranslationsCache[language].global.back)
+            .setStyle(ButtonStyle.Danger);
 
         row.addComponents(button);
-    });
+    }
     output.push(row);
     return output;
 }

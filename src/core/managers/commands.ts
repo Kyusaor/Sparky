@@ -34,22 +34,23 @@ import {
     botCommands,
     chanList,
     Console,
-    db, pingMessagesCache,
+    db, GearCache, pingMessagesCache,
     StatusCache,
     TranslationsCache
 } from '../../main.js';
 import {Translations} from '../constants/translations.js';
 import {
+    ButtonOutputType,
     cacheLockScope,
     CommandArgs,
     CommandInterface,
     CommandName,
     embedPageData,
     familiarName,
-    FamiliarTranslation, hellEventData,
-    perksType,
+    FamiliarTranslation, GearPiece, GearSet, hellEventData, ImageAPICall,
+    perksType, RarityWithTempered,
     RolesData,
-    SingleLanguageCommandTranslation,
+    SingleLanguageCommandTranslation, StatType,
     textLanguage,
     TranslationCacheType,
     TranslationObject
@@ -57,6 +58,8 @@ import {
 import {readdirSync, readFileSync} from 'fs';
 import {Utils} from '../utils.js';
 import {Constants, DiscordValues} from '../constants/values.js';
+import APIManager from './apicalls.js';
+import {createRarityGearButtons} from './events.js';
 
 export abstract class CommandManager {
 
@@ -193,6 +196,84 @@ export abstract class CommandManager {
                 catch (e) {
                     Console.error(e);
                 }
+                break;
+
+            case 'gear':
+                button.deferUpdate();
+                let gearText = TranslationsCache[language].others.gear;
+                let commandText = TranslationsCache[language].commands.gear.text;
+                let interaData = button.customId.split('-');
+                let set = interaData[3] as GearSet;
+                let gearData = GearCache[set][interaData[4] as GearPiece].find(p => p.name == interaData[5]);
+                if (!gearData)
+                    return Console.error(`No gearData found for button ${interaData.join(' ')}`);
+                let rarity = interaData[6] as RarityWithTempered;
+                let step = interaData[7] as ButtonOutputType;
+
+
+                let buttonRowOutput: ActionRowBuilder<ButtonBuilder>[] = [];
+                let embed = new EmbedBuilder(button.message.embeds[0].data);
+                let attachmentList: Record<ButtonOutputType, ImageAPICall> = {
+                    tempered: (await APIManager.getImage('/gear/others/temper.png')),
+                    classic: (await APIManager.getImage('/gear/others/temper.png'))
+                };
+
+                switch (step) {
+                    case 'tempered':
+                        let astraNumber = interaData[8];
+                        if (astraNumber == 'back') {
+                            buttonRowOutput = createRarityGearButtons(gearData, language, 'classic');
+                            embed.setThumbnail(attachmentList.tempered.display)
+                                 .setColor(DiscordValues.embedDefaultColor);
+                        } else {
+                            buttonRowOutput = createRarityGearButtons(gearData, language, 'tempered');
+                            embed = cleanEmbedStats(embed.data, language);
+                            let astraLvl = Number(astraNumber);
+                            let astraStats = await APIManager.getAstraliteStats(gearData);
+
+                            let astraString = '';
+                            Object.keys(astraStats).forEach(statName => {
+                                astraString += `-${gearText.stats[statName as StatType]}: ${astraStats[statName as StatType][astraLvl]}${Constants.statSuffix[statName as StatType]}\n`;
+                            });
+                            embed.addFields({name: commandText.objectEmbedStats, value: astraString});
+                        }
+                        break;
+
+                    case 'classic':
+                        embed = cleanEmbedStats(embed.data, language);
+                        if (rarity == 'tempered') {
+                            buttonRowOutput = createRarityGearButtons(gearData, language, 'tempered');
+                            embed.setThumbnail(attachmentList.tempered.display)
+                                .setColor(DiscordValues.embedColors.tempered);
+                        } else {
+                            buttonRowOutput = createRarityGearButtons(gearData, language, 'classic');
+                            embed.setThumbnail(attachmentList.classic.display);
+                            let rarityIndex = Constants.rarityList.indexOf(rarity);
+                            let statsString = '';
+
+                            Object.keys(gearData.stats).forEach(statName => {
+                                let statData = gearData?.stats[statName as StatType]!;
+                                let statAmount: number = (statData as number[])[rarityIndex] as number || statData as number;
+                                statsString += `-${gearText.stats[statName as StatType]}: ${statAmount}${Constants.statSuffix[statName as StatType]}\n`;
+                            });
+
+                            embed.addFields({name: commandText.objectEmbedStats, value: statsString})
+                                .setColor(DiscordValues.embedColors[rarity]);
+                        }
+
+                        break;
+                }
+                button.message.edit({embeds: [embed], components: buttonRowOutput});
+
+
+            /**
+             * Check if stats have already been displayed, and remove them if so
+             */
+            function cleanEmbedStats(embed: APIEmbed, language: textLanguage) {
+                embed.fields = embed.fields?.filter(field => !field.name.includes(TranslationsCache[language].commands.gear.text.objectEmbedStats));
+                return new EmbedBuilder(embed);
+            }
+
                 break;
 
             default:
