@@ -1,5 +1,5 @@
 import {ColorResolvable, PermissionsBitField} from 'discord.js';
-import {CraftingItemSource, familiarData, GearObject, RarityWithMythic, StatType} from './types';
+import {CraftingItemSource, familiarData, GearObject, RarityWithMythic, RarityWithTempered, StatType} from './types';
 import {TranslationsCache} from '../../main';
 
 export abstract class DiscordValues {
@@ -23,7 +23,7 @@ export abstract class DiscordValues {
     };
 
     static readonly embedDefaultColor: ColorResolvable = [59, 229, 53];
-    static readonly embedColors = {
+    static readonly embedColors: Record<RarityWithTempered, ColorResolvable> = {
         common: [175, 175, 175],
         uncommon: [8, 142, 44],
         rare: [51, 73, 132],
