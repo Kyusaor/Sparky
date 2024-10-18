@@ -24,6 +24,10 @@ export default class APIManager {
     };
 
 
+    static getGearImagePathFromItem(item: GearObject) {
+        return `/gear/items/${item.set}/${item.name}.png`
+    }
+
     /*
     * Returns the whole gear data Object
     */
