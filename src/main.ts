@@ -3,13 +3,14 @@ import { readFileSync } from 'fs';
 import { Config } from '../data/config.js';
 import { ConsoleLogger, Utils } from './core/utils.js';
 import cron from 'node-cron';
-import { TranslationCacheType, fetchedChannelsAtBoot } from './core/constants/types.js';
+import {TranslationCacheType, fetchedChannelsAtBoot, GearCacheType} from './core/constants/types.js';
 import { DiscordValues } from './core/constants/values.js';
 import { DBManager } from './core/managers/database.js';
 import { ServerManager } from './core/managers/servers.js'
-import { EventManager } from './core/managers/events.js';
+import { EventHandler } from './core/managers/events.js';
 import { Command, CommandManager, StatusCacheClass } from './core/managers/commands.js';
 import { Translations } from './core/constants/translations.js';
+import APIManager from './core/managers/apicalls.js';
 
 let Console = new ConsoleLogger();
 const VERSION = JSON.parse(readFileSync('./package.json', 'utf-8')).version; // app version
@@ -30,6 +31,7 @@ let chanList: fetchedChannelsAtBoot;
 let dev: User;
 let db: DBManager;
 let StatusCache: StatusCacheClass;
+let GearCache: GearCacheType;
 let bootLocked = true;
 
 
@@ -45,6 +47,7 @@ bot.on('ready', async () => {
         db = new DBManager(Config.DBConfig);
         botCommands = await CommandManager.buildBotCommands();
         StatusCache = new StatusCacheClass(botCommands);
+        GearCache = await APIManager.getGearData();
         await chanList.LOGS_CONNEXIONS?.send(VERSION);
         bootLocked = false;
 
@@ -101,7 +104,7 @@ bot.on('messageCreate', async msg => {
     if (bootLocked)
         return console.log("Erreur démarrage: message");
     try {
-        await EventManager.MessageCreateHandler(msg);
+        await EventHandler.MessageCreateHandler(msg);
     }
     catch (err) {
         Console.error(err);
@@ -112,7 +115,7 @@ bot.on('interactionCreate', async intera => {
     if (bootLocked)
         return console.log("Erreur démarrage: intera");
     try {
-        await EventManager.interactionHandler(intera);
+        await EventHandler.interactionHandler(intera);
     }
     catch (err) {
         Console.error(err);
@@ -124,7 +127,7 @@ process.on('uncaughtException', error => {
     Console.error(error.stack || error);
 });
 
-export { bot, Console, chanList, dev, db, botCommands, TranslationsCache, consoleErrors, StatusCache, pingMessagesCache };
+export { bot, Console, chanList, dev, db, botCommands, TranslationsCache, consoleErrors, StatusCache, pingMessagesCache, GearCache };
 
 
 async function test() {
