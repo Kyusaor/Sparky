@@ -1,5 +1,5 @@
 import {ColorResolvable, PermissionsBitField} from 'discord.js';
-import {CraftingItemSource, familiarData, GearObject, RarityWithMythic} from './types';
+import {CraftingItemSource, familiarData, GearObject, RarityWithMythic, StatType} from './types';
 import {TranslationsCache} from '../../main';
 
 export abstract class DiscordValues {
@@ -22,7 +22,16 @@ export abstract class DiscordValues {
         HELL_EVENTS_BOARD: '647042988358238208' /* "633437214201741330"*/ // test channel
     };
 
-    static readonly embedColor: ColorResolvable = [59, 229, 53];
+    static readonly embedDefaultColor: ColorResolvable = [59, 229, 53];
+    static readonly embedColors = {
+        common: [175, 175, 175],
+        uncommon: [8, 142, 44],
+        rare: [51, 73, 132],
+        epic: [118, 47, 132],
+        legendary: [166, 131, 15],
+        mythic: [226, 96, 24],
+        tempered: [226, 96, 24]
+    };
     static readonly botIcon = {
         base: 'https://media.discordapp.net/attachments/659758501865717790/1070365617997221940/sparky.png',
         help: 'https://media.discordapp.net/attachments/659758501865717790/680102643519193089/help_sparky.png',
@@ -1747,5 +1756,61 @@ export abstract class Constants {
         'stats': {}
     };
 
-    static readonly rarityList:(RarityWithMythic | 'tempered')[] = ['common', 'uncommon', 'rare', 'epic', 'legendary', 'mythic', 'tempered'];
+    static readonly rarityList: (RarityWithMythic | 'tempered')[] = ['common', 'uncommon', 'rare', 'epic', 'legendary', 'mythic', 'tempered'];
+
+    static readonly statSuffix: Record<StatType, string> = {
+        'inf-atk': '%',
+        'inf-def': '%',
+        'inf-hp': '%',
+        'range-atk': '%',
+        'range-def': '%',
+        'range-hp': '%',
+        'cav-atk': '%',
+        'cav-def': '%',
+        'cav-hp': '%',
+        'siege-atk': '%',
+        'siege-def': '%',
+        'siege-hp': '%',
+        'army-atk': '%',
+        'army-def': '%',
+        'army-hp': '%',
+        research: '%',
+        building: '%',
+        'forging-speed': '%',
+        'gathering-speed': '%',
+        'food-prod': '%',
+        'gold-prod': '%',
+        'stone-prod': '%',
+        'timber-prod': '%',
+        'ore-prod': '%',
+        'player-exp': '%',
+        'train-speed': '%',
+        upkeep: '%',
+        'wall-def': '%',
+        'craft-capacity': '',
+        'craft-speed': '%',
+        'trap-def': '%',
+        'trap-atk': '%',
+        'trap-hp': '%',
+        'army-capacity': '%',
+        'debuff-hp': '%',
+        'debuff-def': '%',
+        'inf-atk-wonder': '%',
+        'inf-def-wonder': '%',
+        'range-atk-wonder': '%',
+        'range-def-wonder': '%',
+        'cav-atk-wonder': '%',
+        'cav-def-wonder': '%',
+        'travel-speed-wonder': '%',
+        'travel-speed': '%',
+        'energy-saver': '%',
+        'energy-max': '',
+        'hunt-dmg': '%',
+        'hunt-mp': '%',
+        'hunt-speed': '%',
+        'merge-speed-pact': '%',
+        'merge-speed-skill': '%',
+        'familiar-xp-train': '%',
+        'familiar-xp-skill': '%'
+    };
 }
