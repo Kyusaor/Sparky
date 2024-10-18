@@ -75,7 +75,7 @@ export interface CommandInterface {
     cacheLockScope: cacheLockScope;
     commandStructure: SlashCommandSubcommandsOnlyBuilder | SlashCommandOptionsOnlyBuilder| SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
     run: ({ intera, language, commandText }: CommandArgs) => unknown
-};
+}
 
 export type perksType = "member" | "admin" | "dev";
 
