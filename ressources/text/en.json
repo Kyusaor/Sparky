@@ -321,10 +321,31 @@
         "gear": {
             "name": "gear",
             "description": "get data about gear parts",
+            "subcommand": {
+                "data": {
+                    "name": "info",
+                    "description": "Get specific data about gear sets"
+                }
+            },
             "text": {
-                
+                "dataEmbedTitle": "Gear selector",
+                "dataEmbedDescription": "*Select the wanted set data below, then select the wanted piece*",
+
+                "mobPlaceHolder": "monster sets",
+                "otherPlaceHolder": "others sets",
+                "setPlaceHolder": "Click here to select an item",
+
+                "objectEmbedSetName": "Set",
+                "objectEmbedLevel": "Required level",
+                "objectEmbedPiece": "Gear part",
+                "objectEmbedCraftable": "Craftable",
+                "objectEmbedSource": "Source",
+                "objectEmbedCraft": "Ingredients (source)",
+                "objectEmbedEmberCost": "Mythic cost",
+                "objectEmbedStats": "Stats"
             }
-        },        "guildfest": {
+        },
+        "guildfest": {
             "name": "guildfest",
             "description": "Get information about the Guild Fest event",
             "subcommand": {
@@ -765,6 +786,15 @@
             "hootclaw": "Hootclaw",
             "tidaltitan": "Tidal Titan",
             "wyrm": "Jade Wyrm"
+        },
+        "rarity": {
+            "common": "common",
+            "uncommon": "uncommon",
+            "rare": "rare",
+            "epic": "epic",
+            "legendary": "legendary",
+            "mythic": "mythic",
+            "tempered": "tempered"
         },
         "buildings": {
             "trove": {
@@ -1313,7 +1343,7 @@
                 "logs": "logs",
                 "lunar_crest": "lunar crest",
                 "lustrous_crystal": "lustrous crystal",
-                "lux_bracers": "lux bracers",
+                "lux_braces": "lux bracers",
                 "maggot_tail": "maggot tail",
                 "maggot_teeth": "maggot teeth",
                 "mark_of_fury": "mark of fury",
@@ -1374,6 +1404,38 @@
                 "ember_chest": "ember chest",
                 "labyrith": "labyrinth",
                 "tycoon":"Kingdom tycoon"
+            },
+            "specificSources": {
+                "collab_sagittarius": "Sagittrius collab event reward",
+                "collab_panda": "Kung Fu Panda collab event reward",
+                "collab_dragon": "Dragon collab event reward",
+                "emperor": "Be a winner of an Emperor Event",
+                "dominion": "Be a winner of a Dominion Emperor Event",
+                "bundle_winning_start": "Buy the {text}$ \"Winning star\" bundle",
+                "allied_voyage_quest": "Accomplish the {text}th Allied Voyage quest",
+                "bundle_a_new_adventure": "Buy the {text}$ \"A new adventure\" bundle"
+
+            },
+            "pieceName": {
+                "helmet": "helmet",
+                "armor": "armor",
+                "legs": "legs",
+                "main-hand": "main-hand",
+                "off-hand": "off-hand",
+                "accessory": "accessory"
+            },
+            "setNames": {
+                "champion": "champion",
+                "collab": "collab",
+                "emperor": "emperor",
+                "exalted": "exalted",
+                "hunt": "hunt",
+                "none": "none",
+                "steampath": "steampath"
+            },
+            "setItemNames": {
+                "craggy_legs": "jambes test en",
+                "coarse_helm": "casque test en"
             }
         }
     }

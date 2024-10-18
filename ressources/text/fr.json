@@ -324,18 +324,25 @@
             "subcommand": {
                 "data": {
                     "name": "info",
-                    "description": "Obtenez des informations sur une pièece spécifique",
-                    "options": {
-                        "name": {
-                            "name": "nom",
-                            "description": "Le nom de la pièce"
-                        }
-                    }
+                    "description": "Obtenez des informations sur une pièece spécifique"
                 }
             },
             "text": {
                 "dataEmbedTitle": "Sélecteur d'équipement",
-                "dataEmbedDescription": "*Sélectionner ci-dessous la collection à laquelle appartient la pièce voulue, puis la pièece concernée"
+                "dataEmbedDescription": "*Sélectionner ci-dessous la collection à laquelle appartient la pièce voulue, puis la pièece concernée*",
+
+                "mobPlaceHolder": "équipements de monstres",
+                "otherPlaceHolder": "autres équipements",
+                "setPlaceHolder": "Cliquez ici pour choisir une pièce",
+
+                "objectEmbedSetName": "Ensemble",
+                "objectEmbedLevel": "Niveau requis",
+                "objectEmbedPiece": "Emplacement",
+                "objectEmbedCraftable": "Fabricable",
+                "objectEmbedSource": "Moyen d'obtention",
+                "objectEmbedCraft": "Ingrédients (source)",
+                "objectEmbedEmberCost": "Coût pour mythique",
+                "objectEmbedStats": "Statistiques"
             }
         },
         "guildfest": {
@@ -779,6 +786,15 @@
             "hootclaw": "Serrulule",
             "tidaltitan": "Titan des Marées",
             "wyrm": "Wyrm de Jade"
+        },
+        "rarity": {
+            "common": "commun",
+            "uncommon": "non-commun",
+            "rare": "rare",
+            "epic": "épique",
+            "legendary": "légendaire",
+            "mythic": "mythique",
+            "tempered": "tempéré"
         },
         "buildings": {
             "trove": {
@@ -1327,7 +1343,7 @@
                 "logs": "rondins",
                 "lunar_crest": "éclat lunaire",
                 "lustrous_crystal": "cristal brillant",
-                "lux_bracers": "bracelets lux",
+                "lux_braces": "bracelets lux",
                 "maggot_tail": "queue de larve",
                 "maggot_teeth": "dent de larve",
                 "mark_of_fury": "emblème furie",
@@ -1388,6 +1404,37 @@
                 "ember_chest": "coffre de braises",
                 "labyrith": "labyrinthe",
                 "tycoon":"Royaume du pouvoir"
+            },
+            "specificSources": {
+                "collab_sagittarius": "Récompense de collab Sagittaire",
+                "collab_panda": "Récompense de collab Kung Fu Panda",
+                "collab_dragon": "Récompense de collab Dragon",
+                "emperor": "Soyez un des gagnants d'un Empereur",
+                "dominion": "Soyez un des gagnants d'un Empereur en royaume restreint",
+                "bundle_winning_start": "Présent dans le pack \"Etoile montante\" à {text}e",
+                "allied_voyage_quest": "Terminez la {text}e quête du Voyage allié",
+                "bundle_a_new_adventure": "Présent dans le pack \"Une nouvelle aventure\" à {text}e"
+            },
+            "pieceName": {
+                "helmet": "casque",
+                "armor": "plastron",
+                "legs": "jambes",
+                "main-hand": "main principale",
+                "off-hand": "main secondaire",
+                "accessory": "accessoire"
+            },
+            "setNames": {
+                "champion": "champion",
+                "collab": "collab",
+                "emperor": "empereur",
+                "exalted": "exalté",
+                "hunt": "chasse",
+                "none": "aucun",
+                "steampath": "vaporesque"
+            },
+            "setItemNames": {
+                "craggy_legs": "jambes test",
+                "coarse_helm": "casque test"
             }
         }
     }
