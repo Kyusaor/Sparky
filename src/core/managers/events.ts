@@ -233,13 +233,13 @@ async function SelectMenuManager(intera: StringSelectMenuInteraction, language: 
                     //Looks through every part of the selected set
                     for (let part of Object.keys(GearCache[set])) {
                         let itemList = '';
-                        if (set == 'none' && part !== 'off-hand') {
+                        if (set == 'none' && part !== 'offhand') {
                             gearPiecSelectMenuBuilder = new SelectMenuBuilder(gearPiecSelectMenuBuilder.data)
                                 .setCustomId(`${Command.generateButtonCustomId('gear', language)}-set-${set}-${part}`)
                                 .setPlaceholder(gearText.pieceName[part as GearPiece])
                                 .setOptions();
-                        } else if (set == 'none' && part == 'off-hand')
-                            gearPiecSelectMenuBuilder.setPlaceholder(gearPiecSelectMenuBuilder.data.placeholder + ' / ' + gearText.pieceName['off-hand']);
+                        } else if (set == 'none' && part == 'offhand')
+                            gearPiecSelectMenuBuilder.setPlaceholder(gearPiecSelectMenuBuilder.data.placeholder + ' / ' + gearText.pieceName['offhand']);
 
                         //Looks through every piece of the set part
                         GearCache[set][part as GearPiece].forEach(item => {
@@ -253,7 +253,7 @@ async function SelectMenuManager(intera: StringSelectMenuInteraction, language: 
                             itemList += `-${itemName}\n`;
                         });
 
-                        if (set == 'none' && part !== 'off-hand')
+                        if (set == 'none' && part !== 'offhand')
                             rowList.push(new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(gearPiecSelectMenuBuilder));
 
                         embed.addFields([{
@@ -347,8 +347,7 @@ export function createRarityGearButtons(gear: GearObject, language: textLanguage
             let isBattlegroundReward = ['emperor', 'exalted'].includes(gear.set);
 
             if (
-                (gear.requiredLevel < 50 && rarity == 'mythic' && !isBattlegroundReward) ||
-                (gear.requiredLevel < 55 && rarity == 'tempered' && !isBattlegroundReward) ||
+                (gear.requiredLevel < 50 && rarity == 'tempered' && !isBattlegroundReward) ||
                 (isBattlegroundReward && !['mythic', 'legendary', 'tempered'].includes(rarity)) ||
                 (gear.set == 'collab' && rarity !== 'legendary')
             )
