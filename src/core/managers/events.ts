@@ -24,12 +24,9 @@ import {
     ButtonOutputType,
     GearObject,
     GearPiece,
-    GearSet, ImageAPICall,
-    RarityNoMythic,
+    GearSet, RarityNoMythic,
     RarityWithMythic,
-    RarityWithTempered,
-    RolesData, StatType,
-    textLanguage
+    RolesData, textLanguage
 } from '../constants/types.js';
 import APIManager from './apicalls.js';
 
