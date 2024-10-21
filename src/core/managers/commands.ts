@@ -210,7 +210,8 @@ export abstract class CommandManager {
 
 
                 let buttonRowOutput: ActionRowBuilder<ButtonBuilder>[] = [];
-                let embed = new EmbedBuilder(button.message.embeds[0].data);
+                let embed = new EmbedBuilder(button.message.embeds[0].data)
+                    .setThumbnail(button.message.embeds[0]?.data?.thumbnail?.url || null);
 
                 switch (step) {
                     case 'tempered':
