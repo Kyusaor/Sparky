@@ -217,7 +217,7 @@ async function SelectMenuManager(intera: StringSelectMenuInteraction, language: 
                         throw `Set ${set} inconnu`;
 
                     embed = new EmbedBuilder(intera.message.embeds[0]!.data)
-                        .setThumbnail('attachment://image.png')
+                        .setThumbnail('attachment://image.png' || intera.message.embeds[0]!.data.thumbnail)
                         .setFields();
 
 
