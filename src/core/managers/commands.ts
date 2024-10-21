@@ -12,8 +12,7 @@ import {
     EmbedBuilder,
     EmbedData,
     EmbedFooterOptions,
-    InteractionReplyOptions,
-    MessagePayload,
+    InteractionReplyOptions, MessagePayload,
     PermissionFlagsBits,
     PermissionResolvable,
     PermissionsBitField,
@@ -47,8 +46,7 @@ import {
     CommandName,
     embedPageData,
     familiarName,
-    FamiliarTranslation, GearPiece, GearSet, hellEventData, ImageAPICall,
-    perksType, RarityWithTempered,
+    FamiliarTranslation, GearPiece, GearSet, hellEventData, perksType, RarityWithTempered,
     RolesData,
     SingleLanguageCommandTranslation, StatType,
     textLanguage,
@@ -213,27 +211,22 @@ export abstract class CommandManager {
 
                 let buttonRowOutput: ActionRowBuilder<ButtonBuilder>[] = [];
                 let embed = new EmbedBuilder(button.message.embeds[0].data);
-                let attachmentList: Record<ButtonOutputType, ImageAPICall> = {
-                    tempered: (await APIManager.getImage('/gear/others/temper.png')),
-                    classic: (await APIManager.getImage('/gear/others/temper.png'))
-                };
 
                 switch (step) {
                     case 'tempered':
                         let astraNumber = interaData[8];
                         if (astraNumber == 'back') {
                             buttonRowOutput = createRarityGearButtons(gearData, language, 'classic');
-                            embed.setThumbnail(attachmentList.tempered.display)
-                                 .setColor(DiscordValues.embedDefaultColor);
+                            embed.setColor(DiscordValues.embedDefaultColor);
                         } else {
                             buttonRowOutput = createRarityGearButtons(gearData, language, 'tempered');
                             embed = cleanEmbedStats(embed.data, language);
                             let astraLvl = Number(astraNumber);
                             let astraStats = await APIManager.getAstraliteStats(gearData);
 
-                            let astraString = '';
+                            let astraString = `**${Translations.displayText(commandText.astraliteLvl, { text: astraLvl.toString()})}**:\n`;
                             Object.keys(astraStats).forEach(statName => {
-                                astraString += `-${gearText.stats[statName as StatType]}: ${astraStats[statName as StatType][astraLvl]}${Constants.statSuffix[statName as StatType]}\n`;
+                                astraString += `-${gearText.stats[statName as StatType]}: ${astraStats[statName as StatType][astraLvl - 1]}${Constants.statSuffix[statName as StatType]}\n`;
                             });
                             embed.addFields({name: commandText.objectEmbedStats, value: astraString});
                         }
@@ -243,11 +236,9 @@ export abstract class CommandManager {
                         embed = cleanEmbedStats(embed.data, language);
                         if (rarity == 'tempered') {
                             buttonRowOutput = createRarityGearButtons(gearData, language, 'tempered');
-                            embed.setThumbnail(attachmentList.tempered.display)
-                                .setColor(DiscordValues.embedColors.tempered);
+                            embed.setColor(DiscordValues.embedColors.tempered);
                         } else {
                             buttonRowOutput = createRarityGearButtons(gearData, language, 'classic');
-                            embed.setThumbnail(attachmentList.classic.display);
                             let rarityIndex = Constants.rarityList.indexOf(rarity);
                             let statsString = '';
 
@@ -263,7 +254,7 @@ export abstract class CommandManager {
 
                         break;
                 }
-                button.message.edit({embeds: [embed], components: buttonRowOutput});
+                button.message.edit({embeds: [embed], components: buttonRowOutput, files: []});
 
 
             /**
