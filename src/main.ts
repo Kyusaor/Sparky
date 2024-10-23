@@ -1,15 +1,15 @@
-import { Client, Snowflake, User } from 'discord.js';
-import { readFileSync } from 'fs';
-import { Config } from '../data/config.js';
-import { ConsoleLogger, Utils } from './core/utils.js';
+import {Client, Snowflake, User} from 'discord.js';
+import {readFileSync} from 'fs';
+import {Config} from '../data/config.js';
+import {ConsoleLogger, Utils} from './core/utils.js';
 import cron from 'node-cron';
-import {TranslationCacheType, fetchedChannelsAtBoot, GearCacheType} from './core/constants/types.js';
-import { DiscordValues } from './core/constants/values.js';
-import { DBManager } from './core/managers/database.js';
-import { ServerManager } from './core/managers/servers.js'
-import { EventHandler } from './core/managers/events.js';
-import { Command, CommandManager, StatusCacheClass } from './core/managers/commands.js';
-import { Translations } from './core/constants/translations.js';
+import {fetchedChannelsAtBoot, GearCacheType, TranslationCacheType} from './core/constants/types.js';
+import {DiscordValues} from './core/constants/values.js';
+import {DBManager} from './core/managers/database.js';
+import {ServerManager} from './core/managers/servers.js';
+import {EventHandler} from './core/managers/events.js';
+import {Command, CommandManager, StatusCacheClass} from './core/managers/commands.js';
+import {Translations} from './core/constants/translations.js';
 import APIManager from './core/managers/apicalls.js';
 
 let Console = new ConsoleLogger();

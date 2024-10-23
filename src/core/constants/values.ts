@@ -1,5 +1,13 @@
 import {ColorResolvable, PermissionsBitField} from 'discord.js';
-import {CraftingItemSource, familiarData, GearObject, RarityWithMythic, RarityWithTempered, StatType} from './types';
+import {
+    CraftingItemSource,
+    familiarData,
+    GearItemName,
+    GearObject,
+    RarityWithMythic,
+    RarityWithTempered,
+    StatType
+} from './types';
 import {TranslationsCache} from '../../main';
 
 export abstract class DiscordValues {
@@ -1744,7 +1752,7 @@ export abstract class Constants {
     };
 
     static readonly defaultGearObjectData: GearObject = {
-        'name': '<default_item>',
+        'name': '<default_item>' as GearItemName,
         'set': 'none',
         'piece': 'armor',
         'requiredLevel': 0,
