@@ -6,9 +6,9 @@ import {
     SlashCommandSubcommandsOnlyBuilder,
     TextChannel
 } from 'discord.js';
-import { Constants, DiscordValues } from "./values.js";
+import {Constants, DiscordValues} from './values.js';
 import frTranslationJSON from '../../../ressources/text/fr.json';
-import {TranslationsCache} from "../../main";
+import {TranslationsCache} from '../../main';
 
 
 //Global
@@ -141,17 +141,17 @@ export type GearPiece = "helmet" | "armor" | "legs" | "mainhand" | "offhand" | "
 export type StatType = "inf-atk" | "inf-def" | "inf-hp" | "range-atk" | "range-def" | "range-hp" | "cav-atk" | "cav-def" | "cav-hp" | "siege-atk" | "siege-def" | "siege-hp" | "army-atk" | "army-def" | "army-hp" | "research" | "building" | "forging-speed" | "gathering-speed" | "food-prod" | "gold-prod" | "stone-prod" | "timber-prod" | "ore-prod" | "player-exp" | "train-speed" | "upkeep" | "wall-def" | "craft-capacity" | "craft-speed" | "trap-def" | "trap-atk" | "trap-hp" | "army-capacity" | "debuff-hp" | "debuff-def" | "inf-atk-wonder" | "inf-def-wonder" | "range-atk-wonder" | "range-def-wonder" | "cav-atk-wonder" | "cav-def-wonder" | "travel-speed-wonder" | "travel-speed" | "energy-saver" | "energy-max" | "hunt-dmg" | "hunt-mp" | "hunt-speed" | "merge-speed-pact" | "merge-speed-skill" | "familiar-xp-train" | "familiar-xp-skill"
 export type CraftingItemSource = keyof typeof frTranslationJSON.others.mobs | keyof typeof frTranslationJSON.others.gear.sources;
 export type ButtonOutputType = 'classic' | 'tempered';
+export type GearItemName = keyof typeof TranslationsCache.fr.others.gear.setItemNames;
 
 export type GearObject = {
-    name: string,
+    name: GearItemName,
     set: GearSet,
     piece: GearPiece,
     requiredLevel: number,
     isCollab?: boolean,
     craft:Partial<Record<keyof typeof Constants.craftingItemSources, number>>,
     ember?: {amount: number, rarity: RarityNoMythic}
-    stats: Partial<Record<StatType, [number, number, number, number, number, number] | [number, number] | number>>
-    temperedStats?: Record<StatType, [number, number, number, number, number, number, number, number, number, number, number, number]>
+    stats: Partial<Record<StatType, [number, number, number, number, number, number] | [number, number] | [number]>>
 }
 
 export type GearCacheType = Record<GearSet, Record<Partial<GearPiece>, GearObject[]>>
