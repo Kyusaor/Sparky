@@ -12,11 +12,13 @@ import {
     EmbedBuilder,
     EmbedData,
     EmbedFooterOptions,
-    InteractionReplyOptions, MessagePayload,
+    InteractionReplyOptions,
+    MessagePayload,
     PermissionFlagsBits,
     PermissionResolvable,
     PermissionsBitField,
-    RestOrArray, SlashCommandAttachmentOption,
+    RestOrArray,
+    SlashCommandAttachmentOption,
     SlashCommandBuilder,
     SlashCommandChannelOption,
     SlashCommandIntegerOption,
@@ -25,7 +27,9 @@ import {
     SlashCommandStringOption,
     SlashCommandSubcommandBuilder,
     SlashCommandSubcommandsOnlyBuilder,
-    SlashCommandUserOption, StringSelectMenuInteraction, TextBasedChannel,
+    SlashCommandUserOption,
+    StringSelectMenuInteraction,
+    TextBasedChannel,
     TextChannel
 } from 'discord.js';
 import {
@@ -33,7 +37,9 @@ import {
     botCommands,
     chanList,
     Console,
-    db, GearCache, pingMessagesCache,
+    db,
+    GearCache,
+    pingMessagesCache,
     StatusCache,
     TranslationsCache
 } from '../../main.js';
@@ -46,9 +52,15 @@ import {
     CommandName,
     embedPageData,
     familiarName,
-    FamiliarTranslation, GearPiece, GearSet, hellEventData, perksType, RarityWithTempered,
+    FamiliarTranslation,
+    GearPiece,
+    GearSet,
+    hellEventData,
+    perksType,
+    RarityWithTempered,
     RolesData,
-    SingleLanguageCommandTranslation, StatType,
+    SingleLanguageCommandTranslation,
+    StatType,
     textLanguage,
     TranslationCacheType,
     TranslationObject
@@ -211,12 +223,13 @@ export abstract class CommandManager {
 
                 let buttonRowOutput: ActionRowBuilder<ButtonBuilder>[] = [];
                 let embed = new EmbedBuilder(button.message.embeds[0].data)
-                    .setThumbnail(button.message.embeds[0].data.thumbnail?.url || null);
+                    .setThumbnail('attachment://image.png');
 
                 switch (step) {
                     case 'tempered':
                         let astraNumber = interaData[8];
                         if (astraNumber == 'back') {
+                            embed = cleanEmbedStats(embed.data, language);
                             buttonRowOutput = createRarityGearButtons(gearData, language, 'classic');
                             embed.setColor(DiscordValues.embedDefaultColor);
                         } else {
@@ -225,7 +238,7 @@ export abstract class CommandManager {
                             let astraLvl = Number(astraNumber);
                             let astraStats = await APIManager.getAstraliteStats(gearData);
 
-                            let astraString = `**${Translations.displayText(commandText.astraliteLvl, { text: astraLvl.toString()})}**:\n`;
+                            let astraString = `**${Translations.displayText(commandText.astraliteLvl, {text: astraLvl.toString()})}**:\n`;
                             Object.keys(astraStats).forEach(statName => {
                                 astraString += `-${gearText.stats[statName as StatType]}: ${astraStats[statName as StatType][astraLvl - 1]}${Constants.statSuffix[statName as StatType]}\n`;
                             });
@@ -241,22 +254,26 @@ export abstract class CommandManager {
                         } else {
                             buttonRowOutput = createRarityGearButtons(gearData, language, 'classic');
                             let rarityIndex = Constants.rarityList.indexOf(rarity);
+
                             let statsString = '';
 
                             Object.keys(gearData.stats).forEach(statName => {
                                 let statData = gearData?.stats[statName as StatType]!;
-                                let statAmount: number = (statData as number[])[rarityIndex] as number || statData as number;
+                                let statIndex: number;
+                                statData.length !== 6 ?
+                                    statIndex = rarityIndex + statData.length - 6 :
+                                    statIndex = rarityIndex;
+                                let statAmount: number = statData[statIndex];
                                 statsString += `-${gearText.stats[statName as StatType]}: ${statAmount}${Constants.statSuffix[statName as StatType]}\n`;
                             });
 
                             embed.addFields({name: commandText.objectEmbedStats, value: statsString})
-                                .setColor(DiscordValues.embedColors[rarity]);
+                                 .setColor(DiscordValues.embedColors[rarity]);
                         }
-
                         break;
                 }
-                button.message.edit({embeds: [embed], components: buttonRowOutput, files: []});
 
+                button.message.edit({embeds: [embed], components: buttonRowOutput });
 
             /**
              * Check if stats have already been displayed, and remove them if so
