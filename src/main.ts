@@ -115,7 +115,7 @@ bot.on('interactionCreate', async intera => {
     if (bootLocked)
         return console.log("Erreur démarrage: intera");
     try {
-        await EventHandler.interactionHandler(intera);
+        await EventHandler.interactionHandler(intera as Interaction<"cached">);
     }
     catch (err) {
         Console.error(err);

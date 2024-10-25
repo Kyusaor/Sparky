@@ -1,10 +1,19 @@
-import { APIEmbedField, ApplicationCommandOptionType, ChannelType, ChatInputCommandInteraction, EmbedBuilder, GuildMember, PermissionFlagsBits, RestOrArray } from "discord.js";
-import { CommandArgs, CommandInterface, perksType } from "../constants/types.js";
-import { Command, CommandManager } from "../managers/commands.js";
-import { Translations } from "../constants/translations.js";
-import { DiscordValues } from "../constants/values.js";
-import { Utils } from "../utils.js";
-import { botCommands, dev } from "../../main.js";
+import {
+    APIEmbedField,
+    ApplicationCommandOptionType,
+    ChannelType,
+    ChatInputCommandInteraction,
+    EmbedBuilder,
+    GuildMember,
+    PermissionFlagsBits,
+    RestOrArray
+} from 'discord.js';
+import {CommandArgs, CommandInterface, perksType} from '../constants/types.js';
+import {Command, CommandManager} from '../managers/commands.js';
+import {Translations} from '../constants/translations.js';
+import {DiscordValues} from '../constants/values.js';
+import {Utils} from '../utils.js';
+import {botCommands} from '../../main.js';
 
 export const help: CommandInterface = {
 
@@ -16,7 +25,7 @@ export const help: CommandInterface = {
         .setDMPermission(true),
 
     async run({ intera, language, commandText }) {
-        if (intera.channel?.type == ChannelType.DM || !intera.guildId)
+        if (intera.channel?.isDMBased() || !intera.guildId)
             return Command.prototype.reply(`${commandText.commandInDM}`, intera)
 
         let member = await intera.guild?.members.fetch(intera.user);
@@ -97,7 +106,7 @@ function buildCommandsEmbeds({ language }: CommandArgs) {
 }
 
 function addHelpCommandFields(embeds: EmbedBuilder[], intera: ChatInputCommandInteraction, memberPerks: perksType, text: Record<string, string>, data: { helpCommands: APIEmbedField[]; adminCommands: APIEmbedField[]; devCommands: APIEmbedField[]; }) {
-    var embedIndex = 0;
+    let embedIndex = 0;
 
     embeds[embedIndex].addFields([
         { name: text.memberFieldTitle, value: DiscordValues.emptyEmbedFieldValue },
@@ -108,7 +117,7 @@ function addHelpCommandFields(embeds: EmbedBuilder[], intera: ChatInputCommandIn
         embeds.push(new EmbedBuilder({color: embeds[embedIndex].data.color, footer: embeds[embedIndex].data.footer }));
         embeds[embedIndex].setFooter(null);
         embedIndex++;
-    };
+    }
 
     embeds[embedIndex].addFields([
         DiscordValues.emptyEmbedField,
@@ -121,7 +130,7 @@ function addHelpCommandFields(embeds: EmbedBuilder[], intera: ChatInputCommandIn
             embeds.push(new EmbedBuilder({color: embeds[embedIndex].data.color, footer: embeds[embedIndex].data.footer }));
             embeds[embedIndex].setFooter(null);
             embedIndex++;
-        };
+        }
 
         embeds[embedIndex].addFields([
             DiscordValues.emptyEmbedField,

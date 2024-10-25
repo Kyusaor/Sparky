@@ -117,7 +117,7 @@ export abstract class CommandManager {
         return Commands;
     };
 
-    static async slashCommandManager(intera: ChatInputCommandInteraction, language: textLanguage) {
+    static async slashCommandManager(intera: ChatInputCommandInteraction<"cached">, language: textLanguage) {
         if (!intera.guildId && !['link', 'help'].includes(intera.commandName))
             return intera.reply(`${TranslationsCache.fr.global.noCommandOffServer}\n\n${TranslationsCache.en.global.noCommandOffServer}`);
 
@@ -496,7 +496,7 @@ export class Command implements CommandInterface {
             .addComponents([previous, next]);
     }
 
-    static async getConfirmationMessage(intera: ChatInputCommandInteraction | ButtonInteraction, commandname: CommandName, language: textLanguage, options?: {
+    static async getConfirmationMessage(intera: ChatInputCommandInteraction<"cached"> | ButtonInteraction, commandname: CommandName, language: textLanguage, options?: {
         text?: string,
         embeds?: EmbedBuilder[],
         time?: number,
@@ -515,14 +515,14 @@ export class Command implements CommandInterface {
         let confirmationResponse;
         try {
             let filter = (button: ButtonInteraction<'cached'>) => button.user.id === intera.user.id && button.customId.includes(commandname);
-            confirmationResponse = await intera.channel?.awaitMessageComponent({
+            confirmationResponse = await (intera.channel as TextChannel)?.awaitMessageComponent({
                 componentType: ComponentType.Button,
                 filter,
                 time: options?.time || 15000
             });
         }
         catch {
-            intera.channel?.lastMessage?.delete().catch(e => Console.error(e));
+            (intera.channel as TextChannel)?.lastMessage?.delete().catch(e => Console.error(e));
             return 'error';
         }
 
@@ -542,7 +542,7 @@ export class Command implements CommandInterface {
     };
 
     static getMissingPermissions(requiredPermissions: PermissionResolvable[], channel: TextBasedChannel | null, guildId?: string | null): string[] {
-        if (!channel || channel.type == ChannelType.DM || !guildId)
+        if (!channel || channel.isDMBased() || !guildId)
             return [];
         let botPermissions = channel.permissionsFor(bot.user!.id);
         let permissionsBitfield = new PermissionsBitField(requiredPermissions).toArray();
@@ -722,7 +722,7 @@ export class WatcherManager {
         let confirmationResponse;
         try {
             let filter = (buttonReply: ButtonInteraction<'cached'>) => buttonReply.user.id === button.user.id && customIdList.includes(buttonReply.customId);
-            confirmationResponse = await button.channel!.awaitMessageComponent({
+            confirmationResponse = await (button.channel as TextChannel)!.awaitMessageComponent({
                 componentType: ComponentType.Button,
                 filter,
                 time: 10000
@@ -844,7 +844,7 @@ export class WatcherManager {
             message += msg;
         }
 
-        let confirmationMsg = await button.channel?.send(message);
+        let confirmationMsg = await (button.channel as TextChannel)?.send(message);
         if (!confirmationMsg)
             return;
 
@@ -875,7 +875,7 @@ export class FamiliarManager {
         let familiar = button.customId.split(`-`)[2] as familiarName;
         let embed = this.getFamiliarEmbed(familiar, language);
         let buttons = this.getFamiliarButtonsPage(language, familiar);
-        button.channel?.send({embeds: [embed], components: [buttons]});
+        (button.channel as TextChannel)?.send({embeds: [embed], components: [buttons]});
         button.message.delete();
     }
 

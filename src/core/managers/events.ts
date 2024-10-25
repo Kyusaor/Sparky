@@ -32,7 +32,7 @@ import APIManager from './apicalls.js';
 
 export abstract class EventHandler {
 
-    static async interactionHandler(intera: Interaction<CacheType>): Promise<void> {
+    static async interactionHandler(intera: Interaction<"cached">): Promise<void> {
         if (intera.guild)
             ServerManager.createIfServerIsNotInDb(intera.guild.id);
 
@@ -65,7 +65,7 @@ export abstract class EventHandler {
     };
 
     static async MessageInServerHandler(msg: Message): Promise<void> {
-        if (!msg.guild || !msg.mentions.has(bot.user!.id, {
+        if (!msg.guild || msg.channel.isDMBased() || !msg.mentions.has(bot.user!.id, {
             ignoreRoles: true,
             ignoreEveryone: true,
             ignoreRepliedUser: true

@@ -78,7 +78,7 @@ export type FamiliarTranslation = {
 }
 
 //Commands
-export type CommandArgs = { intera: ChatInputCommandInteraction, language: textLanguage, commandText: Record<string, string> };
+export type CommandArgs = { intera: ChatInputCommandInteraction<"cached">, language: textLanguage, commandText: Record<string, string> };
 
 export interface CommandInterface {
     permissionLevel: 1 | 2 | 3;
