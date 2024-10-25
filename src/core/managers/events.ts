@@ -1,8 +1,8 @@
 import {
-    ActionRowBuilder, APIEmbed,
+    ActionRowBuilder,
+    APIEmbed,
     ButtonBuilder,
     ButtonStyle,
-    CacheType,
     ChannelType,
     EmbedBuilder,
     GuildMemberRoleManager,
@@ -24,9 +24,10 @@ import {
     ButtonOutputType,
     GearObject,
     GearPiece,
-    GearSet, RarityNoMythic,
+    GearSet,
     RarityWithMythic,
-    RolesData, textLanguage
+    RolesData,
+    textLanguage
 } from '../constants/types.js';
 import APIManager from './apicalls.js';
 
@@ -217,7 +218,7 @@ async function SelectMenuManager(intera: StringSelectMenuInteraction, language: 
                         throw `Set ${set} inconnu`;
 
                     embed = new EmbedBuilder(intera.message.embeds[0]!.data)
-                        .setThumbnail('attachment://image.png' || intera.message.embeds[0]!.data.thumbnail)
+                        .setThumbnail('attachment://image.png' || intera.message.embeds[0]!.data.thumbnail!.url)
                         .setFields();
 
 
@@ -276,7 +277,11 @@ async function SelectMenuManager(intera: StringSelectMenuInteraction, language: 
                         .setThumbnail(itemImage.display);
 
                     let rarityButtons = createRarityGearButtons(itemData, language, 'classic');
-                    intera.message.edit({embeds: [gearItemEmbed], components: rarityButtons, files: [itemImage.attachment]});
+                    intera.message.edit({
+                        embeds: [gearItemEmbed],
+                        components: rarityButtons,
+                        files: [itemImage.attachment]
+                    });
                     break;
 
                 default:
