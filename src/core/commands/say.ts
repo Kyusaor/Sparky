@@ -1,8 +1,20 @@
-import { Attachment, CacheType, ChannelType, CommandInteractionOptionResolver, MessageCreateOptions, MessagePayload, PermissionFlagsBits, SlashCommandAttachmentOption, SlashCommandChannelOption, SlashCommandStringOption, TextChannel } from "discord.js";
-import { CommandInterface } from "../constants/types.js";
-import { Command, CommandManager } from "../managers/commands.js";
-import { bot } from "../../main.js";
-import { Translations } from "../constants/translations.js";
+import {
+    Attachment,
+    CacheType,
+    ChannelType,
+    CommandInteractionOptionResolver,
+    MessageCreateOptions,
+    MessagePayload,
+    PermissionFlagsBits,
+    SlashCommandAttachmentOption,
+    SlashCommandChannelOption,
+    SlashCommandStringOption,
+    TextChannel
+} from 'discord.js';
+import {CommandInterface} from '../constants/types.js';
+import {Command, CommandManager} from '../managers/commands.js';
+import {bot} from '../../main.js';
+import {Translations} from '../constants/translations.js';
 
 export const say: CommandInterface = {
     permissionLevel: 3,
@@ -67,10 +79,9 @@ async function checkIfQueryIsCorrect(
    if (!entries.getString('content') && !entries.getAttachment('files'))
         return commandText.noContent;
 
-    let missingPerm = await Command.getMissingPermissions([PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AttachFiles], channel, channel.guildId);
+    let missingPerm = Command.getMissingPermissions([PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.AttachFiles], channel, channel.guildId);
     if (missingPerm.length > 0) {
-        let response = await Command.returnMissingPermissionMessage(missingPerm, channel.guildId)
-        return response
+        return await Command.returnMissingPermissionMessage(missingPerm, channel.guildId)
     }
 
     return channel;

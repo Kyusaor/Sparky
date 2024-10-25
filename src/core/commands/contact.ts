@@ -1,7 +1,7 @@
-import { Translations } from "../constants/translations.js";
-import { CommandInterface, CommandName } from "../constants/types.js";
-import { DiscordValues } from "../constants/values.js";
-import { CommandManager } from "../managers/commands.js";
+import {Translations} from '../constants/translations.js';
+import {CommandInterface} from '../constants/types.js';
+import {DiscordValues} from '../constants/values.js';
+import {CommandManager} from '../managers/commands.js';
 
 
 export const contact:CommandInterface = {
