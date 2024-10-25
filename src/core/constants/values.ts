@@ -1595,10 +1595,13 @@ export abstract class Constants {
             'amount': 0,
             'rarity': 'common'
         },
-        'stats': {}
+        'stats': {},
+        astraliteCost: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     };
 
     static readonly rarityList: (RarityWithMythic | 'tempered')[] = ['common', 'uncommon', 'rare', 'epic', 'legendary', 'mythic', 'tempered'];
+
+    static readonly emperorSets = ['emperor', 'exalted'];
 
     static readonly statSuffix: Record<StatType, string> = {
         'inf-atk': '%',
