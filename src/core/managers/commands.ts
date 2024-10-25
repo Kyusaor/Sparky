@@ -696,8 +696,9 @@ export class WatcherManager {
                 message += `-${emoji}: ${currentType.map(e => text[e as keyof typeof Constants.WatcherMentionsTemplates]).join(', ')}\n`;
             } else {
                 customId = currentType;
-                let customEmoji = Constants.hellMenu[currentType as keyof typeof Constants.hellMenu]?.emoji ||
-                    DiscordValues.emotes[currentType as keyof typeof DiscordValues.emotes];
+                let customEmoji = Utils.displayEmoji(currentType);
+                if(!customEmoji)
+                    throw `No custom emote at id ${currentType}`;
                 emoji = customEmoji.id;
                 let stringEmoji = `<:${customEmoji.name}:${customEmoji.id}>`;
                 message += `-${stringEmoji}: ${text[currentType as keyof typeof Constants.WatcherMentionsTemplates]}\n`;
@@ -830,15 +831,12 @@ export class WatcherManager {
         for (let lang of Object.keys(TranslationsCache)) {
             text = TranslationsCache[lang as keyof typeof TranslationsCache].others.hellMentions;
             let typeString = data.type.map(e => {
-                if (Object.keys(DiscordValues.emotes).includes(e)) {
-                    let emoteData = DiscordValues.emotes[e as keyof typeof DiscordValues.emotes];
-                    return `${text[e]} ${Utils.displayEmoteInChat(emoteData)}`;
-                } else return `${text[e]}`;
+                return `${text[e]} ${Utils.displayEmoteInChat(e)}`;
             }).join(', ');
 
             let msg = Translations.displayText(text.temporaryLogMentions, {
                 text: text[data.hellOrChallenge],
-                text2: `${text[data.reward]} ${Utils.displayEmoteInChat(DiscordValues.emotes[data.reward])}`,
+                text2: `${text[data.reward]} ${Utils.displayEmoteInChat(data.reward)}`,
                 text3: typeString
             });
             message += msg;
@@ -933,7 +931,7 @@ export class FamiliarManager {
 
 
         //Data collection
-        let tierEmote = Utils.displayEmoteInChat(DiscordValues.emotes[`familiarRank${famData.tier}`]);
+        let tierEmote = Utils.displayEmoteInChat(`familiarRank${famData.tier}`);
         let pactTier = Utils.capitalizeFirst(commandText[`${famData.pactTier}pactName`]);
 
         let pactData = Constants.PactCost[famData.tier];
@@ -944,7 +942,7 @@ export class FamiliarManager {
         };
 
         function abilityField(ability: 'ability1' | 'ability2' | 'ability3' | 'activableAbility') {
-            let emote = Utils.displayEmoteInChat(DiscordValues.emotes[famData[ability]!.type]);
+            let emote = Utils.displayEmoteInChat(famData[ability]!.type);
             let abilityName = familiarText[`${ability}Name`];
             let abilityDescription = familiarText[`${ability}Description`];
 
@@ -980,10 +978,10 @@ export class FamiliarManager {
             fields.push(abilityField('activableAbility'));
 
         if (famData.warSkill) {
-            let orbCost = Utils.displayEmoteInChat(DiscordValues.emotes[Constants.talentCost[famData.tier].type]);
+            let orbCost = Utils.displayEmoteInChat(Constants.talentCost[famData.tier].type);
             let unlockCost = Constants.talentCost[famData.tier].cost[0];
             let maxCost = Constants.talentCost[famData.tier].cost.reduce((total, value) => total + value, 0);
-            let name = `${Utils.displayEmoteInChat(DiscordValues.emotes.talent)} __${commandText.displayEmbedTalent}__: ${familiarText.warTalentName}`;
+            let name = `${Utils.displayEmoteInChat('talent')} __${commandText.displayEmbedTalent}__: ${familiarText.warTalentName}`;
 
             let value = `*${familiarText.warTalentDesctiption}*\n${Translations.displayText(commandText.displayEmbedTalentCost, {
                 text: orbCost,

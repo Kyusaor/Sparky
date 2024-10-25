@@ -147,7 +147,7 @@ async function SelectMenuManager(intera: StringSelectMenuInteraction, language: 
                 else return e;
             });
 
-            if (values.find(e => !Object.keys(Constants.hellMenu).includes(e)))
+            if (values.find(e => !Constants.hellMenu.includes(e)))
                 return;
 
             let guild = new ServerManager(intera.guild!);
@@ -243,7 +243,7 @@ async function SelectMenuManager(intera: StringSelectMenuInteraction, language: 
                             let itemName = gearText.setItemNames[item.name as keyof typeof gearText.setItemNames] || 'DefaultName';
                             gearPiecSelectMenuBuilder.addOptions(
                                 new SelectMenuOptionBuilder()
-                                    .setEmoji(DiscordValues.emotes[item.piece])
+                                    .setEmoji(Utils.displayEmoji(item.piece).id)
                                     .setLabel(itemName)
                                     .setValue(item.name)
                             );
@@ -254,7 +254,7 @@ async function SelectMenuManager(intera: StringSelectMenuInteraction, language: 
                             rowList.push(new ActionRowBuilder<StringSelectMenuBuilder>().addComponents(gearPiecSelectMenuBuilder));
 
                         embed.addFields([{
-                            name: `${Utils.displayEmoteInChat(DiscordValues.emotes[part as GearPiece])} ${gearText.pieceName[part as GearPiece]}`,
+                            name: `${Utils.displayEmoteInChat(part)} ${gearText.pieceName[part as GearPiece]}`,
                             value: itemList
                         }
                         ]);
@@ -338,7 +338,7 @@ export function createRarityGearButtons(gear: GearObject, language: textLanguage
             let button = new ButtonBuilder()
                 .setCustomId(`${Command.generateButtonCustomId('gear', language)}-rarity-${gear.set}-${gear.piece}-${gear.name}-${rarity}-${step}`)
                 .setLabel(TranslationsCache[language].others.rarity[rarity as RarityWithMythic])
-                .setEmoji(DiscordValues.emotes[rarity as RarityNoMythic].id)
+                .setEmoji(Utils.displayEmoji(rarity).id)
                 .setStyle(ButtonStyle.Primary);
 
             let isBattlegroundReward = ['emperor', 'exalted'].includes(gear.set);
@@ -366,7 +366,7 @@ export function createRarityGearButtons(gear: GearObject, language: textLanguage
 
             let button = new ButtonBuilder()
                 .setCustomId(`${Command.generateButtonCustomId('gear', language)}-rarity-${gear.set}-${gear.piece}-${gear.name}-"tempered"-${step}-${i}`)
-                .setEmoji(DiscordValues.emotes.tempered.id)
+                .setEmoji(Utils.displayEmoji('tempered').id)
                 .setLabel(i.toString())
                 .setStyle(ButtonStyle.Primary);
 

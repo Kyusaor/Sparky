@@ -1,4 +1,4 @@
-import {Client, Snowflake, User} from 'discord.js';
+import {Client, Interaction, Snowflake, User} from 'discord.js';
 import {readFileSync} from 'fs';
 import {Config} from '../data/config.js';
 import {ConsoleLogger, Utils} from './core/utils.js';
@@ -33,6 +33,7 @@ let db: DBManager;
 let StatusCache: StatusCacheClass;
 let GearCache: GearCacheType;
 let bootLocked = true;
+let emoteListCache: string[];
 
 
 //Executed when the bot starts
@@ -48,6 +49,8 @@ bot.on('ready', async () => {
         botCommands = await CommandManager.buildBotCommands();
         StatusCache = new StatusCacheClass(botCommands);
         GearCache = await APIManager.getGearData();
+        await bot.application!.emojis.fetch();
+        emoteListCache = bot.application!.emojis.cache.map(e => e.name!);
         await chanList.LOGS_CONNEXIONS?.send(VERSION);
         bootLocked = false;
 
@@ -127,7 +130,7 @@ process.on('uncaughtException', error => {
     Console.error(error.stack || error);
 });
 
-export { bot, Console, chanList, dev, db, botCommands, TranslationsCache, consoleErrors, StatusCache, pingMessagesCache, GearCache };
+export { bot, Console, chanList, dev, db, botCommands, TranslationsCache, consoleErrors, StatusCache, pingMessagesCache, GearCache, emoteListCache };
 
 
 async function test() {
