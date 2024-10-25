@@ -152,6 +152,7 @@ export type GearObject = {
     craft:Partial<Record<keyof typeof Constants.craftingItemSources, number>>,
     ember?: {amount: number, rarity: RarityNoMythic}
     stats: Partial<Record<StatType, [number, number, number, number, number, number] | [number, number] | [number]>>
+    "astraliteCost": [number, number, number, number, number, number, number, number, number, number, number, number] | [number, number, number]
 }
 
 export type GearCacheType = Record<GearSet, Record<Partial<GearPiece>, GearObject[]>>
