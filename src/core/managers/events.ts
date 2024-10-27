@@ -309,25 +309,33 @@ function buildItemGearDataEmbed(itemData: GearObject, language: textLanguage) {
                 if (!sourceListTO.includes(sourcesTO[sourceName]))
                     sourceListTO.push(sourcesTO[sourceName]);
             });
-            craftList.push(`${itemTO} x${itemData.craft[item as keyof typeof Constants.craftingItemSources]} (${sourceListTO.join(', ')})`);
+            craftList.push(`${itemTO} ${Utils.displayEmoteInChat(item)}x${itemData.craft[item as keyof typeof Constants.craftingItemSources]} (${sourceListTO.join(', ')})`);
         } else if (Object.keys(gearText.specificSources).includes(item)) {
             craftList.push(Translations.displayText(gearText.specificSources[item as keyof typeof gearText.specificSources], {text: itemData.craft[item as keyof typeof itemData.craft]?.toString()}));
         } else Console.info(`L'item ${item} est absent, verifiez la typo`);
 
     });
 
-    return Utils.EmbedBaseBuilder(language)
-                .setTitle(`${itemData.name}`)
-                .setThumbnail('attachment://image.png')
-                .addFields([
-                    {name: commandText.objectEmbedSetName, value: setNames[itemData.set]},
-                    {name: commandText.objectEmbedLevel, value: itemData.requiredLevel.toString()},
-                    {name: commandText.objectEmbedPiece, value: gearText.pieceName[itemData.piece]},
-                    {
-                        name: commandText.objectEmbedCraft,
-                        value: '-' + craftList.join('\n-')
-                    }
-                ]);
+    let embed = Utils.EmbedBaseBuilder(language)
+                     .setTitle(`${TranslationsCache[language].others.gear.setItemNames[itemData.name]}`)
+                     .addFields([
+                         {name: commandText.objectEmbedSetName, value: setNames[itemData.set]},
+                         {name: commandText.objectEmbedLevel, value: itemData.requiredLevel.toString()},
+                         {name: commandText.objectEmbedPiece, value: gearText.pieceName[itemData.piece]},
+                         {
+                             name: commandText.objectEmbedCraft,
+                             value: '-' + craftList.join('\n-')
+                         }
+                     ]);
+
+    let isEmperor = Constants.emperorSets.includes(itemData.set);
+    if (itemData.ember && !isEmperor)
+        embed.addFields({
+            name: commandText.objectEmbedEmberCost,
+            value: `${Utils.displayEmoteInChat(isEmperor ? 'mythic_ember' : 'blazing_ember')} ${Utils.displayEmoteInChat(itemData.ember.rarity)} x${itemData.ember.amount}`
+        });
+
+    return embed
 }
 
 export function createRarityGearButtons(gear: GearObject, language: textLanguage, step: ButtonOutputType) {
@@ -346,7 +354,7 @@ export function createRarityGearButtons(gear: GearObject, language: textLanguage
                 .setEmoji(Utils.displayEmoji(rarity).id)
                 .setStyle(ButtonStyle.Primary);
 
-            let isBattlegroundReward = ['emperor', 'exalted'].includes(gear.set);
+            let isBattlegroundReward = Constants.emperorSets.includes(gear.set);
 
             if (
                 (gear.requiredLevel < 50 && rarity == 'tempered' && !isBattlegroundReward) ||
@@ -359,7 +367,7 @@ export function createRarityGearButtons(gear: GearObject, language: textLanguage
         });
     } else {
         let maxAstra: number;
-        ['emperor', 'exalted'].includes(gear.set) ?
+        Constants.emperorSets.includes(gear.set) ?
             maxAstra = 3 :
             maxAstra = 15;
 
