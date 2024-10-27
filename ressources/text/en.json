@@ -257,16 +257,19 @@
 				"dataEmbedDescription": "*Select the wanted set data below, then select the wanted piece*",
 				"dataEmbedTitle": "Gear selector",
 				"mobPlaceHolder": "monster sets",
-				"objectEmbedCraft": "Ingredients (source)",
-				"objectEmbedCraftable": "Craftable",
-				"objectEmbedEmberCost": "Mythic cost",
-				"objectEmbedLevel": "Required level",
-				"objectEmbedPiece": "Gear part",
-				"objectEmbedSetName": "Set",
-				"objectEmbedSource": "Source",
-				"objectEmbedStats": "Stats",
+				"objectEmbedCraft": "__Ingredients (source)__",
+				"objectEmbedCraftable": "__Craftable__",
+				"objectEmbedEmberCost": "__Mythic cost__",
+				"objectEmbedLevel": "__Required level__",
+				"objectEmbedPiece": "__Gear part__",
+				"objectEmbedSetName": "__Set__",
+				"objectEmbedSource": "__Source__",
+				"objectEmbedStats": "__Stats__",
+				"objectEmbedAstraCost": "__Cost__",
+				"objectEmbedTotalAstraCost": "__Total cost from mythic__",
 				"otherPlaceHolder": "others sets",
-				"setPlaceHolder": "Click here to select an item"
+				"setPlaceHolder": "Click here to select an item",
+				"specificAstralite": "{text}{text2} ({text3} specific {text2})"
 			}
 		},
 		"guildfest": {
