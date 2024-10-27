@@ -238,11 +238,24 @@ export abstract class CommandManager {
                             let astraLvl = Number(astraNumber);
                             let astraStats = await APIManager.getAstraliteStats(gearData);
 
-                            let astraString = `**${Translations.displayText(commandText.astraliteLvl, {text: astraLvl.toString()})}**:\n`;
+                            if(gearData.astraliteCost) {
+                                let totalAstraCost:number = 0;
+                                for(let i = 0; i <= astraLvl - 1; i++)
+                                    totalAstraCost += gearData.astraliteCost[i];
+
+                                embed.addFields(
+                                    {name: commandText.objectEmbedAstraCost, value: displayAstraCost(gearData.astraliteCost[astraLvl - 1], language)},
+                                    {name: commandText.objectEmbedTotalAstraCost, value: displayAstraCost(totalAstraCost, language)}
+                                )
+                            }
+
+                            let astraStatsString = `**${Translations.displayText(commandText.astraliteLvl, {text: astraLvl.toString()})}**:\n`;
                             Object.keys(astraStats).forEach(statName => {
-                                astraString += `-${gearText.stats[statName as StatType]}: ${astraStats[statName as StatType][astraLvl - 1]}${Constants.statSuffix[statName as StatType]}\n`;
+                                astraStatsString += `-${gearText.stats[statName as StatType]}: ${astraStats[statName as StatType][astraLvl - 1]}${Constants.statSuffix[statName as StatType]}\n`;
                             });
-                            embed.addFields({name: commandText.objectEmbedStats, value: astraString});
+                            embed.addFields(
+                                {name: commandText.objectEmbedStats, value: astraStatsString}
+                            );
                         }
                         break;
 
@@ -279,10 +292,15 @@ export abstract class CommandManager {
              * Check if stats have already been displayed, and remove them if so
              */
             function cleanEmbedStats(embed: APIEmbed, language: textLanguage) {
-                embed.fields = embed.fields?.filter(field => !field.name.includes(TranslationsCache[language].commands.gear.text.objectEmbedStats));
+                embed.fields = embed.fields?.filter(field => !field.name.includes(TranslationsCache[language].commands.gear.text.objectEmbedStats))
+                                    .filter(field => !field.name.includes(TranslationsCache[language].commands.gear.text.objectEmbedAstraCost))
+                                    .filter(field => !field.name.includes(TranslationsCache[language].commands.gear.text.objectEmbedTotalAstraCost));
                 return new EmbedBuilder(embed);
             }
 
+            function displayAstraCost(amount: number, language: textLanguage) {
+                return Translations.displayText(commandText.specificAstralite, {text: amount.toString(), text2: Utils.displayEmoteInChat('tempered'), text3: Math.ceil(amount / 20).toString()})
+            }
                 break;
 
             default:
