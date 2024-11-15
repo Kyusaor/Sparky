@@ -221,6 +221,7 @@
             "name": "cycle",
             "description": "Envoies les dates d'un évènement donné",
             "text": {
+                "monsterTitle": "des monstres",
                 "labyrinthTitle": "du labyrinthe",
                 "tycoonTitle": "du Royaume du pouvoir",
                 "base": "__**Cycle {text}**__:\n\nEn cours: **{text2}**\n",
@@ -229,7 +230,8 @@
             "choices": {
                 "event": {
                     "tycoon": "Royaume du pouvoir",
-                    "labyrinth": "Labyrinthe"
+                    "labyrinth": "Labyrinthe",
+                    "monster": "Monstres"
                 }
             },
             "options": {

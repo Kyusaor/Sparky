@@ -221,6 +221,7 @@
             "name": "cycle",
             "description": "Send the cycle of some ingame events",
             "text": {
+                "monsterTitle": "Hunt",
                 "labyrinthTitle": "Labyrinth",
                 "tycoonTitle": "Kingdom tycoon",
                 "base": "__**{text}'s rotation**__:\n\nOngoing: **{text2}**\n",
@@ -229,7 +230,8 @@
             "choices": {
                 "event": {
                     "tycoon": "Kingdom tycoon",
-                    "labyrinth": "Labyrinth"
+                    "labyrinth": "Labyrinth",
+                    "monster": "Monsters"
                 }
             },
             "options": {
@@ -726,8 +728,8 @@
                 "boardMenuOptionDescription": "Get notified when a {text} event starts",
                 "boardMenuPlaceholder": "Chose your subscriptions",
                 "createSuccess": "Done! <#{text}> and <#{text2}> channels were successfully created\nYou're free to rename them or move them in the channels list as long as you delete nothing :wink:\nType `/{text3}` to delete them and the roles\n*Note that reports are made by the bot staff, some events could be missed*",
-            
-            
+
+
                 "watcherIsNotDefined": "The hell mention channels are not defined on this server. Type `/{text}` to define it",
                 "askIfDelete": "Do you want to delete the  <#{text}> and <#{text2}> channels?\n\n:warning: **This action is irreversible!**",
                 "deleteLoadingText": "<a:loading:739785338347585598> Deleting...",
