@@ -1,9 +1,9 @@
-import { SlashCommandStringOption } from "discord.js";
-import { CommandInterface } from "../constants/types.js";
-import { Command, CommandManager } from "../managers/commands.js";
-import { Constants } from "../constants/values.js";
-import { Translations } from "../constants/translations.js";
-import { TranslationsCache } from "../../main.js";
+import {SlashCommandStringOption} from 'discord.js';
+import {CommandInterface, textLanguage} from '../constants/types.js';
+import {Command, CommandManager} from '../managers/commands.js';
+import {Constants} from '../constants/values.js';
+import {Translations} from '../constants/translations.js';
+import {TranslationsCache} from '../../main.js';
 
 export const cycle:CommandInterface = {
 
@@ -28,13 +28,11 @@ export const cycle:CommandInterface = {
         let eventIndex = Math.floor((currentTimeInSec - data.origin) / data.duration) % cycleLength;
         let cycleDuration = (data.duration * cycleLength);
         let relativeOrigin = currentTimeInSec - (currentTimeInSec - data.origin) % cycleDuration;
-        let mobsName = TranslationsCache[language].others.mobs;
-        
-        let reply = Translations.displayText(commandText.base, {text: commandText[`${option}Title`], text2: mobsName[data.events[eventIndex] as keyof typeof mobsName]});
+        let reply = Translations.displayText(commandText.base, {text: commandText[`${option}Title`], text2: getCycleElement(eventIndex, language, option)});
 
-        for(let i = 0; i < cycleLength; i++) {
-            let index = eventIndex + i + 1;
-            
+        for(let i = 1; i <= cycleLength; i++) {
+            let index = eventIndex + i ;
+
             if(index >= cycleLength)
                 index -= cycleLength;
 
@@ -42,10 +40,27 @@ export const cycle:CommandInterface = {
             if(index <= eventIndex)
                 timestamp += cycleDuration;
 
-            reply += `\n<t:${timestamp}:F> ${mobsName[data.events[index] as keyof typeof mobsName]}`
+            let eventString = getCycleElement(index, language, option);
+
+            reply += `\n<t:${timestamp}:F> ${eventString}`
         }
         reply += commandText.footer;
 
         await Command.prototype.reply(reply, intera);
     }
+}
+
+/**
+ * Returns the formatted string of a part of the rotation
+ **/
+function getCycleElement(index: number, language: textLanguage, option: keyof typeof Constants.cycleEvents): string {
+    let mobsName = TranslationsCache[language].others.mobs;
+    let data = Constants.cycleEvents[option].events;
+
+    let eventString: string;
+    option == "monster" ?
+        eventString = `${mobsName[data[index].split('+')[0] as keyof typeof mobsName]} & ${mobsName[data[index].split('+')[1] as keyof typeof mobsName]}` :
+        eventString = mobsName[data[index] as keyof typeof mobsName]
+
+    return eventString;
 }

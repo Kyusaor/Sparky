@@ -1,6 +1,6 @@
-import { ColorResolvable, PermissionsBitField } from "discord.js";
-import { familiarData } from "./types";
-import { TranslationsCache } from "../../main";
+import {ColorResolvable, PermissionsBitField} from 'discord.js';
+import {familiarData} from './types';
+import {TranslationsCache} from '../../main';
 
 export abstract class DiscordValues {
 
@@ -303,6 +303,11 @@ export abstract class Constants {
             origin: 1698296400,
             events: ["chaman", "abeille", "morfalange", "titan"],
             duration: 604800
+        },
+        monster: {
+            origin: 1698296400,
+            events: ["epinator+titan", "agivre+anoires", "serpent+cottrage", "gargantua+golem", "wyrm+faucheuse", "drider+bete", "flipper+serrulule", "abeille+larve", "mecha+chaman", "griffon+sabrecroc", "necrose+gorzilla", "noceros+morfalange"],
+            duration: 86400
         }
     }
 
