@@ -302,7 +302,7 @@ export abstract class CommandManager {
             }
 
             function displayAstraCost(amount: number, language: textLanguage) {
-                return Translations.displayText(commandText.specificAstralite, {text: amount.toString(), text2: Utils.displayEmoteInChat('tempered'), text3: Math.ceil(amount / 20).toString()})
+                return Translations.displayText(commandText.specificAstralite, {text: (amount / 20).toString(), text2: Utils.displayEmoteInChat('tempered'), text3: Math.ceil(amount).toString()})
             }
                 break;
 
