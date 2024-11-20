@@ -3,14 +3,14 @@ import {readFileSync} from 'fs';
 import {Config} from '../data/config.js';
 import {ConsoleLogger, Utils} from './core/utils.js';
 import cron from 'node-cron';
-import {fetchedChannelsAtBoot, GearCacheType, TranslationCacheType} from './core/constants/types.js';
+import {fetchedChannelsAtBoot, TranslationCacheType} from './core/constants/types.js';
 import {DiscordValues} from './core/constants/values.js';
 import {DBManager} from './core/managers/database.js';
 import {ServerManager} from './core/managers/servers.js';
 import {EventHandler} from './core/managers/events.js';
 import {Command, CommandManager, StatusCacheClass} from './core/managers/commands.js';
 import {Translations} from './core/constants/translations.js';
-import APIManager from './core/managers/apicalls.js';
+import {CacheManager} from './core/managers/cache.js';
 
 let Console = new ConsoleLogger();
 const VERSION = JSON.parse(readFileSync('./package.json', 'utf-8')).version; // app version
@@ -31,7 +31,7 @@ let chanList: fetchedChannelsAtBoot;
 let dev: User;
 let db: DBManager;
 let StatusCache: StatusCacheClass;
-let GearCache: GearCacheType;
+let Cache = new CacheManager();
 let bootLocked = true;
 let emoteListCache: string[];
 
@@ -44,14 +44,14 @@ bot.on('ready', async () => {
         dev = await bot.users.fetch(DiscordValues.DEV_DISCORD_ID);
         if (!dev)
             Console.error("Compte discord dev introuvable", true);
-        Console.log(`\n\n             SPARKY\n\nBot discord Lords Mobile français\nDéveloppé par Kyusaki\n\nVersion: ${VERSION}\nClient: ${bot.user?.username}\nConsole:`);
         db = new DBManager(Config.DBConfig);
         botCommands = await CommandManager.buildBotCommands();
         StatusCache = new StatusCacheClass(botCommands);
-        GearCache = await APIManager.getGearData();
+        await Cache.initCache();
         await bot.application!.emojis.fetch();
         emoteListCache = bot.application!.emojis.cache.map(e => e.name!);
         await chanList.LOGS_CONNEXIONS?.send(VERSION);
+        Console.log(`\n\n             SPARKY\n\nBot discord Lords Mobile français\nDéveloppé par Kyusaor\n\nVersion: ${VERSION}\nClient: ${bot.user?.username}\nConsole:`);
         bootLocked = false;
 
         cron.schedule('55 * * * *', () => {
@@ -130,7 +130,7 @@ process.on('uncaughtException', error => {
     Console.error(error.stack || error);
 });
 
-export { bot, Console, chanList, dev, db, botCommands, TranslationsCache, consoleErrors, StatusCache, pingMessagesCache, GearCache, emoteListCache };
+export { bot, Console, chanList, dev, db, botCommands, TranslationsCache, consoleErrors, StatusCache, pingMessagesCache, Cache, emoteListCache };
 
 
 async function test() {

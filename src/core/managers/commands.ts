@@ -38,7 +38,7 @@ import {
     chanList,
     Console,
     db,
-    GearCache,
+    Cache,
     pingMessagesCache,
     StatusCache,
     TranslationsCache
@@ -209,7 +209,10 @@ export abstract class CommandManager {
                 break;
 
             case 'gear':
+                let GearCache = Cache.getGear();
                 button.deferUpdate();
+                if(!GearCache)
+                    return button.reply({content: TranslationsCache[language].global.errors.gearCacheUnavailable, ephemeral: true});
                 let gearText = TranslationsCache[language].others.gear;
                 let commandText = TranslationsCache[language].commands.gear.text;
                 let interaData = button.customId.split('-');

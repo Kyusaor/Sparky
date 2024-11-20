@@ -31,11 +31,11 @@ export interface TranslationCacheType {
     en: TranslationObject;
 }
 
-export type SingleLanguageCommandTranslation = { 
-    name: string, 
-    description: string, 
-    options?:Record<string, CommandOptionData>, 
-    subcommand?: Record<string, { name: string, description: string, options?: Record<string, CommandOptionData> }>, 
+export type SingleLanguageCommandTranslation = {
+    name: string,
+    description: string,
+    options?:Record<string, CommandOptionData>,
+    subcommand?: Record<string, { name: string, description: string, options?: Record<string, CommandOptionData> }>,
     text?: Record<any, string[] | string | string[][]> ,
     choices?: Record<string, Record<string, string>>
 };
@@ -46,10 +46,10 @@ export type CommandTranslation = { fr: SingleLanguageCommandTranslation, en: Sin
 
 export type TranslationObject = typeof frTranslationJSON;
 
-export type ReplacerList = { 
-    username?: string, 
-    avatar?: string, 
-    dev_username?: string, 
+export type ReplacerList = {
+    username?: string,
+    avatar?: string,
+    dev_username?: string,
     dev_avatar_url?: string,
     support_email?: string,
     support_server_invite?: string,
@@ -155,7 +155,7 @@ export type GearObject = {
     astraliteCost?: [number, number, number, number, number, number, number, number, number, number, number, number] | [number, number, number]
 }
 
-export type GearCacheType = Record<GearSet, Record<Partial<GearPiece>, GearObject[]>>
+export type GearCacheType = Record<GearSet, Record<Partial<GearPiece>, GearObject[]>> | undefined;
 
 //Database related
 export type RolesData = {
@@ -175,28 +175,28 @@ export type ChanData = {
 }
 
 export type fullServer = {
-    id: string, 
-    name: string, 
-    active: 0 | 1, 
+    id: string,
+    name: string,
+    active: 0 | 1,
     language: textLanguage,
     roles: RolesData | undefined,
     chans: ChanData | undefined
 }
 
-export type Server = { 
-    id: string, 
-    name: string, 
-    active: 0 | 1, 
+export type Server = {
+    id: string,
+    name: string,
+    active: 0 | 1,
     hellEvent: string,
-    language: textLanguage 
+    language: textLanguage
 };
 
-export type PartialServer = { 
-    id?: string, 
-    name?: string, 
-    active?: 0 | 1, 
+export type PartialServer = {
+    id?: string,
+    name?: string,
+    active?: 0 | 1,
     hellEvent?: string,
-    language?: textLanguage 
+    language?: textLanguage
 };
 
 export type UserData = {

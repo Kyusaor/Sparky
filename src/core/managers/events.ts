@@ -17,7 +17,7 @@ import {
 import {Translations} from '../constants/translations.js';
 import {Utils} from '../utils.js';
 import {Constants, DiscordValues} from '../constants/values.js';
-import {bot, chanList, Console, db, GearCache, StatusCache, TranslationsCache} from '../../main.js';
+import {bot, chanList, Console, db, Cache, StatusCache, TranslationsCache} from '../../main.js';
 import {Command, CommandManager} from './commands.js';
 import {ServerManager} from './servers.js';
 import {
@@ -202,6 +202,9 @@ async function SelectMenuManager(intera: StringSelectMenuInteraction, language: 
             break;
 
         case 'gear':
+            let GearCache = Cache.getGear();
+            if(!GearCache)
+                return intera.reply({content: TranslationsCache[language].global.errors.gearCacheUnavailable, ephemeral: true});
             intera.deferReply();
             let set: GearSet;
             let gearText = TranslationsCache[language].others.gear;
@@ -218,7 +221,7 @@ async function SelectMenuManager(intera: StringSelectMenuInteraction, language: 
                         throw `Set ${set} inconnu`;
 
                     embed = new EmbedBuilder(intera.message.embeds[0]!.data)
-                        .setThumbnail('attachment://image.png' || intera.message.embeds[0]!.data.thumbnail!.url)
+                        .setThumbnail('attachment://image.png')
                         .setFields();
 
 
@@ -411,6 +414,8 @@ function fetchItemFromName(name: string, setName?: GearSet): GearObject {
         return foundPiece;
 
     }
+
+    let GearCache = Cache.getGear()!;
 
     let output: GearObject | undefined;
     if (setName)

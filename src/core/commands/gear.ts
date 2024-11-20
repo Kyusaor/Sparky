@@ -1,10 +1,8 @@
-import {CommandArgs, CommandInterface, GearObject, textLanguage} from '../constants/types';
-import {Command, CommandManager} from '../managers/commands.js';
-import {Console, GearCache, TranslationsCache} from '../../main.js';
-import {Utils} from '../utils.js';
-import {
-    ActionRowBuilder, SelectMenuBuilder, SelectMenuOptionBuilder
-} from 'discord.js';
+import { CommandArgs, CommandInterface, GearCacheType, GearObject, GearSet, textLanguage } from '../constants/types';
+import { Command, CommandManager } from '../managers/commands.js';
+import { Console, Cache, TranslationsCache } from '../../main.js';
+import { Utils } from '../utils.js';
+import { ActionRowBuilder, SelectMenuBuilder, SelectMenuOptionBuilder } from 'discord.js';
 import APIManager from '../managers/apicalls.js';
 
 export const gear: CommandInterface = {
@@ -14,11 +12,15 @@ export const gear: CommandInterface = {
     cacheLockScope: 'none',
 
     commandStructure: CommandManager.baseSlashCommandBuilder('gear', 'member')
-                                    .addSubcommand(Command.generateSubcommandBuilder('gear', 'data')
-                                    ),
+        .addSubcommand(Command.generateSubcommandBuilder('gear', 'data')
+        ),
 
-    run: async function ({intera, language, commandText}: CommandArgs) {
+    run: async function ({ intera, language, commandText }: CommandArgs) {
         let subcommand = intera.options.getSubcommand();
+
+        let GearCache = Cache.getGear();
+        if (!GearCache)
+            return intera.reply({ content: TranslationsCache[language].global.errors.gearCacheUnavailable, ephemeral: true });
 
         switch (subcommand) {
             case 'data':
@@ -27,7 +29,7 @@ export const gear: CommandInterface = {
                 let embed = await baseDataEmbed(commandText, language, gearMenuThumbnail.display);
                 let component = buildGearSelectMenu(language, commandText);
 
-                await intera.reply({embeds: [embed], components: component, files: [gearMenuThumbnail.attachment]});
+                await intera.reply({ embeds: [embed], components: component, files: [gearMenuThumbnail.attachment] });
                 break;
 
             default:
@@ -41,9 +43,9 @@ export const gear: CommandInterface = {
 */
 async function baseDataEmbed(text: Record<string, string>, language: textLanguage, imageAtt: string) {
     return Utils.EmbedBaseBuilder(language)
-                .setTitle(text.dataEmbedTitle)
-                .setThumbnail(imageAtt)
-                .setDescription(text.dataEmbedDescription);
+        .setTitle(text.dataEmbedTitle)
+        .setThumbnail(imageAtt)
+        .setDescription(text.dataEmbedDescription);
 }
 
 /*
@@ -93,5 +95,5 @@ async function getSingleGearData(): Promise<GearObject> {
  * Returns the gear set names list
  */
 function getGearSetList() {
-    return Object.keys(GearCache);
+    return Object.keys(Cache.getGear() as Record<GearSet, any>);
 }
