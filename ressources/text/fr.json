@@ -698,6 +698,7 @@
         "commandIsLocked": "Cette commande est déjà en cours d'exécution",
         "defaultCommandReply": "Impossible d'exécuter la commande :confused:",
         "errors": {
+            "gearCacheUnavailable": "Base de données d'équipement indisponible (contactez le support)",
             "DBerror": "Erreur base de données",
             "RoleNotEditable": "Impossible de modifier les rôles de l'user",
             "buttonWithoutCommand": "Ce customId ne contient pas de commande: ",

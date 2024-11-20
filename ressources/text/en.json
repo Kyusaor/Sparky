@@ -698,6 +698,7 @@
 		"commandIsLocked": "This command is already being executed",
 		"defaultCommandReply": "Impossible to execute the command :confused:",
 		"errors": {
+			"gearCacheUnavailable": "Stuff data unavailable (contact the support)",
 			"DBerror": "Database error",
 			"RoleNotEditable": "Impossible to edit user's roles",
 			"buttonWithoutCommand": "This customId doesn't contain any command: ",
