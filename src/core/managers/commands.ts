@@ -43,7 +43,7 @@ import {
     StatusCache,
     TranslationsCache
 } from '../../main.js';
-import {Translations} from '../constants/translations.js';
+import { Translations } from '../constants/translations.js';
 import {
     ButtonOutputType,
     cacheLockScope,
@@ -65,11 +65,11 @@ import {
     TranslationCacheType,
     TranslationObject
 } from '../constants/types.js';
-import {readdirSync, readFileSync} from 'fs';
-import {Utils} from '../utils.js';
-import {Constants, DiscordValues} from '../constants/values.js';
+import { readdirSync, readFileSync } from 'fs';
+import { Utils } from '../utils.js';
+import { Constants, DiscordValues } from '../constants/values.js';
 import APIManager from './apicalls.js';
-import {createRarityGearButtons} from './events.js';
+import { createRarityGearButtons } from './events.js';
 
 export abstract class CommandManager {
 
@@ -77,7 +77,7 @@ export abstract class CommandManager {
         const frJSON = JSON.parse(readFileSync(`./ressources/text/fr.json`, 'utf-8'));
         const enJSON = JSON.parse(readFileSync(`./ressources/text/en.json`, 'utf-8'));
 
-        let translations: TranslationCacheType = {fr: frJSON, en: enJSON};
+        let translations: TranslationCacheType = { fr: frJSON, en: enJSON };
 
         let defaultText = [translations.fr.commands, translations.en.commands];
         let text = {
@@ -126,7 +126,7 @@ export abstract class CommandManager {
 
         let command = botCommands.find(com => com.commandStructure.name == intera.commandName);
         if (!command) {
-            await intera.reply({content: TranslationsCache[language].global.CommandExecutionError, ephemeral: true});
+            await intera.reply({ content: TranslationsCache[language].global.CommandExecutionError, ephemeral: true });
             return Console.info(`Impossible de récupérer la commande ${intera.commandName}`);
         }
         if (StatusCache.isLocked(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName))
@@ -211,8 +211,8 @@ export abstract class CommandManager {
             case 'gear':
                 let GearCache = Cache.getGear();
                 button.deferUpdate();
-                if(!GearCache)
-                    return button.reply({content: TranslationsCache[language].global.errors.gearCacheUnavailable, ephemeral: true});
+                if (!GearCache)
+                    return button.reply({ content: TranslationsCache[language].global.errors.gearCacheUnavailable, ephemeral: true });
                 let gearText = TranslationsCache[language].others.gear;
                 let commandText = TranslationsCache[language].commands.gear.text;
                 let interaData = button.customId.split('-');
@@ -241,23 +241,37 @@ export abstract class CommandManager {
                             let astraLvl = Number(astraNumber);
                             let astraStats = await APIManager.getAstraliteStats(gearData);
 
-                            if(gearData.astraliteCost) {
-                                let totalAstraCost:number = 0;
-                                for(let i = 0; i <= astraLvl - 1; i++)
+                            // Display the Astralite cost
+                            if (gearData.astraliteCost) {
+                                let totalAstraCost: number = 0;
+                                for (let i = 0; i <= astraLvl - 1; i++)
                                     totalAstraCost += gearData.astraliteCost[i];
 
+                                let astraStatsCostRatioString = ``;
+                                Object.keys(astraStats).forEach(statName => {
+                                    const currentStat = astraStats[statName as StatType][astraLvl - 1];
+                                    const previousStat = astraStats[statName as StatType][astraLvl - 2] || gearData!.stats[statName as StatType]![gearData!.stats[statName as StatType]!.length - 1];
+                                    const astraCost = Number(gearData!.astraliteCost![astraLvl - 1]) / 20;
+
+                                    const statRatio = (currentStat - previousStat) / astraCost;
+                                    astraStatsCostRatioString += `-${gearText.stats[statName as StatType]}: ${displayScientificNumber(statRatio)}\n`;
+                                })
+
                                 embed.addFields(
-                                    {name: commandText.objectEmbedAstraCost, value: displayAstraCost(gearData.astraliteCost[astraLvl - 1], language)},
-                                    {name: commandText.objectEmbedTotalAstraCost, value: displayAstraCost(totalAstraCost, language)}
+                                    { name: commandText.objectEmbedAstraCost, value: displayAstraCost(gearData.astraliteCost[astraLvl - 1], language) },
+                                    { name: commandText.objectEmbedTotalAstraCost, value: displayAstraCost(totalAstraCost, language) },
+                                    { name: commandText.astraliteCostRatio, value: astraStatsCostRatioString + commandText.astraliteCostRatioExplaination }
                                 )
                             }
 
-                            let astraStatsString = `**${Translations.displayText(commandText.astraliteLvl, {text: astraLvl.toString()})}**:\n`;
+                            //Display the stats and stats/cost ratio
+                            let astraStatsString = `**${Translations.displayText(commandText.astraliteLvl, { text: astraLvl.toString() })}**:\n`;
                             Object.keys(astraStats).forEach(statName => {
                                 astraStatsString += `-${gearText.stats[statName as StatType]}: ${astraStats[statName as StatType][astraLvl - 1]}${Constants.statSuffix[statName as StatType]}\n`;
                             });
+
                             embed.addFields(
-                                {name: commandText.objectEmbedStats, value: astraStatsString}
+                                { name: commandText.objectEmbedStats, value: astraStatsString }
                             );
                         }
                         break;
@@ -283,27 +297,39 @@ export abstract class CommandManager {
                                 statsString += `-${gearText.stats[statName as StatType]}: ${statAmount}${Constants.statSuffix[statName as StatType]}\n`;
                             });
 
-                            embed.addFields({name: commandText.objectEmbedStats, value: statsString})
-                                 .setColor(DiscordValues.embedColors[rarity]);
+                            embed.addFields({ name: commandText.objectEmbedStats, value: statsString })
+                                .setColor(DiscordValues.embedColors[rarity]);
                         }
                         break;
                 }
 
-                button.message.edit({embeds: [embed], components: buttonRowOutput });
+                button.message.edit({ embeds: [embed], components: buttonRowOutput });
 
-            /**
-             * Check if stats have already been displayed, and remove them if so
-             */
-            function cleanEmbedStats(embed: APIEmbed, language: textLanguage) {
-                embed.fields = embed.fields?.filter(field => !field.name.includes(TranslationsCache[language].commands.gear.text.objectEmbedStats))
-                                    .filter(field => !field.name.includes(TranslationsCache[language].commands.gear.text.objectEmbedAstraCost))
-                                    .filter(field => !field.name.includes(TranslationsCache[language].commands.gear.text.objectEmbedTotalAstraCost));
-                return new EmbedBuilder(embed);
-            }
+                /**
+                 * Check if stats have already been displayed, and remove them if so
+                 */
+                function cleanEmbedStats(embed: APIEmbed, language: textLanguage) {
+                    embed.fields = embed.fields?.filter(field => !field.name.includes(TranslationsCache[language].commands.gear.text.objectEmbedStats))
+                        .filter(field => !field.name.includes(TranslationsCache[language].commands.gear.text.objectEmbedAstraCost))
+                        .filter(field => !field.name.includes(TranslationsCache[language].commands.gear.text.objectEmbedTotalAstraCost))
+                        .filter(field => !field.name.includes(TranslationsCache[language].commands.gear.text.astraliteCostRatio));
+                    return new EmbedBuilder(embed);
+                }
 
-            function displayAstraCost(amount: number, language: textLanguage) {
-                return Translations.displayText(commandText.specificAstralite, {text: (amount / 20).toString(), text2: Utils.displayEmoteInChat('tempered'), text3: Math.ceil(amount).toString()})
-            }
+                /**
+                 * Format the given number to scientific display
+                 */
+                function displayScientificNumber(num: number) {
+                    let expo = num.toExponential();
+                    let pow = expo.slice(-2);
+                    let value = Number(expo.slice(0, -3));
+                    
+                    return `${value.toFixed(2)} e ${pow}`
+                }
+
+                function displayAstraCost(amount: number, language: textLanguage) {
+                    return Translations.displayText(commandText.specificAstralite, { text: (amount / 20).toString(), text2: Utils.displayEmoteInChat('tempered'), text3: Math.ceil(amount).toString() })
+                }
                 break;
 
             default:
@@ -375,9 +401,9 @@ export class Command implements CommandInterface {
 
         let sub = new SlashCommandSubcommandBuilder;
         sub.setName(name)
-           .setNameLocalizations(this.getSubcommandTranslations(command, name, 'name', 'sub'))
-           .setDescription(this.getSubcommandTranslations(command, name, 'description', 'sub')['en-US'])
-           .setDescriptionLocalizations(this.getSubcommandTranslations(command, name, 'description', 'sub'));
+            .setNameLocalizations(this.getSubcommandTranslations(command, name, 'name', 'sub'))
+            .setDescription(this.getSubcommandTranslations(command, name, 'description', 'sub')['en-US'])
+            .setDescriptionLocalizations(this.getSubcommandTranslations(command, name, 'description', 'sub'));
 
         return sub;
     }
@@ -417,9 +443,9 @@ export class Command implements CommandInterface {
         }
 
         sub.setName(optionName || name)
-           .setNameLocalizations(this.getSubcommandTranslations(command, name, 'name', (isSubOption ? 'sub-option' : 'option'), optionName))
-           .setDescription(this.getSubcommandTranslations(command, name, 'description', (isSubOption ? 'sub-option' : 'option'), optionName)['en-US'])
-           .setDescriptionLocalizations(this.getSubcommandTranslations(command, name, 'description', (isSubOption ? 'sub-option' : 'option'), optionName));
+            .setNameLocalizations(this.getSubcommandTranslations(command, name, 'name', (isSubOption ? 'sub-option' : 'option'), optionName))
+            .setDescription(this.getSubcommandTranslations(command, name, 'description', (isSubOption ? 'sub-option' : 'option'), optionName)['en-US'])
+            .setDescriptionLocalizations(this.getSubcommandTranslations(command, name, 'description', (isSubOption ? 'sub-option' : 'option'), optionName));
 
         return sub;
     };
@@ -448,7 +474,7 @@ export class Command implements CommandInterface {
                 if (e !== 'en')
                     list_locale[e] = choicesTranslations[e][item];
             });
-            list.push({name: choicesTranslations.en[item], name_localizations: list_locale, value: item});
+            list.push({ name: choicesTranslations.en[item], name_localizations: list_locale, value: item });
         }
         return list;
     }
@@ -586,7 +612,7 @@ export class Command implements CommandInterface {
             permList += `-${TranslationsCache[language].permissions.flags[perm as keyof typeof TranslationsCache.fr.permissions.flags]}\n`;
         }
 
-        return Translations.displayText(TranslationsCache[language].permissions.MissingPermissions, {text: permList});
+        return Translations.displayText(TranslationsCache[language].permissions.MissingPermissions, { text: permList });
     }
 
     static async defilePage(command: CommandName, button: ButtonInteraction) {
@@ -604,7 +630,7 @@ export class Command implements CommandInterface {
         } else {
             components = this.generatePageButtons(command, pageData.language, pageData.filter?.toString());
         }
-        await button.update({embeds: [newEmbedPage], components: [components]});
+        await button.update({ embeds: [newEmbedPage], components: [components] });
     }
 }
 
@@ -664,7 +690,7 @@ export class WatcherManager {
         let language = button.customId.split('-')[1] as textLanguage;
 
         let payload = this.generateTypeEventMessage(button, language);
-        await Command.prototype.reply({content: payload.message, components: payload.buttons}, button);
+        await Command.prototype.reply({ content: payload.message, components: payload.buttons }, button);
 
         let event = await this.getEventType(button, payload.list); //Replace button as the interaction
         if (event == 'error')
@@ -699,7 +725,7 @@ export class WatcherManager {
         let buttons: ActionRowBuilder<ButtonBuilder>[] = [];
         let row = new ActionRowBuilder<ButtonBuilder>();
         let list: string[] = [];
-        let message = Translations.displayText(text.baseTypeMsg, {text: text[event]});
+        let message = Translations.displayText(text.baseTypeMsg, { text: text[event] });
 
         for (let i = 0; i < Constants.WatcherMentionsTemplates[event].length; i++) {
 
@@ -718,7 +744,7 @@ export class WatcherManager {
             } else {
                 customId = currentType;
                 let customEmoji = Utils.displayEmoji(currentType);
-                if(!customEmoji)
+                if (!customEmoji)
                     throw `No custom emote at id ${currentType}`;
                 emoji = customEmoji.id;
                 let stringEmoji = `<:${customEmoji.name}:${customEmoji.id}>`;
@@ -737,7 +763,7 @@ export class WatcherManager {
         message += text.baseTypeMsgEnd;
         buttons.push(row);
 
-        return {message, buttons, list};
+        return { message, buttons, list };
     }
 
     static async getEventType(button: ButtonInteraction, customIdList: string[]): Promise<ButtonInteraction | 'error'> {
@@ -789,7 +815,7 @@ export class WatcherManager {
                 if (!channel)
                     throw TranslationsCache.fr.global.errors.noChannel;
                 if (channel.permissionsFor(channel.guild.members.me!).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]))
-                    channel.send(Translations.displayText(message[language], {id: chan.role})).catch(e => Console.error(e));
+                    channel.send(Translations.displayText(message[language], { id: chan.role })).catch(e => Console.error(e));
             }
             catch (e) {
                 Console.error(e);
@@ -810,8 +836,8 @@ export class WatcherManager {
             });
 
             let timer = minutes >= 55 ?
-                Translations.displayText(text.remainingTimeAfterBegining, {text: Math.floor(Math.abs(minutes - 60)).toString()}) :
-                Translations.displayText(text.remainingTimeBeforeEnd, {text: Math.floor(55 - minutes).toString()});
+                Translations.displayText(text.remainingTimeAfterBegining, { text: Math.floor(Math.abs(minutes - 60)).toString() }) :
+                Translations.displayText(text.remainingTimeBeforeEnd, { text: Math.floor(55 - minutes).toString() });
 
             event.hellOrChallenge == 'hell' ?
                 textTranslations[lang as textLanguage] = base + timer :
@@ -886,7 +912,7 @@ export class FamiliarManager {
         let newEmbedPage = await (await import(`../commands/${command}.js`)).getEditedEmbed(pageData, embed);
         let familiar = this.getFamiliarDataFromEmbed(newEmbedPage.data);
         components = this.getFamiliarButtonsPage(language, familiar);
-        await button.update({embeds: [newEmbedPage], components: [components]});
+        await button.update({ embeds: [newEmbedPage], components: [components] });
     }
 
 
@@ -894,7 +920,7 @@ export class FamiliarManager {
         let familiar = button.customId.split(`-`)[2] as familiarName;
         let embed = this.getFamiliarEmbed(familiar, language);
         let buttons = this.getFamiliarButtonsPage(language, familiar);
-        (button.channel as TextChannel)?.send({embeds: [embed], components: [buttons]});
+        (button.channel as TextChannel)?.send({ embeds: [embed], components: [buttons] });
         button.message.delete();
     }
 
@@ -973,7 +999,7 @@ export class FamiliarManager {
                 text2: Utils.displayInterestLevel(famData[ability]!.interestLevel)
             });
 
-            return {name, value};
+            return { name, value };
         }
 
         let fields: RestOrArray<APIEmbedField> = [
@@ -1015,19 +1041,19 @@ export class FamiliarManager {
                 value += `-${commandText[type as keyof typeof famData.warSkill]}: ${Utils.displayInterestLevel(famData.warSkill[type as keyof typeof famData.warSkill])}\n`;
             }
 
-            fields.push(DiscordValues.emptyEmbedField, {name, value});
+            fields.push(DiscordValues.emptyEmbedField, { name, value });
         }
 
         let pactList = Object.keys(Constants.familiarsData).filter(fam => Constants.familiarsData[fam as familiarName].pactTier == famData.pactTier);
         let familiarNumber = pactList.indexOf(familiar);
-        let footer: EmbedFooterOptions = {text: `${pactTier} [${familiarNumber + 1}/${pactList.length}]`};
+        let footer: EmbedFooterOptions = { text: `${pactTier} [${familiarNumber + 1}/${pactList.length}]` };
 
         return Utils.EmbedBaseBuilder(language)
-                    .setTitle(familiarText.name)
-                    .setDescription(commandText.displayEmbedDescription)
-                    .setThumbnail(famData.image)
-                    .addFields(fields)
-                    .setFooter(footer);
+            .setTitle(familiarText.name)
+            .setDescription(commandText.displayEmbedDescription)
+            .setThumbnail(famData.image)
+            .addFields(fields)
+            .setFooter(footer);
     };
 
 
@@ -1060,5 +1086,5 @@ function getPageData(embed: Readonly<APIEmbed>, id: string, command: CommandName
     if (filterNames)
         filter = Object.keys(filterNames).find(k => embed.description?.includes(filterNames[k]));
 
-    return {current, target, total, filter, language};
+    return { current, target, total, filter, language };
 }

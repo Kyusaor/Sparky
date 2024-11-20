@@ -20,7 +20,6 @@ export class CacheManager {
             let cache = await APIManager.getGearData();
             if(!cache)
                 throw '';
-            console.log(Object.keys(cache).length);
             this.Gear = cache as GearCacheType;
         }
         catch {

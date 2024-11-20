@@ -269,7 +269,9 @@
                 "objectEmbedTotalAstraCost": "__Coût total d'obtention à partir du mythique__",
                 "otherPlaceHolder": "autres équipements",
                 "setPlaceHolder": "Cliquez ici pour choisir une pièce",
-                "specificAstralite": "{text}{text2} ({text3} {text2} spécifiques)"
+                "specificAstralite": "{text}{text2} ({text3} {text2} spécifiques)",
+                "astraliteCostRatio": "__Gain de % / astralite dépensée__",
+                "astraliteCostRatioExplaination": "-# Plus la valeur après le `e` est en dessous de zéro, moins le ratio est élevé"
             }
         },
         "guildfest": {

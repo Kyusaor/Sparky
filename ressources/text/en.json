@@ -269,7 +269,9 @@
 				"objectEmbedTotalAstraCost": "__Total cost from mythic__",
 				"otherPlaceHolder": "others sets",
 				"setPlaceHolder": "Click here to select an item",
-				"specificAstralite": "{text}{text2} ({text3} specific {text2})"
+				"specificAstralite": "{text}{text2} ({text3} specific {text2})",
+                "astraliteCostRatio": "__% gain / spent astralite__",
+                "astraliteCostRatioExplaination": "-# The lesser is the value following the `e`, the lesser is the ratio"
 			}
 		},
 		"guildfest": {
