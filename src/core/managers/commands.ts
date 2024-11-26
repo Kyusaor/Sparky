@@ -267,7 +267,12 @@ export abstract class CommandManager {
                             //Display the stats and stats/cost ratio
                             let astraStatsString = `**${Translations.displayText(commandText.astraliteLvl, { text: astraLvl.toString() })}**:\n`;
                             Object.keys(astraStats).forEach(statName => {
-                                astraStatsString += `-${gearText.stats[statName as StatType]}: ${astraStats[statName as StatType][astraLvl - 1]}${Constants.statSuffix[statName as StatType]}\n`;
+                                let statType = Constants.statSuffix[statName as StatType];
+                                let statAmount = astraStats[statName as StatType][astraLvl - 1];
+
+                                if(statType == "")
+                                    statAmount = Math.floor(statAmount);
+                                astraStatsString += `-${gearText.stats[statName as StatType]}: ${statAmount}${statType}\n`;
                             });
 
                             embed.addFields(
@@ -321,7 +326,7 @@ export abstract class CommandManager {
                  */
                 function displayScientificNumber(num: number) {
                     let expo = num.toExponential();
-                    let pow = expo.slice(-2);
+                    let pow = expo.split('-')[1];
                     let value = Number(expo.slice(0, -3));
                     
                     return `${value.toFixed(2)} e ${pow}`
