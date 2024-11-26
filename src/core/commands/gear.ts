@@ -1,4 +1,4 @@
-import { CommandArgs, CommandInterface, GearCacheType, GearObject, GearSet, textLanguage } from '../constants/types';
+import { CommandArgs, CommandInterface, GearSet, textLanguage } from '../constants/types';
 import { Command, CommandManager } from '../managers/commands.js';
 import { Console, Cache, TranslationsCache } from '../../main.js';
 import { Utils } from '../utils.js';
@@ -29,7 +29,7 @@ export const gear: CommandInterface = {
                 let embed = await baseDataEmbed(commandText, language, gearMenuThumbnail.display);
                 let component = buildGearSelectMenu(language, commandText);
 
-                await intera.reply({ embeds: [embed], components: component, files: [gearMenuThumbnail.attachment] });
+                await Command.prototype.reply({ embeds: [embed], components: component, files: [gearMenuThumbnail.attachment] }, intera);
                 break;
 
             default:
@@ -81,14 +81,6 @@ function buildGearSelectMenu(language: textLanguage, text: Record<string, string
             otherMenu.addOptions(menuOption);
     }
     return [new ActionRowBuilder<SelectMenuBuilder>().addComponents(mobMenu), new ActionRowBuilder<SelectMenuBuilder>().addComponents(otherMenu)];
-}
-
-// noinspection JSUnusedLocalSymbols
-/**
- * TODO: returns a single gear element data
- */
-async function getSingleGearData(): Promise<GearObject> {
-    throw 'function not implemented yet';
 }
 
 /*
