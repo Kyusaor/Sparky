@@ -50,10 +50,11 @@ export default class APIManager {
             let buffer = await request.arrayBuffer();
 
             let attach = new AttachmentBuilder(Buffer.from(buffer), {name: 'image.png'});
-            return {attachment: attach, display: `attachment://${attach.name}`};
+            return {attachment: attach, display: `attachment://image.png`};
         }
-        catch (e) {
-            throw (e as Error) + `Impossible to fetch image at /image${path}`;
+        catch {
+            Console.error(new HTTPResponseError(new Response({}, {status: 500, statusText: `Impossible to fetch the image at ${path}`})))
+            return { attachment: new AttachmentBuilder('./ressources/images/error.png', {name: 'image.png'}), display: `attachment://image.png`}
         }
     };
 
