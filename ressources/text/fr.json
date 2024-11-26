@@ -271,7 +271,7 @@
                 "setPlaceHolder": "Cliquez ici pour choisir une pièce",
                 "specificAstralite": "{text}{text2} ({text3} {text2} spécifiques)",
                 "astraliteCostRatio": "__Gain de % / astralite dépensée__",
-                "astraliteCostRatioExplaination": "-# Plus la valeur après le `e` est en dessous de zéro, moins le ratio est élevé"
+                "astraliteCostRatioExplaination": "-# Pour comparer deux valeurs, regardez d'abord le nombre après le `e`, puis le nombre avant\n-# Plus la valeur après le `e` est grande, moins le ratio est élevé"
             }
         },
         "guildfest": {
@@ -700,7 +700,7 @@
         "commandIsLocked": "Cette commande est déjà en cours d'exécution",
         "defaultCommandReply": "Impossible d'exécuter la commande :confused:",
         "errors": {
-            "gearCacheUnavailable": "Base de données d'équipement indisponible (contactez le support)",
+            "gearCacheUnavailable": "Certaines ou toutes les données d'équipements sont indisponibles (contactez le support)",
             "DBerror": "Erreur base de données",
             "RoleNotEditable": "Impossible de modifier les rôles de l'user",
             "buttonWithoutCommand": "Ce customId ne contient pas de commande: ",
@@ -1257,7 +1257,7 @@
                 "logs": "rondins",
                 "lunar_crest": "éclat lunaire",
                 "lustrous_crystal": "cristal brillant",
-                "lux_braces": "bracelets lux",
+                "lux_bracers": "bracelets lux",
                 "maggot_tail": "queue de larve",
                 "maggot_teeth": "dent de larve",
                 "mark_of_fury": "emblème furie",
@@ -1270,7 +1270,7 @@
                 "mutated_brain": "cerveau mutant",
                 "ocean_breeze": "brise d'océant",
                 "oily_spring": "ressort huileux",
-                "platinum": "platine",
+                "platinium": "platine",
                 "power_core": "noyau de puissance",
                 "prehistoric_hide": "cuir préhistorique",
                 "queen_venom": "venin royal",
@@ -1291,7 +1291,7 @@
                 "submerged_alloy": "alliage submergé",
                 "tattooed_skin": "peau tatouée",
                 "terror_pollen": "pollen de terreur",
-                "terror_teeth": "dent de terreur",
+                "terrorteeth": "dent de terreur",
                 "terrorthorn_seed": "graine d'épinator",
                 "terrorvine": "liane de terreur",
                 "terrorwing": "aile de terreur",
@@ -1436,7 +1436,7 @@
                 "imperial_bulwark": "",
                 "indulgent_visage": "Visage indulgent",
                 "inferno": "Inferno",
-                "ivory_chocker": "Écharpe d'ivoire",
+                "ivory_choker": "Écharpe d'ivoire",
                 "kingslayer": "",
                 "kraken's_anchor": "Ancre de Kraken",
                 "kung_fu_wraps": "",

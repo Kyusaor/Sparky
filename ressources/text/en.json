@@ -271,7 +271,7 @@
 				"setPlaceHolder": "Click here to select an item",
 				"specificAstralite": "{text}{text2} ({text3} specific {text2})",
                 "astraliteCostRatio": "__% gain / spent astralite__",
-                "astraliteCostRatioExplaination": "-# The lesser is the value following the `e`, the lesser is the ratio"
+                "astraliteCostRatioExplaination": "-# To compare two values, look at the digit after the `e` first, then the number before\n-# The higher is the value following the `e`, the lesser is the ratio"
 			}
 		},
 		"guildfest": {
@@ -700,7 +700,7 @@
 		"commandIsLocked": "This command is already being executed",
 		"defaultCommandReply": "Impossible to execute the command :confused:",
 		"errors": {
-			"gearCacheUnavailable": "Stuff data unavailable (contact the support)",
+			"gearCacheUnavailable": "Some or all stuff data are unavailable (contact the support)",
 			"DBerror": "Database error",
 			"RoleNotEditable": "Impossible to edit user's roles",
 			"buttonWithoutCommand": "This customId doesn't contain any command: ",
@@ -1257,7 +1257,7 @@
 				"logs": "logs",
 				"lunar_crest": "lunar crest",
 				"lustrous_crystal": "lustrous crystal",
-				"lux_braces": "lux bracers",
+				"lux_bracers": "lux bracers",
 				"maggot_tail": "maggot tail",
 				"maggot_teeth": "maggot teeth",
 				"mark_of_fury": "mark of fury",
@@ -1270,7 +1270,7 @@
 				"mutated_brain": "mutated brain",
 				"ocean_breeze": "ocean breeze",
 				"oily_spring": "oily spring",
-				"platinum": "platinum",
+				"platinium": "platinum",
 				"power_core": "power core",
 				"prehistoric_hide": "prehistoric hide",
 				"queen_venom": "queen venom",
@@ -1291,7 +1291,7 @@
 				"submerged_alloy": "submerged alloy",
 				"tattooed_skin": "tattooed skin",
 				"terror_pollen": "terror pollen",
-				"terror_teeth": "terror teeth",
+				"terrorteeth": "terror teeth",
 				"terrorthorn_seed": "terrorthorn seed",
 				"terrorvine": "terrorvine",
 				"terrorwing": "terrorwing",
@@ -1436,7 +1436,7 @@
 				"imperial_bulwark": "Imperial bulwark",
 				"indulgent_visage": "Indulgent visage",
 				"inferno": "Inferno",
-				"ivory_chocker": "Ivory chocker",
+				"ivory_choker": "Ivory chocker",
 				"kingslayer": "Kingslayer",
 				"kraken's_anchor": "Kraken's anchor",
 				"kung_fu_wraps": "Kung fu wraps",
@@ -1600,7 +1600,7 @@
 				"gold-prod": "Gold production",
 				"hunt-dmg": "Hunt damage boost",
 				"hunt-mp": "Hunt MP boost",
-				"hunt-speed": " speed",
+				"hunt-speed": "Hunt speed",
 				"inf-atk": "Infantry ATK",
 				"inf-atk-wonder": "Infantry wonder ATK",
 				"inf-def": "Infantry DEF",
