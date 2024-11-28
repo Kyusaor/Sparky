@@ -3,6 +3,8 @@ import {
     APIApplicationCommandOptionChoice,
     APIEmbed,
     APIEmbedField,
+    ApplicationCommandOptionChoiceData,
+    AutocompleteInteraction,
     ButtonBuilder,
     ButtonInteraction,
     ButtonStyle,
@@ -72,6 +74,24 @@ import APIManager from './apicalls.js';
 import { createRarityGearButtons } from './events.js';
 
 export abstract class CommandManager {
+
+    static async autocompleteManager(intera: AutocompleteInteraction, language: textLanguage) {
+        let choices: ApplicationCommandOptionChoiceData<string | number>[] = [];
+        const focusOpt = intera.options.getFocused().toLowerCase();
+
+        switch (intera.commandName) {
+            case 'gear':
+                let list = TranslationsCache[language].others.gear.stats;
+                choices = Object.keys(list)
+                    .filter(name => list[name as keyof typeof list].toLowerCase().includes(focusOpt))
+                    .map(e => ({ name: list[e as keyof typeof list], value: e }))
+                break;
+        }
+
+        if (choices.length > 25) choices = [{ name: "Trop d'éléments, continuez d'écrire pour affiner la recherche", value: "error" }]
+        await intera.respond(choices);
+    }
+
 
     static baseSlashCommandBuilder(name: CommandName, perm: perksType): SlashCommandBuilder {
         const frJSON = JSON.parse(readFileSync(`./ressources/text/fr.json`, 'utf-8'));

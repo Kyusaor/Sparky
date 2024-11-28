@@ -51,6 +51,8 @@ export abstract class EventHandler {
             if (intera.isStringSelectMenu())
                 await SelectMenuManager(intera, language);
 
+            if (intera.isAutocomplete())
+                await CommandManager.autocompleteManager(intera, language)
         }
         catch (e) {
             Console.error(e);
