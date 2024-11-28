@@ -250,8 +250,32 @@
                 "data": {
                     "description": "Obtenez des informations sur une pièece spécifique",
                     "name": "info"
+                },
+                "top": {
+                    "description": "Obtenez la meilleur pièce donnée pour une stat donnée",
+                    "name": "top",
+                    "options": {
+                        "piecename": {
+                            "name": "partie",
+                            "description": "La partie de stuff que vous voulez vérifier"
+                        },
+                        "stats": {
+                            "name": "stat",
+                            "description": "La stat que vous voulez utiliser en filtre"
+                        }
+                    }
                 }
             },
+            "choices": {
+                "piecename": {
+                    "accessory": "accessoire",
+                    "armor": "plastron",
+                    "helmet": "casque",
+                    "legs": "jambes",
+                    "mainhand": "main principale",
+                    "offhand": "main secondaire"
+                }
+                },
             "text": {
                 "astraliteLvl": "Astralite niv.{text}",
                 "dataEmbedDescription": "*Sélectionner ci-dessous la collection à laquelle appartient la pièce voulue, puis la pièece concernée*",
@@ -472,9 +496,7 @@
                     "name": "monstre"
                 }
             },
-            "text": {
-
-            }
+            "text": {}
         },
         "link": {
             "description": "Donne le lien d'ajout du bot",

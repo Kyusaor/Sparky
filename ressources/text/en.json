@@ -250,6 +250,30 @@
 				"data": {
 					"description": "Get specific data about gear sets",
 					"name": "info"
+				},
+				"top": {
+					"description": "Get the best piece of stuff for the given stat",
+					"name": "top",
+					"options": {
+						"piecename": {
+							"name": "part",
+							"description": "The stuff part you want to check"
+						},
+						"stats": {
+							"name": "stat",
+							"description": "The stat you want to use to sort the pieces"
+						}
+					}
+				}
+			},
+			"choices": {
+				"piecename": {
+					"accessory": "accessory",
+					"armor": "armor",
+					"helmet": "helmet",
+					"legs": "legs",
+					"mainhand": "main-hand",
+					"offhand": "off-hand"
 				}
 			},
 			"text": {
@@ -270,8 +294,8 @@
 				"otherPlaceHolder": "others sets",
 				"setPlaceHolder": "Click here to select an item",
 				"specificAstralite": "{text}{text2} ({text3} specific {text2})",
-                "astraliteCostRatio": "__% gain / spent astralite__",
-                "astraliteCostRatioExplaination": "-# To compare two values, look at the digit after the `e` first, then the number before\n-# The higher is the value following the `e`, the lesser is the ratio"
+				"astraliteCostRatio": "__% gain / spent astralite__",
+				"astraliteCostRatioExplaination": "-# To compare two values, look at the digit after the `e` first, then the number before\n-# The higher is the value following the `e`, the lesser is the ratio"
 			}
 		},
 		"guildfest": {
@@ -472,9 +496,7 @@
 					"name": "monster"
 				}
 			},
-			"text": {
-
-			}
+			"text": {}
 		},
 		"link": {
 			"description": "Give the bot invite link",
