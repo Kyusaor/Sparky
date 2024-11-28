@@ -2,7 +2,7 @@ import { CommandArgs, CommandInterface, GearSet, textLanguage } from '../constan
 import { Command, CommandManager } from '../managers/commands.js';
 import { Console, Cache, TranslationsCache } from '../../main.js';
 import { Utils } from '../utils.js';
-import { ActionRowBuilder, SelectMenuBuilder, SelectMenuOptionBuilder } from 'discord.js';
+import { ActionRowBuilder, SelectMenuBuilder, SelectMenuOptionBuilder, SlashCommandStringOption } from 'discord.js';
 import APIManager from '../managers/apicalls.js';
 
 export const gear: CommandInterface = {
@@ -13,6 +13,18 @@ export const gear: CommandInterface = {
 
     commandStructure: CommandManager.baseSlashCommandBuilder('gear', 'member')
         .addSubcommand(Command.generateSubcommandBuilder('gear', 'data')
+        )
+        .addSubcommand(Command.generateSubcommandBuilder('gear', 'top')
+            .addStringOption(
+                (Command.generateCommandOptionBuilder('gear', 'top', 'string', true, "piecename") as SlashCommandStringOption)
+                    .setChoices(...Command.getChoices('gear', 'piecename'))
+                    .setRequired(true)
+            )
+            .addStringOption(
+                (Command.generateCommandOptionBuilder('gear', 'top', 'string', true, 'stats') as SlashCommandStringOption)
+                    .setAutocomplete(true)
+                    .setRequired(true)
+            )
         ),
 
     run: async function ({ intera, language, commandText }: CommandArgs) {
