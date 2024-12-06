@@ -1663,4 +1663,25 @@ export abstract class Constants {
         'familiar-xp-train': '%',
         'familiar-xp-skill': '%'
     };
+
+    static readonly cumulativeStats:Partial<Record<StatType, StatType[]>> = {
+        "cav-atk": ["army-atk"],
+        "inf-atk": ["army-atk"],
+        "range-atk": ["army-atk"],
+        "siege-atk": ["army-atk"],
+        "cav-def": ["army-def"],
+        "inf-def": ["army-def"],
+        "range-def": ["army-def"],
+        "siege-def": ['army-def'],
+        "cav-hp": ["army-hp"],
+        "inf-hp": ["army-hp"],
+        "range-hp": ["army-hp"],
+        "siege-hp": ['army-hp'],
+        "cav-atk-wonder": ["army-atk", 'cav-atk'],
+        "inf-atk-wonder": ["army-atk", 'inf-atk'],
+        "range-atk-wonder": ["army-atk", 'range-atk'],
+        "cav-def-wonder": ["army-def", 'cav-def'],
+        "inf-def-wonder": ["army-def", 'inf-def'],
+        "range-def-wonder": ["army-def", 'range-def'],
+    }
 }
