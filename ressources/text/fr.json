@@ -298,7 +298,10 @@
                 "setPlaceHolder": "Cliquez ici pour choisir une pièce",
                 "specificAstralite": "{text}{text2} ({text3} {text2} spécifiques)",
                 "astraliteCostRatio": "__Gain de % / astralite dépensée__",
-                "astraliteCostRatioExplaination": "-# Pour comparer deux valeurs, regardez d'abord le nombre après le `e`, puis le nombre avant\n-# Plus la valeur après le `e` est grande, moins le ratio est élevé"
+                "astraliteCostRatioExplaination": "-# Pour comparer deux valeurs, regardez d'abord le nombre après le `e`, puis le nombre avant\n-# Plus la valeur après le `e` est grande, moins le ratio est élevé",
+            
+                "sortEmbedTitle": "Classement du meilleur {text2} ({text})",
+                "sortEmbedDescription": "*Les cumuls de stats armée ont été pris en compte pour classer les équipements\nLes stats utilisées en référence sont les stats mythiques avant utilisation d'astralites*"
             }
         },
         "guildfest": {

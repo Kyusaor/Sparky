@@ -142,31 +142,30 @@
 				]
 			}
 		},
-    "cycle": {
-            "name": "cycle",
-            "description": "Send the cycle of some ingame events",
-            "text": {
-                "monsterTitle": "Hunt",
-                "labyrinthTitle": "Labyrinth",
-                "tycoonTitle": "Kingdom tycoon",
-                "base": "__**{text}'s rotation**__:\n\nOngoing: **{text2}**\n",
-                "footer": "\n\n*Dates are given according to your local time, you don't have to do any conversion*"
-            },
-            "choices": {
-                "event": {
-                    "tycoon": "Kingdom tycoon",
-                    "labyrinth": "Labyrinth",
-                    "monster": "Monsters"
-                }
-            },
-            "options": {
-                "event": {
-                    "name": "event",
-                    "description": "The event you want the rotation for"
-                }
-            }
-        },
-
+		"cycle": {
+			"name": "cycle",
+			"description": "Send the cycle of some ingame events",
+			"text": {
+				"monsterTitle": "Hunt",
+				"labyrinthTitle": "Labyrinth",
+				"tycoonTitle": "Kingdom tycoon",
+				"base": "__**{text}'s rotation**__:\n\nOngoing: **{text2}**\n",
+				"footer": "\n\n*Dates are given according to your local time, you don't have to do any conversion*"
+			},
+			"choices": {
+				"event": {
+					"tycoon": "Kingdom tycoon",
+					"labyrinth": "Labyrinth",
+					"monster": "Monsters"
+				}
+			},
+			"options": {
+				"event": {
+					"name": "event",
+					"description": "The event you want the rotation for"
+				}
+			}
+		},
 		"data": {
 			"description": "Send the bot database",
 			"name": "data",
@@ -298,7 +297,10 @@
 				"setPlaceHolder": "Click here to select an item",
 				"specificAstralite": "{text}{text2} ({text3} specific {text2})",
 				"astraliteCostRatio": "__% gain / spent astralite__",
-				"astraliteCostRatioExplaination": "-# To compare two values, look at the digit after the `e` first, then the number before\n-# The higher is the value following the `e`, the lesser is the ratio"
+				"astraliteCostRatioExplaination": "-# To compare two values, look at the digit after the `e` first, then the number before\n-# The higher is the value following the `e`, the lesser is the ratio",
+            
+                "sortEmbedTitle": "Best {text} ({text2})",
+                "sortEmbedDescription": "*Army stats are taken into account when displaying the best items\nThe used stats are the mythic stats, without astralite*"
 			}
 		},
 		"guildfest": {
