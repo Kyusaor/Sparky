@@ -1,11 +1,23 @@
-import { APISelectMenuOption, ActionRowBuilder, CacheType, ChatInputCommandInteraction, EmbedBuilder, Guild, GuildMember, PermissionFlagsBits, Role, StringSelectMenuBuilder, TextChannel } from "discord.js";
-import { ChanData, CommandInterface, CommandName, fullServer, RolesData, textLanguage } from "../constants/types.js";
-import { Command, CommandManager } from "../managers/commands.js";
-import { Console, TranslationsCache, bot, consoleErrors, db, dev } from "../../main.js";
-import { ServerManager } from "../managers/servers.js";
-import { Utils } from "../utils.js";
-import { Translations } from "../constants/translations.js";
-import { Constants, DiscordValues } from "../constants/values.js";
+import {
+    ActionRowBuilder,
+    APISelectMenuOption,
+    CacheType,
+    ChatInputCommandInteraction,
+    EmbedBuilder,
+    Guild,
+    GuildMember,
+    PermissionFlagsBits,
+    Role,
+    StringSelectMenuBuilder,
+    TextChannel
+} from 'discord.js';
+import {ChanData, CommandInterface, CommandName, fullServer, RolesData, textLanguage} from '../constants/types.js';
+import {Command, CommandManager} from '../managers/commands.js';
+import {bot, Console, consoleErrors, db, dev, TranslationsCache} from '../../main.js';
+import {ServerManager} from '../managers/servers.js';
+import {Utils} from '../utils.js';
+import {Translations} from '../constants/translations.js';
+import {Constants, DiscordValues} from '../constants/values.js';
 
 export const watcher: CommandInterface = {
     permissionLevel: 2,
@@ -117,7 +129,7 @@ function checkPerm(bot: GuildMember, language: textLanguage): string | undefined
         return Translations.displayText(text.MissingPermissions, { text: str })
 }
 
-async function deleteChanOrRole(type: "channels" | "roles", guild: Guild, botmember: GuildMember, commandText: Record<string, string>, intera: ChatInputCommandInteraction<CacheType>): Promise<string | void> {
+async function deleteChanOrRole(type: "channels" | "roles", guild: Guild, botmember: GuildMember, commandText: Record<string, string>, intera: ChatInputCommandInteraction<"cached">): Promise<string | void> {
     let guildManager = new ServerManager(guild);
     let data = await guildManager.getData(type) as ChanData | RolesData;
 
@@ -235,14 +247,14 @@ function buildBoardEmbedMessage(text: Record<string, string>, commandName: Comma
 
     let menuOptions: APISelectMenuOption[] = []
 
-    for (let i of Object.keys(Constants.hellMenu)) {
-        let name = TranslationsCache[language].others.hellEvents[i as keyof typeof Constants.hellMenu];
+    for (let i of Constants.hellMenu) {
+        let name = TranslationsCache[language].others.hellEvents[i as keyof typeof TranslationsCache.fr.others.hellEvents];
         if (i !== "challengeResearch" && i !== "challengeTroops")
             name = text.hell + name;
         menuOptions.push({
             value: i,
             label: Utils.capitalizeFirst(name),
-            emoji: Constants.hellMenu[i as keyof typeof Constants.hellMenu].emoji,
+            emoji: {name: Utils.displayEmoji(i)?.name!, id: Utils.displayEmoji(i)?.id},
             description: Translations.displayText(text.boardMenuOptionDescription, { text: name })
         })
     }
@@ -253,7 +265,7 @@ function buildBoardEmbedMessage(text: Record<string, string>, commandName: Comma
                 .setCustomId(`${Command.generateButtonCustomId(commandName, language)}-boardMenu`)
                 .setPlaceholder(text.boardMenuPlaceholder)
                 .setMinValues(0)
-                .setMaxValues(Object.keys(Constants.hellMenu).length)
+                .setMaxValues(Constants.hellMenu.length)
                 .addOptions(...menuOptions)
         )
 

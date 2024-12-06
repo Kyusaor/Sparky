@@ -1,10 +1,19 @@
-import consoleStamp from "console-stamp";
-import { ActivityType, Client, EmbedBuilder, EmbedFooterData, Locale, MessagePayload, PermissionsBitField, TextChannel } from "discord.js";
-import { createWriteStream, existsSync, mkdirSync } from "fs";
-import { bot, botCommands, chanList, Console, dev, TranslationsCache } from "../main.js";
-import { fetchedChannelsAtBoot, interestLevel, textLanguage } from "./constants/types.js";
-import { DiscordValues } from "./constants/values.js";
-import { Translations } from "./constants/translations.js";
+import consoleStamp from 'console-stamp';
+import {
+    ActivityType,
+    ApplicationEmoji,
+    Client,
+    EmbedBuilder,
+    EmbedFooterData,
+    Locale,
+    PermissionsBitField,
+    TextChannel
+} from 'discord.js';
+import {createWriteStream, existsSync, mkdirSync} from 'fs';
+import {bot, botCommands, chanList, Console, dev, emoteListCache, TranslationsCache} from '../main.js';
+import {fetchedChannelsAtBoot, interestLevel, textLanguage} from './constants/types.js';
+import {DiscordValues} from './constants/values.js';
+import {Translations} from './constants/translations.js';
 
 export abstract class Utils {
 
@@ -16,21 +25,29 @@ export abstract class Utils {
         if (date instanceof Date)
             date = date.getTime();
         let mtn = Date.now();
-        let ecart = Math.floor((mtn - date) / 86400000);
-        return ecart
+        return Math.floor((mtn - date) / 86400000)
     }
 
     static displayBotLink(): string {
         return `https://discord.com/api/oauth2/authorize?client_id=${bot.user?.id}&permissions=${Utils.getBotPermissionsBigint()}&scope=bot%20applications.commands`
     }
 
-    static displayEmoteInChat(emoteData: typeof DiscordValues.emotes.building): string {
-        return `<:${emoteData.name}:${emoteData.id}>`
+    static displayEmoteInChat(emote: string) {
+        let emoji = this.displayEmoji(emote);
+        return emoji ? `<:${emoji.name}:${emoji.id}>` : `:${emote}:`
+    }
+
+    static displayEmoji(emote: string) {
+        if(!emoteListCache.includes(emote)) {
+            Console.info(`L'emote ${emote} n'existe pas dans le bot`)
+            return DiscordValues.emoteNotFound as ApplicationEmoji;
+        }
+        return bot.application!.emojis.cache.find(e => e.name == emote) || DiscordValues.emoteNotFound as ApplicationEmoji;
     }
 
     static displayInterestLevel(interest: interestLevel) {
         let star = `⭐`;
-        let noStar = this.displayEmoteInChat(DiscordValues.emotes.blackStar);
+        let noStar = this.displayEmoteInChat('blackStar');
 
         let str = star;
         for (let i = 0; i < 3; i++) {
@@ -52,11 +69,9 @@ export abstract class Utils {
                 iconURL: Translations.displayText(rdmFooter.iconURL!, { dev_avatar_url: dev.displayAvatarURL() })
             }
 
-        let embed = new EmbedBuilder()
-            .setColor(DiscordValues.embedColor)
-            .setFooter(rdmFooter)
-
-        return embed;
+        return new EmbedBuilder()
+            .setColor(DiscordValues.embedDefaultColor)
+            .setFooter(rdmFooter);
     };
 
     static async fetchChannelsAtBoot(): Promise<fetchedChannelsAtBoot> {
@@ -106,6 +121,10 @@ export abstract class Utils {
             })
         }
         return new PermissionsBitField(perms).bitfield;
+    }
+
+    static getCommandNameFromButtonOrMenu(id: string) {
+        return id.split("-")[0];
     }
 
     static getLanguageFromLocale(locale: Locale): textLanguage {
@@ -206,7 +225,7 @@ export class ConsoleLogger {
 
         let payload;
         path ?
-            payload = {content: input.stack || input, files: [path]} :
+            payload = { content: input.stack || input, files: [path] } :
             payload = input.stack || input;
         chanList.LOGS_DB?.send(payload)
             .catch(e => Console.error(e))
@@ -217,7 +236,7 @@ export class ConsoleLogger {
         this.logger.trace(`[ERROR] ${input.stack || input}`);
 
         chanList?.LOGS_ERRORS?.send(input.stack || input)
-            .then(e => {
+            .then(() => {
                 if (crash)
                     process.exit(1)
             })

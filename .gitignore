@@ -3,3 +3,5 @@ data/*
 dist/
 .env
 logs/
+/.idea/*
+.vscode/tasks.json

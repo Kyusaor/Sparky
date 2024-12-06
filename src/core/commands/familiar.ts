@@ -1,10 +1,17 @@
-import { APIEmbed, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, SlashCommandStringOption } from "discord.js";
-import { CommandArgs, CommandInterface, embedPageData, familiarName, pactList } from "../constants/types.js";
-import { Command, CommandManager, FamiliarManager } from "../managers/commands.js";
-import { Utils } from "../utils.js";
-import { Constants, DiscordValues } from "../constants/values.js";
-import { TranslationsCache } from "../../main.js";
-import { Translations } from "../constants/translations.js";
+import {
+    ActionRowBuilder,
+    APIEmbed,
+    ButtonBuilder,
+    ButtonStyle,
+    EmbedBuilder,
+    SlashCommandStringOption
+} from 'discord.js';
+import {CommandArgs, CommandInterface, embedPageData, familiarName, pactList} from '../constants/types.js';
+import {Command, CommandManager, FamiliarManager} from '../managers/commands.js';
+import {Utils} from '../utils.js';
+import {Constants, DiscordValues} from '../constants/values.js';
+import {TranslationsCache} from '../../main.js';
+import {Translations} from '../constants/translations.js';
 
 export const familiar: CommandInterface = {
 
@@ -48,7 +55,7 @@ async function famidex({ intera, language, commandText }: CommandArgs) {
             Object.keys(Constants.familiarsData).forEach(fam => {
                 let famData = Constants.familiarsData[fam as familiarName];
                 if (famData.pactTier == pact)
-                    value += `-${Utils.displayEmoteInChat(DiscordValues.emotes[`familiarRank${famData.tier}`])} ${famTranslations[fam as familiarName].name}\n`
+                    value += `-${Utils.displayEmoteInChat(`familiarRank${famData.tier}`)} ${famTranslations[fam as familiarName].name}\n`
             })
             listEmbed.addFields([{ name, value }])
         }
@@ -79,7 +86,7 @@ async function famidex({ intera, language, commandText }: CommandArgs) {
                 new ButtonBuilder()
                     .setCustomId(`${Command.generateButtonCustomId("familiar", language)}-${fam}`)
                     .setLabel(famName)
-                    .setEmoji(DiscordValues.emotes[`familiarRank${famData.tier}`].id)
+                    .setEmoji(Utils.displayEmoji(`familiarRank${famData.tier}`).id)
                     .setStyle(ButtonStyle.Primary)
             )
         }
@@ -98,6 +105,5 @@ export function getEditedEmbed(data:embedPageData, embed: Readonly<APIEmbed>):Em
         newFamIndex = 0;
     let newFamName = pactList[newFamIndex];
 
-    let newEmbed = FamiliarManager.getFamiliarEmbed(newFamName, data.language);
-    return newEmbed;
+    return FamiliarManager.getFamiliarEmbed(newFamName, data.language);
 }

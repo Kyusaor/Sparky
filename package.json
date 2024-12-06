@@ -1,6 +1,6 @@
 {
   "name": "sparkv2",
-  "version": "3.6.0",
+  "version": "3.7.0",
   "description": "",
   "type": "module",
   "main": "main.js",
@@ -23,11 +23,12 @@
   "dependencies": {
     "@types/node-cron": "3.0.7",
     "console-stamp": "3.1.1",
-    "discord.js": "^14.15.3",
+    "discord.js": "14.16.3",
     "fs": "0.0.1-security",
     "mysql": "2.18.1",
     "mysqldump": "^3.2.0",
     "node-cron": "3.0.2",
+    "node-fetch": "3.3.2",
     "yesno": "0.4.0"
   },
   "devDependencies": {
