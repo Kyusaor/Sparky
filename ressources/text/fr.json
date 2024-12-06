@@ -160,19 +160,11 @@
 
                 }
             },
-            "description": "Envoies les dates d'un évènement donné",
-            "name": "cycle",
             "options": {
                 "event": {
                     "description": "L'évènement dont vous voulez le cycle",
                     "name": "évènement"
                 }
-            },
-            "text": {
-                "base": "__**Cycle {text}**__:\n\nEn cours: **{text2}**\n",
-                "footer": "\n\n*Les heures sont données dans votre fuseau horaire, vous n'avez pas de conversion à faire*",
-                "labyrinthTitle": "du labyrinthe",
-                "tycoonTitle": "du Royaume du pouvoir"
             }
         },
         "data": {
@@ -473,30 +465,30 @@
         "lineup": {
             "choices": {
                 "mobs": {
-                    "arcticflipper": "Flipper Arctique",
+                    "arcticFlipper": "Flipper Arctique",
                     "blackwing": "Ailes Noires",
-                    "bonappeti": "Morfalange",
+                    "bonAppeti": "Morfalange",
                     "cottageroar": "Cott-rage",
                     "frostwing": "Aile de Givre",
                     "gargantua": "Gargantua",
                     "gawrilla": "Gorzilla",
-                    "grimreaper": "Grim Reaper",
+                    "grimReaper": "Grim Reaper",
                     "gryphon": "Griffon",
                     "hardrox": "Golem Antique",
-                    "helldrider": "Drider de l'Enfer",
+                    "hellDrider": "Drider de l'Enfer",
                     "hootclaw": "Serrulule",
-                    "mechatrojan": "Mecha-Troyen",
-                    "megamaggot": "Méga-Larve",
+                    "mechaTrojan": "Mecha-Troyen",
+                    "megaMaggot": "Méga-Larve",
                     "necrosis": "Nécrose",
                     "noceros": "Nocéros",
-                    "queenbee": "Reine Abeille",
+                    "queenBee": "Reine Abeille",
                     "saberfang": "Sabrecroc",
-                    "serpentgladiator": "Gladiateur Serpent",
-                    "snowbeast": "Bête des Neiges",
+                    "serpentGladiator": "Gladiateur Serpent",
+                    "snowBeast": "Bête des Neiges",
                     "terrorthorn": "Epinator",
-                    "tidaltitan": "Titan des Marées",
-                    "voodooshaman": "Chaman Vaudou",
-                    "wyrm": "Wyrm de Jade"
+                    "tidalTitan": "Titan des Marées",
+                    "voodooShaman": "Chaman Vaudou",
+                    "jadeWyrm": "Wyrm de Jade"
                 }
             },
             "description": "Obtenez les meilleurs compos pour la chasse aux monstres",
@@ -960,7 +952,7 @@
                 "warTalentDesctiption": "Augmente les PV infanterie de 80% pendant 10 secondes quand 10% de vos troupes d'infanterie sont tombées",
                 "warTalentName": "Dernière danse"
             },
-            "helldrider": {
+            "hellDrider": {
                 "ability1Description": "PV infanterie +10%",
                 "ability1Name": "Esprit infernal",
                 "ability2Description": "Chance d'évasion du chef à la capture +10%",
@@ -1176,7 +1168,7 @@
                 "warTalentDesctiption": "Réduit la DEF armée adverse de 15%",
                 "warTalentName": "Séisme"
             },
-            "tidal": {
+            "tidalTitan": {
                 "ability1Description": "PV infanterie +10%",
                 "ability1Name": "Fontaine de jouvence",
                 "ability2Description": "DEF armée +10%",
@@ -1703,30 +1695,30 @@
             "yellowOrb": "orbes jaunes"
         },
         "mobs": {
-            "arcticflipper": "Flipper Arctique",
+            "arcticFlipper": "Flipper Arctique",
             "blackwing": "Ailes Noires",
-            "bonappeti": "Morfalange",
+            "bonAppeti": "Morfalange",
             "cottageroar": "Cott-rage",
             "frostwing": "Aile de Givre",
             "gargantua": "Gargantua",
             "gawrilla": "Gorzilla",
-            "grimreaper": "Faucheuse",
+            "grimReaper": "Faucheuse",
             "gryphon": "Griffon",
             "hardrox": "Golem Antique",
-            "helldrider": "Drider de l'Enfer",
+            "hellDrider": "Drider de l'Enfer",
             "hootclaw": "Serrulule",
-            "mechatrojan": "Mecha-Troyen",
-            "megamaggot": "Méga-Larve",
+            "mechaTrojan": "Mecha-Troyen",
+            "megaMaggot": "Méga-Larve",
             "necrosis": "Nécrose",
             "noceros": "Nocéros",
-            "queenbee": "Reine Abeille",
+            "queenBee": "Reine Abeille",
             "saberfang": "Sabrecroc",
-            "serpentgladiator": "Gladiateur Serpent",
-            "snowbeast": "Bête des Neiges",
+            "serpentGladiator": "Gladiateur Serpent",
+            "snowBeast": "Bête des Neiges",
             "terrorthorn": "Epinator",
-            "tidaltitan": "Titan des Marées",
-            "voodooshaman": "Chaman Vaudou",
-            "wyrm": "Wyrm de Jade"
+            "tidalTitan": "Titan des Marées",
+            "voodooShaman": "Chaman Vaudou",
+            "jadeWyrm": "Wyrm de Jade"
         },
         "rarity": {
             "common": "commun",

@@ -465,30 +465,30 @@
 		"lineup": {
 			"choices": {
 				"mobs": {
-					"arcticflipper": "Arctic Flipper",
+					"arcticFlipper": "Arctic Flipper",
 					"blackwing": "Blackwing",
-					"bonappeti": "Bon Appeti",
+					"bonAppeti": "Bon Appeti",
 					"cottageroar": "Cottageroar",
 					"frostwing": "Frostwing",
 					"gargantua": "Gargantua",
 					"gawrilla": "Gawrilla",
-					"grimreaper": "Grim Reaper",
+					"grimReaper": "Grim Reaper",
 					"gryphon": "Gryphon",
 					"hardrox": "Hardrox",
-					"helldrider": "Hell Drider",
+					"hellDrider": "Hell Drider",
 					"hootclaw": "Hootclaw",
-					"mechatrojan": "Mecha Trojan",
-					"megamaggot": "Mega Maggot",
+					"mechaTrojan": "Mecha Trojan",
+					"megaMaggot": "Mega Maggot",
 					"necrosis": "Necrosis",
 					"noceros": "Noceros",
-					"queenbee": "Queen Bee",
+					"queenBee": "Queen Bee",
 					"saberfang": "Saberfang",
-					"serpentgladiator": "Serpent Gladiator",
-					"snowbeast": "Snow Beast",
+					"serpentGladiator": "Serpent Gladiator",
+					"snowBeast": "Snow Beast",
 					"terrorthorn": "Terrorthorn",
-					"tidaltitan": "Tidal Titan",
-					"voodooshaman": "Voodoo Shaman",
-					"wyrm": "Jade Wyrm"
+					"tidalTitan": "Tidal Titan",
+					"voodooShaman": "Voodoo Shaman",
+					"jadeWyrm": "Jade Wyrm"
 				}
 			},
 			"description": "Get the best lineup for mob hunting",
@@ -952,7 +952,7 @@
 				"warTalentDesctiption": "Increses infantry max HP by 80% for 10 secondes when 10% of your ranged troops have fallen",
 				"warTalentName": "Last dance"
 			},
-			"helldrider": {
+			"hellDrider": {
 				"ability1Description": "Infantry HP +10%",
 				"ability1Name": "Hellish spirit",
 				"ability2Description": "Leader's chances of escaping when captured +10%",
@@ -1168,7 +1168,7 @@
 				"warTalentDesctiption": "Reduces enemy's army DEF by 15%",
 				"warTalentName": "Earthquake"
 			},
-			"tidal": {
+			"tidalTitan": {
 				"ability1Description": "Infantry HP +10%",
 				"ability1Name": "Fountain of youth",
 				"ability2Description": "Army DEF +10%",
@@ -1695,30 +1695,30 @@
 			"yellowOrb": "yellow orb"
 		},
 		"mobs": {
-			"arcticflipper": "Arctic Flipper",
+			"arcticFlipper": "Arctic Flipper",
 			"blackwing": "Blackwing",
-			"bonappeti": "Bon Appeti",
+			"bonAppeti": "Bon Appeti",
 			"cottageroar": "Cottageroar",
 			"frostwing": "Frostwing",
 			"gargantua": "Gargantua",
 			"gawrilla": "Gawrilla",
-			"grimreaper": "Grim Reaper",
+			"grimReaper": "Grim Reaper",
 			"gryphon": "Gryphon",
 			"hardrox": "Hardrox",
-			"helldrider": "Hell Drider",
+			"hellDrider": "Hell Drider",
 			"hootclaw": "Hootclaw",
-			"mechatrojan": "Mecha Trojan",
-			"megamaggot": "Mega Maggot",
+			"mechaTrojan": "Mecha Trojan",
+			"megaMaggot": "Mega Maggot",
 			"necrosis": "Necrosis",
 			"noceros": "Noceros",
-			"queenbee": "Queen Bee",
+			"queenBee": "Queen Bee",
 			"saberfang": "Saberfang",
-			"serpentgladiator": "Serpent Gladiator",
-			"snowbeast": "Snow Beast",
+			"serpentGladiator": "Serpent Gladiator",
+			"snowBeast": "Snow Beast",
 			"terrorthorn": "Terrorthorn",
-			"tidaltitan": "Tidal Titan",
-			"voodooshaman": "Voodoo Shaman",
-			"wyrm": "Jade Wyrm"
+			"tidalTitan": "Tidal Titan",
+			"voodooShaman": "Voodoo Shaman",
+			"jadeWyrm": "Jade Wyrm"
 		},
 		"rarity": {
 			"common": "common",
