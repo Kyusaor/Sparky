@@ -142,28 +142,31 @@
 				]
 			}
 		},
-		"cycle": {
-			"choices": {
-				"event": {
-					"labyrinth": "Labyrinth",
-					"tycoon": "Kingdom tycoon"
-				}
-			},
-			"description": "Send the cycle of some ingame events",
-			"name": "cycle",
-			"options": {
-				"event": {
-					"description": "The event you want the rotation for",
-					"name": "event"
-				}
-			},
-			"text": {
-				"base": "__**{text}'s rotation**__:\n\nOngoing: **{text2}**\n",
-				"footer": "\n\n*Dates are given according to your local time, you don't have to do any conversion*",
-				"labyrinthTitle": "Labyrinth",
-				"tycoonTitle": "Kingdom tycoon"
-			}
-		},
+    "cycle": {
+            "name": "cycle",
+            "description": "Send the cycle of some ingame events",
+            "text": {
+                "monsterTitle": "Hunt",
+                "labyrinthTitle": "Labyrinth",
+                "tycoonTitle": "Kingdom tycoon",
+                "base": "__**{text}'s rotation**__:\n\nOngoing: **{text2}**\n",
+                "footer": "\n\n*Dates are given according to your local time, you don't have to do any conversion*"
+            },
+            "choices": {
+                "event": {
+                    "tycoon": "Kingdom tycoon",
+                    "labyrinth": "Labyrinth",
+                    "monster": "Monsters"
+                }
+            },
+            "options": {
+                "event": {
+                    "name": "event",
+                    "description": "The event you want the rotation for"
+                }
+            }
+        },
+
 		"data": {
 			"description": "Send the bot database",
 			"name": "data",

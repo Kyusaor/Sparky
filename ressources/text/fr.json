@@ -143,10 +143,21 @@
             }
         },
         "cycle": {
+            "name": "cycle",
+            "description": "Envoies les dates d'un évènement donné",
+            "text": {
+                "monsterTitle": "des monstres",
+                "labyrinthTitle": "du labyrinthe",
+                "tycoonTitle": "du Royaume du pouvoir",
+                "base": "__**Cycle {text}**__:\n\nEn cours: **{text2}**\n",
+                "footer": "\n\n*Les heures sont données dans votre fuseau horaire, vous n'avez pas de conversion à faire*"
+            },
             "choices": {
                 "event": {
+                    "tycoon": "Royaume du pouvoir",
                     "labyrinth": "Labyrinthe",
-                    "tycoon": "Royaume du pouvoir"
+                    "monster": "Monstres"
+
                 }
             },
             "description": "Envoies les dates d'un évènement donné",
