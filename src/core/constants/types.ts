@@ -1,6 +1,14 @@
-import { ChatInputCommandInteraction, SlashCommandBuilder, SlashCommandOptionsOnlyBuilder, SlashCommandSubcommandsOnlyBuilder, TextChannel } from "discord.js";
-import { Constants, DiscordValues } from "./values.js";
+import {
+    AttachmentBuilder,
+    ChatInputCommandInteraction,
+    SlashCommandBuilder,
+    SlashCommandOptionsOnlyBuilder,
+    SlashCommandSubcommandsOnlyBuilder,
+    TextChannel
+} from 'discord.js';
+import {Constants, DiscordValues} from './values.js';
 import frTranslationJSON from '../../../ressources/text/fr.json';
+import {TranslationsCache} from '../../main';
 
 
 //Global
@@ -11,6 +19,10 @@ export type fetchedChannelsAtBoot = {
 export type queryArgs = string | number | boolean | null | queryArgs[] | undefined;
 
 
+//API return types
+export type ImageAPICall = {attachment: AttachmentBuilder, display: string};
+export type AstraliteStats = Record<StatType, [number, number, number, number, number, number, number, number, number, number, number, number]>
+
 //Translations
 export type textLanguage = "fr" | "en";
 
@@ -19,11 +31,11 @@ export interface TranslationCacheType {
     en: TranslationObject;
 }
 
-export type SingleLanguageCommandTranslation = { 
-    name: string, 
-    description: string, 
-    options?:Record<string, CommandOptionData>, 
-    subcommand?: Record<string, { name: string, description: string, options?: Record<string, CommandOptionData> }>, 
+export type SingleLanguageCommandTranslation = {
+    name: string,
+    description: string,
+    options?:Record<string, CommandOptionData>,
+    subcommand?: Record<string, { name: string, description: string, options?: Record<string, CommandOptionData> }>,
     text?: Record<any, string[] | string | string[][]> ,
     choices?: Record<string, Record<string, string>>
 };
@@ -34,10 +46,10 @@ export type CommandTranslation = { fr: SingleLanguageCommandTranslation, en: Sin
 
 export type TranslationObject = typeof frTranslationJSON;
 
-export type ReplacerList = { 
-    username?: string, 
-    avatar?: string, 
-    dev_username?: string, 
+export type ReplacerList = {
+    username?: string,
+    avatar?: string,
+    dev_username?: string,
     dev_avatar_url?: string,
     support_email?: string,
     support_server_invite?: string,
@@ -66,7 +78,7 @@ export type FamiliarTranslation = {
 }
 
 //Commands
-export type CommandArgs = { intera: ChatInputCommandInteraction, language: textLanguage, commandText: Record<string, string> };
+export type CommandArgs = { intera: ChatInputCommandInteraction<"cached">, language: textLanguage, commandText: Record<string, string> };
 
 export interface CommandInterface {
     permissionLevel: 1 | 2 | 3;
@@ -74,7 +86,7 @@ export interface CommandInterface {
     cacheLockScope: cacheLockScope;
     commandStructure: SlashCommandSubcommandsOnlyBuilder | SlashCommandOptionsOnlyBuilder| SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
     run: ({ intera, language, commandText }: CommandArgs) => unknown
-};
+}
 
 export type perksType = "member" | "admin" | "dev";
 
@@ -121,6 +133,30 @@ export const pactList = ["1A", "1B", "2A", "2B", "3", "4", "5"] as const;
 
 export type interestLevel = 0 | 1 | 2 | 3;
 
+export type RarityNoMythic = "common" | "uncommon" | "rare" | "epic" | "legendary";
+export type RarityWithMythic = RarityNoMythic | "mythic";
+export type RarityWithTempered = RarityWithMythic | "tempered";
+export type GearSet = keyof typeof TranslationsCache.fr.others.mobs | keyof typeof TranslationsCache.fr.others.gear.setNames;
+export type GearPiece = "helmet" | "armor" | "legs" | "mainhand" | "offhand" | "accessory";
+export type StatType = "inf-atk" | "inf-def" | "inf-hp" | "range-atk" | "range-def" | "range-hp" | "cav-atk" | "cav-def" | "cav-hp" | "siege-atk" | "siege-def" | "siege-hp" | "army-atk" | "army-def" | "army-hp" | "research" | "building" | "forging-speed" | "gathering-speed" | "food-prod" | "gold-prod" | "stone-prod" | "timber-prod" | "ore-prod" | "player-exp" | "train-speed" | "upkeep" | "wall-def" | "craft-capacity" | "craft-speed" | "trap-def" | "trap-atk" | "trap-hp" | "army-capacity" | "debuff-hp" | "debuff-def" | "inf-atk-wonder" | "inf-def-wonder" | "range-atk-wonder" | "range-def-wonder" | "cav-atk-wonder" | "cav-def-wonder" | "travel-speed-wonder" | "travel-speed" | "energy-saver" | "energy-max" | "hunt-dmg" | "hunt-mp" | "hunt-speed" | "merge-speed-pact" | "merge-speed-skill" | "familiar-xp-train" | "familiar-xp-skill"
+export type CraftingItemSource = keyof typeof frTranslationJSON.others.mobs | keyof typeof frTranslationJSON.others.gear.sources;
+export type ButtonOutputType = 'classic' | 'tempered';
+export type GearItemName = keyof typeof TranslationsCache.fr.others.gear.setItemNames;
+
+export type GearObject = {
+    name: GearItemName,
+    set: GearSet,
+    piece: GearPiece,
+    requiredLevel: number,
+    isCollab?: boolean,
+    craft:Partial<Record<keyof typeof Constants.craftingItemSources, number>>,
+    ember?: {amount: number, rarity: RarityNoMythic}
+    stats: Partial<Record<StatType, [number, number, number, number, number, number] | [number, number] | [number]>>
+    astraliteCost?: [number, number, number, number, number, number, number, number, number, number, number, number] | [number, number, number]
+}
+
+export type GearCacheType = Record<GearSet, Record<Partial<GearPiece>, GearObject[]>> | undefined;
+
 //Database related
 export type RolesData = {
     watcher: string,
@@ -139,28 +175,28 @@ export type ChanData = {
 }
 
 export type fullServer = {
-    id: string, 
-    name: string, 
-    active: 0 | 1, 
+    id: string,
+    name: string,
+    active: 0 | 1,
     language: textLanguage,
     roles: RolesData | undefined,
     chans: ChanData | undefined
 }
 
-export type Server = { 
-    id: string, 
-    name: string, 
-    active: 0 | 1, 
+export type Server = {
+    id: string,
+    name: string,
+    active: 0 | 1,
     hellEvent: string,
-    language: textLanguage 
+    language: textLanguage
 };
 
-export type PartialServer = { 
-    id?: string, 
-    name?: string, 
-    active?: 0 | 1, 
+export type PartialServer = {
+    id?: string,
+    name?: string,
+    active?: 0 | 1,
     hellEvent?: string,
-    language?: textLanguage 
+    language?: textLanguage
 };
 
 export type UserData = {

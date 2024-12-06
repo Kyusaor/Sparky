@@ -1,13 +1,97 @@
-import { APIApplicationCommandOptionChoice, APIEmbed, APIEmbedField, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChannelType, ChatInputCommandInteraction, ComponentType, EmbedBuilder, EmbedData, EmbedFooterOptions, GuildMemberRoleManager, InteractionReplyOptions, MappedInteractionTypes, MessagePayload, PermissionFlagsBits, PermissionResolvable, PermissionsBitField, RestOrArray, SlashCommandAttachmentOption, SlashCommandBuilder, SlashCommandChannelOption, SlashCommandIntegerOption, SlashCommandNumberOption, SlashCommandOptionsOnlyBuilder, SlashCommandStringOption, SlashCommandSubcommandBuilder, SlashCommandSubcommandsOnlyBuilder, SlashCommandUserOption, StringSelectMenuInteraction, TextBasedChannel, TextChannel } from "discord.js";
-import { Console, StatusCache, TranslationsCache, bot, botCommands, chanList, db, pingMessagesCache } from "../../main.js";
-import { Translations } from "../constants/translations.js";
-import { CommandArgs, CommandInterface, CommandName, FamiliarTranslation, RolesData, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, cacheLockScope, embedPageData, familiarName, hellEventData, perksType, textLanguage } from "../constants/types.js";
-import { readFileSync, readdirSync } from "fs";
-import { Utils } from "../utils.js";
-import { Constants, DiscordValues } from "../constants/values.js";
-import { ServerManager } from "./servers.js";
+import {
+    ActionRowBuilder,
+    APIApplicationCommandOptionChoice,
+    APIEmbed,
+    APIEmbedField,
+    ApplicationCommandOptionChoiceData,
+    AutocompleteInteraction,
+    ButtonBuilder,
+    ButtonInteraction,
+    ButtonStyle,
+    ChannelType,
+    ChatInputCommandInteraction,
+    ComponentType,
+    EmbedBuilder,
+    EmbedData,
+    EmbedFooterOptions,
+    InteractionReplyOptions,
+    MessagePayload,
+    PermissionFlagsBits,
+    PermissionResolvable,
+    PermissionsBitField,
+    RestOrArray,
+    SlashCommandAttachmentOption,
+    SlashCommandBuilder,
+    SlashCommandChannelOption,
+    SlashCommandIntegerOption,
+    SlashCommandNumberOption,
+    SlashCommandOptionsOnlyBuilder,
+    SlashCommandStringOption,
+    SlashCommandSubcommandBuilder,
+    SlashCommandSubcommandsOnlyBuilder,
+    SlashCommandUserOption,
+    StringSelectMenuInteraction,
+    TextBasedChannel,
+    TextChannel
+} from 'discord.js';
+import {
+    bot,
+    botCommands,
+    chanList,
+    Console,
+    db,
+    Cache,
+    pingMessagesCache,
+    StatusCache,
+    TranslationsCache
+} from '../../main.js';
+import { Translations } from '../constants/translations.js';
+import {
+    ButtonOutputType,
+    cacheLockScope,
+    CommandArgs,
+    CommandInterface,
+    CommandName,
+    embedPageData,
+    familiarName,
+    FamiliarTranslation,
+    GearPiece,
+    GearSet,
+    hellEventData,
+    perksType,
+    RarityWithTempered,
+    RolesData,
+    SingleLanguageCommandTranslation,
+    StatType,
+    textLanguage,
+    TranslationCacheType,
+    TranslationObject
+} from '../constants/types.js';
+import { readdirSync, readFileSync } from 'fs';
+import { Utils } from '../utils.js';
+import { Constants, DiscordValues } from '../constants/values.js';
+import APIManager from './apicalls.js';
+import { createRarityGearButtons } from './events.js';
 
 export abstract class CommandManager {
+
+    static async autocompleteManager(intera: AutocompleteInteraction, language: textLanguage) {
+        let choices: ApplicationCommandOptionChoiceData<string | number>[] = [];
+        const focusOpt = intera.options.getFocused().toLowerCase();
+
+        switch (intera.commandName) {
+            case 'gear':
+                let list = TranslationsCache[language].others.gear.stats;
+                choices = Object.keys(list)
+                    .filter(name => list[name as keyof typeof list].toLowerCase().includes(focusOpt))
+                    .map(e => ({ name: list[e as keyof typeof list], value: e }))
+                break;
+        }
+
+        if (choices.length > 25) choices = [{ name: "Trop d'éléments, continuez d'écrire pour affiner la recherche", value: "error" }]
+        await intera.respond(choices);
+    }
+
 
     static baseSlashCommandBuilder(name: CommandName, perm: perksType): SlashCommandBuilder {
         const frJSON = JSON.parse(readFileSync(`./ressources/text/fr.json`, 'utf-8'));
@@ -18,17 +102,17 @@ export abstract class CommandManager {
         let defaultText = [translations.fr.commands, translations.en.commands];
         let text = {
             fr: defaultText[0][name as keyof typeof defaultText[0]],
-            en: defaultText[1][name as keyof typeof defaultText[1]],
+            en: defaultText[1][name as keyof typeof defaultText[1]]
         };
 
         let build = new SlashCommandBuilder()
             .setDMPermission(false)
             .setName(text.en.name)
-            .setNameLocalization("fr", text.fr.name)
+            .setNameLocalization('fr', text.fr.name)
             .setDescription(text.en.description)
-            .setDescriptionLocalization("fr", text.fr.description);
+            .setDescriptionLocalization('fr', text.fr.description);
 
-        if (perm !== "member")
+        if (perm !== 'member')
             build.setDefaultMemberPermissions(0);
 
         return build;
@@ -53,7 +137,7 @@ export abstract class CommandManager {
         return Commands;
     };
 
-    static async slashCommandManager(intera: ChatInputCommandInteraction, language: textLanguage) {
+    static async slashCommandManager(intera: ChatInputCommandInteraction<"cached">, language: textLanguage) {
         if (!intera.guildId && !['link', 'help'].includes(intera.commandName))
             return intera.reply(`${TranslationsCache.fr.global.noCommandOffServer}\n\n${TranslationsCache.en.global.noCommandOffServer}`);
 
@@ -80,19 +164,23 @@ export abstract class CommandManager {
             let checkPerm = Command.getMissingPermissions(command.neededPermissions || [], intera.channel, intera.guildId);
             if (checkPerm.length > 0)
                 return Command.prototype.reply(await Command.returnMissingPermissionMessage(checkPerm, intera.guild!.id, language), intera);
-            StatusCache.lock(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName)
+            StatusCache.lock(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName);
             await command.run(args);
-            StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName)
+            StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName);
             Console.log(userCommandLogString(intera));
-            await chanList.LOGS_USERS?.send(`__**New command**__\nUser: \`${intera.user.username}\`\nId: \`${intera.user.id}\`\nCommand: \`${intera.commandName}\`\nSubcommand: \`${intera.options.getSubcommand(false) || "No"}\`\nLanguage: \`${language}\`\nServer: \`${intera.guild?.name}\`\nID: \`${intera.guildId}\``)
+            await chanList.LOGS_USERS?.send(`__**New command**__\nUser: \`${intera.user.username}\`\nId: \`${intera.user.id}\`\nCommand: \`${intera.commandName}\`\nSubcommand: \`${intera.options.getSubcommand(false) || 'No'}\`\nLanguage: \`${language}\`\nServer: \`${intera.guild?.name}\`\nID: \`${intera.guildId}\``);
         }
         catch (err) {
             try {
-                await Command.prototype.reply({ content: TranslationsCache[language].global.CommandExecutionError, components: [] }, intera)
-            } catch (err) {
-                intera.channel?.send(TranslationsCache[language].global.CommandExecutionError).catch(e => e)
+                await Command.prototype.reply({
+                    content: TranslationsCache[language].global.CommandExecutionError,
+                    components: []
+                }, intera);
             }
-            StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName)
+            catch (err) {
+                intera.channel?.send(TranslationsCache[language].global.CommandExecutionError).catch(e => e);
+            }
+            StatusCache.unlock(intera.guildId || intera.user.id, intera.user.id, intera.commandName as CommandName);
             Console.error(err);
         }
     };
@@ -100,58 +188,193 @@ export abstract class CommandManager {
     static async buttonInteractionManager(button: ButtonInteraction, language: textLanguage) {
         if (button.message.author.id !== bot.user!.id)
             return;
-        let command = this.getCommandFromButtonId(button.customId);
+        let command = this.getCommandFromButtonOrMenuId(button.customId);
         if (!command)
-            return Console.info(TranslationsCache.fr.global.errors.buttonWithoutCommand + button.customId)
+            return Console.info(TranslationsCache.fr.global.errors.buttonWithoutCommand + button.customId);
 
         if (command !== 'not a base button' && StatusCache.isLocked(button.guildId, button.user.id, command)) {
-            return Command.prototype.reply({ content: TranslationsCache[language].global.commandIsLocked, ephemeral: true }, button);
+            return Command.prototype.reply({
+                content: TranslationsCache[language].global.commandIsLocked,
+                ephemeral: true
+            }, button);
         }
         switch (command) {
-            case "serverlist":
+            case 'serverlist':
                 try {
-                    await Command.defilePage("serverlist", button);
-                } catch (e) {
-                    Console.error(e)
+                    await Command.defilePage('serverlist', button);
+                }
+                catch (e) {
+                    Console.error(e);
                 }
                 break;
 
-            case "setglobalping":
+            case 'setglobalping':
                 try {
                     await WatcherManager.MentionManager(button);
-                } catch (e) {
-                    Console.error(e)
+                }
+                catch (e) {
+                    Console.error(e);
                 }
                 break;
 
             case 'familiar':
                 try {
                     button.customId.includes('Page') ?
-                        await FamiliarManager.defilePage(button, language, "familiar") :
-                        await FamiliarManager.replyFamiliarPage(button, language);
-                } catch (e) {
-                    Console.error(e)
+                        await FamiliarManager.defilePage(button, language, 'familiar') :
+                        FamiliarManager.replyFamiliarPage(button, language);
+                }
+                catch (e) {
+                    Console.error(e);
+                }
+                break;
+
+            case 'gear':
+                let GearCache = Cache.getGear();
+                button.deferUpdate();
+                if (!GearCache)
+                    return button.reply({ content: TranslationsCache[language].global.errors.gearCacheUnavailable, ephemeral: true });
+                let gearText = TranslationsCache[language].others.gear;
+                let commandText = TranslationsCache[language].commands.gear.text;
+                let interaData = button.customId.split('-');
+                let set = interaData[3] as GearSet;
+                let gearData = GearCache[set][interaData[4] as GearPiece].find(p => p.name == interaData[5]);
+                if (!gearData)
+                    return Console.error(`No gearData found for button ${interaData.join(' ')}`);
+                let rarity = interaData[6] as RarityWithTempered;
+                let step = interaData[7] as ButtonOutputType;
+
+
+                let buttonRowOutput: ActionRowBuilder<ButtonBuilder>[] = [];
+                let embed = new EmbedBuilder(button.message.embeds[0].data)
+                    .setThumbnail('attachment://image.png');
+
+                switch (step) {
+                    case 'tempered':
+                        let astraNumber = interaData[8];
+                        if (astraNumber == 'back') {
+                            embed = cleanEmbedStats(embed.data, language);
+                            buttonRowOutput = createRarityGearButtons(gearData, language, 'classic');
+                            embed.setColor(DiscordValues.embedDefaultColor);
+                        } else {
+                            buttonRowOutput = createRarityGearButtons(gearData, language, 'tempered');
+                            embed = cleanEmbedStats(embed.data, language);
+                            let astraLvl = Number(astraNumber);
+                            let astraStats = await APIManager.getAstraliteStats(gearData);
+
+                            // Display the Astralite cost
+                            if (gearData.astraliteCost) {
+                                let totalAstraCost: number = 0;
+                                for (let i = 0; i <= astraLvl - 1; i++)
+                                    totalAstraCost += gearData.astraliteCost[i];
+
+                                let astraStatsCostRatioString = ``;
+                                Object.keys(astraStats).forEach(statName => {
+                                    const currentStat = astraStats[statName as StatType][astraLvl - 1];
+                                    const previousStat = astraStats[statName as StatType][astraLvl - 2] || gearData!.stats[statName as StatType]![gearData!.stats[statName as StatType]!.length - 1];
+                                    const astraCost = Number(gearData!.astraliteCost![astraLvl - 1]) / 20;
+
+                                    const statRatio = (currentStat - previousStat) / astraCost;
+                                    astraStatsCostRatioString += `-${gearText.stats[statName as StatType]}: ${displayScientificNumber(statRatio)}\n`;
+                                })
+
+                                embed.addFields(
+                                    { name: commandText.objectEmbedAstraCost, value: displayAstraCost(gearData.astraliteCost[astraLvl - 1], language) },
+                                    { name: commandText.objectEmbedTotalAstraCost, value: displayAstraCost(totalAstraCost, language) },
+                                    { name: commandText.astraliteCostRatio, value: astraStatsCostRatioString + commandText.astraliteCostRatioExplaination }
+                                )
+                            }
+
+                            //Display the stats and stats/cost ratio
+                            let astraStatsString = `**${Translations.displayText(commandText.astraliteLvl, { text: astraLvl.toString() })}**:\n`;
+                            Object.keys(astraStats).forEach(statName => {
+                                let statType = Constants.statSuffix[statName as StatType];
+                                let statAmount = astraStats[statName as StatType][astraLvl - 1];
+
+                                if(statType == "")
+                                    statAmount = Math.floor(statAmount);
+                                astraStatsString += `-${gearText.stats[statName as StatType]}: ${statAmount}${statType}\n`;
+                            });
+
+                            embed.addFields(
+                                { name: commandText.objectEmbedStats, value: astraStatsString }
+                            );
+                        }
+                        break;
+
+                    case 'classic':
+                        embed = cleanEmbedStats(embed.data, language);
+                        if (rarity == 'tempered') {
+                            buttonRowOutput = createRarityGearButtons(gearData, language, 'tempered');
+                            embed.setColor(DiscordValues.embedColors.tempered);
+                        } else {
+                            buttonRowOutput = createRarityGearButtons(gearData, language, 'classic');
+                            let rarityIndex = Constants.rarityList.indexOf(rarity);
+
+                            let statsString = '';
+
+                            Object.keys(gearData.stats).forEach(statName => {
+                                let statData = gearData?.stats[statName as StatType]!;
+                                let statIndex: number;
+                                statData.length !== 6 ?
+                                    statIndex = rarityIndex + statData.length - 6 :
+                                    statIndex = rarityIndex;
+                                let statAmount: number = statData[statIndex];
+                                statsString += `-${gearText.stats[statName as StatType]}: ${statAmount}${Constants.statSuffix[statName as StatType]}\n`;
+                            });
+
+                            embed.addFields({ name: commandText.objectEmbedStats, value: statsString })
+                                .setColor(DiscordValues.embedColors[rarity]);
+                        }
+                        break;
+                }
+
+                button.message.edit({ embeds: [embed], components: buttonRowOutput });
+
+                /**
+                 * Check if stats have already been displayed, and remove them if so
+                 */
+                function cleanEmbedStats(embed: APIEmbed, language: textLanguage) {
+                    embed.fields = embed.fields?.filter(field => !field.name.includes(TranslationsCache[language].commands.gear.text.objectEmbedStats))
+                        .filter(field => !field.name.includes(TranslationsCache[language].commands.gear.text.objectEmbedAstraCost))
+                        .filter(field => !field.name.includes(TranslationsCache[language].commands.gear.text.objectEmbedTotalAstraCost))
+                        .filter(field => !field.name.includes(TranslationsCache[language].commands.gear.text.astraliteCostRatio));
+                    return new EmbedBuilder(embed);
+                }
+
+                /**
+                 * Format the given number to scientific display
+                 */
+                function displayScientificNumber(num: number) {
+                    let expo = num.toExponential();
+                    let pow = expo.split('-')[1];
+                    let value = Number(expo.slice(0, -3));
+                    
+                    return `${value.toFixed(2)} e ${pow}`
+                }
+
+                function displayAstraCost(amount: number, language: textLanguage) {
+                    return Translations.displayText(commandText.specificAstralite, { text: (amount / 20).toString(), text2: Utils.displayEmoteInChat('tempered'), text3: Math.ceil(amount).toString() })
                 }
                 break;
 
             default:
                 return;
         }
-        StatusCache.unlock(button.guildId, button.user.id, command)
+        StatusCache.unlock(button.guildId, button.user.id, command);
     }
 
-    static getCommandFromButtonId(buttonId: string): CommandName | "not a base button" | undefined {
+    static getCommandFromButtonOrMenuId(buttonId: string): CommandName | 'not a base button' | undefined {
 
         for (let key of botCommands) {
             let name = key.commandStructure.name;
-            if (buttonId.endsWith('yes') || buttonId.endsWith('no') || buttonId.includes("nbb")) return "not a base button";
-            if (buttonId.includes(`${name}-`)) return name as CommandName
+            if (buttonId.endsWith('yes') || buttonId.endsWith('no') || buttonId.includes('nbb')) return 'not a base button';
+            if (buttonId.includes(`${name}-`)) return name as CommandName;
         }
 
         let hellEventsList = Object.keys(TranslationsCache.fr.others.hellMentions);
         if (
             hellEventsList.find(e => buttonId.includes(e))
-        ) return "not a base button";
+        ) return 'not a base button';
 
     }
 
@@ -161,8 +384,8 @@ export class Command implements CommandInterface {
 
     permissionLevel: 1 | 2 | 3;
     neededPermissions?: bigint[];
-    cacheLockScope: "guild" | "user" | "none";
-    commandStructure: SlashCommandSubcommandsOnlyBuilder | SlashCommandOptionsOnlyBuilder | SlashCommandBuilder | Omit<SlashCommandBuilder, "addSubcommand" | "addSubcommandGroup">;
+    cacheLockScope: 'guild' | 'user' | 'none';
+    commandStructure: SlashCommandSubcommandsOnlyBuilder | SlashCommandOptionsOnlyBuilder | SlashCommandBuilder | Omit<SlashCommandBuilder, 'addSubcommand' | 'addSubcommandGroup'>;
     run: (args: CommandArgs) => unknown;
 
     constructor(args: CommandInterface) {
@@ -174,45 +397,45 @@ export class Command implements CommandInterface {
     }
 
     async reply(data: string | MessagePayload | InteractionReplyOptions, intera: ChatInputCommandInteraction | ButtonInteraction | StringSelectMenuInteraction) {
-        let missingPerm = await Command.getMissingPermissions([PermissionFlagsBits.AttachFiles, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.SendMessages], intera.channel, intera.guildId);
+        let missingPerm = Command.getMissingPermissions([PermissionFlagsBits.AttachFiles, PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.SendMessages], intera.channel, intera.guildId);
         if (missingPerm.length > 0)
             data = await Command.returnMissingPermissionMessage(missingPerm, intera.guildId!);
 
         try {
             if (intera.replied)
-                await intera.editReply(data).catch(async e => {
+                await intera.editReply(data).catch(async () => {
                     await intera.deleteReply().catch(e => e);
                     return await intera.followUp(data);
-                })
-            
-            else if (intera.deferred) 
+                });
+
+            else if (intera.deferred)
                 return await intera.editReply(data);
-            
-            else 
+
+            else
                 await intera.reply(data);
         }
         catch (e) {
-            Console.error(e)
-            Console.error(TranslationsCache.fr.global.errors.unableToReply)
+            Console.error(e);
+            Console.error(TranslationsCache.fr.global.errors.unableToReply);
         }
     };
 
     static generateSubcommandBuilder(command: CommandName, name: string): SlashCommandSubcommandBuilder {
         if (!Object.keys(TranslationsCache.fr.commands).includes(command))
-            throw "Erreur: infos de localisation indisponibles (commande introuvable)"
+            throw 'Erreur: infos de localisation indisponibles (commande introuvable)';
 
         let sub = new SlashCommandSubcommandBuilder;
         sub.setName(name)
-            .setNameLocalizations(this.getSubcommandTranslations(command, name, "name", "sub"))
-            .setDescription(this.getSubcommandTranslations(command, name, "description", "sub")['en-US'])
-            .setDescriptionLocalizations(this.getSubcommandTranslations(command, name, "description", "sub"))
+            .setNameLocalizations(this.getSubcommandTranslations(command, name, 'name', 'sub'))
+            .setDescription(this.getSubcommandTranslations(command, name, 'description', 'sub')['en-US'])
+            .setDescriptionLocalizations(this.getSubcommandTranslations(command, name, 'description', 'sub'));
 
-        return sub
+        return sub;
     }
 
-    static generateCommandOptionBuilder(command: CommandName, name: string, option: "user" | "number" | "string" | "channel" | "file" | "integer", isSubOption?: true | undefined, optionName?: string) {
+    static generateCommandOptionBuilder(command: CommandName, name: string, option: 'user' | 'number' | 'string' | 'channel' | 'file' | 'integer', isSubOption?: true | undefined, optionName?: string) {
         if (!Object.keys(TranslationsCache.fr.commands).includes(command))
-            throw "Erreur: infos de localisation indisponibles (commande introuvable)"
+            throw 'Erreur: infos de localisation indisponibles (commande introuvable)';
 
         let sub;
         switch (option) {
@@ -241,47 +464,47 @@ export class Command implements CommandInterface {
                 break;
 
             default:
-                throw "Type de subcommande non reconnu";
+                throw 'Type de subcommande non reconnu';
         }
 
         sub.setName(optionName || name)
-            .setNameLocalizations(this.getSubcommandTranslations(command, name, "name", (isSubOption ? "sub-option" : "option"), optionName))
-            .setDescription(this.getSubcommandTranslations(command, name, "description", (isSubOption ? "sub-option" : "option"), optionName)['en-US'])
-            .setDescriptionLocalizations(this.getSubcommandTranslations(command, name, "description", (isSubOption ? "sub-option" : "option"), optionName))
+            .setNameLocalizations(this.getSubcommandTranslations(command, name, 'name', (isSubOption ? 'sub-option' : 'option'), optionName))
+            .setDescription(this.getSubcommandTranslations(command, name, 'description', (isSubOption ? 'sub-option' : 'option'), optionName)['en-US'])
+            .setDescriptionLocalizations(this.getSubcommandTranslations(command, name, 'description', (isSubOption ? 'sub-option' : 'option'), optionName));
 
-        return sub
+        return sub;
     };
 
     static generateButtonCustomId(command: CommandName, language: textLanguage): string {
-        return `${command}-${language}`
+        return `${command}-${language}`;
     }
 
     static getChoices(command: CommandName, optionName: string): APIApplicationCommandOptionChoice<string>[] {
-        let path = './ressources/text/'
+        let path = './ressources/text/';
         let translationPath = readdirSync(path);
 
-        let choicesTranslations: Record<string, Record<string, string>> = {}
+        let choicesTranslations: Record<string, Record<string, string>> = {};
 
         for (let language of translationPath) {
             let lang = language.slice(0, -5) as textLanguage;
             let file = JSON.parse(readFileSync(`${path}${language}`, 'utf-8')) as TranslationObject;
 
-            choicesTranslations[lang] = (file.commands[command] as SingleLanguageCommandTranslation).choices![optionName]
+            choicesTranslations[lang] = (file.commands[command] as SingleLanguageCommandTranslation).choices![optionName];
         }
 
-        let list: APIApplicationCommandOptionChoice<string>[] = []
+        let list: APIApplicationCommandOptionChoice<string>[] = [];
         for (let item of Object.keys(choicesTranslations.en)) {
             let list_locale: Record<string, string> = {};
             Object.keys(choicesTranslations).forEach(e => {
                 if (e !== 'en')
-                    list_locale[e] = choicesTranslations[e][item]
-            })
-            list.push({ name: choicesTranslations.en[item], name_localizations: list_locale, value: item })
+                    list_locale[e] = choicesTranslations[e][item];
+            });
+            list.push({ name: choicesTranslations.en[item], name_localizations: list_locale, value: item });
         }
-        return list
+        return list;
     }
 
-    static getSubcommandTranslations(command: CommandName, subcommand: string, type: "name" | "description", optionType: "sub" | "option" | "sub-option", optionName?: string): Record<string, string> {
+    static getSubcommandTranslations(command: CommandName, subcommand: string, type: 'name' | 'description', optionType: 'sub' | 'option' | 'sub-option', optionName?: string): Record<string, string> {
 
         let data: Record<string, string> = {};
         for (let lang of Object.keys(TranslationsCache)) {
@@ -291,11 +514,11 @@ export class Command implements CommandInterface {
             let translationData: SingleLanguageCommandTranslation = TranslationsCache[lang as textLanguage].commands[command as keyof typeof TranslationsCache.fr.commands];
             switch (optionType) {
                 case 'option':
-                    data[language] = translationData.options![subcommand as keyof typeof translationData.subcommand][type]
+                    data[language] = translationData.options![subcommand as keyof typeof translationData.subcommand][type];
                     break;
 
                 case 'sub':
-                    data[language] = translationData.subcommand![subcommand as keyof typeof translationData.subcommand][type]
+                    data[language] = translationData.subcommand![subcommand as keyof typeof translationData.subcommand][type];
                     break;
 
                 case 'sub-option':
@@ -310,7 +533,7 @@ export class Command implements CommandInterface {
     };
 
     static generateYesNoButtons(command: CommandName, language: textLanguage, additionalLabel?: string) {
-        let buttons = new ActionRowBuilder<ButtonBuilder>()
+        return new ActionRowBuilder<ButtonBuilder>()
             .addComponents([
                 new ButtonBuilder()
                     .setCustomId(`${this.generateButtonCustomId(command, language)}${additionalLabel}-yes`)
@@ -321,47 +544,58 @@ export class Command implements CommandInterface {
                     .setCustomId(`${this.generateButtonCustomId(command, language)}${additionalLabel}-no`)
                     .setStyle(ButtonStyle.Danger)
                     .setLabel(TranslationsCache[language].global.no)
-            ])
-
-        return buttons
+            ]);
     };
 
-    static generatePageButtons(command: CommandName, language: textLanguage, additionalLabel?: string, isFirstOrLast?: "first" | "last"): ActionRowBuilder<ButtonBuilder> {
+    static generatePageButtons(command: CommandName, language: textLanguage, additionalLabel?: string, isFirstOrLast?: 'first' | 'last'): ActionRowBuilder<ButtonBuilder> {
         let previous = new ButtonBuilder()
-            .setCustomId(`${this.generateButtonCustomId(command, language)}${("-" + additionalLabel)}-previousPage`)
+            .setCustomId(`${this.generateButtonCustomId(command, language)}${('-' + additionalLabel)}-previousPage`)
             .setStyle(ButtonStyle.Primary)
             .setEmoji('◀');
 
         let next = new ButtonBuilder()
-            .setCustomId(`${this.generateButtonCustomId(command, language)}${("-" + additionalLabel)}-nextPage`)
+            .setCustomId(`${this.generateButtonCustomId(command, language)}${('-' + additionalLabel)}-nextPage`)
             .setStyle(ButtonStyle.Primary)
             .setEmoji('▶');
 
-        if (isFirstOrLast == "first")
-            previous.setDisabled(true)
+        if (isFirstOrLast == 'first')
+            previous.setDisabled(true);
 
-        if (isFirstOrLast == "last")
-            next.setDisabled(true)
+        if (isFirstOrLast == 'last')
+            next.setDisabled(true);
 
-        let buttons = new ActionRowBuilder<ButtonBuilder>()
-            .addComponents([previous, next])
-
-        return buttons
+        return new ActionRowBuilder<ButtonBuilder>()
+            .addComponents([previous, next]);
     }
 
-    static async getConfirmationMessage(intera: ChatInputCommandInteraction | ButtonInteraction, commandname: CommandName, language: textLanguage, options?: { text?: string, embeds?: EmbedBuilder[], time?: number, ephemeral?: boolean, deleteMsg?: boolean }): Promise<"no" | "error" | ButtonInteraction> {
-        let payload: MessagePayload | InteractionReplyOptions = { content: options?.text, components: [Command.generateYesNoButtons(commandname, language)], ephemeral: options?.ephemeral };
+    static async getConfirmationMessage(intera: ChatInputCommandInteraction<"cached"> | ButtonInteraction, commandname: CommandName, language: textLanguage, options?: {
+        text?: string,
+        embeds?: EmbedBuilder[],
+        time?: number,
+        ephemeral?: boolean,
+        deleteMsg?: boolean
+    }): Promise<'no' | 'error' | ButtonInteraction> {
+        let payload: MessagePayload | InteractionReplyOptions = {
+            content: options?.text,
+            components: [Command.generateYesNoButtons(commandname, language)],
+            ephemeral: options?.ephemeral
+        };
         if (options?.embeds)
-            payload.embeds = options?.embeds
+            payload.embeds = options?.embeds;
         await Command.prototype.reply(payload, intera);
 
         let confirmationResponse;
         try {
-            let filter = (button: ButtonInteraction<"cached">) => button.user.id === intera.user.id && button.customId.includes(commandname)
-            confirmationResponse = await intera.channel?.awaitMessageComponent({ componentType: ComponentType.Button, filter, time: options?.time || 15000 })
-        } catch {
-            intera.channel?.lastMessage?.delete().catch(e => Console.error(e));
-            return "error"
+            let filter = (button: ButtonInteraction<'cached'>) => button.user.id === intera.user.id && button.customId.includes(commandname);
+            confirmationResponse = await (intera.channel as TextChannel)?.awaitMessageComponent({
+                componentType: ComponentType.Button,
+                filter,
+                time: options?.time || 15000
+            });
+        }
+        catch {
+            (intera.channel as TextChannel)?.lastMessage?.delete().catch(e => Console.error(e));
+            return 'error';
         }
 
         if (options?.deleteMsg) {
@@ -373,14 +607,14 @@ export class Command implements CommandInterface {
         }
 
         if (confirmationResponse?.customId.endsWith('yes'))
-            return confirmationResponse
+            return confirmationResponse;
         else if (confirmationResponse?.customId.endsWith('no'))
-            return "no"
-        else return "error"
+            return 'no';
+        else return 'error';
     };
 
     static getMissingPermissions(requiredPermissions: PermissionResolvable[], channel: TextBasedChannel | null, guildId?: string | null): string[] {
-        if (!channel || channel.type == ChannelType.DM || !guildId)
+        if (!channel || channel.isDMBased() || !guildId)
             return [];
         let botPermissions = channel.permissionsFor(bot.user!.id);
         let permissionsBitfield = new PermissionsBitField(requiredPermissions).toArray();
@@ -388,7 +622,7 @@ export class Command implements CommandInterface {
 
         for (let perm of permissionsBitfield) {
             if (!botPermissions?.has(perm))
-                missingPermissions.push(perm)
+                missingPermissions.push(perm);
         }
 
         return missingPermissions;
@@ -397,13 +631,13 @@ export class Command implements CommandInterface {
     static async returnMissingPermissionMessage(perms: string[], guildId: string, language?: textLanguage): Promise<string> {
         if (!language)
             language = await db.returnServerLanguage(guildId);
-        let permList: string = "";
+        let permList: string = '';
 
         for (let perm of perms) {
-            permList += `-${TranslationsCache[language].permissions.flags[perm as keyof typeof TranslationsCache.fr.permissions.flags]}\n`
+            permList += `-${TranslationsCache[language].permissions.flags[perm as keyof typeof TranslationsCache.fr.permissions.flags]}\n`;
         }
 
-        return Translations.displayText(TranslationsCache[language].permissions.MissingPermissions, { text: permList })
+        return Translations.displayText(TranslationsCache[language].permissions.MissingPermissions, { text: permList });
     }
 
     static async defilePage(command: CommandName, button: ButtonInteraction) {
@@ -413,15 +647,13 @@ export class Command implements CommandInterface {
 
         let newEmbedPage = await (await import(`../commands/${command}.js`)).getEditedEmbed(pageData, embed);
 
-        let components: ActionRowBuilder<ButtonBuilder>
+        let components: ActionRowBuilder<ButtonBuilder>;
         if (pageData.current + pageData.target == 1) {
-            components = this.generatePageButtons(command, pageData.language, pageData.filter?.toString(), "first")
-        }
-        else if (pageData.current + pageData.target >= pageData.total) {
-            components = this.generatePageButtons(command, pageData.language, pageData.filter?.toString(), "last")
-        }
-        else {
-            components = this.generatePageButtons(command, pageData.language, pageData.filter?.toString())
+            components = this.generatePageButtons(command, pageData.language, pageData.filter?.toString(), 'first');
+        } else if (pageData.current + pageData.target >= pageData.total) {
+            components = this.generatePageButtons(command, pageData.language, pageData.filter?.toString(), 'last');
+        } else {
+            components = this.generatePageButtons(command, pageData.language, pageData.filter?.toString());
         }
         await button.update({ embeds: [newEmbedPage], components: [components] });
     }
@@ -448,16 +680,16 @@ export class StatusCacheClass {
                 return guild;
 
             case 'user':
-                return user
+                return user;
 
             default:
-                return "nope";
+                return 'nope';
         }
     }
 
     lock(guild: string | null, user: string, command: CommandName): void {
         const target = this.getTarget(guild || user, user, command);
-        if (target !== "nope")
+        if (target !== 'nope')
             this.locked[command].push(target);
     }
 
@@ -479,21 +711,32 @@ export class WatcherManager {
 
     //Watcher mention management
     static async MentionManager(button: ButtonInteraction) {
-        StatusCache.lock(button.guild!.id, button.user.id, "setglobalping");
-        let language = button.customId.split("-")[1] as textLanguage;
+        StatusCache.lock(button.guild!.id, button.user.id, 'setglobalping');
+        let language = button.customId.split('-')[1] as textLanguage;
 
         let payload = this.generateTypeEventMessage(button, language);
         await Command.prototype.reply({ content: payload.message, components: payload.buttons }, button);
 
         let event = await this.getEventType(button, payload.list); //Replace button as the interaction
-        if (event == "error")
-            return Command.prototype.reply({ content: TranslationsCache[language].global.cancelledCommand, ephemeral: true, components: [] }, button);
+        if (event == 'error')
+            return Command.prototype.reply({
+                content: TranslationsCache[language].global.cancelledCommand,
+                ephemeral: true,
+                components: []
+            }, button);
 
         let eventData = this.getEventData(event.customId as keyof typeof TranslationsCache.fr.others.hellMentions, button.customId);
-        let confirmation = await Command.getConfirmationMessage(event, "setglobalping", language, { text: this.getConfirmationMessage(language, eventData), deleteMsg: true });
+        let confirmation = await Command.getConfirmationMessage(event, 'setglobalping', language, {
+            text: this.getConfirmationMessage(language, eventData),
+            deleteMsg: true
+        });
 
-        if (typeof confirmation == "string") {
-            return Command.prototype.reply({ content: TranslationsCache[language].global.cancelledCommand, ephemeral: true, components: [] }, button);
+        if (typeof confirmation == 'string') {
+            return Command.prototype.reply({
+                content: TranslationsCache[language].global.cancelledCommand,
+                ephemeral: true,
+                components: []
+            }, button);
         }
 
         await this.sendMentions(eventData);
@@ -501,35 +744,36 @@ export class WatcherManager {
     }
 
     static generateTypeEventMessage(button: ButtonInteraction, language: textLanguage) {
-        let event = button.customId.split("-")[2] as keyof typeof Constants.WatcherMentionsTemplates;
+        let event = button.customId.split('-')[2] as keyof typeof Constants.WatcherMentionsTemplates;
         const text = TranslationsCache[language].others.hellMentions;
 
         let buttons: ActionRowBuilder<ButtonBuilder>[] = [];
         let row = new ActionRowBuilder<ButtonBuilder>();
         let list: string[] = [];
-        let message = Translations.displayText(text.baseTypeMsg, { text: text[event] })
+        let message = Translations.displayText(text.baseTypeMsg, { text: text[event] });
 
         for (let i = 0; i < Constants.WatcherMentionsTemplates[event].length; i++) {
 
             if (row.components.length == 5) {
                 buttons.push(row);
-                row = new ActionRowBuilder<ButtonBuilder>()
+                row = new ActionRowBuilder<ButtonBuilder>();
             }
 
             let currentType = Constants.WatcherMentionsTemplates[event][i];
-            let customId: string = "";
+            let customId: string = '';
             let emoji: string;
             if (Array.isArray(currentType)) {
-                customId = currentType.join("-");
+                customId = currentType.join('-');
                 emoji = DiscordValues.defaultEmotes.numbers[i];
-                message += `-${emoji}: ${currentType.map(e => text[e as keyof typeof Constants.WatcherMentionsTemplates]).join(", ")}\n`
+                message += `-${emoji}: ${currentType.map(e => text[e as keyof typeof Constants.WatcherMentionsTemplates]).join(', ')}\n`;
             } else {
                 customId = currentType;
-                let customEmoji = Constants.hellMenu[currentType as keyof typeof Constants.hellMenu]?.emoji ||
-                    DiscordValues.emotes[currentType as keyof typeof DiscordValues.emotes];
-                emoji = customEmoji.id
-                let stringEmoji = `<:${customEmoji.name}:${customEmoji.id}>`
-                message += `-${stringEmoji}: ${text[currentType as keyof typeof Constants.WatcherMentionsTemplates]}\n`
+                let customEmoji = Utils.displayEmoji(currentType);
+                if (!customEmoji)
+                    throw `No custom emote at id ${currentType}`;
+                emoji = customEmoji.id;
+                let stringEmoji = `<:${customEmoji.name}:${customEmoji.id}>`;
+                message += `-${stringEmoji}: ${text[currentType as keyof typeof Constants.WatcherMentionsTemplates]}\n`;
             }
 
             list.push(customId);
@@ -538,43 +782,47 @@ export class WatcherManager {
                     .setCustomId(customId)
                     .setEmoji(emoji)
                     .setStyle(ButtonStyle.Secondary)
-            )
+            );
         }
 
         message += text.baseTypeMsgEnd;
         buttons.push(row);
 
-        return { message, buttons, list }
+        return { message, buttons, list };
     }
 
-    static async getEventType(button: ButtonInteraction, customIdList: string[]): Promise<ButtonInteraction | "error"> {
+    static async getEventType(button: ButtonInteraction, customIdList: string[]): Promise<ButtonInteraction | 'error'> {
         let confirmationResponse;
         try {
-            let filter = (buttonReply: ButtonInteraction<"cached">) => buttonReply.user.id === button.user.id && customIdList.includes(buttonReply.customId)
-            confirmationResponse = await button.channel!.awaitMessageComponent({ componentType: ComponentType.Button, filter, time: 10000 })
-        } catch {
-            return "error"
+            let filter = (buttonReply: ButtonInteraction<'cached'>) => buttonReply.user.id === button.user.id && customIdList.includes(buttonReply.customId);
+            confirmationResponse = await (button.channel as TextChannel)!.awaitMessageComponent({
+                componentType: ComponentType.Button,
+                filter,
+                time: 10000
+            });
+        }
+        catch {
+            return 'error';
         }
         button.deleteReply();
-        return confirmationResponse
+        return confirmationResponse;
     }
 
     static getEventData(event: keyof typeof TranslationsCache.fr.others.hellMentions, customId: string): hellEventData {
         return {
-            hellOrChallenge: event.includes("challenge") ? "challenge" : "hell",
+            hellOrChallenge: event.includes('challenge') ? 'challenge' : 'hell',
             type: event.split('-'),
-            reward: customId.split('-')[2],
-        } as hellEventData
+            reward: customId.split('-')[2]
+        } as hellEventData;
     }
 
     static getConfirmationMessage(language: textLanguage, eventData: hellEventData): string {
-        let text = TranslationsCache[language].others.hellMentions
-        let confirmationText = Translations.displayText(text.confirmation, {
+        let text = TranslationsCache[language].others.hellMentions;
+        return Translations.displayText(text.confirmation, {
             text: text[eventData.hellOrChallenge as keyof typeof text],
             text2: text[eventData.reward as keyof typeof text],
-            text3: eventData.type.map(e => text[e as keyof typeof text]).join(", ")
-        })
-        return confirmationText;
+            text3: eventData.type.map(e => text[e as keyof typeof text]).join(', ')
+        });
     }
 
     static async sendMentions(event: hellEventData) {
@@ -593,9 +841,9 @@ export class WatcherManager {
                     throw TranslationsCache.fr.global.errors.noChannel;
                 if (channel.permissionsFor(channel.guild.members.me!).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]))
                     channel.send(Translations.displayText(message[language], { id: chan.role })).catch(e => Console.error(e));
-            } catch (e) {
+            }
+            catch (e) {
                 Console.error(e);
-                continue;
             }
         }
     }
@@ -606,7 +854,11 @@ export class WatcherManager {
         Object.keys(TranslationsCache).forEach(lang => {
             let text = TranslationsCache[lang as textLanguage].others.hellMentions;
 
-            let base = Translations.displayText(text.baseMentionMsg, { text: text[event.hellOrChallenge], text2: text[event.reward], text3: event.type.map(e => text[e]).join(", ") });
+            let base = Translations.displayText(text.baseMentionMsg, {
+                text: text[event.hellOrChallenge],
+                text2: text[event.reward],
+                text3: event.type.map(e => text[e]).join(', ')
+            });
 
             let timer = minutes >= 55 ?
                 Translations.displayText(text.remainingTimeAfterBegining, { text: Math.floor(Math.abs(minutes - 60)).toString() }) :
@@ -615,7 +867,7 @@ export class WatcherManager {
             event.hellOrChallenge == 'hell' ?
                 textTranslations[lang as textLanguage] = base + timer :
                 textTranslations[lang as textLanguage] = base;
-        })
+        });
 
         return textTranslations as Record<textLanguage, string>;
     }
@@ -624,113 +876,53 @@ export class WatcherManager {
         let role: keyof RolesData;
         if (event.type[0] == 'research' && event.type.length == 1) {
             event.reward == 'dragon' ?
-                role = "dragonResearch" :
-                role = "watcherResearch";
+                role = 'dragonResearch' :
+                role = 'watcherResearch';
             return role;
         }
         if (event.hellOrChallenge == 'challenge') {
             event.type[0] == 'research' ?
                 role = 'challengeResearch' :
-                role = 'challengeTroops'
-            return role
+                role = 'challengeTroops';
+            return role;
         }
         return event.reward;
     }
 
     static async logMention(data: hellEventData, button: ButtonInteraction) {
         let text = TranslationsCache.fr.others.hellMentions;
-        chanList.LOGS_HELL_EVENTS!.send(Translations.displayText(text.logMentions, { id: button.user.username, text: text[data.hellOrChallenge], text2: text[data.reward], text3: data.type.map(e => text[e]).join(", ") }));
+        chanList.LOGS_HELL_EVENTS!.send(Translations.displayText(text.logMentions, {
+            id: button.user.username,
+            text: text[data.hellOrChallenge],
+            text2: text[data.reward],
+            text3: data.type.map(e => text[e]).join(', ')
+        }));
 
         //Temporary log in board channel
-        let message: string = "";
+        let message: string = '';
         for (let lang of Object.keys(TranslationsCache)) {
             text = TranslationsCache[lang as keyof typeof TranslationsCache].others.hellMentions;
             let typeString = data.type.map(e => {
-                if (Object.keys(DiscordValues.emotes).includes(e)) {
-                    let emoteData = DiscordValues.emotes[e as keyof typeof DiscordValues.emotes];
-                    return `${text[e]} ${Utils.displayEmoteInChat(emoteData)}`
-                }
-                else return `${text[e]}`
-            }).join(", ")
+                return `${text[e]} ${Utils.displayEmoteInChat(e)}`;
+            }).join(', ');
 
             let msg = Translations.displayText(text.temporaryLogMentions, {
                 text: text[data.hellOrChallenge],
-                text2: `${text[data.reward]} ${Utils.displayEmoteInChat(DiscordValues.emotes[data.reward])}`,
+                text2: `${text[data.reward]} ${Utils.displayEmoteInChat(data.reward)}`,
                 text3: typeString
-            })
-            message += msg
+            });
+            message += msg;
         }
 
-        let confirmationMsg = await button.channel?.send(message);
+        let confirmationMsg = await (button.channel as TextChannel)?.send(message);
         if (!confirmationMsg)
             return;
 
-        data.hellOrChallenge == "challenge" ?
+        data.hellOrChallenge == 'challenge' ?
             pingMessagesCache.challenge.push(confirmationMsg.id) :
             pingMessagesCache.hourly.push(confirmationMsg.id);
     }
 
-
-    static async selectMenuManager(intera: StringSelectMenuInteraction, language: textLanguage) {
-
-        //Old hell board values legacy
-        let values = intera.values.map(e => {
-            if (Object.keys(Constants.oldHellMenu).includes(e))
-                return Constants.oldHellMenu[e as keyof typeof Constants.oldHellMenu]
-            else return e
-        })
-
-        if (values.find(e => !Object.keys(Constants.hellMenu).includes(e)))
-            return;
-
-        let guild = new ServerManager(intera.guild!);
-        let roles = await guild.getHellRoles();
-        if (!roles)
-            return Command.prototype.reply(TranslationsCache[language].commands.watcher.text.noRoles, intera);
-
-        let changesList: { add: [keyof RolesData, string][], remove: [keyof RolesData, string][] } = {
-            add: [],
-            remove: []
-        };
-
-        let currentRoles = intera.member?.roles as GuildMemberRoleManager;
-        for (let roleLabel of Object.keys(roles)) {
-            if (currentRoles.cache.map(r => r.id).includes(roles[roleLabel as keyof typeof roles]) && !values.includes(roleLabel))
-                changesList.remove.push([roleLabel as keyof RolesData, roles[roleLabel as keyof typeof roles]])
-            if (!currentRoles.cache.map(r => r.id).includes(roles[roleLabel as keyof typeof roles]) && values.includes(roleLabel))
-                changesList.add.push([roleLabel as keyof RolesData, roles[roleLabel as keyof typeof roles]])
-        }
-
-        let messageString: string = TranslationsCache[language].others.hellMentions.updateRolesMsg;
-
-        for (let obj of changesList.add) {
-            messageString += `(+) ${TranslationsCache[language].others.hellEvents[obj[0]]}\n`;
-        }
-
-        for (let obj of changesList.remove) {
-            messageString += `(-) ${TranslationsCache[language].others.hellEvents[obj[0]]}\n`;
-        }
-
-        await Command.prototype.reply({ content: messageString, ephemeral: true }, intera);
-
-        await Promise.allSettled(changesList.add.map(async (obj) => {
-            try {
-                await currentRoles.add(obj[1])
-            } catch {
-                Console.log(TranslationsCache[Constants.defaultLanguage].global.errors.RoleNotEditable);
-            }
-        }))
-
-        await Promise.allSettled(changesList.remove.map(async (obj) => {
-            messageString += `(-) ${TranslationsCache[language].others.hellEvents[obj[0]]}\n`;
-            try {
-                await currentRoles.remove(obj[1])
-            } catch {
-                Console.log(TranslationsCache[Constants.defaultLanguage].global.errors.RoleNotEditable);
-            }
-        }))
-
-    }
 }
 
 export class FamiliarManager {
@@ -741,7 +933,7 @@ export class FamiliarManager {
         let pageData: embedPageData = getPageData(embed, customId, command);
 
 
-        let components: ActionRowBuilder<ButtonBuilder>
+        let components: ActionRowBuilder<ButtonBuilder>;
         let newEmbedPage = await (await import(`../commands/${command}.js`)).getEditedEmbed(pageData, embed);
         let familiar = this.getFamiliarDataFromEmbed(newEmbedPage.data);
         components = this.getFamiliarButtonsPage(language, familiar);
@@ -753,7 +945,7 @@ export class FamiliarManager {
         let familiar = button.customId.split(`-`)[2] as familiarName;
         let embed = this.getFamiliarEmbed(familiar, language);
         let buttons = this.getFamiliarButtonsPage(language, familiar);
-        button.channel?.send({ embeds: [embed], components: [buttons] });
+        (button.channel as TextChannel)?.send({ embeds: [embed], components: [buttons] });
         button.message.delete();
     }
 
@@ -773,13 +965,13 @@ export class FamiliarManager {
 
         let previous = new ButtonBuilder()
             .setLabel(TranslationsCache[language].others.familiars[list[previousIndex]].name)
-            .setCustomId(`${Command.generateButtonCustomId("familiar", language)}${("-" + familiar)}-previousPage`)
+            .setCustomId(`${Command.generateButtonCustomId('familiar', language)}${('-' + familiar)}-previousPage`)
             .setStyle(ButtonStyle.Primary)
             .setEmoji('◀');
 
         let next = new ButtonBuilder()
             .setLabel(TranslationsCache[language].others.familiars[list[nextIndex]].name)
-            .setCustomId(`${Command.generateButtonCustomId("familiar", language)}${("-" + familiar)}-nextPage`)
+            .setCustomId(`${Command.generateButtonCustomId('familiar', language)}${('-' + familiar)}-nextPage`)
             .setStyle(ButtonStyle.Primary)
             .setEmoji('▶');
 
@@ -790,55 +982,64 @@ export class FamiliarManager {
         let text = embedData.title!;
         let familiar: familiarName | undefined = undefined;
         Object.keys(TranslationsCache).forEach(lang => {
-            let famiTranslations = TranslationsCache[lang as textLanguage].others.familiars
+            let famiTranslations = TranslationsCache[lang as textLanguage].others.familiars;
             let fam = Object.keys(famiTranslations).find(fami =>
                 famiTranslations[fami as keyof typeof famiTranslations].name == text
-            ) as familiarName | undefined
+            ) as familiarName | undefined;
             if (fam)
                 familiar = fam;
-        })
+        });
         if (familiar)
-            return familiar
+            return familiar;
         else
             throw 'No familiar found in embed';
     }
 
     static getFamiliarEmbed(familiar: familiarName, language: textLanguage) {
-        let commandText = Translations.getCommandText("familiar")[language].text as typeof TranslationsCache.fr.commands.familiar.text;
+        let commandText = Translations.getCommandText('familiar')[language].text as typeof TranslationsCache.fr.commands.familiar.text;
 
         let famData = Constants.familiarsData[familiar];
         let familiarText = TranslationsCache[language].others.familiars[familiar] as FamiliarTranslation;
 
 
         //Data collection
-        let tierEmote = Utils.displayEmoteInChat(DiscordValues.emotes[`familiarRank${famData.tier}`]);
+        let tierEmote = Utils.displayEmoteInChat(`familiarRank${famData.tier}`);
         let pactTier = Utils.capitalizeFirst(commandText[`${famData.pactTier}pactName`]);
 
-        let pactData = Constants.PactCost[famData.tier]
+        let pactData = Constants.PactCost[famData.tier];
         let expAmount = {
             hatchling: `${commandText.level}19, ${Utils.format3DigitsSeparation(pactData.hatchling.maxExp)}XP`,
             adult: `${commandText.level}49, ${Utils.format3DigitsSeparation(pactData.adult.maxExp)} XP (${commandText.total}: ${Utils.format3DigitsSeparation(pactData.hatchling.maxExp + pactData.adult.maxExp)})`,
             elder: `${commandText.level}60, ${Utils.format3DigitsSeparation(pactData.elder.maxExp)} XP (${commandText.total}: ${Utils.format3DigitsSeparation(pactData.hatchling.maxExp + pactData.adult.maxExp + pactData.elder.maxExp)})`
         };
 
-        function abilityField(ability: "ability1" | "ability2" | "ability3" | "activableAbility") {
-            let emote = Utils.displayEmoteInChat(DiscordValues.emotes[famData[ability]!.type]);
+        function abilityField(ability: 'ability1' | 'ability2' | 'ability3' | 'activableAbility') {
+            let emote = Utils.displayEmoteInChat(famData[ability]!.type);
             let abilityName = familiarText[`${ability}Name`];
-            let abilityDescription = familiarText[`${ability}Description`]
+            let abilityDescription = familiarText[`${ability}Description`];
 
-            let name = `${emote} __${ability == "activableAbility" ? commandText.displayEmbedActivableAbility : commandText.displayEmbedPassiveAbility}__: ${abilityName}`;
-            let value = Translations.displayText(commandText.displayEmbedAbilityFieldValue, { text: abilityDescription, text2: Utils.displayInterestLevel(famData[ability]!.interestLevel) })
+            let name = `${emote} __${ability == 'activableAbility' ? commandText.displayEmbedActivableAbility : commandText.displayEmbedPassiveAbility}__: ${abilityName}`;
+            let value = Translations.displayText(commandText.displayEmbedAbilityFieldValue, {
+                text: abilityDescription,
+                text2: Utils.displayInterestLevel(famData[ability]!.interestLevel)
+            });
 
             return { name, value };
         }
 
         let fields: RestOrArray<APIEmbedField> = [
-            { name: `__${commandText.displayEmbedBaseData}__`, value: `**${commandText.displayEmbedPact}**: ${pactTier}\n**${commandText.displayEmbedRank}**: ${tierEmote}` },
+            {
+                name: `__${commandText.displayEmbedBaseData}__`,
+                value: `**${commandText.displayEmbedPact}**: ${pactTier}\n**${commandText.displayEmbedRank}**: ${tierEmote}`
+            },
             DiscordValues.emptyEmbedField,
-            { name: `__${commandText.displayEmbedRequiredExpAmount}__`, value: `-**${commandText.hatchling}**: ${expAmount.hatchling}\n-**${commandText.adult}**: ${expAmount.adult}\n-**${commandText.elder}**: ${expAmount.elder}\n` },
+            {
+                name: `__${commandText.displayEmbedRequiredExpAmount}__`,
+                value: `-**${commandText.hatchling}**: ${expAmount.hatchling}\n-**${commandText.adult}**: ${expAmount.adult}\n-**${commandText.elder}**: ${expAmount.elder}\n`
+            },
             DiscordValues.emptyEmbedField,
             abilityField('ability1'),
-            DiscordValues.emptyEmbedField,
+            DiscordValues.emptyEmbedField
         ];
 
         if (famData.ability2)
@@ -849,16 +1050,20 @@ export class FamiliarManager {
             fields.push(abilityField('activableAbility'));
 
         if (famData.warSkill) {
-            let orbCost = Utils.displayEmoteInChat(DiscordValues.emotes[Constants.talentCost[famData.tier].type]);
+            let orbCost = Utils.displayEmoteInChat(Constants.talentCost[famData.tier].type);
             let unlockCost = Constants.talentCost[famData.tier].cost[0];
             let maxCost = Constants.talentCost[famData.tier].cost.reduce((total, value) => total + value, 0);
-            let name = `${Utils.displayEmoteInChat(DiscordValues.emotes.talent)} __${commandText.displayEmbedTalent}__: ${familiarText.warTalentName}`;
+            let name = `${Utils.displayEmoteInChat('talent')} __${commandText.displayEmbedTalent}__: ${familiarText.warTalentName}`;
 
-            let value = `*${familiarText.warTalentDesctiption}*\n${Translations.displayText(commandText.displayEmbedTalentCost, { text: orbCost, text2: unlockCost.toString(), text3: maxCost.toString() })}\n\n`;
+            let value = `*${familiarText.warTalentDesctiption}*\n${Translations.displayText(commandText.displayEmbedTalentCost, {
+                text: orbCost,
+                text2: unlockCost.toString(),
+                text3: maxCost.toString()
+            })}\n\n`;
 
-            value += `**${commandText.displayEmbedInterestLevel}**:\n`
+            value += `**${commandText.displayEmbedInterestLevel}**:\n`;
             for (let type of Object.keys(famData.warSkill)) {
-                value += `-${commandText[type as keyof typeof famData.warSkill]}: ${Utils.displayInterestLevel(famData.warSkill[type as keyof typeof famData.warSkill])}\n`
+                value += `-${commandText[type as keyof typeof famData.warSkill]}: ${Utils.displayInterestLevel(famData.warSkill[type as keyof typeof famData.warSkill])}\n`;
             }
 
             fields.push(DiscordValues.emptyEmbedField, { name, value });
@@ -873,7 +1078,7 @@ export class FamiliarManager {
             .setDescription(commandText.displayEmbedDescription)
             .setThumbnail(famData.image)
             .addFields(fields)
-            .setFooter(footer)
+            .setFooter(footer);
     };
 
 
@@ -881,11 +1086,11 @@ export class FamiliarManager {
 
 function userCommandLogString(intera: ChatInputCommandInteraction): string {
     let baseText = `${intera.user.username} (${intera.user.id}) a executé la commande ${intera.commandName} ${intera.options.getSubcommand(false) ? `(` + intera.options.getSubcommand(false) + ') ' : ``}`;
-    let chanText: string = "";
+    let chanText: string;
     intera.channel!.type == ChannelType.DM ?
         chanText = `en mp` :
         chanText = `sur le salon ${intera.channel?.name} (${intera.channel?.id}), serveur ${intera.guild?.name} (${intera.guild?.id})`;
-    return baseText + chanText
+    return baseText + chanText;
 }
 
 function getPageData(embed: Readonly<APIEmbed>, id: string, command: CommandName): embedPageData {
@@ -893,18 +1098,18 @@ function getPageData(embed: Readonly<APIEmbed>, id: string, command: CommandName
     let language = splitId[1] as textLanguage;
     let target: -1 | 1;
 
-    let current = Number(embed.footer?.text.split("/")[0].split("[")[1]);
+    let current = Number(embed.footer?.text.split('/')[0].split('[')[1]);
 
     splitId[splitId.length - 1] == 'nextPage' ?
         target = 1 :
         target = -1;
 
-    let total = Number(embed.footer?.text.split("/")[1].split("]")[0]);
+    let total = Number(embed.footer?.text.split('/')[1].split(']')[0]);
 
-    let filter: string | undefined = undefined
+    let filter: string | undefined = undefined;
     let filterNames = (TranslationsCache[language].commands[command] as any).choices.filter || undefined;
     if (filterNames)
         filter = Object.keys(filterNames).find(k => embed.description?.includes(filterNames[k]));
 
-    return { current, target, total, filter, language }
+    return { current, target, total, filter, language };
 }

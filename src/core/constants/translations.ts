@@ -1,7 +1,15 @@
-import { Console, TranslationsCache, db } from "../../main.js";
-import { CommandName, CommandTranslation, ReplacerList, SingleLanguageCommandTranslation, TranslationCacheType, TranslationObject, textLanguage } from "./types.js";
-import { readFileSync } from 'fs';
-import { Constants, DiscordValues } from "./values.js";
+import {Console, db, TranslationsCache} from '../../main.js';
+import {
+    CommandName,
+    CommandTranslation,
+    ReplacerList,
+    SingleLanguageCommandTranslation,
+    textLanguage,
+    TranslationCacheType,
+    TranslationObject
+} from './types.js';
+import {readFileSync} from 'fs';
+import {Constants, DiscordValues} from './values.js';
 
 
 export class Translations {
@@ -18,8 +26,7 @@ export class Translations {
     }
 
     static async getServerLanguage(serverId: string | null):Promise<textLanguage> {
-        let language = await db.returnServerLanguage(serverId || DiscordValues.MAIN_GUILD);
-        return language;
+        return await db.returnServerLanguage(serverId || DiscordValues.MAIN_GUILD);
     }
 
     static getCommandText(command: CommandName): CommandTranslation {

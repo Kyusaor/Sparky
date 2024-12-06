@@ -1,9 +1,9 @@
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from "discord.js";
-import { TranslationsCache, chanList } from "../../main.js";
-import { CommandInterface } from "../constants/types.js";
-import { Command, CommandManager } from "../managers/commands.js";
-import { Constants, DiscordValues } from "../constants/values.js";
-import { Utils } from "../utils.js";
+import {ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder} from 'discord.js';
+import {chanList, TranslationsCache} from '../../main.js';
+import {CommandInterface} from '../constants/types.js';
+import {Command, CommandManager} from '../managers/commands.js';
+import {Constants} from '../constants/values.js';
+import {Utils} from '../utils.js';
 
 export const setglobalping:CommandInterface = {
     permissionLevel: 3,
@@ -32,8 +32,7 @@ function buildBoardEmbed(text:Record<string, string>):EmbedBuilder {
 
         let hellEvents = Constants.WatcherMentionsTemplates;
         for(let event of Object.keys(hellEvents)) {
-            let data = DiscordValues.emotes[event as keyof typeof hellEvents]
-            let name = `${Utils.capitalizeFirst(TranslationsCache.fr.others.hellEvents[event as keyof typeof TranslationsCache.fr.others.hellEvents])} <:${data.name}:${data.id}>`
+            let name = `${Utils.capitalizeFirst(TranslationsCache.fr.others.hellEvents[event as keyof typeof TranslationsCache.fr.others.hellEvents])} ${Utils.displayEmoteInChat(event)}`
             embed.addFields({
                 name,
                 value: text[`${event}Description`]
@@ -55,7 +54,7 @@ function buildBoardButtons():ActionRowBuilder<ButtonBuilder>[] {
         row.addComponents([
             new ButtonBuilder()
                 .setCustomId(`${Command.generateButtonCustomId("setglobalping", "fr")}-${event}`)
-                .setEmoji(DiscordValues.emotes[event as keyof typeof DiscordValues.emotes].id)
+                .setEmoji(Utils.displayEmoji(event).id)
                 .setStyle(ButtonStyle.Secondary)
         ])
     }
