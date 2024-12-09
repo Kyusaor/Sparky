@@ -1,4 +1,4 @@
-import {ColorResolvable, PermissionsBitField} from 'discord.js';
+import { ColorResolvable, PermissionsBitField, range } from 'discord.js';
 import {
     CraftingItemSource,
     familiarData,
@@ -6,9 +6,10 @@ import {
     GearObject,
     RarityWithMythic,
     RarityWithTempered,
-    StatType
+    StatType,
+    TroopSpeciality
 } from './types';
-import {TranslationsCache} from '../../main';
+import { TranslationsCache } from '../../main';
 
 export abstract class DiscordValues {
 
@@ -45,7 +46,7 @@ export abstract class DiscordValues {
         help: 'https://media.discordapp.net/attachments/659758501865717790/680102643519193089/help_sparky.png',
         helpAdmin: 'https://media.discordapp.net/attachments/659758501865717790/680168774468763671/PicsArt_02-20-10.39.20.png'
     };
-    static readonly emptyEmbedField = {name: '** **', value: '** **'};
+    static readonly emptyEmbedField = { name: '** **', value: '** **' };
     static readonly emptyEmbedFieldValue = '** **';
     static readonly embedThumbnails = {
         trainCalculator: 'https://media.discordapp.net/attachments/659758501865717790/1059497225711005696/latest.png',
@@ -55,7 +56,7 @@ export abstract class DiscordValues {
         pact: 'https://media.discordapp.net/attachments/659758501865717790/1221474459274182676/pacte.png?ex=6612b5bc&is=660040bc&hm=fc2a34f6e7ee991d3c6fd24c362a5550a622346714b3b7e953e4823d6a293ef4&=&format=webp&quality=lossless'
     };
 
-    static readonly emoteNotFound = {name: 'nope', id: '698945285094637688'};
+    static readonly emoteNotFound = { name: 'nope', id: '698945285094637688' };
 
     static readonly defaultEmotes = {
         numbers: ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣']
@@ -83,7 +84,7 @@ export abstract class Constants {
                 items: [1, 2, 5, 12, 20, 30, 45, 60, 85, 100, 120, 150, 180, 250, 340, 500, 700, 900, 1200, 1500, 1800, 2100, 2400, 3000, 4500]
             },
             images: ['https://media.discordapp.net/attachments/659758501865717790/1050450719599251518/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1050450748326019082/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1050450770614554714/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1050450802520637581/latest.png'],
-            itemCost: {1: 15, 10: 120, 100: 1100, 1000: 10000}
+            itemCost: { 1: 15, 10: 120, 100: 1100, 1000: 10000 }
         },
         trove: {
             resources: {
@@ -94,7 +95,7 @@ export abstract class Constants {
                 items: [0, 5, 25, 55, 75, 145, 295, 900, 3500]
             },
             images: ['https://media.discordapp.net/attachments/659758501865717790/1053310152192839710/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053310152725499914/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053310153144946768/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053310153606303804/latest.png'],
-            itemCost: {1: 20, 10: 160, 100: 1500, 1000: 14000}
+            itemCost: { 1: 20, 10: 160, 100: 1500, 1000: 14000 }
         },
         prison: {
             resources: {
@@ -105,7 +106,7 @@ export abstract class Constants {
                 items: [1, 2, 5, 12, 20, 30, 45, 60, 85, 100, 120, 150, 180, 250, 340, 500, 700, 900, 1200, 1500, 1800, 2100, 2400, 3000, 4500]
             },
             images: ['https://media.discordapp.net/attachments/659758501865717790/1053311615107350629/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053311615719723018/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053311616160120963/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053311616525017169/latest.png'],
-            itemCost: {1: 15, 10: 120, 100: 1100, 1000: 10000}
+            itemCost: { 1: 15, 10: 120, 100: 1100, 1000: 10000 }
         },
         hall: {
             resources: {
@@ -116,7 +117,7 @@ export abstract class Constants {
                 items: [1, 2, 5, 12, 20, 30, 45, 60, 85, 100, 120, 150, 180, 250, 340, 500, 700, 900, 1200, 1500, 1800, 2100, 2400, 3000, 4500]
             },
             images: ['https://media.discordapp.net/attachments/659758501865717790/1053314872869392445/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053314873234292827/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053314873628561408/latest.png', 'https://media.discordapp.net/attachments/659758501865717790/1053314873980895242/latest.png'],
-            itemCost: {1: 15, 10: 120, 100: 1100, 1000: 10000}
+            itemCost: { 1: 15, 10: 120, 100: 1100, 1000: 10000 }
         }
     };
 
@@ -162,7 +163,7 @@ export abstract class Constants {
         }
     };
 
-    static readonly hellMenu = ['watcher', 'dragon', 'watcherResearch', 'dragonResearch', 'redOrb', 'yellowOrb', 'challengeResearch', 'challengeTroops' ];
+    static readonly hellMenu = ['watcher', 'dragon', 'watcherResearch', 'dragonResearch', 'redOrb', 'yellowOrb', 'challengeResearch', 'challengeTroops'];
 
     static readonly oldHellMenu = {
         IV: 'watcher',
@@ -490,77 +491,77 @@ export abstract class Constants {
         adult: { runes: number, maxExp: number },
         elder: { runes: number, maxExp: number }
     }> = {
-        1: {
-            hatchling: {
-                runes: 1,
-                maxExp: 5583
+            1: {
+                hatchling: {
+                    runes: 1,
+                    maxExp: 5583
+                },
+                adult: {
+                    runes: 5,
+                    maxExp: 56992
+                },
+                elder: {
+                    runes: 40,
+                    maxExp: 45455
+                }
             },
-            adult: {
-                runes: 5,
-                maxExp: 56992
+            2: {
+                hatchling: {
+                    runes: 1,
+                    maxExp: 8367
+                },
+                adult: {
+                    runes: 10,
+                    maxExp: 85484
+                },
+                elder: {
+                    runes: 80,
+                    maxExp: 68178
+                }
             },
-            elder: {
-                runes: 40,
-                maxExp: 45455
+            3: {
+                hatchling: {
+                    runes: 1,
+                    maxExp: 16113
+                },
+                adult: {
+                    runes: 15,
+                    maxExp: 164703
+                },
+                elder: {
+                    runes: 120,
+                    maxExp: 197212
+                }
+            },
+            4: {
+                hatchling: {
+                    runes: 1,
+                    maxExp: 25754
+                },
+                adult: {
+                    runes: 20,
+                    maxExp: 264688
+                },
+                elder: {
+                    runes: 160,
+                    maxExp: 316948
+                }
+            },
+            5: {
+                hatchling: {
+                    runes: 1,
+                    maxExp: 46025
+                },
+                adult: {
+                    runes: 25,
+                    maxExp: 470547
+                },
+                elder: {
+                    runes: 200,
+                    maxExp: 563459
+                }
             }
-        },
-        2: {
-            hatchling: {
-                runes: 1,
-                maxExp: 8367
-            },
-            adult: {
-                runes: 10,
-                maxExp: 85484
-            },
-            elder: {
-                runes: 80,
-                maxExp: 68178
-            }
-        },
-        3: {
-            hatchling: {
-                runes: 1,
-                maxExp: 16113
-            },
-            adult: {
-                runes: 15,
-                maxExp: 164703
-            },
-            elder: {
-                runes: 120,
-                maxExp: 197212
-            }
-        },
-        4: {
-            hatchling: {
-                runes: 1,
-                maxExp: 25754
-            },
-            adult: {
-                runes: 20,
-                maxExp: 264688
-            },
-            elder: {
-                runes: 160,
-                maxExp: 316948
-            }
-        },
-        5: {
-            hatchling: {
-                runes: 1,
-                maxExp: 46025
-            },
-            adult: {
-                runes: 25,
-                maxExp: 470547
-            },
-            elder: {
-                runes: 200,
-                maxExp: 563459
-            }
-        }
-    };
+        };
 
     static readonly familiarsData: Record<keyof typeof TranslationsCache.fr.others.familiars, familiarData> = {
         jaziek: {
@@ -1664,7 +1665,7 @@ export abstract class Constants {
         'familiar-xp-skill': '%'
     };
 
-    static readonly cumulativeStats:Partial<Record<StatType, StatType[]>> = {
+    static readonly cumulativeStats: Partial<Record<StatType, StatType[]>> = {
         "cav-atk": ["army-atk"],
         "inf-atk": ["army-atk"],
         "range-atk": ["army-atk"],
@@ -1683,5 +1684,66 @@ export abstract class Constants {
         "cav-def-wonder": ["army-def", 'cav-def'],
         "inf-def-wonder": ["army-def", 'inf-def'],
         "range-def-wonder": ["army-def", 'range-def'],
+    }
+
+    static readonly statsFamily: Record<TroopSpeciality, StatType[]> = {
+        infantry: ['inf-atk', 'inf-atk-wonder', 'inf-def', 'inf-def-wonder', 'inf-hp', 'army-atk', 'army-def', 'army-hp'],
+        range: ['range-atk', 'range-atk-wonder', 'range-def', 'range-def-wonder', 'range-hp', 'army-atk', 'army-def', 'army-hp'],
+        cavalry: ['cav-atk', 'cav-atk-wonder', 'cav-def', 'cav-def-wonder', 'cav-hp', 'army-atk', 'army-def', 'army-hp'],
+        siege: ['siege-atk', 'siege-def', 'siege-hp'],
+        mix: ['inf-atk', 'inf-atk-wonder', 'inf-def', 'inf-def-wonder', 'inf-hp', 'range-atk', 'range-atk-wonder', 'range-def', 'range-def-wonder', 'range-hp', 'cav-atk', 'cav-atk-wonder', 'cav-def', 'cav-def-wonder', 'cav-hp', 'army-atk', 'army-def', 'army-hp']
+    }
+
+    static readonly statsScore:Record<TroopSpeciality, Record<string, number>> = {
+        infantry: {
+            inf: 1,
+            range: 0,
+            cav: 0,
+            siege: 0,
+            army: 1,
+            atk: 6,
+            hp: 4,
+            def: 2
+        },
+        range: {
+            inf: 0,
+            range: 1,
+            cav: 0,
+            siege: 0,
+            army: 1,
+            atk: 6,
+            hp: 4,
+            def: 2
+        },
+        cavalry: {
+            inf: 0,
+            range: 0,
+            cav: 1,
+            siege: 0,
+            army: 1,
+            atk: 6,
+            hp: 4,
+            def: 2
+        },
+        siege: {
+            inf: 0,
+            range: 0,
+            cav: 0,
+            siege: 1,
+            army: 1,
+            atk: 6,
+            hp: 4,
+            def: 2
+        },
+        mix: {
+            inf: 1,
+            range: 1,
+            cav: 1,
+            siege: 0,
+            army: 3,
+            atk: 6,
+            hp: 4,
+            def: 2
+        },
     }
 }

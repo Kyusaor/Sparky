@@ -81,7 +81,7 @@ export abstract class CommandManager {
 
         switch (intera.commandName) {
             case 'gear':
-                let list = TranslationsCache[language].others.gear.stats;
+                let list = {...TranslationsCache[language].others.gear.stats, ...TranslationsCache[language].others.gear.speciality};
                 choices = Object.keys(list)
                     .filter(name => list[name as keyof typeof list].toLowerCase().includes(focusOpt))
                     .map(e => ({ name: list[e as keyof typeof list], value: e }))

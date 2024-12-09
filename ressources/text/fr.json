@@ -265,6 +265,10 @@
                         "stats": {
                             "name": "stat",
                             "description": "La stat que vous voulez utiliser en filtre"
+                        },
+                        "level": {
+                            "name": "niveau",
+                            "description": "Le niveau max requis des équipements à afficher"
                         }
                     }
                 }
@@ -301,7 +305,11 @@
                 "astraliteCostRatioExplaination": "-# Pour comparer deux valeurs, regardez d'abord le nombre après le `e`, puis le nombre avant\n-# Plus la valeur après le `e` est grande, moins le ratio est élevé",
             
                 "sortEmbedTitle": "Classement du meilleur {text2} ({text})",
-                "sortEmbedDescription": "*Les cumuls de stats armée ont été pris en compte pour classer les équipements\nLes stats utilisées en référence sont les stats mythiques avant utilisation d'astralites*"
+                "selectorEmbedTitleLevel": " < Niv.{text}",
+                "sortEmbedDescription": "*Les cumuls de stats armée ont été pris en compte pour classer les équipements\nLes stats utilisées en référence sont les stats mythiques avant utilisation d'astralites\nLe classement est fait à titre indicatif selon un ratio de statistiques subjectif, et vous pouvez trouver des différences dans votre façon de classer*",
+            
+                "sortEmbedErrorTitle": "Erreur: stat erronnée",
+                "sortEmbedErrorDescription": "Vous devez donner un des champs proposés en menu déroulant dans le paramètre \"stat\" de la commande"
             }
         },
         "guildfest": {
@@ -1657,6 +1665,13 @@
                 "travel-speed-wonder": "Vitesse de déplacement (Merveilles)",
                 "upkeep": "Réduction du coût d'entretien",
                 "wall-def": "DEF Rempart"
+            },
+            "speciality": {
+                "infantry": "Infanterie (toute stats confondues)",
+                "range": "Distance (toute stats confondues)",
+                "cavalry": "Cavalerie (toute stats confondues)",
+                "siege": "engins de siège (toute stats confondues)",
+                "mix": "Mixte (toute stats confondues)"
             }
         },
         "hellEvents": {

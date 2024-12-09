@@ -264,7 +264,11 @@
 						"stats": {
 							"name": "stat",
 							"description": "The stat you want to use to sort the pieces"
-						}
+						},
+                        "level": {
+                            "name": "level",
+                            "description": "The max required level of the gear pieces to display"
+                        }
 					}
 				}
 			},
@@ -300,7 +304,11 @@
 				"astraliteCostRatioExplaination": "-# To compare two values, look at the digit after the `e` first, then the number before\n-# The higher is the value following the `e`, the lesser is the ratio",
             
                 "sortEmbedTitle": "Best {text} ({text2})",
-                "sortEmbedDescription": "*Army stats are taken into account when displaying the best items\nThe used stats are the mythic stats, without astralite*"
+                "selectorEmbedTitleLevel": " < Lvl.{text}",
+                "sortEmbedDescription": "*Army stats are taken into account when displaying the best items\nThe used stats are the mythic stats, without astralite\nSorting was done using a subjective ratio, your own way of sorting may differ*",
+            
+                "sortEmbedErrorTitle": "Error: wrong stat",
+                "sortEmbedErrorDescription": "You must give a valid entry in the command's \"stat\" field"
 			}
 		},
 		"guildfest": {
@@ -1656,7 +1664,14 @@
 				"travel-speed-wonder": "Wonder travel speed",
 				"upkeep": "Upkeep reduction",
 				"wall-def": "Wall DEF"
-			}
+			},
+            "speciality": {
+                "infantry": "Infantry (all stats)",
+                "range": "Range (all stats)",
+                "cavalry": "Cavalry (all stats)",
+				"siege": "Siege engine (all stats)",
+                "mix": "Mix (all stats)"
+            }
 		},
 		"hellEvents": {
 			"challengeResearch": "challenge dragon research",
