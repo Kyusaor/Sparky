@@ -1,10 +1,21 @@
-import { APIApplicationCommandOptionChoice, ActionRowBuilder, ButtonBuilder, ButtonInteraction, ButtonStyle, ChatInputCommandInteraction, ComponentType, PermissionFlagsBits, SlashCommandStringOption } from "discord.js";
-import { CommandInterface, CommandName, TranslationCacheType, textLanguage } from "../constants/types.js";
-import { Command, CommandManager } from "../managers/commands.js";
-import { TranslationsCache } from "../../main.js";
-import { Translations } from "../constants/translations.js";
-import { ServerManager } from "../managers/servers.js";
-import { UserManager } from "../managers/users.js";
+import {
+    ActionRowBuilder,
+    APIApplicationCommandOptionChoice,
+    ButtonBuilder,
+    ButtonInteraction,
+    ButtonStyle,
+    ChatInputCommandInteraction,
+    ComponentType,
+    PermissionFlagsBits,
+    SlashCommandStringOption,
+    TextChannel
+} from 'discord.js';
+import {CommandInterface, CommandName, textLanguage, TranslationCacheType} from '../constants/types.js';
+import {Command, CommandManager} from '../managers/commands.js';
+import {TranslationsCache} from '../../main.js';
+import {Translations} from '../constants/translations.js';
+import {ServerManager} from '../managers/servers.js';
+import {UserManager} from '../managers/users.js';
 
 export const language:CommandInterface = {
     permissionLevel: 1,
@@ -89,12 +100,12 @@ async function checkIfUserOfGuildLanguage(intera:ChatInputCommandInteraction, la
             .setLabel(TranslationsCache[language].global.cancel)
     ])
 
-    let reply = await Command.prototype.reply({content: commandText.serverOrAccount, components: [buttons]}, intera);
+    await Command.prototype.reply({content: commandText.serverOrAccount, components: [buttons]}, intera);
 
     let confirmationResponse;
     try {
         let filter = (button: ButtonInteraction<"cached">) => button.user.id === intera.user.id && button.customId.includes(intera.commandName)
-        confirmationResponse = await intera.channel?.awaitMessageComponent({ componentType: ComponentType.Button, filter, time: 15000 })
+        confirmationResponse = await (intera.channel as TextChannel)?.awaitMessageComponent({ componentType: ComponentType.Button, filter, time: 15000 })
     } catch {
         return "none"
     }

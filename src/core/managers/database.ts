@@ -1,12 +1,12 @@
-import { existsSync, mkdirSync } from 'fs';
-import { createPool, Pool, PoolConfig } from 'mysql';
-import { Console } from '../../main.js';
-import { Utils } from '../utils.js';
+import {existsSync, mkdirSync} from 'fs';
+import {createPool, Pool, PoolConfig} from 'mysql';
+import {Console} from '../../main.js';
+import {Utils} from '../utils.js';
 import mysqldump from 'mysqldump';
-import { Config } from '../../../data/config.js';
-import { ChanData, RolesData, Server, UserData, queryArgs, textLanguage } from '../constants/types.js';
-import { Guild } from 'discord.js';
-import { Constants } from '../constants/values.js';
+import {Config} from '../../../data/config.js';
+import {ChanData, queryArgs, RolesData, Server, textLanguage, UserData} from '../constants/types.js';
+import {Guild} from 'discord.js';
+import {Constants} from '../constants/values.js';
 
 
 export class DBManager {
@@ -16,7 +16,7 @@ export class DBManager {
     constructor(config: PoolConfig) {
         this.pool = createPool(config);
 
-        this.pool.on('connection', (stream) => {
+        this.pool.on('connection', () => {
             Console.logDb('Connected to database')
         });
 
@@ -42,7 +42,7 @@ export class DBManager {
     static getColumnList(type: "roles" | "channels"): string {
         switch (type) {
             case 'roles':
-                return Object.keys(Constants.hellMenu).join(",");
+                return Constants.hellMenu.join(",");
 
             case 'channels':
                 return "board,ping";

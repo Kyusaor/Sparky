@@ -1,88 +1,6 @@
 {
-    "global": {
-        "flag": ":flag_fr:",
-        "languagesFullName": {
-            "fr": "français",
-            "en": "anglais"
-        },
-        "welcomeMsg": "Je me présente: je suis Sparky, un bot discord Lords Mobile, conçu pour les serveurs de guilde.\n\nLa liste de mes commandes se trouve en faisant **\\/aide\\** sur votre serveur\n\nMerci de m'avoir ajouté!",
-        "tipsFooter": [
-            {
-                "text": "Faites la commande /aide pour obtenir de l'aide !"
-            },
-            {
-                "text": "Développé avec amour par {dev_username}",
-                "iconURL": "{dev_avatar_url}"
-            },
-            {
-                "text": "Faites la commande /langage pour changer la langue du bot!"
-            },
-            {
-                "text": "Faites /veilleur pour avoir les notifications d'évènements infernaux"
-            },
-            {
-                "text": "Fun fact: je suis le meilleur bot du monde"
-            },
-            {
-                "text": "Soutenez le bot avec la commande /donner"
-            }
-        ],
-        "errors": {
-            "notInAGuild": "La command doit être exécutée sur un serveur",
-            "guildDataNotFound": "Impossible de récupérer les données de serveur",
-            "buttonWithoutCommand": "Ce customId ne contient pas de commande: ",
-            "unableToReply": "Impossible de répondre à l'interaction",
-            "noChannel": "Aucun salon",
-            "DBerror": "Erreur base de données",
-            "RoleNotEditable": "Impossible de modifier les rôles de l'user",
-            "noServerInDbAndNotFound": "Impossible de trouver le serveur qui n'est pas en db",
-            "notAGuild": "Ceci n'est pas un serveur"
-        },
-        "cancelledCommand": "Commande annulée",
-        "commandIsLocked": "Cette commande est déjà en cours d'exécution",
-        "autoDmResponse": "Réponse auto envoyée",
-        "noLinkInDm": ":flag_fr: Bonjour, pour m'ajouter à votre serveur utilisez plutôt ce lien!",
-        "noCommandOffServer": ":flag_fr: Les commandes sont à réaliser sur un serveur !",
-        "CommandExecutionError": "Une erreur est survenue pendant l'éxecution de la commande",
-        "defaultCommandReply": "Impossible d'exécuter la commande :confused:",
-        "translation404": "<Traduction introuvable>",
-        "stringifyDate": "<t:{timestamp}> (il y a {daysSince} jours)",
-        "yes": "Oui",
-        "no": "Non",
-        "cancel": "annuler",
-        "timeNames": {
-            "day": "jours",
-            "hour": "heures",
-            "minute": "minutes",
-            "second": "secondes"
-        }
-    },
-    "permissions": {
-        "MissingPermissions": "Oups, il semblerait qu'il me manque les permissions suivantes:\n{text}",
-        "flags": {
-            "AddReactions": "Ajouter des réactions",
-            "AttachFiles": "Joindre des fichiers",
-            "EmbedLinks": "Intégrer des liens",
-            "ManageRoles": "Gérer les rôles",
-            "ManageChannels": "Gérer les salons",
-            "SendMessages": "Envoyer des messages",
-            "UseExternalEmojis": "Utiliser des emojis externes",
-            "ViewChannel": "Voir les salons"
-        }
-    },
-    "helpMention": {
-        "title": "Perdu?",
-        "description": "Pour obtenir la liste de mes commandes, faites **/aide**"
-    },
     "commands": {
         "about": {
-            "name": "a-propos",
-            "description": "Informations additionnels sur le bot et ce qui tourne autour",
-            "text": {
-                "bot": "Bonjour,\nJe suis Sparky, un bot Discord français d'aide pour les joueurs de Lords Mobile. J'ai été créé par Kyusaor en 2020, afin d'aider les serveurs de guilde au mieux dans leur vie de lord. Un serveur existe pour aider et regrouper les joueurs (commande **/contact**), si vous avez des questions à mon sujet n'hésitez pas à le rejoindre pour les poser!\n\nSur le côté technique, je suis codé en Typescript en utilisant la librairie discord.js, avec une base de donnée en SQL",
-                "dev": "Salut,\nMoi c'est Kyusaor, joueur de Lords Mobile depuis 2016, dans la guilde française imp que je j'ai rejoins et jamais quitté, développeur de bots discord depuis 2019 et modérateur puis gérant du serveur discord Lords Mobile FR depuis la même année. J'avais fait le bot du serveur discord en y mettant quelques fonctions utiles et j'ai créé Sparky suite aux nombreuses demandes de membres d'avoir la possibilité d'utiliser ces fonctions sur leurs propres serveurs. N'hésitez pas à me contacter si vous avez besoin de quelque chose ! 😉",
-                "permissions": "Voilà les permissions dont j'ai besoin pour fonctionner, ainsi que la raison:\n> __Les indispensables:__\n> -Envoyer des messages: J'imagine que celui là est plutôt évident non? :blobowo:\n> -Intégrer des liens: La plupart des messages sont dans des embeds, les messages rectangulaires des bots, et il faut cette permission pour pouvoir les envoyer\n> -Intégrer des liens: Pour être capable d'envoyer des images pour plusieurs commandes (**/compo** par exemple)\n> \n> __Les optionnelles:__\n> -Gérer les rôles: pour que je sois capable de créer/supprimer les rôles de la commande **/veilleur** (mentions des évènements infernaux)\n> -Gérer les salons: Pareil, mais pour les salons\n> -Utiliser des emojis externes: Certains des emojis que j'utilise viennent de mon serveur, donc elles n'apparaîtront pas si je n'ai pas cette permission (un <:emoji:123456789> moche apparaîtra à la place par contre, pas dramatique mais ça peut être pénible)"
-            },
             "choices": {
                 "topic": {
                     "bot": "Le bot",
@@ -90,111 +8,120 @@
                     "permissions": "Les permissions du bot"
                 }
             },
+            "description": "Informations additionnels sur le bot et ce qui tourne autour",
+            "name": "a-propos",
             "options": {
                 "topic": {
-                    "name": "sujet",
-                    "description": "Le sujet sur lequel vous voulez en savoir plus"
+                    "description": "Le sujet sur lequel vous voulez en savoir plus",
+                    "name": "sujet"
                 }
+            },
+            "text": {
+                "bot": "Bonjour,\nJe suis Sparky, un bot Discord français d'aide pour les joueurs de Lords Mobile. J'ai été créé par Kyusaor en 2020, afin d'aider les serveurs de guilde au mieux dans leur vie de lord. Un serveur existe pour aider et regrouper les joueurs (commande **/contact**), si vous avez des questions à mon sujet n'hésitez pas à le rejoindre pour les poser!\n\nSur le côté technique, je suis codé en Typescript en utilisant la librairie discord.js, avec une base de donnée en SQL",
+                "dev": "Salut,\nMoi c'est Kyusaor, joueur de Lords Mobile depuis 2016, dans la guilde française imp que je j'ai rejoins et jamais quitté, développeur de bots discord depuis 2019 et modérateur puis gérant du serveur discord Lords Mobile FR depuis la même année. J'avais fait le bot du serveur discord en y mettant quelques fonctions utiles et j'ai créé Sparky suite aux nombreuses demandes de membres d'avoir la possibilité d'utiliser ces fonctions sur leurs propres serveurs. N'hésitez pas à me contacter si vous avez besoin de quelque chose ! 😉",
+                "permissions": "Voilà les permissions dont j'ai besoin pour fonctionner, ainsi que la raison:\n> __Les indispensables:__\n> -Envoyer des messages: J'imagine que celui là est plutôt évident non? :blobowo:\n> -Intégrer des liens: La plupart des messages sont dans des embeds, les messages rectangulaires des bots, et il faut cette permission pour pouvoir les envoyer\n> -Intégrer des liens: Pour être capable d'envoyer des images pour plusieurs commandes (**/compo** par exemple)\n> \n> __Les optionnelles:__\n> -Gérer les rôles: pour que je sois capable de créer/supprimer les rôles de la commande **/veilleur** (mentions des évènements infernaux)\n> -Gérer les salons: Pareil, mais pour les salons\n> -Utiliser des emojis externes: Certains des emojis que j'utilise viennent de mon serveur, donc elles n'apparaîtront pas si je n'ai pas cette permission (un <:emoji:123456789> moche apparaîtra à la place par contre, pas dramatique mais ça peut être pénible)"
             }
         },
         "calculator": {
-            "name": "calcul",
-            "description": "Divers outils de calcul utiles",
-            "subcommand": {
-                "buildings": {
-                    "name": "batiments",
-                    "description": "Calcule les ressources qu'il vous manque pour vos bâtiments payants",
-                    "options": {
-                        "building": {
-                            "name": "batiment",
-                            "description": "Le bâtiment à calculer"
-                        },
-                        "level": {
-                            "name": "niveau",
-                            "description": "Le niveau actuel de votre bâtiment"
-                        }
-                    }
-                },
-                "train": {
-                    "name": "entraînement",
-                    "description": "Calcule le coût en ressources et temps pour former des troupes",
-                    "options": {
-                        "speed": {
-                            "name": "vitesse",
-                            "description": "Votre % de vitesse d'entraînement"
-                        },
-                        "capacity": {
-                            "name": "capacité",
-                            "description": "La capacité de formation de votre caserne"
-                        },
-                        "subsidy": {
-                            "name": "subventions",
-                            "description": "Le niveau de la recherche subvention"
-                        },
-                        "amount": {
-                            "name": "quantité",
-                            "description": "La quantité totale de troupes à former"
-                        },
-                        "type": {
-                            "name": "type",
-                            "description": "Le type de troupes à former"
-                        },
-                        "tier": {
-                            "name": "tier",
-                            "description": "Le tier des troupes à former"
-                        }
-                    }
-                }
-            },
             "choices": {
                 "buildings": {
                     "altar": "autel",
                     "hall": "hall de batailles",
-                    "trove": "salle au trésor",
-                    "prison": "prison"
-                },
-                "type": {
-                    "inf": "infanterie",
-                    "range": "distance",
-                    "cav": "cavalerie",
-                    "siege": "engins de siège"
+                    "prison": "prison",
+                    "trove": "salle au trésor"
                 },
                 "tier": {
                     "1": "T1",
                     "2": "T2",
                     "3": "T3",
                     "4": "T4"
+                },
+                "type": {
+                    "cav": "cavalerie",
+                    "inf": "infanterie",
+                    "range": "distance",
+                    "siege": "engins de siège"
+                }
+            },
+            "description": "Divers outils de calcul utiles",
+            "name": "calcul",
+            "subcommand": {
+                "buildings": {
+                    "description": "Calcule les ressources qu'il vous manque pour vos bâtiments payants",
+                    "name": "batiments",
+                    "options": {
+                        "building": {
+                            "description": "Le bâtiment à calculer",
+                            "name": "batiment"
+                        },
+                        "level": {
+                            "description": "Le niveau actuel de votre bâtiment",
+                            "name": "niveau"
+                        }
+                    }
+                },
+                "train": {
+                    "description": "Calcule le coût en ressources et temps pour former des troupes",
+                    "name": "entraînement",
+                    "options": {
+                        "amount": {
+                            "description": "La quantité totale de troupes à former",
+                            "name": "quantité"
+                        },
+                        "capacity": {
+                            "description": "La capacité de formation de votre caserne",
+                            "name": "capacité"
+                        },
+                        "speed": {
+                            "description": "Votre % de vitesse d'entraînement",
+                            "name": "vitesse"
+                        },
+                        "subsidy": {
+                            "description": "Le niveau de la recherche subvention",
+                            "name": "subventions"
+                        },
+                        "tier": {
+                            "description": "Le tier des troupes à former",
+                            "name": "tier"
+                        },
+                        "type": {
+                            "description": "Le type de troupes à former",
+                            "name": "type"
+                        }
+                    }
                 }
             },
             "text": {
-                "missingItemForGems": "En fonction de par combien vous achetez les {text}:\n",
-                "missingGemsCosts": "Par {text}: {text2}\n",
-                "buildEmbedTitle": "Calculateur de batiment",
                 "buildEmbedDescription": "*Voici les ressources qu'il vous manque pour maxer votre {text} du __niveau {text2} au niveau {text3}__. Le compte des gemmes prend en compte le coût du marteau d'or pour le niveau 25*",
+                "buildEmbedTitle": "Calculateur de batiment",
                 "gemsEquivalence": "Équivalent en gemmes:",
+                "missingGemsCosts": "Par {text}: {text2}\n",
+                "missingItemForGems": "En fonction de par combien vous achetez les {text}:\n",
                 "noResources": "Aucun",
-                "trainEmbedTitle": "Calculateur de troupes",
-                "trainEmbedDescription": "*Voici le coût en ressources pour former vos troupes !\nNote: le coût en gemmes diminuant au fur et à mesure que le nombre de troupes augmente, il n'est pas affiché dans ce calculateur*",
-                "trainEmbedTrainSpeed": "__Vitesse d'entraînement:__",
-                "trainEmbedCostReduction": "__Réduction du coût:__",
-                "trainEmbedTroopAmount": "__Nombre de troupe à former:__",
                 "trainEmbedBatchAmount": "__Nombre de fournées nécessaires:__",
+                "trainEmbedCostReduction": "__Réduction du coût:__",
+                "trainEmbedDescription": "*Voici le coût en ressources pour former vos troupes !\nNote: le coût en gemmes diminuant au fur et à mesure que le nombre de troupes augmente, il n'est pas affiché dans ce calculateur*",
+                "trainEmbedMightGained": "__Puissance obtenue:__",
                 "trainEmbedRssCost": "__Coût en {text}:__ ",
                 "trainEmbedTimeCost": "__Durée nécessaire:__",
-                "trainEmbedMightGained": "__Puissance obtenue:__"
+                "trainEmbedTitle": "Calculateur de troupes",
+                "trainEmbedTrainSpeed": "__Vitesse d'entraînement:__",
+                "trainEmbedTroopAmount": "__Nombre de troupe à former:__"
             }
         },
         "contact": {
-            "name": "contact",
             "description": "Nous contacter (discord ou mail)",
+            "name": "contact",
             "text": {
                 "content": "Besoin d'aide sur le bot, de signaler un bug ou simplement discuter avec des joueurs de Lords Mobile? Voilà le lien du serveur :wink:\n{support_server_invite}\n\nPour contacter le développeur, vous pouvez également envoyer un mail à __**{support_email}**__"
             }
         },
         "credits": {
-            "name": "credits",
             "description": "Remerciements",
+            "name": "credits",
             "text": {
+                "embedDescription": "La liste des personnes qui ont aidé de près ou de loin au développement du bot",
+                "embedTitle": "Remerciements",
                 "thanks": [
                     [
                         "Les bêta testeurs",
@@ -212,15 +139,14 @@
                         "Et enfin...",
                         "Tous les utilisateurs du bot pour avoir accordé leur confiance à ce projet :heart:"
                     ]
-                ],
-                "embedDescription": "La liste des personnes qui ont aidé de près ou de loin au développement du bot",
-                "embedTitle": "Remerciements"
+                ]
             }
         },
         "cycle": {
             "name": "cycle",
             "description": "Envoies les dates d'un évènement donné",
             "text": {
+                "monsterTitle": "des monstres",
                 "labyrinthTitle": "du labyrinthe",
                 "tycoonTitle": "du Royaume du pouvoir",
                 "base": "__**Cycle {text}**__:\n\nEn cours: **{text2}**\n",
@@ -229,56 +155,58 @@
             "choices": {
                 "event": {
                     "tycoon": "Royaume du pouvoir",
-                    "labyrinth": "Labyrinthe"
+                    "labyrinth": "Labyrinthe",
+                    "monster": "Monstres"
+
                 }
             },
             "options": {
                 "event": {
-                    "name": "évènement",
-                    "description": "L'évènement dont vous voulez le cycle"
+                    "description": "L'évènement dont vous voulez le cycle",
+                    "name": "évènement"
                 }
             }
         },
         "data": {
-            "name": "data",
             "description": "Envoie la base de données du bot",
+            "name": "data",
             "text": {
                 "error": "Impossible de trouver la backup",
                 "success": "La db a été envoyée en mp"
             }
         },
         "donate": {
-            "name": "donner",
             "description": "Faire un don à l'auteur du bot",
+            "name": "donner",
             "text": {
                 "donate": "Vous voulez contribuer au développement du bot sans rien y connaître en informatique et sans passer des nuits blanches? J'ai la solution !\n\nEn donnant de l'argent, vous aiderez le développeur à financer l'hébergement du bot et booster son égo, d'une pierre deux coups ! <:thumbsup:751774481781096468>\n{text}"
             }
         },
         "familiar": {
-            "name": "familier",
-            "description": "Des informations diverses sur les familiers",
-            "subcommand": {
-                "famidex": {
-                    "name": "famidex",
-                    "description": "Une liste complète des familiers, leurs coûts, compétences etc !",
-                    "options": {
-                        "tier": {
-                            "name": "tier",
-                            "description": "Le niveau de pactes requis"
-                        }
-                    }
-                }
-            },
             "choices": {
                 "tier": {
-                    "all": "Liste complète",
                     "1A": "Pactes 1A (cime)",
                     "1B": "Pactes 1B (cime)",
                     "2A": "Pactes 2A (cime)",
                     "2B": "Pactes 2B (cime)",
                     "3": "Pactes 3 (cime)",
                     "4": "Pactes 4 (cime)",
-                    "5": "Pactes 5 (payant/royaume)"
+                    "5": "Pactes 5 (payant/royaume)",
+                    "all": "Liste complète"
+                }
+            },
+            "description": "Des informations diverses sur les familiers",
+            "name": "familier",
+            "subcommand": {
+                "famidex": {
+                    "description": "Une liste complète des familiers, leurs coûts, compétences etc !",
+                    "name": "famidex",
+                    "options": {
+                        "tier": {
+                            "description": "Le niveau de pactes requis",
+                            "name": "tier"
+                        }
+                    }
                 }
             },
             "text": {
@@ -289,372 +217,425 @@
                 "3pactName": "pactes 3",
                 "4pactName": "pactes 4",
                 "5pactName": "pactes 5",
-
-                "hatchling": "jeune",
                 "adult": "adulte",
-                "elder": "mature",
-
-                "runes": "runes",
-
-                "listEmbedTitle": "Répartition des familiers par pactes",
-                "listEmbedDescription": "*Les chiffres devant les familiers représentent leur rang. Ce dernier détermine le coût d'amélioration des différentes compétences du familier*",
-                "selectorEmbedTitle": "Sélecteur de familier",
-                "selectorEmbedDescription": "*Voici la liste des familiers disponibles en {text}. Sélectionnez celui dont vous voulez les informations*",
-                "selectorEmbedField": "Familiers {text}:",
-
-                "displayEmbedDescription": "*Voici les informations du familier. Les notes d'intérêts sont à moduler selon vos besoin et sont là à titre indicatif si vous ne savez pas par où commencer*",
-                "displayEmbedRank": "Tier",
-                "displayEmbedBaseData": "Caractéristiques de base",
-                "displayEmbedPact": "Pactes d'origine",
-                "displayEmbedActivableAbility": "Compétence activable",
-                "displayEmbedPassiveAbility": "Compétence passive",
-                "displayEmbedTalent": "Talent d'armée",
-                "displayEmbedTalentCost": "**Coût de déblocage**: {text2} {text}\n**Coût de maxage**: {text3} {text}",
-                "displayEmbedRequiredExpAmount": "Quantité d'expérience requise",
-                "displayEmbedMaxExp": "Expérience maximum",
-                "displayEmbedExpLevel": "Niveau d'expérience",
-                "displayEmbedAbilityFieldValue": "**Description**:*{text}*\n**Niveau d'intérêt**: {text2}",
-                "displayEmbedInterestLevel": "Niveau d'intérêt",
-
-                "mixInterest": "Mixte",
                 "blastInterest": "Mono",
                 "defenseInterest": "Défense",
-                "total": "total",
-                "level": "niveau"
+                "displayEmbedAbilityFieldValue": "**Description**:*{text}*\n**Niveau d'intérêt**: {text2}",
+                "displayEmbedActivableAbility": "Compétence activable",
+                "displayEmbedBaseData": "Caractéristiques de base",
+                "displayEmbedDescription": "*Voici les informations du familier. Les notes d'intérêts sont à moduler selon vos besoin et sont là à titre indicatif si vous ne savez pas par où commencer*",
+                "displayEmbedExpLevel": "Niveau d'expérience",
+                "displayEmbedInterestLevel": "Niveau d'intérêt",
+                "displayEmbedMaxExp": "Expérience maximum",
+                "displayEmbedPact": "Pactes d'origine",
+                "displayEmbedPassiveAbility": "Compétence passive",
+                "displayEmbedRank": "Tier",
+                "displayEmbedRequiredExpAmount": "Quantité d'expérience requise",
+                "displayEmbedTalent": "Talent d'armée",
+                "displayEmbedTalentCost": "**Coût de déblocage**: {text2} {text}\n**Coût de maxage**: {text3} {text}",
+                "elder": "mature",
+                "hatchling": "jeune",
+                "level": "niveau",
+                "listEmbedDescription": "*Les chiffres devant les familiers représentent leur rang. Ce dernier détermine le coût d'amélioration des différentes compétences du familier*",
+                "listEmbedTitle": "Répartition des familiers par pactes",
+                "mixInterest": "Mixte",
+                "runes": "runes",
+                "selectorEmbedDescription": "*Voici la liste des familiers disponibles en {text}. Sélectionnez celui dont vous voulez les informations*",
+                "selectorEmbedField": "Familiers {text}:",
+                "selectorEmbedTitle": "Sélecteur de familier",
+                "total": "total"
+            }
+        },
+        "gear": {
+            "description": "Donne des infos sur les pièeces de stuff",
+            "name": "stuff",
+            "subcommand": {
+                "data": {
+                    "description": "Obtenez des informations sur une pièece spécifique",
+                    "name": "info"
+                },
+                "top": {
+                    "description": "Obtenez la meilleur pièce donnée pour une stat donnée",
+                    "name": "top",
+                    "options": {
+                        "piecename": {
+                            "name": "partie",
+                            "description": "La partie de stuff que vous voulez vérifier"
+                        },
+                        "stats": {
+                            "name": "stat",
+                            "description": "La stat que vous voulez utiliser en filtre"
+                        },
+                        "level": {
+                            "name": "niveau",
+                            "description": "Le niveau max requis des équipements à afficher"
+                        }
+                    }
+                }
+            },
+            "choices": {
+                "piecename": {
+                    "accessory": "accessoire",
+                    "armor": "plastron",
+                    "helmet": "casque",
+                    "legs": "jambes",
+                    "mainhand": "main principale",
+                    "offhand": "main secondaire"
+                }
+                },
+            "text": {
+                "astraliteLvl": "Astralite niv.{text}",
+                "dataEmbedDescription": "*Sélectionner ci-dessous la collection à laquelle appartient la pièce voulue, puis la pièece concernée*",
+                "dataEmbedTitle": "Sélecteur d'équipement",
+                "mobPlaceHolder": "équipements de monstres",
+                "objectEmbedCraft": "__Ingrédients (source)__",
+                "objectEmbedCraftable": "__Fabricable__",
+                "objectEmbedEmberCost": "__Coût pour mythique__",
+                "objectEmbedLevel": "__Niveau requis__",
+                "objectEmbedPiece": "__Emplacement__",
+                "objectEmbedSetName": "__Ensemble__",
+                "objectEmbedSource": "__Moyen d'obtention__",
+                "objectEmbedStats": "__Statistiques__",
+                "objectEmbedAstraCost": "__Coût d'obtention__",
+                "objectEmbedTotalAstraCost": "__Coût total d'obtention à partir du mythique__",
+                "otherPlaceHolder": "autres équipements",
+                "setPlaceHolder": "Cliquez ici pour choisir une pièce",
+                "specificAstralite": "{text}{text2} ({text3} {text2} spécifiques)",
+                "astraliteCostRatio": "__Gain de % / astralite dépensée__",
+                "astraliteCostRatioExplaination": "-# Pour comparer deux valeurs, regardez d'abord le nombre après le `e`, puis le nombre avant\n-# Plus la valeur après le `e` est grande, moins le ratio est élevé",
+            
+                "sortEmbedTitle": "Classement du meilleur {text2} ({text})",
+                "selectorEmbedTitleLevel": " < Niv.{text}",
+                "sortEmbedDescription": "*Les cumuls de stats armée ont été pris en compte pour classer les équipements\nLes stats utilisées en référence sont les stats mythiques avant utilisation d'astralites\nLe classement est fait à titre indicatif selon un ratio de statistiques subjectif, et vous pouvez trouver des différences dans votre façon de classer*",
+            
+                "sortEmbedErrorTitle": "Erreur: stat erronnée",
+                "sortEmbedErrorDescription": "Vous devez donner un des champs proposés en menu déroulant dans le paramètre \"stat\" de la commande"
             }
         },
         "guildfest": {
-            "name": "guildfest",
+            "choices": {
+                "points": {
+                    "125": "Gantelet expert (125 points)",
+                    "145": "Gantelet maître (145 points)",
+                    "150": "Gantelet expert (150 points)",
+                    "175": "Gantelet expert (175 points)",
+                    "185": "Gantelet maître (185 points)",
+                    "200": "Gantelet expert (200 points)",
+                    "225": "Gantelet maître (225 points)",
+                    "265": "Gantelet maître (265 points)"
+                }
+            },
             "description": "Infos utiles sur la Guild Fest",
+            "name": "guildfest",
             "subcommand": {
+                "bonus": {
+                    "description": "Obtenez la liste des quêtes bonus (gantelet expert)",
+                    "name": "bonus"
+                },
                 "random": {
-                    "name": "aleatoires",
                     "description": "Obtenez la liste des quêtes aléatoires possibles",
+                    "name": "aleatoires",
                     "options": {
                         "points": {
-                            "name": "points",
-                            "description": "Le nombre de points de la quête que vous voulez"
+                            "description": "Le nombre de points de la quête que vous voulez",
+                            "name": "points"
                         }
                     }
-                },
-                "bonus": {
-                    "name": "bonus",
-                    "description": "Obtenez la liste des quêtes bonus (gantelet expert)"
                 }
             },
             "text": {
-                "embedTitle": "Quête aléatoire: {text} points",
-                "embedDescription": "*Le classement par difficulté est fait en moyenne à titre indicatif et n'a pas pour but d'être absolu, chacun peut évidemment y voir des différences en fonction de sa façon de jouer*",
-                "fieldDuration": "__Durée de la quête:__",
-                "days": "{text} jours",
-                "day": "{text} jour",
-                "easyField": "__Quêtes faciles:__",
-                "mediumField": "__Quête longues ou normales:__",
-                "hardField": "__Quêtes difficiles ou payantes:__",
-                "help": "Envoyer **{text}** aides aux membres de la guilde",
                 "admin": "Effectuer **{text}** quêtes admin",
-                "guild": "Effectuer **{text}** quêtes de guilde",
-                "stage": "Faire **{text}** stages de héros",
-                "hell": "Compléter **{text}** événements inferaux",
+                "artifactQuest": "Compléter **{text}** quêtes liées aux artefacts",
                 "boat": "Effectuer **{text}** échanges de bateau",
-                "rss": "Récolter **{text}** de ressources",
+                "bonusDescription": "Lorsque votre guilde atteint le gantelet expert, les membres ont accès à une quête bonus en plus des quêtes habituelles: trois parmi cette liste seront attribuées à chacun, et il faudra compléter une des trois pour recevoir 175 point bonus. Les membres ayant complété cette quête bonus auront leur score affiché en vert dans la liste des scores de la guilde",
+                "bonusTitle": "Liste des quêtes bonus",
+                "bossLabyElite": "Rencontrer **{text}** boss au labyrinthe élite",
+                "box": "Ouvrir **{text}** boites mystère",
+                "bundleQuest": "Compléter **{text}** quêtes liées aux achats de packs",
+                "challenge": "Compléter **{text}** challenges 24h",
+                "darknest": "Compléter **{text}** quêtes liées aux sombres nids",
+                "day": "{text} jour",
+                "days": "{text} jours",
+                "easyField": "__Quêtes faciles:__",
+                "embedDescription": "*Le classement par difficulté est fait en moyenne à titre indicatif et n'a pas pour but d'être absolu, chacun peut évidemment y voir des différences en fonction de sa façon de jouer*",
+                "embedTitle": "Quête aléatoire: {text} points",
+                "farmQuest": "Compléter **{text}** quêtes de récolte",
+                "fieldDuration": "__Durée de la quête:__",
+                "firstDay": "Compléter **{text}** quêtes le premier jour",
+                "frag": "Dépenser **{text}** fragments de familier",
+                "gems": "Dépenser **{text}** gemmes",
+                "guild": "Effectuer **{text}** quêtes de guilde",
+                "hardField": "__Quêtes difficiles ou payantes:__",
+                "hell": "Compléter **{text}** événements inferaux",
+                "hellQuest": "Compléter **{text}** quêtes liées aux évènements infernaux",
+                "help": "Envoyer **{text}** aides aux membres de la guilde",
                 "hitMob": "Frapper des monstres **{text}** fois",
+                "huntQuest": "Compléter **{text}** quêtes liées à la chasse aux monstres",
+                "labBossQuest": "Compléter **{text}** quêtes liées aux boss de labyrinthe",
+                "labTycoonQuest": "Compléter **{text}** quêtes de boss labyrinthe/royaume du pouvoir",
+                "latsDay": "Compléter **{text}** quêtes le dernier jour",
+                "loseTroops": "Perdre **{text}** de vos troupes T4",
+                "mediumField": "__Quête longues ou normales:__",
+                "merge": "Fusionner **{text}** pactes",
+                "mergeSpeed": "Accélérer **{text}** jours de fusion de pactes",
                 "mightRech": "Augmenter votre puissance recherche de **{text}** puissance",
                 "mightTotal": "Augmenter votre puissance totale de **{text}** puissance",
-                "tycoonBoss": "Rencontrer **{text}** boss au royaume du pouvoir",
-                "box": "Ouvrir **{text}** boites mystère",
-                "pdg": "Dépenser **{text}** pièces de guilde",
-                "merge": "Fusionner **{text}** pactes",
                 "mobLeg": "Obtenir **{text}** butins légendaires",
-                "frag": "Dépenser **{text}** fragments de familier",
                 "pack": "Acheter **{text}** packs au shop",
-                "topHell": "Faire **{text}** top 70 en événements infernaux",
-                "topSolo": "Faire **{text}** top 70 en événements solo",
-                "gems": "Dépenser **{text}** gemmes",
+                "pdg": "Dépenser **{text}** pièces de guilde",
+                "ptsQuest": "Compléter **{text}** quêtes de plus de 150 points",
+                "randomQuest": "Compléter **{text}** quêtes aléatoires",
+                "rss": "Récolter **{text}** de ressources",
+                "shipQuest": "Compléter **{text}** quêtes liées au navire de charge",
+                "stage": "Faire **{text}** stages de héros",
                 "stars": "Dépenser **{text}** étoiles sacrées",
                 "token": "Dépenser **{text}** jetons au royaume du pouvoir",
-                "bossLabyElite": "Rencontrer **{text}** boss au labyrinthe élite",
-                "loseTroops": "Perdre **{text}** de vos troupes T4",
-                "mergeSpeed": "Accélérer **{text}** jours de fusion de pactes",
+                "topHell": "Faire **{text}** top 70 en événements infernaux",
+                "topSolo": "Faire **{text}** top 70 en événements solo",
                 "troopMight": "Augmenter votre puissance troupes de **{text}** puissance",
-                "challenge": "Compléter **{text}** challenges 24h",
-                "artifactQuest": "Compléter **{text}** quêtes liées aux artefacts",
-                "darknest": "Compléter **{text}** quêtes liées aux sombres nids",
-                "latsDay": "Compléter **{text}** quêtes le dernier jour",
-                "firstDay": "Compléter **{text}** quêtes le premier jour",
-                "ptsQuest": "Compléter **{text}** quêtes de plus de 150 points",
-                "hellQuest": "Compléter **{text}** quêtes liées aux évènements infernaux",
-                "farmQuest": "Compléter **{text}** quêtes de récolte",
-                "labTycoonQuest": "Compléter **{text}** quêtes de boss labyrinthe/royaume du pouvoir",
-                "labBossQuest": "Compléter **{text}** quêtes liées aux boss de labyrinthe",
-                "huntQuest": "Compléter **{text}** quêtes liées à la chasse aux monstres",
-                "bundleQuest": "Compléter **{text}** quêtes liées aux achats de packs",
-                "shipQuest": "Compléter **{text}** quêtes liées au navire de charge",
-                "randomQuest": "Compléter **{text}** quêtes aléatoires",
-                "bonusTitle": "Liste des quêtes bonus",
-                "bonusDescription": "Lorsque votre guilde atteint le gantelet expert, les membres ont accès à une quête bonus en plus des quêtes habituelles: trois parmi cette liste seront attribuées à chacun, et il faudra compléter une des trois pour recevoir 175 point bonus. Les membres ayant complété cette quête bonus auront leur score affiché en vert dans la liste des scores de la guilde"
-            },
-            "choices": {
-                "points": {
-                    "145": "Gantelet maître (145 points)",
-                    "185": "Gantelet maître (185 points)",
-                    "225": "Gantelet maître (225 points)",
-                    "265": "Gantelet maître (265 points)",
-                    "125": "Gantelet expert (125 points)",
-                    "150": "Gantelet expert (150 points)",
-                    "175": "Gantelet expert (175 points)",
-                    "200": "Gantelet expert (200 points)"
-                }
+                "tycoonBoss": "Rencontrer **{text}** boss au royaume du pouvoir"
             }
         },
         "help": {
-            "name": "aide",
             "description": "Obtenez la liste des commandes",
+            "name": "aide",
             "text": {
+                "adminFieldTitle": "__**Commandes administrateur**__:",
                 "commandInDM": ":flag_fr: Les commandes ne fonctionnent pas en messages privés, il faut les effectuer sur un serveur.\nVous pouvez m'ajouter à votre serveur grâce à la commande **/lien** qui est la seule à fonctionner en messages privés !",
+                "devFieldTitle": "__**Commandes développeur**__:",
                 "embedDescription": "*Voici les commandes auxquelles tu as accès {username}!*",
                 "memberFieldTitle": "__**Commandes générales**__:",
-                "adminFieldTitle": "__**Commandes administrateur**__:",
-                "memberNotAdminWarning": ":warning: *Vous n'avez pas la permission d'utiliser ces commandes. Demandez à un administrateur du serveur de les exécuter*",
-                "devFieldTitle": "__**Commandes développeur**__:"
+                "memberNotAdminWarning": ":warning: *Vous n'avez pas la permission d'utiliser ces commandes. Demandez à un administrateur du serveur de les exécuter*"
             }
         },
         "info": {
-            "name": "info",
             "description": "Obtenez des infos sur un utilisateur discord, le serveur ou le bot",
+            "name": "info",
             "subcommand": {
-                "user": {
-                    "name": "utilisateur",
-                    "description": "Obtenez des infos sur un compte discord",
-                    "options": {
-                        "user": {
-                            "name": "utilisateur",
-                            "description": "Le compte discord dont vous voulez les informations"
-                        }
-                    }
-                },
                 "bot": {
-                    "name": "bot",
-                    "description": "Obtenez des infos sur le bot"
+                    "description": "Obtenez des infos sur le bot",
+                    "name": "bot"
                 },
                 "server": {
-                    "name": "serveur",
-                    "description": "Obtenez des infos sur le serveur"
+                    "description": "Obtenez des infos sur le serveur",
+                    "name": "serveur"
+                },
+                "user": {
+                    "description": "Obtenez des infos sur un compte discord",
+                    "name": "utilisateur",
+                    "options": {
+                        "user": {
+                            "description": "Le compte discord dont vous voulez les informations",
+                            "name": "utilisateur"
+                        }
+                    }
                 }
             },
             "text": {
-                "bot": "Bot",
                 "account": "Utilisateur",
-                "noNickname": "Pas de surnom",
                 "accountCreation": " créé le {date}",
-                "usernameField": "Nom d'utilisateur",
-                "globalUsernameField": "Pseudo",
-                "profileTypeField": "Type de compte discord",
                 "accountCreationDateField": "Date de création du compte",
-                "nicknameField": "Surnom",
-                "joinDateField": "Date d'arrivée sur le serveur",
-                "rolesField": "Rôles",
-                "guildCountField": "Nombre de serveurs",
-                "idField": "Id",
-                "versionField": "Version du bot",
-                "isPresentField": "Membre du serveur",
+                "bot": "Bot",
                 "botInviteField": "Lien d'invitation",
+                "clicHere": "Cliquez ici!",
+                "globalUsernameField": "Pseudo",
+                "guildCountField": "Nombre de serveurs",
                 "guildCreationField": "Date de création",
-                "guildOwnerField": "Propriétaire",
                 "guildMemberCountField": "Nombre de membres",
-                "clicHere": "Cliquez ici!"
+                "guildOwnerField": "Propriétaire",
+                "idField": "Id",
+                "isPresentField": "Membre du serveur",
+                "joinDateField": "Date d'arrivée sur le serveur",
+                "nicknameField": "Surnom",
+                "noNickname": "Pas de surnom",
+                "profileTypeField": "Type de compte discord",
+                "rolesField": "Rôles",
+                "usernameField": "Nom d'utilisateur",
+                "versionField": "Version du bot"
             }
         },
         "language": {
-            "name": "langage",
             "description": "Change la langue du bot (ou du serveur, si vous avez la permission admin)",
+            "name": "langage",
             "options": {
                 "language": {
-                    "name": "langue",
-                    "description": "La langue que vous souhaitez"
+                    "description": "La langue que vous souhaitez",
+                    "name": "langue"
                 }
             },
             "text": {
                 "alreadySelectedLanguage": "Le bot est déjà paramétré en français!",
                 "changeLanguageConfirmation": "Voulez-vous changer la langue du bot pour votre {text} en `{text2}`?",
-                "success": "Le bot parlera désormais en français pour votre {text} !",
-                "serverOrAccount": "Voulez-vous changer la langue du bot pour le serveur ou pour votre compte?",
                 "guild": "serveur",
-                "user": "compte",
-                "noPermission": "Vous n'avez pas la permission de faire cela, demandez à un gestionnaire du serveur de le faire"
+                "noPermission": "Vous n'avez pas la permission de faire cela, demandez à un gestionnaire du serveur de le faire",
+                "serverOrAccount": "Voulez-vous changer la langue du bot pour le serveur ou pour votre compte?",
+                "success": "Le bot parlera désormais en français pour votre {text} !",
+                "user": "compte"
             }
         },
         "lineup": {
-            "name": "compo",
-            "description": "Obtenez les meilleurs compos pour la chasse aux monstres",
-            "text": {},
-            "options": {
-                "monster": {
-                    "name": "monstre",
-                    "description": "Le monstre dont vous voulez la compo"
-                }
-            },
             "choices": {
                 "mobs": {
-                    "abeille": "Reine Abeille",
-                    "agivre": "Aile de Givre",
-                    "anoires": "Ailes Noires",
-                    "bete": "Bête des Neiges",
-                    "chaman": "Chaman Vaudou",
-                    "cottrage": "Cott-rage",
-                    "drider": "Drider de l'Enfer",
-                    "epinator": "Epinator",
-                    "faucheuse": "Grim Reaper",
-                    "flipper": "Flipper Arctique",
+                    "arcticFlipper": "Flipper Arctique",
+                    "blackwing": "Ailes Noires",
+                    "bonAppeti": "Morfalange",
+                    "cottageroar": "Cott-rage",
+                    "frostwing": "Aile de Givre",
                     "gargantua": "Gargantua",
-                    "golem": "Golem Antique",
-                    "gorzilla": "Gorzilla",
-                    "griffon": "Griffon",
-                    "larve": "Méga-Larve",
-                    "mecha": "Mecha-Troyen",
-                    "morfalange": "Morfalange",
-                    "necrose": "Nécrose",
+                    "gawrilla": "Gorzilla",
+                    "grimReaper": "Grim Reaper",
+                    "gryphon": "Griffon",
+                    "hardrox": "Golem Antique",
+                    "hellDrider": "Drider de l'Enfer",
+                    "hootclaw": "Serrulule",
+                    "mechaTrojan": "Mecha-Troyen",
+                    "megaMaggot": "Méga-Larve",
+                    "necrosis": "Nécrose",
                     "noceros": "Nocéros",
-                    "sabrecroc": "Sabrecroc",
-                    "serpent": "Gladiateur Serpent",
-                    "serrulule": "Serrulule",
-                    "titan": "Titan des Marées",
-                    "wyrm": "Wyrm de Jade"
+                    "queenBee": "Reine Abeille",
+                    "saberfang": "Sabrecroc",
+                    "serpentGladiator": "Gladiateur Serpent",
+                    "snowBeast": "Bête des Neiges",
+                    "terrorthorn": "Epinator",
+                    "tidalTitan": "Titan des Marées",
+                    "voodooShaman": "Chaman Vaudou",
+                    "jadeWyrm": "Wyrm de Jade"
                 }
-            }
+            },
+            "description": "Obtenez les meilleurs compos pour la chasse aux monstres",
+            "name": "compo",
+            "options": {
+                "monster": {
+                    "description": "Le monstre dont vous voulez la compo",
+                    "name": "monstre"
+                }
+            },
+            "text": {}
         },
         "link": {
-            "name": "lien",
             "description": "Donne le lien d'ajout du bot",
+            "name": "lien",
             "text": {
                 "reply": "Pour m'ajouter sur votre serveur, [**cliquez ici !**]({text})"
             }
         },
         "logs": {
-            "name": "logs",
             "description": "Envoie les logs du jour donné",
-            "text": {
-                "noPath": "Impossible de trouver les logs du jour donné"
-            },
+            "name": "logs",
             "options": {
                 "day": {
-                    "name": "jour",
-                    "description": "Le jour"
+                    "description": "Le jour",
+                    "name": "jour"
                 },
                 "month": {
-                    "name": "mois",
-                    "description": "Le mois"
+                    "description": "Le mois",
+                    "name": "mois"
                 }
+            },
+            "text": {
+                "noPath": "Impossible de trouver les logs du jour donné"
             }
         },
         "resources": {
-            "name": "ressources",
-            "description": "Des documents et liens utiles",
-            "text": {
-                "igg": "En cas de souci, vous pouvez contacter l'assistance d'igg via ces adresses mail:\n{text}",
-                "discord": "Vous pouvez rejoindre le serveur Discord Lords Mobile officiel avec ce lien:\nhttps://discord.gg/lordsmobilefr",
-                "chest": "Les taux de drop de coffres officiels sont disponibles [par ici]({text})! (:warning: les noms sont en anglais)",
-                "reedemCode": "Pour utiliser des codes cadeaux, vous pouvez passer [par ici]({text})!",
-                "migration": "## __Coût de migration (vélins)__:\n*-Le coût pour migrer dépend uniquement du classement de puissance que vous aurez dans le royaume ciblé*\n*-Les vélins de migration peuvent être achetés en pièces de guilde (810k) ou en payant le pack \"Aller plus haut\"*\n*-Si vous voulez connaître le coût pour un royaume, vous pouvez aller sur la map du royaume cible et cliquer sur une position puis sur \"migrer\", le coût sera affiché sur le bouton pour confirmer la migration*\n\n**1ere place:** 90\n**2e place**: 65\n**3e place**: 50\n**4e place**: 35\n**5e place**: 30\n**6e place**: 28\n**7e place**: 26\n**8e place**: 24\n**9e place**: 22\n**10e place**: 20\n\n**11-13e place**: 18\n**14-16e place**: 16\n**17-18e place**: 14\n**19-20e place**: 13\n**21-22e place**: 12\n**23-24e place**: 11\n\n**25-26e place**: 10\n**27-28e place**: 9\n**29-30e place**: 8\n**31-32e place**: 7\n**33-35e place**: 6\n\n**36-38e place**: 5\n**39-41e place**: 4\n**42-45e place**: 3\n**46-50e place**: 2\n**51e place et moins**: 1"
-            },
             "choices": {
                 "target": {
-                    "igg": "Contacter IGG",
-                    "discord": "Rejoindre le discord LM officiel",
                     "chest": "Taux de drop des coffres",
-                    "reedemCode": "Utiliser des codes cadeaux",
-                    "migration": "Coût de migration"
+                    "discord": "Rejoindre le discord LM officiel",
+                    "igg": "Contacter IGG",
+                    "migration": "Coût de migration",
+                    "reedemCode": "Utiliser des codes cadeaux"
                 }
             },
+            "description": "Des documents et liens utiles",
+            "name": "ressources",
             "options": {
                 "target": {
-                    "name": "target",
-                    "description": "Ce que vous voulez savoir"
+                    "description": "Ce que vous voulez savoir",
+                    "name": "target"
                 }
+            },
+            "text": {
+                "chest": "Les taux de drop de coffres officiels sont disponibles [par ici]({text})! (:warning: les noms sont en anglais)",
+                "discord": "Vous pouvez rejoindre le serveur Discord Lords Mobile officiel avec ce lien:\nhttps://discord.gg/lordsmobilefr",
+                "igg": "En cas de souci, vous pouvez contacter l'assistance d'igg via ces adresses mail:\n{text}",
+                "migration": "## __Coût de migration (vélins)__:\n*-Le coût pour migrer dépend uniquement du classement de puissance que vous aurez dans le royaume ciblé*\n*-Les vélins de migration peuvent être achetés en pièces de guilde (810k) ou en payant le pack \"Aller plus haut\"*\n*-Si vous voulez connaître le coût pour un royaume, vous pouvez aller sur la map du royaume cible et cliquer sur une position puis sur \"migrer\", le coût sera affiché sur le bouton pour confirmer la migration*\n\n**1ere place:** 90\n**2e place**: 65\n**3e place**: 50\n**4e place**: 35\n**5e place**: 30\n**6e place**: 28\n**7e place**: 26\n**8e place**: 24\n**9e place**: 22\n**10e place**: 20\n\n**11-13e place**: 18\n**14-16e place**: 16\n**17-18e place**: 14\n**19-20e place**: 13\n**21-22e place**: 12\n**23-24e place**: 11\n\n**25-26e place**: 10\n**27-28e place**: 9\n**29-30e place**: 8\n**31-32e place**: 7\n**33-35e place**: 6\n\n**36-38e place**: 5\n**39-41e place**: 4\n**42-45e place**: 3\n**46-50e place**: 2\n**51e place et moins**: 1",
+                "reedemCode": "Pour utiliser des codes cadeaux, vous pouvez passer [par ici]({text})!"
             }
         },
         "say": {
-            "name": "say",
             "description": "Envoie un message dans le salon donné",
-            "text": {
-                "noChannelProvided": "Merci de préciser un salon cible",
-                "channel404": "Salon introuvable",
-                "notATextChannel": "Ce salon n'est pas un salon textuel",
-                "successHeader": "*Serveur {name} ({id})*:\n",
-                "success": "Message envoyé avec succès sur le salon `{name}` ({id}):\n\n{text}",
-                "noContent": "Veuillez préciser un message ou un fichier à envoyer"
-            },
+            "name": "say",
             "options": {
                 "channel": {
-                    "name": "salon",
-                    "description": "Le salon cible"
-                },
-                "id": {
-                    "name": "id",
-                    "description": "L'id du salon"
+                    "description": "Le salon cible",
+                    "name": "salon"
                 },
                 "content": {
-                    "name": "message",
-                    "description": "Le contenu du message"
+                    "description": "Le contenu du message",
+                    "name": "message"
                 },
                 "files": {
-                    "name": "fichiers",
-                    "description": "Les fichiers attachés au message"
+                    "description": "Les fichiers attachés au message",
+                    "name": "fichiers"
+                },
+                "id": {
+                    "description": "L'id du salon",
+                    "name": "id"
                 }
+            },
+            "text": {
+                "channel404": "Salon introuvable",
+                "noChannelProvided": "Merci de préciser un salon cible",
+                "noContent": "Veuillez préciser un message ou un fichier à envoyer",
+                "notATextChannel": "Ce salon n'est pas un salon textuel",
+                "success": "Message envoyé avec succès sur le salon `{name}` ({id}):\n\n{text}",
+                "successHeader": "*Serveur {name} ({id})*:\n"
             }
         },
         "send": {
-            "name": "send",
             "description": "Envoie un message à la personne donnée",
-            "text": {
-                "sendingFailed": "Echec d'envoi du message",
-                "noEntries": "Donnez au moins un text ou un fichier à envoyer",
-                "success": "Envoyé avec succès à {username} ({id}):\n{text}"
-            },
+            "name": "send",
             "options": {
-                "user": {
-                    "name": "utilisateur",
-                    "description": "L'utilisateur cible"
+                "files": {
+                    "description": "Les fichiers attachés au message",
+                    "name": "fichiers"
                 },
                 "message": {
-                    "name": "message",
-                    "description": "Le contenu du message"
+                    "description": "Le contenu du message",
+                    "name": "message"
                 },
-                "files": {
-                    "name": "fichiers",
-                    "description": "Les fichiers attachés au message"
+                "user": {
+                    "description": "L'utilisateur cible",
+                    "name": "utilisateur"
                 }
+            },
+            "text": {
+                "noEntries": "Donnez au moins un text ou un fichier à envoyer",
+                "sendingFailed": "Echec d'envoi du message",
+                "success": "Envoyé avec succès à {username} ({id}):\n{text}"
             }
         },
         "serverdata": {
-            "name": "serveurinfos",
             "description": "Envoie les infos du serveur donné",
-            "text": {
-                "NaN": "L'input donné n'est pas valide",
-                "notFound": "Impossible de trouver la guilde",
-                "members": "Nombre de membres",
-                "owner": "Propriétaire",
-                "language": "Langue",
-                "creation": "Création",
-                "joinedAt": "Date d'ajout du bot",
-                "hell": "Signalements infernaux"
-            },
+            "name": "serveurinfos",
             "options": {
                 "id": {
-                    "name": "id",
-                    "description": "L'id du serveur cible"
+                    "description": "L'id du serveur cible",
+                    "name": "id"
                 }
+            },
+            "text": {
+                "NaN": "L'input donné n'est pas valide",
+                "creation": "Création",
+                "hell": "Signalements infernaux",
+                "joinedAt": "Date d'ajout du bot",
+                "language": "Langue",
+                "members": "Nombre de membres",
+                "notFound": "Impossible de trouver la guilde",
+                "owner": "Propriétaire"
             }
         },
         "serverlist": {
-            "name": "listeserveurs",
-            "description": "Envoie la liste des serveurs du bot",
-            "options": {
-                "filter": {
-                    "name": "filtre",
-                    "description": "Défini l'ordre de tri des serveurs"
-                }
-            },
             "choices": {
                 "filter": {
                     "members": "Membres",
@@ -662,581 +643,1130 @@
                     "none": "Aucun"
                 }
             },
-            "text": {
-                "embedTitle": "Liste des serveurs du bot",
-                "embedDescription": "*filtre: {text}*",
-                "embedFooter": "Page [{text}/{text2}] | {text3} utilisateurs théoriques",
-                "embedFiledValue": "__Id:__ {id}\n__Membres:__ {text}\n__Propriétaire:__ {text2}"
-            }
-        },
-        "setglobalping": {
-            "name": "setglobalping",
-            "description": "Redéfinis le message d'envoi des infernaux",
-            "text": {
-                "noChannel": "Impossible de trouver le salon",
-                "embedTitle": "Mentions globales",
-                "embedDescription": "Panneau d'envoi des mentions veilleur dragon globales. Pas d'erreurs pour ces mentions, merci de ne pas ping un event déjà mentionné",
-                "watcherDescription": "Notifie les évènements infernaux veilleur",
-                "dragonDescription": "Notifie les évènements infernaux dragon",
-                "redOrbDescription": "Notifie un infernal orbes de talent lumineux",
-                "yellowOrbDescription": "Notifie un infernal orbes de talent brillant",
-                "success": "Le panneau a bien été redéfini"
-            }
-        },
-        "watcher": {
-            "name": "veilleur",
-            "description": "Gère le panneau de notifications d'évènements infernaux",
-            "subcommand": {
-                "create": {
-                    "name": "ajout",
-                    "description": "Créée le panneau d'abonnement et les rôles"
-                },
-                "refresh": {
-                    "name": "actualiser",
-                    "description": "Actualise les rôles et salons manquants"
-                },
-                "delete": {
-                    "name": "suppression",
-                    "description": "Supprime le panneau d'abonnement et les rôles"
+            "description": "Envoie la liste des serveurs du bot",
+            "name": "listeserveurs",
+            "options": {
+                "filter": {
+                    "description": "Défini l'ordre de tri des serveurs",
+                    "name": "filtre"
                 }
             },
             "text": {
-                "missingPerm": "Je ne peux pas définir le panneau de notifications sans les permissions nécessaires. Il me manque ces permissions:\n",
-                "roleTooHigh": "Le rôle {text} est au dessus de mes rôles, je ne peux donc pas le supprimer. Il faudra le supprimer vous-même",
+                "embedDescription": "*filtre: {text}*",
+                "embedFiledValue": "__Id:__ {id}\n__Membres:__ {text}\n__Propriétaire:__ {text2}",
+                "embedFooter": "Page [{text}/{text2}] | {text3} utilisateurs théoriques",
+                "embedTitle": "Liste des serveurs du bot"
+            }
+        },
+        "setglobalping": {
+            "description": "Redéfinis le message d'envoi des infernaux",
+            "name": "setglobalping",
+            "text": {
+                "dragonDescription": "Notifie les évènements infernaux dragon",
+                "embedDescription": "Panneau d'envoi des mentions veilleur dragon globales. Pas d'erreurs pour ces mentions, merci de ne pas ping un event déjà mentionné",
+                "embedTitle": "Mentions globales",
+                "noChannel": "Impossible de trouver le salon",
+                "redOrbDescription": "Notifie un infernal orbes de talent lumineux",
+                "success": "Le panneau a bien été redéfini",
+                "watcherDescription": "Notifie les évènements infernaux veilleur",
+                "yellowOrbDescription": "Notifie un infernal orbes de talent brillant"
+            }
+        },
+        "watcher": {
+            "description": "Gère le panneau de notifications d'évènements infernaux",
+            "name": "veilleur",
+            "subcommand": {
+                "create": {
+                    "description": "Créée le panneau d'abonnement et les rôles",
+                    "name": "ajout"
+                },
+                "delete": {
+                    "description": "Supprime le panneau d'abonnement et les rôles",
+                    "name": "suppression"
+                },
+                "refresh": {
+                    "description": "Actualise les rôles et salons manquants",
+                    "name": "actualiser"
+                }
+            },
+            "text": {
+                "askIfDelete": "Voulez-vous supprimer les salons <#{text}> et <#{text2}>?\n\n:warning: **Cette action est irréversible!**",
                 "boardAlreadyCreated": "Le panneau de notifications a déjà été créé, vous pouvez actualiser les roles ou salons manquants avec la commande `/{text}`",
-                "rolesNotFound": "Impossible de trouver le role {text} (serveur {text2} ({id}))",
-                "rolesNotCancellable": "Impossible de supprimer le role {text} (serveur {text2} ({id}))",
-                "rolesAndChanDeletionReason": "Reparamétrage du panneau Veilleur",
-                "channelsNotFound": "Impossible de trouver le salon {text} (serveur {text2} ({id}))",
-                "noRoles": "Échec de récupération des rôles du serveur",
-                "createLoadingText": "<a:loading:739785338347585598> Paramétrage en cours...",
-                "boardName": "tableau-veilleur-dragon",
-                "boardTopic": "Abonnez-vous aux notifications d'évènements infernaux et challenge !",
-                "boardReason": "création du salon d'abonnement aux notifications",
-                "pingName": "notifs-veilleurs-dragons",
-                "pingTopic": "Abonnez-vous aux notifications d'évènements infernaux et challenge pour recevoir les mentions!",
-                "pingReason": "création du salon d'abonnement aux notifications",
-                "hell": "infernal ",
-                "boardEmbedTitle": "__**Signalement des Veilleurs et Dragons**__",
                 "boardEmbedDescription": "Sélectionnez les évènements infernaux et les challenges qui vous intéressent. Les mentions seront faites dans le salon <#{id}>",
                 "boardEmbedFieldName": "__Comment ça marche?__",
                 "boardEmbedFieldValue": "Cliquez sur le menu déroulant ci-dessous et sélectionnez les types d'évènements pour lesquels vous voulez être notifiés. C'est tout!",
                 "boardEmbedFooter": "Développé avec amour par {dev_username}",
+                "boardEmbedTitle": "__**Signalement des Veilleurs et Dragons**__",
                 "boardMenuOptionDescription": "Soyez notifié quand il y a un évènement {text}",
                 "boardMenuPlaceholder": "Choissez vos abonnements",
+                "boardName": "tableau-veilleur-dragon",
+                "boardReason": "création du salon d'abonnement aux notifications",
+                "boardTopic": "Abonnez-vous aux notifications d'évènements infernaux et challenge !",
+                "channelsNotFound": "Impossible de trouver le salon {text} (serveur {text2} ({id}))",
+                "createLoadingText": "<a:loading:739785338347585598> Paramétrage en cours...",
                 "createSuccess": "Terminé ! Les salons <#{text}> et <#{text2}> ont bien été créés\nVous êtes libres de renommer ou déplacer les salons et rôles, du moment que vous ne supprimez rien :wink:\nFaites `/{text3}` pour les supprimer ainsi que les rôles\n*À noter: les signalements sont fait à la main par le staff du bot, certains évènements peuvent être ratés*",
-
-
-                "watcherIsNotDefined": "Le signalement des évènements infernaux n'est pas paramétré sur ce serveur. Faites `/{text}` pour le définir",
-                "askIfDelete": "Voulez-vous supprimer les salons <#{text}> et <#{text2}>?\n\n:warning: **Cette action est irréversible!**",
                 "deleteLoadingText": "<a:loading:739785338347585598> Suppression en cours...",
                 "deleteSuccess": "Les salons de signalements d'évènements infernaux ont été supprimés!\nPour les redéfinir, faites `/{text}`",
-
-                "refreshRolesLoadingText": "<a:loading:739785338347585598> Vérification des rôles en cours...",
-                "refreshRolesSuccessText": "Les rôles ont été vérifiés, j'ai ajouté ceux qui manquaient!",
+                "hell": "infernal ",
+                "missingPerm": "Je ne peux pas définir le panneau de notifications sans les permissions nécessaires. Il me manque ces permissions:\n",
+                "noRoles": "Échec de récupération des rôles du serveur",
+                "pingName": "notifs-veilleurs-dragons",
+                "pingReason": "création du salon d'abonnement aux notifications",
+                "pingTopic": "Abonnez-vous aux notifications d'évènements infernaux et challenge pour recevoir les mentions!",
                 "refreshChannelsLoadingText": "<a:loading:739785338347585598> Vérification des salons en cours...",
-                "refreshChannelsSuccessText": "Les salons ont été vérifiés, j'ai ajouté ceux qui manquaient!",
                 "refreshChannelsNothingChangedText": "Les salons ont été vérifiés, tout était déjà en place!",
-                "refreshRolesNothingChangedText": "Les rôles ont été vérifiés, tout était déjà en place!"
+                "refreshChannelsSuccessText": "Les salons ont été vérifiés, j'ai ajouté ceux qui manquaient!",
+                "refreshRolesLoadingText": "<a:loading:739785338347585598> Vérification des rôles en cours...",
+                "refreshRolesNothingChangedText": "Les rôles ont été vérifiés, tout était déjà en place!",
+                "refreshRolesSuccessText": "Les rôles ont été vérifiés, j'ai ajouté ceux qui manquaient!",
+                "roleTooHigh": "Le rôle {text} est au dessus de mes rôles, je ne peux donc pas le supprimer. Il faudra le supprimer vous-même",
+                "rolesAndChanDeletionReason": "Reparamétrage du panneau Veilleur",
+                "rolesNotCancellable": "Impossible de supprimer le role {text} (serveur {text2} ({id}))",
+                "rolesNotFound": "Impossible de trouver le role {text} (serveur {text2} ({id}))",
+                "watcherIsNotDefined": "Le signalement des évènements infernaux n'est pas paramétré sur ce serveur. Faites `/{text}` pour le définir"
             }
         }
     },
-    "others": {
-        "mobs": {
-            "abeille": "Reine Abeille",
-            "agivre": "Aile de Givre",
-            "anoires": "Ailes Noires",
-            "bete": "Bête des Neiges",
-            "chaman": "Chaman Vaudou",
-            "cottrage": "Cott-rage",
-            "drider": "Drider de l'Enfer",
-            "epinator": "Epinator",
-            "faucheuse": "Grim Reaper",
-            "flipper": "Flipper Arctique",
-            "gargantua": "Gargantua",
-            "golem": "Golem Antique",
-            "gorzilla": "Gorzilla",
-            "griffon": "Griffon",
-            "larve": "Méga-Larve",
-            "mecha": "Mecha-Troyen",
-            "morfalange": "Morfalange",
-            "necrose": "Nécrose",
-            "noceros": "Nocéros",
-            "sabrecroc": "Sabrecroc",
-            "serpent": "Gladiateur Serpent",
-            "serrulule": "Serrulule",
-            "titan": "Titan des Marées",
-            "wyrm": "Wyrm de Jade"
+    "global": {
+        "CommandExecutionError": "Une erreur est survenue pendant l'éxecution de la commande",
+        "autoDmResponse": "Réponse auto envoyée",
+        "back": "retour",
+        "cancel": "annuler",
+        "cancelledCommand": "Commande annulée",
+        "commandIsLocked": "Cette commande est déjà en cours d'exécution",
+        "defaultCommandReply": "Impossible d'exécuter la commande :confused:",
+        "errors": {
+            "gearCacheUnavailable": "Certaines ou toutes les données d'équipements sont indisponibles (contactez le support)",
+            "DBerror": "Erreur base de données",
+            "RoleNotEditable": "Impossible de modifier les rôles de l'user",
+            "buttonWithoutCommand": "Ce customId ne contient pas de commande: ",
+            "guildDataNotFound": "Impossible de récupérer les données de serveur",
+            "noChannel": "Aucun salon",
+            "noServerInDbAndNotFound": "Impossible de trouver le serveur qui n'est pas en db",
+            "notAGuild": "Ceci n'est pas un serveur",
+            "notInAGuild": "La command doit être exécutée sur un serveur",
+            "unableToReply": "Impossible de répondre à l'interaction"
         },
+        "flag": ":flag_fr:",
+        "languagesFullName": {
+            "en": "anglais",
+            "fr": "français"
+        },
+        "no": "Non",
+        "noCommandOffServer": ":flag_fr: Les commandes sont à réaliser sur un serveur !",
+        "noLinkInDm": ":flag_fr: Bonjour, pour m'ajouter à votre serveur utilisez plutôt ce lien!",
+        "stringifyDate": "<t:{timestamp}> (il y a {daysSince} jours)",
+        "timeNames": {
+            "day": "jours",
+            "hour": "heures",
+            "minute": "minutes",
+            "second": "secondes"
+        },
+        "tipsFooter": [
+            {
+                "text": "Faites la commande /aide pour obtenir de l'aide !"
+            },
+            {
+                "iconURL": "{dev_avatar_url}",
+                "text": "Développé avec amour par {dev_username}"
+            },
+            {
+                "text": "Faites la commande /langage pour changer la langue du bot!"
+            },
+            {
+                "text": "Faites /veilleur pour avoir les notifications d'évènements infernaux"
+            },
+            {
+                "text": "Fun fact: je suis le meilleur bot du monde"
+            },
+            {
+                "text": "Soutenez le bot avec la commande /donner"
+            }
+        ],
+        "translation404": "<Traduction introuvable>",
+        "welcomeMsg": "Je me présente: je suis Sparky, un bot discord Lords Mobile, conçu pour les serveurs de guilde.\n\nLa liste de mes commandes se trouve en faisant **\\/aide\\** sur votre serveur\n\nMerci de m'avoir ajouté!",
+        "yes": "Oui"
+    },
+    "helpMention": {
+        "description": "Pour obtenir la liste de mes commandes, faites **/aide**",
+        "title": "Perdu?"
+    },
+    "others": {
         "buildings": {
-            "trove": {
-                "name": "salle au trésor",
-                "item": "pioches de cristal"
+            "altar": {
+                "item": "cristaux d'âme",
+                "name": "autel"
             },
             "hall": {
-                "name": "hall de batailles",
-                "item": "grimoires de guerre"
+                "item": "grimoires de guerre",
+                "name": "hall de batailles"
             },
             "prison": {
-                "name": "prison",
-                "item": "menottes en acier"
+                "item": "menottes en acier",
+                "name": "prison"
             },
-            "altar": {
-                "name": "autel",
-                "item": "cristaux d'âme"
+            "trove": {
+                "item": "pioches de cristal",
+                "name": "salle au trésor"
             }
+        },
+        "familiars": {
+            "aquiris": {
+                "ability1Description": "Production d'anima +40%",
+                "ability1Name": "Epanouissement",
+                "activableAbilityDescription": "Donne entre 60 et 120 STA",
+                "activableAbilityName": "Source",
+                "name": "Aquiris",
+                "warTalentDesctiption": "Réduit les PV armée adverses de 15%",
+                "warTalentName": "Noyade"
+            },
+            "beastmaster": {
+                "ability1Description": "Vitesse de déplacement de troupes d'approvisionnement +25%",
+                "ability1Name": "Route de la soie",
+                "name": "Maître des bêtes",
+                "warTalentDesctiption": "Réduit la DEF cavalerie adverses de 40%",
+                "warTalentName": "Hurlement sauvage"
+            },
+            "blackwing": {
+                "ability1Description": "Attaque armée +5%",
+                "ability1Name": "Rugissement",
+                "ability2Description": "PV Armée (fureur de bataille) +10%",
+                "ability2Name": "Sanguin",
+                "activableAbilityDescription": "Vos troupes d'invasion tuent 100% des troupes ennemies blessées (garnison et renforts inclus)",
+                "activableAbilityName": "Feu d'enfer",
+                "name": "Ailes noires",
+                "warTalentDesctiption": "Inflige 600% de dégâts basés sur l'ATT initiale de vos troupes à distance à une des plus grosses escouades ennemies quand 4% de vos troupes sont tombées",
+                "warTalentName": "Souffle mortel"
+            },
+            "bonAppeti": {
+                "ability1Description": "Attaque infanterie +10%",
+                "ability1Name": "Ange gardien",
+                "ability2Description": "ATT armée de coalition +10%",
+                "ability2Name": "Eclat angélique",
+                "activableAbilityDescription": "Détruit 7 à 15% des ressources du territoire ennemi (max: 100m par ressource)",
+                "activableAbilityName": "Rétribution divine",
+                "name": "Morfalange",
+                "warTalentDesctiption": "Inflige 600% de dégâts basés sur l'ATT initiale de vos troupes infanterie à une des plus grosses escouades ennemies quand 4% de vos troupes sont tombées",
+                "warTalentName": "Terreur des cieux"
+            },
+            "bonehead": {
+                "ability1Description": "Stockage d'anima +20%",
+                "ability1Name": "Potentiel dévoilé",
+                "activableAbilityDescription": "Donne 10 entrées au colisée",
+                "activableAbilityName": "Duel",
+                "name": "Tête d'os",
+                "warTalentDesctiption": "Augmente la DEF infanterie de 80% pendant 10 secondes quand 10% de vos troupes d'infanterie sont tombées",
+                "warTalentName": "Rites funéraires"
+            },
+            "bouldur": {
+                "ability1Description": "Production de pierre +35%",
+                "ability1Name": "Boost pierre",
+                "activableAbilityDescription": "Remplit la barre d'aide de la construction en cours instantanément",
+                "activableAbilityName": "Maître de l'architecture",
+                "name": "Graniti",
+                "warTalentDesctiption": "Augmente la DEF cavalerie de 80% pendant 10 secondes quand 10% de vos troupes cavalerie sont tombées",
+                "warTalentName": "Carapace de pierre"
+            },
+            "engineer": {
+                "ability1Description": "Production de minerai +25%",
+                "ability1Name": "Prospecteur de minerai",
+                "name": "Ingénieur",
+                "warTalentDesctiption": "Augmente l'ATT infanterie de 15%",
+                "warTalentName": "Aux armes !"
+            },
+            "evilWeevil": {
+                "ability1Description": "Production de blé +35%",
+                "ability1Name": "Boost nourriture",
+                "activableAbilityDescription": "Donne instantanément l'équivalent de 4 heures de production de ressources",
+                "activableAbilityName": "Récolte exceptionnelle",
+                "name": "Charançon maléfique",
+                "warTalentDesctiption": "Augmente les PV armée de 15%",
+                "warTalentName": "Copieux festin"
+            },
+            "frostwing": {
+                "ability1Description": "DEF infanterie + 20%",
+                "ability1Name": "Bouclier de glace",
+                "ability2Description": "ATT armée +5%",
+                "ability2Name": "Brise glaciale",
+                "activableAbilityDescription": "Augmente le temps de déplacement d'escouade de 300% pendant 1h",
+                "activableAbilityName": "Morsure de givre",
+                "name": "Aile-de-Givre",
+                "warTalentDesctiption": "Inflige 150% de dégâts (basés sur l'ATT initale de vos troupes de cavalerie) toutes les 4 secondes jusqu'à 5 fois à une des plus grosses escouades ennemies quand 8% de vos troupes sont tombées",
+                "warTalentName": "Givre meurtrier"
+            },
+            "gargantua": {
+                "ability1Description": "DEF cavalerie +20%",
+                "ability1Name": "Avocat du diable",
+                "ability2Description": "ATT cavalerie +10%",
+                "ability2Name": "Coup géant",
+                "activableAbilityDescription": "Allonge le délai d'une quête Guild Fest de 30%. Marche également sur les quêtes déjà expirées",
+                "activableAbilityName": "Grâce salvatrice",
+                "name": "Gargantua",
+                "warTalentDesctiption": "Inflige 600% de dégâts basés sur l'ATT initiale de vos troupes cavalerie à une des plus grosses escouades ennemies quand 4% de vos troupes sont tombées",
+                "warTalentName": "Force gigantesque"
+            },
+            "gemmingGremlin": {
+                "ability1Description": "Vitesse de construction +5%",
+                "ability1Name": "Architecte",
+                "ability2Description": "Vitesse de collecte de gemmes +10% (filons)",
+                "ability2Name": "Boost projet",
+                "activableAbilityDescription": "Donne entre 1500 et 3000 gemmes",
+                "activableAbilityName": "Coup de fortune",
+                "name": "Diablotin",
+                "warTalentDesctiption": "Augmente l'ATT d'infanterie de 100% quand 10% de vos troupes d'infanterie sont tombées (cumulable, le nombre requis sera recalculé après chaque activation)",
+                "warTalentName": "Arme de cristal"
+            },
+            "gnome": {
+                "ability1Description": "Production d'or +25%",
+                "ability1Name": "Conseiller financier",
+                "name": "Gnome",
+                "warTalentDesctiption": "Augmente l'ATT distance de 15%",
+                "warTalentName": "Flèches empoisonnées"
+            },
+            "goblin": {
+                "ability1Description": "Vitesse de collecte +25%",
+                "ability1Name": "Super récolte",
+                "ability2Description": "Production d'or +35%",
+                "ability2Name": "Boost or",
+                "activableAbilityDescription": "Donne entre 6M et 12M d'or",
+                "activableAbilityName": "Chercheur d'or",
+                "name": "Gobelin",
+                "warTalentDesctiption": "Augmente l'ATT de cavalerie de 100% quand 10% de vos troupes de cavalerie sont tombées (cumulable, le nombre requis sera recalculé après chaque activation)",
+                "warTalentName": "Chasseur de primes"
+            },
+            "grimReaper": {
+                "ability1Description": "Vitesse de déplacement +10%",
+                "ability1Name": "Esprit vagabond",
+                "ability2Description": "PV distance +10%",
+                "ability2Name": "Transcendance",
+                "activableAbilityDescription": "Tue 20k à 50k troupes de la caserne ennemie (max 5% du total, cible les troupes au niveau le plus élevé)",
+                "activableAbilityName": "Baiser de la mort",
+                "name": "La Faucheuse"
+            },
+            "gryphon": {
+                "ability1Description": "Capacité de renforts alliés +50k",
+                "ability1Name": "Aide aérienne",
+                "ability2Description": "Vitesse d'entraînement +5%",
+                "ability2Name": "Polymathe",
+                "activableAbilityDescription": "Rappelle toutes les troupes en 6 secondes (hors troupes de coalition)",
+                "activableAbilityName": "Retour immédiat",
+                "name": "Griffon",
+                "warTalentDesctiption": "Augmente l'ATT armée pendant 10 secondes quand 10% de vos troupes sont tombées",
+                "warTalentName": "Vent arrière"
+            },
+            "harpy": {
+                "ability1Description": "Capacité refuge +50k",
+                "ability1Name": "Ecran de nuage",
+                "activableAbilityDescription": "Donne 3 points vip aléatoires ( 100 / 500 / 1000 / 5000)",
+                "activableAbilityName": "Première classe",
+                "name": "Harpie",
+                "warTalentDesctiption": "Augmente les PV infanterie de 80% pendant 10 secondes quand 10% de vos troupes d'infanterie sont tombées",
+                "warTalentName": "Dernière danse"
+            },
+            "hellDrider": {
+                "ability1Description": "PV infanterie +10%",
+                "ability1Name": "Esprit infernal",
+                "ability2Description": "Chance d'évasion du chef à la capture +10%",
+                "ability2Name": "Sortie assurée",
+                "activableAbilityDescription": "Donne 15k troupes d'un type aléatoire, du rang le plus haut débloqué (T4 max)",
+                "activableAbilityName": "Convocation",
+                "name": "Drider infernal",
+                "warTalentDesctiption": "Pétrifie l'une des plus grandes escouades adverses pendant 11 secondes lorsque 7% de vos troupes sont tombées",
+                "warTalentName": "Malédiction infernale"
+            },
+            "hoarder": {
+                "ability1Description": "Capacité de dépôt de la salle au trésor +10k",
+                "ability1Name": "Expansion du trésor",
+                "ability2Description": "Vitesse de fusion (pierre de compétence) +20%",
+                "ability2Name": "Mains d'or",
+                "activableAbilityDescription": "Donne 3 joyaux de type et rareté aléatoires (joyaux de base uniquement)",
+                "activableAbilityName": "Trésor de la ville",
+                "name": "Syllogomane",
+                "warTalentDesctiption": "Invoque un bouclier protégeant 7% de vos troupes d'infanterie quand 12% de vos troupes d'infanterie sont tombées (invoqué une seule fois)",
+                "warTalentName": "Garde dorée"
+            },
+            "hueyHops": {
+                "ability1Description": "DEF distance +20%",
+                "ability1Name": "Bouclier carapacé",
+                "ability2Description": "PV armée +10%",
+                "ability2Name": "Inspiration",
+                "activableAbilityDescription": "Votre chef s'échappera la première fois qu'il est capturé dans les 30 minutes après activation",
+                "activableAbilityName": "Chaud lapin",
+                "name": "Lapinou",
+                "warTalentDesctiption": "Inflige 150% de dégâts (basés sur l'ATT initale de vos troupes infanterie) toutes les 4 secondes jusqu'à 5 fois à une des plus grosses escouades ennemies quand 8% de vos troupes sont tombées",
+                "warTalentName": "Lapin brutal"
+            },
+            "jadeWyrm": {
+                "ability1Description": "Boost impact Infanterie vs Archers +15%",
+                "ability1Name": "Bénediction ardente - Infanterie",
+                "ability2Description": "Boost impact Archers vs Cavalerie +15%",
+                "ability2Name": "Bénediction ardente - Archers",
+                "ability3Description": "Boost impact Cavalerie vs Infanterie +15%",
+                "ability3Name": "Bénediction ardente - Cavalerie",
+                "name": "Wyrm de jade",
+                "warTalentDesctiption": "Réduit les dégâts infligés par les ennemis de 9% lorsque 4% de vos troupes sont tombées",
+                "warTalentName": "Feu divin"
+            },
+            "jaziek": {
+                "ability1Description": "Stockage de la chambre forte +10%",
+                "ability1Name": "Gardien des cryptes",
+                "name": "Jaziek",
+                "warTalentDesctiption": "Réduit les PV cavalerie adverses de 40%",
+                "warTalentName": "Slash mortel"
+            },
+            "krabby": {
+                "ability1Description": "Production de minerai +35%",
+                "ability1Name": "Boost minéraux",
+                "ability2Description": "EXP joueur +10%",
+                "ability2Name": "Coeur d'acier",
+                "name": "Krabby",
+                "warTalentDesctiption": "Augmente la DEF armée de 15%",
+                "warTalentName": "Armure renforcée"
+            },
+            "magmalord": {
+                "ability1Description": "Production de pierre +25%",
+                "ability1Name": "Rolling stones",
+                "name": "Seigneur Magme",
+                "warTalentDesctiption": "Réduit les PV à distance adverses de 40%",
+                "warTalentName": "Souffle ardent"
+            },
+            "magus": {
+                "ability1Description": "Capacité de fusion de pactes +5",
+                "ability1Name": "Lien mystique",
+                "ability2Description": "Durée boost autel +6 heures",
+                "ability2Name": "Offrande",
+                "activableAbilityDescription": "Remplit la barre d'aide de la recherche en cours instantanément",
+                "activableAbilityName": "Assitance noire",
+                "name": "Magus",
+                "warTalentDesctiption": "Augmente l'ATT et les PV de vos troupes à distance de 60% pendant 15 secondes lorsque 5% de vos troupes à distance sont tombées",
+                "warTalentName": "Sacrifice de l'esprit"
+            },
+            "mechaTrojan": {
+                "ability1Description": "PV cavalerie +10%",
+                "ability1Name": "Etalon puissant",
+                "ability2Description": "DEF armée (fureur de bataille) +10%",
+                "ability2Name": "Y'a pas d'lézard",
+                "activableAbilityDescription": "Augmente la taille max de coalition de 125k pendant 30 minutes",
+                "activableAbilityName": "Cheval de Troie",
+                "name": "Mécha Troyen"
+            },
+            "megaMaggot": {
+                "ability1Description": "Capacité de caserne +5000",
+                "ability1Name": "Motivation",
+                "ability2Description": "DEF infanterie +10%",
+                "ability2Name": "Coquille solide",
+                "activableAbilityDescription": "Réduit une production de ressource ennemie pendant 6 heures",
+                "activableAbilityName": "Contamination",
+                "name": "Méga-larve",
+                "warTalentDesctiption": "Étourdit les héros ennemis pendant 5 secondes quand 15% de vos troupes sont tombées",
+                "warTalentName": "Vermiphobie"
+            },
+            "moleShaman": {
+                "ability1Description": "Capacité infirmerie +5%",
+                "ability1Name": "Remède naturel",
+                "ability2Description": "ATT infanterie +10%",
+                "ability2Name": "Pouvoir fruité",
+                "activableAbilityDescription": "Répare 50% du max des PV remparts",
+                "activableAbilityName": "Réparation rapide",
+                "name": "Taupe chaman",
+                "warTalentDesctiption": "Augmente l'ATT et les PV de l'infanterie de 60% pendant 15 secondes lorsque 5% de vos troupes d'infanterie sont tombées",
+                "warTalentName": "Bénédiction du chaman"
+            },
+            "noceros": {
+                "ability1Description": "Capacité armée +35%",
+                "ability1Name": "Charge accrue",
+                "ability2Description": "ATT cavalerie +10%",
+                "ability2Name": "Frappe foudroyante",
+                "activableAbilityDescription": "Termine instantanément 5 collectes en cours (hors filons de gemmes)",
+                "activableAbilityName": "En un éclair",
+                "name": "Nocéros",
+                "warTalentDesctiption": "Augmente l'ATT et les PV de la cavalerie de 60% pendant 15 secondes lorsque 5% de vos troupes de cavalerie sont tombées",
+                "warTalentName": "Frappe de foudre"
+            },
+            "oakroot": {
+                "ability1Description": "Production de bois +25%",
+                "ability1Name": "Bucheron",
+                "name": "Chênecine",
+                "warTalentDesctiption": "Réduit la DEF infanterie adverse de 40%",
+                "warTalentName": "Pourriture immonde"
+            },
+            "pyris": {
+                "ability1Description": "Fournitures supplémentaire +20%",
+                "ability1Name": "Sauvetage",
+                "ability2Description": "Temps de transmutaion d'essence noire -10%",
+                "ability2Name": "Melting pot",
+                "activableAbilityDescription": "Tue 7500 à 12500 troupes dans la caserne ennemies du rang le plus bas (max 5% des troupes totales)",
+                "activableAbilityName": "Sentier flamboyant",
+                "name": "Flamis",
+                "warTalentDesctiption": "Au début de la bataille, confère un boost de 60% aux talents tactiques du héros, augmentant les dégats d'escouade infligées pendant 10 secondes",
+                "warTalentName": "Charge turbo"
+            },
+            "queenBee": {
+                "ability1Description": "PV cavalerie +10%",
+                "ability1Name": "Bois miellé",
+                "ability2Description": "ATT distance +10%",
+                "ability2Name": "Flèche tueuse",
+                "activableAbilityDescription": "Envoie 10 000 troupes de la caserne ennemie à l'infirmerie toutes les 10 minutes (niveau aléatoire, ne dépasse pas 1,25% du total des troupes) et réduit l'ATT armée de 15% pendant 4h",
+                "activableAbilityName": "Piqûre de poison",
+                "name": "Reine Abeille",
+                "warTalentDesctiption": "Inflige 150% de dégâts (basés sur l'ATT initale de vos troupes à distance) toutes les 4 secondes jusqu'à 5 fois à une des plus grosses escouades ennemies quand 8% de vos troupes sont tombées",
+                "warTalentName": "Essaim cinglant"
+            },
+            "saberfang": {
+                "ability1Description": "Vitesse de déplacement chasse aux monstres +25%",
+                "ability1Name": "Prédateur",
+                "ability2Description": "DEF cavalerie +10%",
+                "ability2Name": "Esprit sauvage",
+                "activableAbilityDescription": "Ajoute 15 combo au prochain monstre que vous chassez dans les 15 minutes après activation (ne dépasse pas la limite de chasses consécutives)",
+                "activableAbilityName": "Chasse fatale",
+                "name": "Sabrecroc",
+                "warTalentDesctiption": "Invoque un bouclier protégeant 7% de vos troupes de cavalerie quand 12% de vos troupes de cavalerie sont tombées (invoqué une seule fois)",
+                "warTalentName": "Garde férale"
+            },
+            "snowBeast": {
+                "ability1Description": "Vitesse de déplacement de coalition (sombre nid) +25%",
+                "ability1Name": "Martèlement",
+                "ability2Description": "DEF distance +10%",
+                "ability2Name": "Bouclier de givre",
+                "activableAbilityDescription": "Multiplie la capacité d'approvisionnement de ressources par 4 pendant 1 heure",
+                "activableAbilityName": "Transport de masse",
+                "name": "Bête des neiges",
+                "warTalentDesctiption": "Invoque un bouclier protégeant 7% de vos troupes à distance quand 12% de vos troupes à distance sont tombées (invoqué une seule fois)",
+                "warTalentName": "Bouclier de glace"
+            },
+            "sorcerer": {
+                "ability1Description": "Vitesse de deplacement troupes alliées +25%",
+                "ability1Name": "Renforcement",
+                "activableAbilityDescription": "Termine la transmutation en cours",
+                "activableAbilityName": "Magie noire",
+                "name": "Sorcier",
+                "warTalentDesctiption": "Augmente les PV à distance de 80% pendant 10 secondes quand 10% de vos troupes à distance sont tombées",
+                "warTalentName": "Étrange sorcellerie"
+            },
+            "strix": {
+                "ability1Description": "Vitesse de soin de l'infirmerie +25%",
+                "ability1Name": "Sac-à-sang",
+                "ability2Description": "Attente avant exécution de chef emprisonné réduit de 6 heures",
+                "ability2Name": "Exécution",
+                "name": "Strige",
+                "warTalentDesctiption": "Augmente les PV cavalerie de 80% pendant 10 secondes quand 10% de vos troupes cavalerie sont tombées",
+                "warTalentName": "Coup de fouet"
+            },
+            "tempestite": {
+                "ability1Description": "DEF remparts +20%",
+                "ability1Name": "Gardien du vent",
+                "ability2Description": "Vitesse de récupération d'énergie +10%",
+                "ability2Name": "Mistral",
+                "activableAbilityDescription": "Donne 20k troupes T1 d'un type aléatoire",
+                "activableAbilityName": "Air frais",
+                "name": "Tempêtite",
+                "warTalentDesctiption": "Étourdit une des plus grosses escouades adverses pendant 8 secondes quand 10% de vos troupes sont tombées",
+                "warTalentName": "Ouragan"
+            },
+            "terraspike": {
+                "ability1Description": "Production de nourriture +25%",
+                "ability1Name": "Engrais",
+                "name": "Tortépines",
+                "warTalentDesctiption": "Réduit les PV infanterie adverses de 40%",
+                "warTalentName": "Lance perçante"
+            },
+            "territe": {
+                "ability1Description": "Vitesse de fusion (pactes) +20%",
+                "ability1Name": "Force du sol",
+                "activableAbilityDescription": "Donne 3 quantités de fragments aléatoires (5 à 30 par coup)",
+                "activableAbilityName": "Colère des terres",
+                "name": "Territe",
+                "warTalentDesctiption": "Réduit la DEF armée adverse de 15%",
+                "warTalentName": "Séisme"
+            },
+            "tidalTitan": {
+                "ability1Description": "PV infanterie +10%",
+                "ability1Name": "Fontaine de jouvence",
+                "ability2Description": "DEF armée +10%",
+                "ability2Name": "Mur d'eau",
+                "activableAbilityDescription": "Téléporte aléatoirement le territoire ennemi après la première attaque réussie dans les 15 minutes après activation",
+                "activableAbilityName": "Marée haute",
+                "name": "Titan des marées"
+            },
+            "totempest": {
+                "ability1Description": "Production de bois +35%",
+                "ability1Name": "Boost bois",
+                "activableAbilityDescription": "Renouvelle le navire de charge",
+                "activableAbilityName": "Amarrage",
+                "name": "Totempestes",
+                "warTalentDesctiption": "Augmente la DEF à distance de 80% pendant 10 secondes quand 10% de vos troupes à distance sont tombées",
+                "warTalentName": "Blindage de bois"
+            },
+            "trickstar": {
+                "ability1Description": "Vitesse de recherche +5%",
+                "ability1Name": "Intelligence stellaire",
+                "ability2Description": "ATT distance +10%",
+                "ability2Name": "Aide divine",
+                "activableAbilityDescription": "Donne 3 étoiles sacrées aléatoires (100 / 1 000 / 10 000)",
+                "activableAbilityName": "Bonne étoile",
+                "name": "Trickstar",
+                "warTalentDesctiption": "Augmente l'ATT à distance de 100% quand 10% de vos troupes à distance sont tombées (cumulable, le nombre requis sera recalculé après chaque activation)",
+                "warTalentName": "Distance améliorée"
+            },
+            "yeti": {
+                "ability1Description": "Vitesse de déplacement troupes de collecte +25%",
+                "ability1Name": "Débandade",
+                "name": "Yéti",
+                "warTalentDesctiption": "Augmente l'ATT cavalerie de 15%",
+                "warTalentName": "Choc effroyable"
+            }
+        },
+        "gear": {
+            "craftingItems": {
+                "adamant_plate": "armure inflexible",
+                "aged_dragonglass": "verredragon agé",
+                "aged_leather": "cuir vieilli",
+                "amber": "ambre",
+                "ambergris_crystal": "cristal d'ambre gris",
+                "ancient_bark": "écorce ancienne",
+                "ancient_blueprints": "anciens schémas",
+                "angelic_plume": "plume angélique",
+                "armor_fragment": "fragment d'armure",
+                "aurichalcum": "orichalque",
+                "beast_antlers": "ramure de bête",
+                "beast_blood": "sang de bête",
+                "beast_paw": "patte de bête",
+                "bee_chrysalis": "chrysalide d'abeille",
+                "black_oil": "huile noire",
+                "blade_tip": "pointe de lame",
+                "blazing_ember": "braise flamboyante",
+                "blood_sucker": "suceur de sang",
+                "blubber_oil": "huile de baleine",
+                "brass_ring": "anneau en laiton",
+                "brass_spike": "pic en laiton",
+                "buzzing_husk": "balle bourdonnante",
+                "chipped_horn": "corne ébréchée",
+                "coal": "charbon",
+                "copper_coil": "bobine de cuivre",
+                "corrosive_toxin": "toxine corrosive",
+                "corrupted_soul": "âme corrompue",
+                "crackling_hide": "cuir crépitant",
+                "crimson_mane": "crinière pourpre",
+                "crusty_horn": "corne croustillante",
+                "crystal_silk": "soie cristalline",
+                "cursed_skull": "crânt maudit",
+                "cursed_slab": "dalle maudite",
+                "decaying_bones": "os en décomposition",
+                "devil_horn": "corne démoniaque",
+                "drowned_echo": "echo perdu",
+                "dune_core": "noyau des dunes",
+                "electric_horn": "corne électrique",
+                "feather": "plume",
+                "festive_bell": "cloche festive",
+                "forbidden_tome": "tome interdit",
+                "fossilized_egg": "oeuf fossilisé",
+                "fright_fabric": "tissu de peur",
+                "frostwing_claw": "griffe aile-de-givre",
+                "frostwing_heart": "cœur aile-de-givre",
+                "frostwing_horn": "corne aile-de-givre",
+                "frostwing_scale": "écaille aile-de-givre",
+                "frozen_conch": "conque gelée",
+                "fur_pelt": "peau de bête",
+                "gargantuan_eye": "œil de gargantua",
+                "gargantuan_fang": "croc de gargantua",
+                "gargantuan_locks": "mèche de gargantua",
+                "gawrillas_rage": "rage de gorzilla",
+                "ghostly_shroud": "linceul fantômatique",
+                "glistening_pearl": "perle brillante",
+                "glowing_eye": "oeil embrasé",
+                "glowing_halo": "halo embrasé",
+                "golden_tooth": "dent en or",
+                "gryphon_core": "cœur de griffon",
+                "gryphon_egg": "œuf de griffon",
+                "gryphon_quill": "plume de griffon",
+                "heat_ore": "minerai chauffé",
+                "heat_pipe": "caloduc",
+                "holy_silk": "soie sacrée",
+                "honey_jar": "pot de miel",
+                "hunters_flame": "flamme de chasseur",
+                "iron_bolts": "boulons d'acier",
+                "jade_orb": "orbe de jade",
+                "keystone": "clé de voûte",
+                "lava_mud": "boue volcanique",
+                "lightning_vial": "ampoule foudre",
+                "linen": "lin",
+                "logs": "rondins",
+                "lunar_crest": "éclat lunaire",
+                "lustrous_crystal": "cristal brillant",
+                "lux_bracers": "bracelets lux",
+                "maggot_tail": "queue de larve",
+                "maggot_teeth": "dent de larve",
+                "mark_of_fury": "emblème furie",
+                "mega_barb": "méga pointe",
+                "mega_eggsac": "méga œufs",
+                "metal": "métal",
+                "metal_scraps": "restes de métaux",
+                "minerals": "minéraux",
+                "mutant_fungi": "champignons mutants",
+                "mutated_brain": "cerveau mutant",
+                "ocean_breeze": "brise d'océant",
+                "oily_spring": "ressort huileux",
+                "platinium": "platine",
+                "power_core": "noyau de puissance",
+                "prehistoric_hide": "cuir préhistorique",
+                "queen_venom": "venin royal",
+                "refined_gunpowder": "poudre à canon raffinée",
+                "ritual_mask": "masque rituel",
+                "rotten_blood": "sang pourri",
+                "royal_stinger": "dard royal",
+                "rusted_chain": "chaîne rouillée",
+                "rusty_horseshoe": "fer à cheval rouillé",
+                "saber_tooth": "dent sabre",
+                "sacred_gem": "gemme sacrée",
+                "savage_claw": "griffe sauvage",
+                "scarlet_feather": "plume écarlate",
+                "slimy_scale": "écaille gluante",
+                "smoldering_core": "noyau intense",
+                "soul_candle": "bougie d'âme",
+                "stuffed_doll": "poupée vaudoue",
+                "submerged_alloy": "alliage submergé",
+                "tattooed_skin": "peau tatouée",
+                "terror_pollen": "pollen de terreur",
+                "terrorteeth": "dent de terreur",
+                "terrorthorn_seed": "graine d'épinator",
+                "terrorvine": "liane de terreur",
+                "terrorwing": "aile de terreur",
+                "tough_scales": "échelles difficiles",
+                "toxic_fang": "croc toxique",
+                "tribal_drum": "tambour tribal",
+                "veronicas_veil": "voile de Monica",
+                "vines": "lianes",
+                "weeping_wood": "bois pleureur",
+                "wild_fruit": "fruit sauvage",
+                "wyrm_gut": "boyaux de wyrm",
+                "wyrm_horn": "corne de wyrm",
+                "wyrm_scales": "écaille de wyrm",
+                "wyrm_spine": "épine de wyrm"
+            },
+            "pieceName": {
+                "accessory": "accessoire",
+                "armor": "plastron",
+                "helmet": "casque",
+                "legs": "jambes",
+                "mainhand": "main principale",
+                "offhand": "main secondaire"
+            },
+            "setItemNames": {
+                "accursed_mask": "Masque Maudit",
+                "amber_ring": "Anneau d'ambre",
+                "ambrosial_cup": "Coupe ambrosiale",
+                "amethyst_boots": "Bottes d'améthyste",
+                "ancestral_kilt": "Kilt ancestral",
+                "ancient_hat": "Chapeau Ancien",
+                "ancient_hourglass": "Sablier ancien",
+                "aqua_anemone": "Anémone aquatique",
+                "arctic_net": "Filet arctique",
+                "armor_of_the_abyss": "Armure Des Abysses",
+                "atlas_ankle_locks": "Entraves d'Atlas",
+                "barbarian_helmet": "Casque de barbare",
+                "beast_helm": "Casque de Bête",
+                "beastly_breastplate": "Cuirasse bestiale",
+                "beastly_waistguard": "Sangle bestiale",
+                "berserker_tuskhelm": "Casque de berserker",
+                "blight_ring": "Anneau rouillé",
+                "blighted_vial": "Fiole de Rouille",
+                "blizzard_pants": "Pantalons de blizzard",
+                "blood-stained_helm": "Casque Taché de Sang",
+                "bone_staff": "Bâton d'os",
+                "book_of_the_dead": "Livre des morts",
+                "brass_armor": "Armure en laiton",
+                "bumblehelm": "Heaume de Misty",
+                "burning_scroll": "Parchemin enflammé",
+                "call_of_the_deep": "Appel des Profondeurs",
+                "cavalry_mail": "Plastron de cavalier",
+                "centaur_saddle": "Selle de centaure",
+                "ceremonial_toga": "Toge de cérémonie",
+                "champion_armet": "Armet de Champion",
+                "champion_blade": "Lame de Champion",
+                "champion_blessing": "Grâce de Champion",
+                "champion_boots": "Bottes de Champion",
+                "champion_cuirass": "Cuirasse de Champion",
+                "champion_edge": "Épée de Champion",
+                "champion_faith": "Foi de Champion",
+                "champion_greatsword": "Éventreur de Champion",
+                "champion_greaves": "Jambières de Champion",
+                "champion_helm": "Heaume de Champion",
+                "champion_katar": "Katar de Champion",
+                "champion_lamp": "Lampe de Champion",
+                "champion_light": "Lueur de Champion",
+                "champion_mail": "Cotte de Champion",
+                "champion_plate": "Armure de Champion",
+                "champion_stride": "Foulée de Champion",
+                "champion_valor": "Volonté de Champion",
+                "champion_visor": "Visière de Champion",
+                "chieftain_headdress": "Coiffe de chef",
+                "coarse_helm": "Casque grossier",
+                "cobra_sandals": "Sandales de cobra",
+                "coiled_armband": "Brassard enroulé",
+                "corrupted_boots": "Bottes Altérées",
+                "craggy_greaves": "Grèves rugueuses",
+                "crusader's_shield": "Bouclier de croisé",
+                "crystal_axe": "",
+                "crystal_tear": "Larme de cristal",
+                "dark_aegis": "Égide sombre",
+                "deathgazer": "Miremort",
+                "deathly_mantle": "Cape mortelle",
+                "decadent_sword": "Epée Décadente",
+                "desert_trousers": "Pantalon désert",
+                "devil_visage": "Visage démoniaque",
+                "devourer_helm": "Heaume de dévoreur",
+                "dragon's_bite": "Morsure de Dragon",
+                "dragon's_fist": "Poing de Dragon",
+                "dragon's_iris": "Iris de Dragon",
+                "dragon's_talon": "Talon de Dragon",
+                "dragon_coat": "",
+                "dragon_scale_armor": "Armure Furie Nocturne",
+                "dragon_scale_flightsuit": "Ailes Furie Nocturne",
+                "dragon_scale_gloves": "Gantelets Furie Nocturne",
+                "dragon_scale_greaves": "Jambières Furie Nocturne",
+                "dragon_scale_helmet": "Casque Furie Nocturne",
+                "durable_boots": "Bottes durables",
+                "dwarven_toe_guard": "Bottes de nain",
+                "earthshatter": "Éclatement de Terre",
+                "eerie_lantern": "Lanterne étrange",
+                "elder_garb": "Costume d'ancien",
+                "electric_lance": "Lance Electrique",
+                "energy_backpack": "Sac à dos d'énergie",
+                "eon_axe": "Hache de l'Éternité",
+                "eternal_codex": "Codex Éternel",
+                "exalted_armor": "",
+                "exalted_greaves": "",
+                "falcon_gale": "Arc faucon",
+                "fatal_flail": "Fléau fatal",
+                "fear_drum": "Tambour de peur",
+                "fiendish_fang": "Croc maléfique",
+                "fiery_tomahawk": "Tomahawk enflammé",
+                "firewall_plate": "Protection ignifuge",
+                "frostwing's_breath": "Souffle Aile-de-Givre",
+                "frostwing_armor": "Armure Aile-de-Givre",
+                "frostwing_boots": "Bottes Aile-de-Givre",
+                "frostwing_greatsword": "Épée Aile-de-Givre",
+                "frostwing_helm": "Heaume Aile-de-Givre",
+                "frostwing_shield": "Bouclier Aile-de-Givre",
+                "gargantuan_belt": "Ceinture Gargantua",
+                "ghastly_cane": "Canne horrible",
+                "gladiator_helm": "Heaume de gladiateur",
+                "goatskin_boots": "Bottes de chèvre",
+                "grimy_plate": "Plaque Crasseuse",
+                "gryphon's_talon": "Serre de griffon",
+                "gryphon_walkers": "Bottes de griffon",
+                "guardian_chestplate": "Cuirasse de gardien",
+                "harbinger": "Prédiction",
+                "hardened_carapace": "Carapace séchée",
+                "hedonic_cuirass": "Cuirasse Hédonique",
+                "helmet_of_conquest": "Casque de conquête",
+                "herald's_crest": "Cimier de héraut",
+                "honeycombs_chaps": "Rayon de miel",
+                "horn_cudgel": "Bâton cornu",
+                "hortensia_diamond": "Diamant hortensia",
+                "hunting_greaves": "Jambières de chasse",
+                "hunting_helm": "Heaume de chasse",
+                "hunting_horn": "Corne de chasse",
+                "hunting_mace": "Masse de chasse",
+                "hunting_plate": "Plaque de chasse",
+                "imperial_bulwark": "",
+                "indulgent_visage": "Visage indulgent",
+                "inferno": "Inferno",
+                "ivory_choker": "Écharpe d'ivoire",
+                "kingslayer": "",
+                "kraken's_anchor": "Ancre de Kraken",
+                "kung_fu_wraps": "",
+                "legs_of_the_deceiver": "Jambes d'escroc",
+                "lightning_guard": "Garde foudre",
+                "lost_island's_relic": "Relique d'île perdue",
+                "lost_pocketwatch": "Montre perdue",
+                "lumos_lance": "Lance lumos",
+                "lunar_boomerang": "Boomerang lunaire",
+                "lunar_flute": "Flûte lunaire",
+                "lunar_scimitar": "Cimeterre lunaire",
+                "malicious_saw": "Regard Malicieux",
+                "marsh_treadders": "Chausses des marais",
+                "mechanical_boots": "Bottes mécaniques",
+                "mechanical_gauntlet": "Gantelet mécanique",
+                "morning_star": "Étoile du matin",
+                "mystic_box": "Boîte mystique",
+                "nectar_orb": "Orb nectar",
+                "neptune's_necklace": "Pendentif de Neptune",
+                "nether_walkers": "Marcheurs des enfers",
+                "night_goggles": "Lunettes de nuit",
+                "noah's_cube": "Cube de Noah",
+                "noble_helm": "",
+                "noceros_mask": "Masque Nocéros",
+                "nomad_boots": "Bottes de nomade",
+                "odysseus": "Odysseus",
+                "orb_of_pestilence": "Orbe de Pestilence",
+                "orca_mask": "Masque d'orque",
+                "pirate's_eye_patch": "Bandeau de pirate",
+                "polar_ring": "Anneau polaire",
+                "power_vials": "Fioles de puissance",
+                "predator_pauldrons": "Épaulières de Prédateur",
+                "prehistoric_horn": "Corne préhistorique",
+                "prosecutor's_will": "Volonté du juge",
+                "prowler_vest": "Plastron de rôdeur",
+                "rabid_claws": "Griffes enragées",
+                "reaper's_axe": "Hache de faucheur",
+                "regal_platemail": "Cuirasse royale",
+                "regal_robes": "",
+                "ripper_claw": "Griffes d'Eventreur",
+                "rowdy_resolve": "Détermination bagarreuse",
+                "sacred_armor": "",
+                "sacred_badge": "",
+                "sacred_boots": "Bottes sacrées",
+                "sacred_broadsword": "Épée lourde sacrée",
+                "sacred_gauntlets": "",
+                "sacred_greaves": "",
+                "sacred_helm": "",
+                "sacred_staff": "Bâton sacré",
+                "sagittarius_armor": "",
+                "sagittarius_bow": "",
+                "sagittarius_gauntlet": "",
+                "sagittarius_greaves": "",
+                "sagittarius_helmet": "",
+                "sagittarius_wings": "",
+                "seafarer_cleats": "Souliers de marin",
+                "secret_totem": "Totem secret",
+                "sentinel's_circlet": "Cercle de sentinelle",
+                "septic_spikes": "Marteau à pointes",
+                "serpent_helm": "Heaume de serpent",
+                "shadow_helm": "Commandes de l'ombre",
+                "shadow_steel": "Épée d'ombre",
+                "skeletal_armor": "Armure squelettique",
+                "skull_king's_legacy": "Tête de mort royale",
+                "skullcrusher": "Broyeur d'os",
+                "slayer's_sword": "Épée de tueur",
+                "sovereign's_helm": "",
+                "sovereign_signet": "",
+                "spirit_axe": "Hache d'esprit",
+                "spirit_mantle": "Cape spirituelle",
+                "spooky_coat": "Manteau effrayant",
+                "star_dust": "Poussière d'étoile",
+                "stately_tassets": "",
+                "stealthy_steps": "Pas furtifs",
+                "steam_pistol": "Pistolet à vapeur",
+                "steps_of_reckoning": "Foulées de reconquête",
+                "storm_tasset": "Tassette Tempête",
+                "strigine_hood": "Capuche strigine",
+                "summoner_robe": "Robe d'invocateur",
+                "sylph_sandals": "Sandales de sylphe",
+                "tempest_crossbow": "Arc de tempête",
+                "terror_blade": "Lame de terreur",
+                "terror_lash": "Coup de terreur",
+                "terror_shield": "Bouclier de terreur",
+                "terror_vial": "Fiole de terreur",
+                "tome_of_saints": "Tome des saints",
+                "trident": "Trident",
+                "umbral_whisper": "Murmure ombreux",
+                "untamed_boots": "Bottes Sauvages",
+                "upper_hand": "",
+                "venom_blade": "Lame de venin",
+                "venom_stinger": "Pointe empoisonnée",
+                "vice_grips": "Poignées de vice",
+                "viral_switchblade": "",
+                "wanderer's_hood": "Capuche de vagabond",
+                "warrior's_hat": "",
+                "winter_mitts": "Moufles d'hiver",
+                "winter_parka": "Parka d'hiver",
+                "winter_stompers": "Bottes d'hiver",
+                "wrath_star": "Étoile de furie",
+                "wyrm_lantern": "Lanterne de Wyrm",
+                "wyrm_rod": "Canne de wyrm",
+                "wyrm_seal": "Sceau de Wyrm",
+                "wyrmbone_coronet": "Tiare d'os de Wyrm",
+                "wyvern_soul": "Cuirasse de dragon",
+                "yin_yang_staff": ""
+            },
+            "setNames": {
+                "champion": "champion",
+                "collab": "collab",
+                "emperor": "empereur",
+                "exalted": "exalté",
+                "hunt": "chasse",
+                "none": "aucun",
+                "steampath": "vaporesque"
+            },
+            "sources": {
+                "champion": "coffre de champion",
+                "ember_chest": "coffre de braises",
+                "field": "champ",
+                "hunt": "coffre de chasseur",
+                "labyrith": "labyrinthe",
+                "rocks": "roche",
+                "steampath": "coffre vaporesque",
+                "tycoon": "Royaume du pouvoir",
+                "veins": "veine riche",
+                "woods": "bois"
+            },
+            "specificSources": {
+                "allied_voyage_quest": "Terminez la {text}e quête du Voyage allié",
+                "bundle_a_new_adventure": "Présent dans le pack \"Une nouvelle aventure\" à {text}e",
+                "bundle_winning_start": "Présent dans le pack \"Etoile montante\" à {text}e",
+                "collab_dragon": "Récompense de collab Dragon",
+                "collab_panda": "Récompense de collab Kung Fu Panda",
+                "collab_sagittarius": "Récompense de collab Sagittaire",
+                "dominion": "Soyez un des gagnants d'un Empereur en royaume restreint",
+                "emperor": "Soyez un des gagnants d'un Empereur"
+            },
+            "stats": {
+                "army-atk": "ATT Armée",
+                "army-capacity": "Capacité d'armée",
+                "army-def": "DEF Armée",
+                "army-hp": "PV Armée",
+                "building": "Vitesse de construction",
+                "cav-atk": "ATT Cavalerie",
+                "cav-atk-wonder": "ATT Cavalerie (Merveilles)",
+                "cav-def": "DEF Cavalerie",
+                "cav-def-wonder": "DEF Cavalerie (Merveilles)",
+                "cav-hp": "PV Cavalerie",
+                "craft-capacity": "Capacité de fabrication (équipement lumineux)",
+                "craft-speed": "Vitesse de fabrication (équipement lumineux)",
+                "debuff-def": "Debuff DEF Armée Ennemie",
+                "debuff-hp": "Debuff PV Armée Ennemie",
+                "energy-max": "Energie max",
+                "energy-saver": "Réduction coût energie",
+                "familiar-xp-skill": "Boost XP familier (compétences)",
+                "familiar-xp-train": "Boost XP familier (entraînement)",
+                "food-prod": "Production de blé",
+                "forging-speed": "Vitesse de forgeage",
+                "gathering-speed": "Vitesse de récolte",
+                "gold-prod": "Production d'or",
+                "hunt-dmg": "Dégats de chasse",
+                "hunt-mp": "Boost MP chasse",
+                "hunt-speed": "Vitesse de déplacement (chasse)",
+                "inf-atk": "ATT Infanterie",
+                "inf-atk-wonder": "ATT Infanterie (Merveilles)",
+                "inf-def": "DEF Infanterie",
+                "inf-def-wonder": "DEF Infanterie (Merveilles)",
+                "inf-hp": "PV Infanterie",
+                "merge-speed-pact": "Vitesse de fusion (pacte)",
+                "merge-speed-skill": "Vitesse de fusion (pierre de compétence)",
+                "ore-prod": "Production de minerai",
+                "player-exp": "Bosst XP joueur",
+                "range-atk": "ATT Distance",
+                "range-atk-wonder": "ATT Distance (Merveilles)",
+                "range-def": "DEF Distance",
+                "range-def-wonder": "DEF Distance (Merveilles)",
+                "range-hp": "PV Distance",
+                "research": "Vitesse de recherche",
+                "siege-atk": "ATT Engins de siège",
+                "siege-def": "DEF Engins de siège",
+                "siege-hp": "PV Engins de siège",
+                "stone-prod": "Production de pierre",
+                "timber-prod": "Production de bois",
+                "train-speed": "Vitesse d'entraînement",
+                "trap-atk": "ATT Pièges",
+                "trap-def": "DEF Pièges",
+                "trap-hp": "PV Pièges",
+                "travel-speed": "Vitesse de déplacement",
+                "travel-speed-wonder": "Vitesse de déplacement (Merveilles)",
+                "upkeep": "Réduction du coût d'entretien",
+                "wall-def": "DEF Rempart"
+            },
+            "speciality": {
+                "infantry": "Infanterie (toute stats confondues)",
+                "range": "Distance (toute stats confondues)",
+                "cavalry": "Cavalerie (toute stats confondues)",
+                "siege": "engins de siège (toute stats confondues)",
+                "mix": "Mixte (toute stats confondues)"
+            }
+        },
+        "hellEvents": {
+            "challengeResearch": "challenge dragon recherche",
+            "challengeTroops": "challenge dragon entraînement",
+            "dragon": "dragon",
+            "dragonResearch": "dragon recherche",
+            "redOrb": "orbes rouges",
+            "watcher": "veilleur",
+            "watcherResearch": "veilleur recherche",
+            "yellowOrb": "orbes jaunes"
+        },
+        "hellMentions": {
+            "artifact": "artefacts",
+            "baseMentionMsg": "<@&{id}>, un évènement {text} {text2} {text3} est en cours!\n",
+            "baseTypeMsg": "__Choisis le type d'évènement {text}:__\n",
+            "baseTypeMsgEnd": "\n\n:warning: *Ignorez pour annuler*",
+            "building": "construction",
+            "challenge": "challenge",
+            "challengeResearch": "dragon recherche",
+            "challengeTroops": "dragon entraînement",
+            "confirmation": "Voulez-vous signaler un évènement {text} {text2} {text3}?",
+            "dragon": "dragon",
+            "hell": "infernal",
+            "hunt": "chasse",
+            "labyrinth": "labyrinthe",
+            "logMentions": "{id} a signalé un évènement {text} {text2} {text3}",
+            "merge": "fusion",
+            "missingRoles": ":warning: Certains rôles mentions sont introuvables",
+            "redOrb": "orbes rouges",
+            "remainingTimeAfterBegining": "Il commencera dans **{text}** minutes",
+            "remainingTimeBeforeEnd": "Il reste **{text}** minutes",
+            "research": "recherche",
+            "temporaryLogMentions": "Un évènement {text} {text2} {text3} a été signalé\n",
+            "troop": "entraînement",
+            "tycoon": "royaume du pouvoir",
+            "updateRolesMsg": "Vos rôles ont été modifiés:\n",
+            "watcher": "veilleur",
+            "yellowOrb": "orbes jaunes"
+        },
+        "mobs": {
+            "arcticFlipper": "Flipper Arctique",
+            "blackwing": "Ailes Noires",
+            "bonAppeti": "Morfalange",
+            "cottageroar": "Cott-rage",
+            "frostwing": "Aile de Givre",
+            "gargantua": "Gargantua",
+            "gawrilla": "Gorzilla",
+            "grimReaper": "Faucheuse",
+            "gryphon": "Griffon",
+            "hardrox": "Golem Antique",
+            "hellDrider": "Drider de l'Enfer",
+            "hootclaw": "Serrulule",
+            "mechaTrojan": "Mecha-Troyen",
+            "megaMaggot": "Méga-Larve",
+            "necrosis": "Nécrose",
+            "noceros": "Nocéros",
+            "queenBee": "Reine Abeille",
+            "saberfang": "Sabrecroc",
+            "serpentGladiator": "Gladiateur Serpent",
+            "snowBeast": "Bête des Neiges",
+            "terrorthorn": "Epinator",
+            "tidalTitan": "Titan des Marées",
+            "voodooShaman": "Chaman Vaudou",
+            "jadeWyrm": "Wyrm de Jade"
+        },
+        "rarity": {
+            "common": "commun",
+            "epic": "épique",
+            "legendary": "légendaire",
+            "mythic": "mythique",
+            "rare": "rare",
+            "tempered": "tempéré",
+            "uncommon": "non-commun"
         },
         "resources": {
             "food": "blé",
-            "stone": "pierre",
-            "wood": "bois",
-            "ore": "minerai",
+            "gems": "gemmes",
             "gold": "or",
-            "gems": "gemmes"
-        },
-        "hellEvents": {
-            "watcher": "veilleur",
-            "dragon": "dragon",
-            "redOrb": "orbes rouges",
-            "yellowOrb": "orbes jaunes",
-            "watcherResearch": "veilleur recherche",
-            "dragonResearch": "dragon recherche",
-            "challengeResearch": "challenge dragon recherche",
-            "challengeTroops": "challenge dragon entraînement"
-        },
-        "hellMentions": {
-            "watcher": "veilleur",
-            "dragon": "dragon",
-            "redOrb": "orbes rouges",
-            "yellowOrb": "orbes jaunes",
-            "research": "recherche",
-            "building": "construction",
-            "troop": "entraînement",
-            "merge": "fusion",
-            "labyrinth": "labyrinthe",
-            "tycoon": "royaume du pouvoir",
-            "hunt": "chasse",
-            "artifact": "artefacts",
-            "challenge": "challenge",
-            "hell": "infernal",
-            "challengeResearch": "dragon recherche",
-            "challengeTroops": "dragon entraînement",
-            "baseTypeMsg": "__Choisis le type d'évènement {text}:__\n",
-            "baseTypeMsgEnd": "\n\n:warning: *Ignorez pour annuler*",
-            "confirmation": "Voulez-vous signaler un évènement {text} {text2} {text3}?",
-            "baseMentionMsg": "<@&{id}>, un évènement {text} {text2} {text3} est en cours!\n",
-            "remainingTimeBeforeEnd": "Il reste **{text}** minutes",
-            "remainingTimeAfterBegining": "Il commencera dans **{text}** minutes",
-            "logMentions": "{id} a signalé un évènement {text} {text2} {text3}",
-            "temporaryLogMentions": "Un évènement {text} {text2} {text3} a été signalé\n",
-            "updateRolesMsg": "Vos rôles ont été modifiés:\n",
-            "missingRoles": ":warning: Certains rôles mentions sont introuvables"
-        },
-        "familiars": {
-            "jaziek": {
-                "name": "Jaziek",
-                "ability1Name": "Gardien des cryptes",
-                "ability1Description": "Stockage de la chambre forte +10%",
-                "warTalentName": "Slash mortel",
-                "warTalentDesctiption": "Réduit les PV cavalerie adverses de 40%"
-            },
-            "engineer": {
-                "name": "Ingénieur",
-                "ability1Name": "Prospecteur de minerai",
-                "ability1Description": "Production de minerai +25%",
-                "warTalentName": "Aux armes !",
-                "warTalentDesctiption": "Augmente l'ATT infanterie de 15%"
-            },
-            "oakroot": {
-                "name": "Chênecine",
-                "ability1Name": "Bucheron",
-                "ability1Description": "Production de bois +25%",
-                "warTalentName": "Pourriture immonde",
-                "warTalentDesctiption": "Réduit la DEF infanterie adverse de 40%"
-            },
-            "magmalord": {
-                "name": "Seigneur Magme",
-                "ability1Name": "Rolling stones",
-                "ability1Description": "Production de pierre +25%",
-                "warTalentName": "Souffle ardent",
-                "warTalentDesctiption": "Réduit les PV à distance adverses de 40%"
-            },
-            "territe": {
-                "name": "Territe",
-                "ability1Name": "Force du sol",
-                "ability1Description": "Vitesse de fusion (pactes) +20%",
-                "activableAbilityName": "Colère des terres",
-                "activableAbilityDescription": "Donne 3 quantités de fragments aléatoires (5 à 30 par coup)",
-                "warTalentName": "Séisme",
-                "warTalentDesctiption": "Réduit la DEF armée adverse de 15%"
-            },
-            "yeti": {
-                "name": "Yéti",
-                "ability1Name": "Débandade",
-                "ability1Description": "Vitesse de déplacement troupes de collecte +25%",
-                "warTalentName": "Choc effroyable",
-                "warTalentDesctiption": "Augmente l'ATT cavalerie de 15%"
-            },
-            "beastmaster": {
-                "name": "Maître des bêtes",
-                "ability1Name": "Route de la soie",
-                "ability1Description": "Vitesse de déplacement de troupes d'approvisionnement +25%",
-                "warTalentName": "Hurlement sauvage",
-                "warTalentDesctiption": "Réduit la DEF cavalerie adverses de 40%"
-            },
-            "terraspike": {
-                "name": "Tortépines",
-                "ability1Name": "Engrais",
-                "ability1Description": "Production de nourriture +25%",
-                "warTalentName": "Lance perçante",
-                "warTalentDesctiption": "Réduit les PV infanterie adverses de 40%"
-            },
-            "gnome": {
-                "name": "Gnome",
-                "ability1Name": "Conseiller financier",
-                "ability1Description": "Production d'or +25%",
-                "warTalentName": "Flèches empoisonnées",
-                "warTalentDesctiption": "Augmente l'ATT distance de 15%"
-            },
-            "aquiris": {
-                "name": "Aquiris",
-                "ability1Name": "Epanouissement",
-                "ability1Description": "Production d'anima +40%",
-                "activableAbilityName": "Source",
-                "activableAbilityDescription": "Donne entre 60 et 120 STA",
-                "warTalentName": "Noyade",
-                "warTalentDesctiption": "Réduit les PV armée adverses de 15%"
-            },
-            "sorcerer": {
-                "name": "Sorcier",
-                "ability1Name": "Renforcement",
-                "ability1Description": "Vitesse de deplacement troupes alliées +25%",
-                "activableAbilityName": "Magie noire",
-                "activableAbilityDescription": "Termine la transmutation en cours",
-                "warTalentName": "Étrange sorcellerie",
-                "warTalentDesctiption": "Augmente les PV à distance de 80% pendant 10 secondes quand 10% de vos troupes à distance sont tombées"
-            },
-            "strix": {
-                "name": "Strige",
-                "ability1Name": "Sac-à-sang",
-                "ability1Description": "Vitesse de soin de l'infirmerie +25%",
-                "ability2Name": "Exécution",
-                "ability2Description": "Attente avant exécution de chef emprisonné réduit de 6 heures",
-                "warTalentName": "Coup de fouet",
-                "warTalentDesctiption": "Augmente les PV cavalerie de 80% pendant 10 secondes quand 10% de vos troupes cavalerie sont tombées"
-            },
-            "evilWeevil": {
-                "name": "Charançon maléfique",
-                "ability1Name": "Boost nourriture",
-                "ability1Description": "Production de blé +35%",
-                "activableAbilityName": "Récolte exceptionnelle",
-                "activableAbilityDescription": "Donne instantanément l'équivalent de 4 heures de production de ressources",
-                "warTalentName": "Copieux festin",
-                "warTalentDesctiption": "Augmente les PV armée de 15%"
-            },
-            "totempest": {
-                "name": "Totempestes",
-                "ability1Name": "Boost bois",
-                "ability1Description": "Production de bois +35%",
-                "activableAbilityName": "Amarrage",
-                "activableAbilityDescription": "Renouvelle le navire de charge",
-                "warTalentName": "Blindage de bois",
-                "warTalentDesctiption": "Augmente la DEF à distance de 80% pendant 10 secondes quand 10% de vos troupes à distance sont tombées"
-            },
-            "tempestite": {
-                "name": "Tempêtite",
-                "ability1Name": "Gardien du vent",
-                "ability1Description": "DEF remparts +20%",
-                "ability2Name": "Mistral",
-                "ability2Description": "Vitesse de récupération d'énergie +10%",
-                "activableAbilityName": "Air frais",
-                "activableAbilityDescription": "Donne 20k troupes T1 d'un type aléatoire",
-                "warTalentName": "Ouragan",
-                "warTalentDesctiption": "Étourdit une des plus grosses escouades adverses pendant 8 secondes quand 10% de vos troupes sont tombées"
-            },
-            "harpy": {
-                "name": "Harpie",
-                "ability1Name": "Ecran de nuage",
-                "ability1Description": "Capacité refuge +50k",
-                "activableAbilityName": "Première classe",
-                "activableAbilityDescription": "Donne 3 points vip aléatoires ( 100 / 500 / 1000 / 5000)",
-                "warTalentName": "Dernière danse",
-                "warTalentDesctiption": "Augmente les PV infanterie de 80% pendant 10 secondes quand 10% de vos troupes d'infanterie sont tombées"
-            },
-            "bonehead": {
-                "name": "Tête d'os",
-                "ability1Name": "Potentiel dévoilé",
-                "ability1Description": "Stockage d'anima +20%",
-                "activableAbilityName": "Duel",
-                "activableAbilityDescription": "Donne 10 entrées au colisée",
-                "warTalentName": "Rites funéraires",
-                "warTalentDesctiption": "Augmente la DEF infanterie de 80% pendant 10 secondes quand 10% de vos troupes d'infanterie sont tombées"
-            },
-            "krabby": {
-                "name": "Krabby",
-                "ability1Name": "Boost minéraux",
-                "ability1Description": "Production de minerai +35%",
-                "ability2Name": "Coeur d'acier",
-                "ability2Description": "EXP joueur +10%",
-                "warTalentName": "Armure renforcée",
-                "warTalentDesctiption": "Augmente la DEF armée de 15%"
-            },
-            "bouldur": {
-                "name": "Graniti",
-                "ability1Name": "Boost pierre",
-                "ability1Description": "Production de pierre +35%",
-                "activableAbilityName": "Maître de l'architecture",
-                "activableAbilityDescription": "Remplit la barre d'aide de la construction en cours instantanément",
-                "warTalentName": "Carapace de pierre",
-                "warTalentDesctiption": "Augmente la DEF cavalerie de 80% pendant 10 secondes quand 10% de vos troupes cavalerie sont tombées"
-            },
-            "pyris": {
-                "name": "Flamis",
-                "ability1Name": "Sauvetage",
-                "ability1Description": "Fournitures supplémentaire +20%",
-                "ability2Name": "Melting pot",
-                "ability2Description": "Temps de transmutaion d'essence noire -10%",
-                "activableAbilityName": "Sentier flamboyant",
-                "activableAbilityDescription": "Tue 7500 à 12500 troupes dans la caserne ennemies du rang le plus bas (max 5% des troupes totales)",
-                "warTalentName": "Charge turbo",
-                "warTalentDesctiption": "Au début de la bataille, confère un boost de 60% aux talents tactiques du héros, augmentant les dégats d'escouade infligées pendant 10 secondes"
-            },
-            "moleShaman": {
-                "name": "Taupe chaman",
-                "ability1Name": "Remède naturel",
-                "ability1Description": "Capacité infirmerie +5%",
-                "ability2Name": "Pouvoir fruité",
-                "ability2Description": "ATT infanterie +10%",
-                "activableAbilityName": "Réparation rapide",
-                "activableAbilityDescription": "Répare 50% du max des PV remparts",
-                "warTalentName": "Bénédiction du chaman",
-                "warTalentDesctiption": "Augmente l'ATT et les PV de l'infanterie de 60% pendant 15 secondes lorsque 5% de vos troupes d'infanterie sont tombées"
-            },
-            "magus": {
-                "name": "Magus",
-                "ability1Name": "Lien mystique",
-                "ability1Description": "Capacité de fusion de pactes +5",
-                "ability2Name": "Offrande",
-                "ability2Description": "Durée boost autel +6 heures",
-                "activableAbilityName": "Assitance noire",
-                "activableAbilityDescription": "Remplit la barre d'aide de la recherche en cours instantanément",
-                "warTalentName": "Sacrifice de l'esprit",
-                "warTalentDesctiption": "Augmente l'ATT et les PV de vos troupes à distance de 60% pendant 15 secondes lorsque 5% de vos troupes à distance sont tombées"
-            },
-            "goblin": {
-                "name": "Gobelin",
-                "ability1Name": "Super récolte",
-                "ability1Description": "Vitesse de collecte +25%",
-                "ability2Name": "Boost or",
-                "ability2Description": "Production d'or +35%",
-                "activableAbilityName": "Chercheur d'or",
-                "activableAbilityDescription": "Donne entre 6M et 12M d'or",
-                "warTalentName": "Chasseur de primes",
-                "warTalentDesctiption": "Augmente l'ATT de cavalerie de 100% quand 10% de vos troupes de cavalerie sont tombées (cumulable, le nombre requis sera recalculé après chaque activation)"
-            },
-            "gemmingGremlin": {
-                "name": "Diablotin",
-                "ability1Name": "Architecte",
-                "ability1Description": "Vitesse de construction +5%",
-                "ability2Name": "Boost projet",
-                "ability2Description": "Vitesse de collecte de gemmes +10% (filons)",
-                "activableAbilityName": "Coup de fortune",
-                "activableAbilityDescription": "Donne entre 1500 et 3000 gemmes",
-                "warTalentName": "Arme de cristal",
-                "warTalentDesctiption": "Augmente l'ATT d'infanterie de 100% quand 10% de vos troupes d'infanterie sont tombées (cumulable, le nombre requis sera recalculé après chaque activation)"
-            },
-            "trickstar": {
-                "name": "Trickstar",
-                "ability1Name": "Intelligence stellaire",
-                "ability1Description": "Vitesse de recherche +5%",
-                "ability2Name": "Aide divine",
-                "ability2Description": "ATT distance +10%",
-                "activableAbilityName": "Bonne étoile",
-                "activableAbilityDescription": "Donne 3 étoiles sacrées aléatoires (100 / 1 000 / 10 000)",
-                "warTalentName": "Distance améliorée",
-                "warTalentDesctiption": "Augmente l'ATT à distance de 100% quand 10% de vos troupes à distance sont tombées (cumulable, le nombre requis sera recalculé après chaque activation)"
-            },
-            "noceros": {
-                "name": "Nocéros",
-                "ability1Name": "Charge accrue",
-                "ability1Description": "Capacité armée +35%",
-                "ability2Name": "Frappe foudroyante",
-                "ability2Description": "ATT cavalerie +10%",
-                "activableAbilityName": "En un éclair",
-                "activableAbilityDescription": "Termine instantanément 5 collectes en cours (hors filons de gemmes)",
-                "warTalentName": "Frappe de foudre",
-                "warTalentDesctiption": "Augmente l'ATT et les PV de la cavalerie de 60% pendant 15 secondes lorsque 5% de vos troupes de cavalerie sont tombées"
-            },
-            "gryphon": {
-                "name": "Griffon",
-                "ability1Name": "Aide aérienne",
-                "ability1Description": "Capacité de renforts alliés +50k",
-                "ability2Name": "Polymathe",
-                "ability2Description": "Vitesse d'entraînement +5%",
-                "activableAbilityName": "Retour immédiat",
-                "activableAbilityDescription": "Rappelle toutes les troupes en 6 secondes (hors troupes de coalition)",
-                "warTalentName": "Vent arrière",
-                "warTalentDesctiption": "Augmente l'ATT armée pendant 10 secondes quand 10% de vos troupes sont tombées"
-            },
-            "snowBeast": {
-                "name": "Bête des neiges",
-                "ability1Name": "Martèlement",
-                "ability1Description": "Vitesse de déplacement de coalition (sombre nid) +25%",
-                "ability2Name": "Bouclier de givre",
-                "ability2Description": "DEF distance +10%",
-                "activableAbilityName": "Transport de masse",
-                "activableAbilityDescription": "Multiplie la capacité d'approvisionnement de ressources par 4 pendant 1 heure",
-                "warTalentName": "Bouclier de glace",
-                "warTalentDesctiption": "Invoque un bouclier protégeant 7% de vos troupes à distance quand 12% de vos troupes à distance sont tombées (invoqué une seule fois)"
-            },
-            "megaMaggot": {
-                "name": "Méga-larve",
-                "ability1Name": "Motivation",
-                "ability1Description": "Capacité de caserne +5000",
-                "ability2Name": "Coquille solide",
-                "ability2Description": "DEF infanterie +10%",
-                "activableAbilityName": "Contamination",
-                "activableAbilityDescription": "Réduit une production de ressource ennemie pendant 6 heures",
-                "warTalentName": "Vermiphobie",
-                "warTalentDesctiption": "Étourdit les héros ennemis pendant 5 secondes quand 15% de vos troupes sont tombées"
-            },
-            "saberfang": {
-                "name": "Sabrecroc",
-                "ability1Name": "Prédateur",
-                "ability1Description": "Vitesse de déplacement chasse aux monstres +25%",
-                "ability2Name": "Esprit sauvage",
-                "ability2Description": "DEF cavalerie +10%",
-                "activableAbilityName": "Chasse fatale",
-                "activableAbilityDescription": "Ajoute 15 combo au prochain monstre que vous chassez dans les 15 minutes après activation (ne dépasse pas la limite de chasses consécutives)",
-                "warTalentName": "Garde férale",
-                "warTalentDesctiption": "Invoque un bouclier protégeant 7% de vos troupes de cavalerie quand 12% de vos troupes de cavalerie sont tombées (invoqué une seule fois)"
-            },
-            "hoarder": {
-                "name": "Syllogomane",
-                "ability1Name": "Expansion du trésor",
-                "ability1Description": "Capacité de dépôt de la salle au trésor +10k",
-                "ability2Name": "Mains d'or",
-                "ability2Description": "Vitesse de fusion (pierre de compétence) +20%",
-                "activableAbilityName": "Trésor de la ville",
-                "activableAbilityDescription": "Donne 3 joyaux de type et rareté aléatoires (joyaux de base uniquement)",
-                "warTalentName": "Garde dorée",
-                "warTalentDesctiption": "Invoque un bouclier protégeant 7% de vos troupes d'infanterie quand 12% de vos troupes d'infanterie sont tombées (invoqué une seule fois)"
-            },
-            "mechaTrojan": {
-                "name": "Mécha Troyen",
-                "ability1Name": "Etalon puissant",
-                "ability1Description": "PV cavalerie +10%",
-                "ability2Name": "Y'a pas d'lézard",
-                "ability2Description": "DEF armée (fureur de bataille) +10%",
-                "activableAbilityName": "Cheval de Troie",
-                "activableAbilityDescription": "Augmente la taille max de coalition de 125k pendant 30 minutes"
-            },
-            "tidal": {
-                "name": "Titan des marées",
-                "ability1Name": "Fontaine de jouvence",
-                "ability1Description": "PV infanterie +10%",
-                "ability2Name": "Mur d'eau",
-                "ability2Description": "DEF armée +10%",
-                "activableAbilityName": "Marée haute",
-                "activableAbilityDescription": "Téléporte aléatoirement le territoire ennemi après la première attaque réussie dans les 15 minutes après activation"
-            },
-            "drider": {
-                "name": "Drider infernal",
-                "ability1Name": "Esprit infernal",
-                "ability1Description": "PV infanterie +10%",
-                "ability2Name": "Sortie assurée",
-                "ability2Description": "Chance d'évasion du chef à la capture +10%",
-                "activableAbilityName": "Convocation",
-                "activableAbilityDescription": "Donne 15k troupes d'un type aléatoire, du rang le plus haut débloqué (T4 max)",
-                "warTalentName": "Malédiction infernale",
-                "warTalentDesctiption": "Pétrifie l'une des plus grandes escouades adverses pendant 11 secondes lorsque 7% de vos troupes sont tombées"
-            },
-            "grimReaper": {
-                "name": "La Faucheuse",
-                "ability1Name": "Esprit vagabond",
-                "ability1Description": "Vitesse de déplacement +10%",
-                "ability2Name": "Transcendance",
-                "ability2Description": "PV distance +10%",
-                "activableAbilityName": "Baiser de la mort",
-                "activableAbilityDescription": "Tue 20k à 50k troupes de la caserne ennemie (max 5% du total, cible les troupes au niveau le plus élevé)"
-            },
-            "hueyHops": {
-                "name": "Lapinou",
-                "ability1Name": "Bouclier carapacé",
-                "ability1Description": "DEF distance +20%",
-                "ability2Name": "Inspiration",
-                "ability2Description": "PV armée +10%",
-                "activableAbilityName": "Chaud lapin",
-                "activableAbilityDescription": "Votre chef s'échappera la première fois qu'il est capturé dans les 30 minutes après activation",
-                "warTalentName": "Lapin brutal",
-                "warTalentDesctiption": "Inflige 150% de dégâts (basés sur l'ATT initale de vos troupes infanterie) toutes les 4 secondes jusqu'à 5 fois à une des plus grosses escouades ennemies quand 8% de vos troupes sont tombées"
-            },
-            "bonAppeti": {
-                "name": "Morfalange",
-                "ability1Name": "Ange gardien",
-                "ability1Description": "Attaque infanterie +10%",
-                "ability2Name": "Eclat angélique",
-                "ability2Description": "ATT armée de coalition +10%",
-                "activableAbilityName": "Rétribution divine",
-                "activableAbilityDescription": "Détruit 7 à 15% des ressources du territoire ennemi (max: 100m par ressource)",
-                "warTalentName": "Terreur des cieux",
-                "warTalentDesctiption": "Inflige 600% de dégâts basés sur l'ATT initiale de vos troupes infanterie à une des plus grosses escouades ennemies quand 4% de vos troupes sont tombées"
-            },
-            "gargantua": {
-                "name": "Gargantua",
-                "ability1Name": "Avocat du diable",
-                "ability1Description": "DEF cavalerie +20%",
-                "ability2Name": "Coup géant",
-                "ability2Description": "ATT cavalerie +10%",
-                "activableAbilityName": "Grâce salvatrice",
-                "activableAbilityDescription": "Allonge le délai d'une quête Guild Fest de 30%. Marche également sur les quêtes déjà expirées",
-                "warTalentName": "Force gigantesque",
-                "warTalentDesctiption": "Inflige 600% de dégâts basés sur l'ATT initiale de vos troupes cavalerie à une des plus grosses escouades ennemies quand 4% de vos troupes sont tombées"
-            },
-            "frostwing": {
-                "name": "Aile-de-Givre",
-                "ability1Name": "Bouclier de glace",
-                "ability1Description": "DEF infanterie + 20%",
-                "ability2Name": "Brise glaciale",
-                "ability2Description": "ATT armée +5%",
-                "activableAbilityName": "Morsure de givre",
-                "activableAbilityDescription": "Augmente le temps de déplacement d'escouade de 300% pendant 1h",
-                "warTalentName": "Givre meurtrier",
-                "warTalentDesctiption": "Inflige 150% de dégâts (basés sur l'ATT initale de vos troupes de cavalerie) toutes les 4 secondes jusqu'à 5 fois à une des plus grosses escouades ennemies quand 8% de vos troupes sont tombées"
-            },
-            "queenBee": {
-                "name": "Reine Abeille",
-                "ability1Name": "Bois miellé",
-                "ability1Description": "PV cavalerie +10%",
-                "ability2Name": "Flèche tueuse",
-                "ability2Description": "ATT distance +10%",
-                "activableAbilityName": "Piqûre de poison",
-                "activableAbilityDescription": "Envoie 10 000 troupes de la caserne ennemie à l'infirmerie toutes les 10 minutes (niveau aléatoire, ne dépasse pas 1,25% du total des troupes) et réduit l'ATT armée de 15% pendant 4h",
-                "warTalentName": "Essaim cinglant",
-                "warTalentDesctiption": "Inflige 150% de dégâts (basés sur l'ATT initale de vos troupes à distance) toutes les 4 secondes jusqu'à 5 fois à une des plus grosses escouades ennemies quand 8% de vos troupes sont tombées"
-            },
-            "blackwing": {
-                "name": "Ailes noires",
-                "ability1Name": "Rugissement",
-                "ability1Description": "Attaque armée +5%",
-                "ability2Name": "Sanguin",
-                "ability2Description": "PV Armée (fureur de bataille) +10%",
-                "activableAbilityName": "Feu d'enfer",
-                "activableAbilityDescription": "Vos troupes d'invasion tuent 100% des troupes ennemies blessées (garnison et renforts inclus)",
-                "warTalentName": "Souffle mortel",
-                "warTalentDesctiption": "Inflige 600% de dégâts basés sur l'ATT initiale de vos troupes à distance à une des plus grosses escouades ennemies quand 4% de vos troupes sont tombées"
-            },
-            "jadeWyrm": {
-                "name": "Wyrm de jade",
-                "ability1Name": "Bénediction ardente - Infanterie",
-                "ability1Description": "Boost impact Infanterie vs Archers +15%",
-                "ability2Name": "Bénediction ardente - Archers",
-                "ability2Description": "Boost impact Archers vs Cavalerie +15%",
-                "ability3Name": "Bénediction ardente - Cavalerie",
-                "ability3Description": "Boost impact Cavalerie vs Infanterie +15%",
-                "warTalentName": "Feu divin",
-                "warTalentDesctiption": "Réduit les dégâts infligés par les ennemis de 9% lorsque 4% de vos troupes sont tombées"
-            }
+            "ore": "minerai",
+            "stone": "pierre",
+            "wood": "bois"
+        }
+    },
+    "permissions": {
+        "MissingPermissions": "Oups, il semblerait qu'il me manque les permissions suivantes:\n{text}",
+        "flags": {
+            "AddReactions": "Ajouter des réactions",
+            "AttachFiles": "Joindre des fichiers",
+            "EmbedLinks": "Intégrer des liens",
+            "ManageChannels": "Gérer les salons",
+            "ManageRoles": "Gérer les rôles",
+            "SendMessages": "Envoyer des messages",
+            "UseExternalEmojis": "Utiliser des emojis externes",
+            "ViewChannel": "Voir les salons"
         }
     }
 }

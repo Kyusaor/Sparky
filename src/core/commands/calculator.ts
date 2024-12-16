@@ -1,10 +1,10 @@
-import { APIEmbedField, EmbedBuilder, RestOrArray, SlashCommandIntegerOption, SlashCommandStringOption } from "discord.js";
-import { CommandInterface } from "../constants/types.js";
-import { Command, CommandManager } from "../managers/commands.js";
-import { Constants, DiscordValues } from "../constants/values.js";
-import { Utils } from "../utils.js";
-import { Translations } from "../constants/translations.js";
-import { TranslationsCache } from "../../main.js";
+import {APIEmbedField, RestOrArray, SlashCommandIntegerOption, SlashCommandStringOption} from 'discord.js';
+import {CommandInterface} from '../constants/types.js';
+import {Command, CommandManager} from '../managers/commands.js';
+import {Constants, DiscordValues} from '../constants/values.js';
+import {Utils} from '../utils.js';
+import {Translations} from '../constants/translations.js';
+import {TranslationsCache} from '../../main.js';
 
 export const calculator: CommandInterface = {
     permissionLevel: 1,

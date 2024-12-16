@@ -1,10 +1,10 @@
-import { APIEmbed, EmbedBuilder, SlashCommandStringOption } from "discord.js";
-import { CommandInterface, embedPageData, textLanguage } from "../constants/types.js";
-import { Command, CommandManager } from "../managers/commands.js";
-import { TranslationsCache, bot } from "../../main.js";
-import { Utils } from "../utils.js";
-import { Translations } from "../constants/translations.js";
-import { readFileSync, writeFileSync } from "fs";
+import {APIEmbed, EmbedBuilder, SlashCommandStringOption} from 'discord.js';
+import {CommandInterface, embedPageData} from '../constants/types.js';
+import {Command, CommandManager} from '../managers/commands.js';
+import {bot, TranslationsCache} from '../../main.js';
+import {Utils} from '../utils.js';
+import {Translations} from '../constants/translations.js';
+import {readFileSync, writeFileSync} from 'fs';
 
 export const serverlist:CommandInterface = {
     permissionLevel: 3,
@@ -26,7 +26,7 @@ export const serverlist:CommandInterface = {
         let serverList:serverData[] = [];
         
         //Build the list and return members value
-        let members = await buildServerList(0, serverList);
+        let members = buildServerList(0, serverList);
         await sortServerList(serverList, filter);
         let totalPages = Math.ceil(serverList.length / 25).toString();
 
