@@ -2,7 +2,7 @@ import { CommandArgs, CommandInterface, GearCacheType, GearObject, GearPiece, Ge
 import { Command, CommandManager } from '../managers/commands.js';
 import { Console, Cache, TranslationsCache } from '../../main.js';
 import { Utils } from '../utils.js';
-import { ActionRowBuilder, AttachmentBuilder, EmbedBuilder, InteractionEditReplyOptions, SelectMenuBuilder, SelectMenuOptionBuilder, SlashCommandIntegerOption, SlashCommandStringOption } from 'discord.js';
+import { ActionRowBuilder, AttachmentBuilder, EmbedBuilder, InteractionEditReplyOptions, PermissionFlagsBits, SelectMenuBuilder, SelectMenuOptionBuilder, SlashCommandIntegerOption, SlashCommandStringOption } from 'discord.js';
 import APIManager from '../managers/apicalls.js';
 import { Constants } from '../constants/values.js';
 import { Translations } from '../constants/translations.js';
@@ -13,6 +13,8 @@ export const gear: CommandInterface = {
     permissionLevel: 1,
 
     cacheLockScope: 'none',
+
+    neededPermissions: [PermissionFlagsBits.EmbedLinks, PermissionFlagsBits.AttachFiles],
 
     commandStructure: CommandManager.baseSlashCommandBuilder('gear', 'member')
         .addSubcommand(Command.generateSubcommandBuilder('gear', 'data')
