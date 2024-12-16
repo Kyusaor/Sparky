@@ -322,7 +322,7 @@ function buildItemGearDataEmbed(itemData: GearObject, language: textLanguage) {
     });
 
     let embed = Utils.EmbedBaseBuilder(language)
-                     .setTitle(`${TranslationsCache[language].others.gear.setItemNames[itemData.name]}`)
+                     .setTitle(`${TranslationsCache[language].others.gear.setItemNames[itemData.name] || 'DefaultName'}`)
                      .addFields([
                          {name: commandText.objectEmbedSetName, value: setNames[itemData.set]},
                          {name: commandText.objectEmbedLevel, value: itemData.requiredLevel.toString()},
