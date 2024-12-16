@@ -251,7 +251,7 @@
 			"subcommand": {
 				"data": {
 					"description": "Get specific data about gear sets",
-					"name": "info"
+					"name": "data"
 				},
 				"top": {
 					"description": "Get the best piece of stuff for the given stat",
