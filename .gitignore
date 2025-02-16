@@ -5,3 +5,4 @@ dist/
 logs/
 /.idea/*
 .vscode/tasks.json
+src/test.ts
