@@ -780,7 +780,10 @@
 			},
 			{
 				"text": "Support the bot with /donate"
-			}
+			},
+            {
+                "text": "You are bilingual and willing to help the bot being translated? Reach me with **/contact** !"
+            }
 		],
 		"translation404": "<Translation not found>",
 		"welcomeMsg": "Let me introduce myself: I am Sparky, a Lords Mobile Discord bot, made for guild servers.\n\nMy commands list can be found by typing **/help** on your server. Thanks for adding me !",

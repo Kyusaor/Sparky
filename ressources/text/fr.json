@@ -781,6 +781,9 @@
             },
             {
                 "text": "Soutenez le bot avec la commande /donner"
+            },
+            {
+                "text": "Vous êtes bilingue et voulez aider à la traduction du bot? N'hésitez pas à  me contacter via **/contact**!"
             }
         ],
         "translation404": "<Traduction introuvable>",
