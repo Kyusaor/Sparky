@@ -483,7 +483,7 @@
                     "frostwing": "Aile de Givre",
                     "gargantua": "Gargantua",
                     "gawrilla": "Gorzilla",
-                    "grimReaper": "Grim Reaper",
+                    "grimReaper": "Faucheuse",
                     "gryphon": "Griffon",
                     "hardrox": "Golem Antique",
                     "hellDrider": "Drider de l'Enfer",
@@ -781,6 +781,9 @@
             },
             {
                 "text": "Soutenez le bot avec la commande /donner"
+            },
+            {
+                "text": "Vous êtes bilingue et voulez aider à la traduction du bot? N'hésitez pas à  me contacter via **/contact**!"
             }
         ],
         "translation404": "<Traduction introuvable>",
@@ -1691,8 +1694,8 @@
             "baseTypeMsgEnd": "\n\n:warning: *Ignorez pour annuler*",
             "building": "construction",
             "challenge": "challenge",
-            "challengeResearch": "dragon recherche",
-            "challengeTroops": "dragon entraînement",
+            "challengeResearch": "recherche",
+            "challengeTroops": "entraînement",
             "confirmation": "Voulez-vous signaler un évènement {text} {text2} {text3}?",
             "dragon": "dragon",
             "hell": "infernal",

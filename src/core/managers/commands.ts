@@ -365,6 +365,9 @@ export abstract class CommandManager {
 
     static getCommandFromButtonOrMenuId(buttonId: string): CommandName | 'not a base button' | undefined {
 
+        if(buttonId == "autorole")
+            return "watcher"; //adapt to legacy autorole board
+
         for (let key of botCommands) {
             let name = key.commandStructure.name;
             if (buttonId.endsWith('yes') || buttonId.endsWith('no') || buttonId.includes('nbb')) return 'not a base button';
@@ -881,10 +884,8 @@ export class WatcherManager {
             return role;
         }
         if (event.hellOrChallenge == 'challenge') {
-            event.type[0] == 'research' ?
-                role = 'challengeResearch' :
-                role = 'challengeTroops';
-            return role;
+            if(['challengeResearch', 'challengeTroops'].includes(event.type[0]))
+                return event.type[0] as keyof RolesData;
         }
         return event.reward;
     }

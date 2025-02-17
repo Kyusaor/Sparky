@@ -6,6 +6,7 @@
   "main": "main.js",
   "scripts": {
     "run": "node --no-warnings dist/src/main",
+    "test": "node --no-warnings dist/src/test",
     "runbuild": "tsc && node --no-warnings dist/src/main",
     "build": "tsc -w",
     "deploy": "node dist/src/deploy"
