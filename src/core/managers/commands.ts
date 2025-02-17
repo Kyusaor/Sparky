@@ -365,6 +365,9 @@ export abstract class CommandManager {
 
     static getCommandFromButtonOrMenuId(buttonId: string): CommandName | 'not a base button' | undefined {
 
+        if(buttonId == "autorole")
+            return "watcher"; //adapt to legacy autorole board
+
         for (let key of botCommands) {
             let name = key.commandStructure.name;
             if (buttonId.endsWith('yes') || buttonId.endsWith('no') || buttonId.includes('nbb')) return 'not a base button';
