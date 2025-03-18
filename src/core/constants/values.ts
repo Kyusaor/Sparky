@@ -53,7 +53,8 @@ export abstract class DiscordValues {
         credits: 'https://cdn.discordapp.com/emojis/751774895024898188.webp?size=96&quality=lossless',
         hellBoard: 'https://media.discordapp.net/attachments/659758501865717790/1007676744330903602/infernaux.png',
         randomGF: 'https://media.discordapp.net/attachments/659758501865717790/1059831455695507506/image.png',
-        pact: 'https://media.discordapp.net/attachments/659758501865717790/1221474459274182676/pacte.png?ex=6612b5bc&is=660040bc&hm=fc2a34f6e7ee991d3c6fd24c362a5550a622346714b3b7e953e4823d6a293ef4&=&format=webp&quality=lossless'
+        pact: 'https://media.discordapp.net/attachments/659758501865717790/1221474459274182676/pacte.png?ex=6612b5bc&is=660040bc&hm=fc2a34f6e7ee991d3c6fd24c362a5550a622346714b3b7e953e4823d6a293ef4&=&format=webp&quality=lossless',
+        sanctuary: 'https://media.discordapp.net/attachments/659758501865717790/1349333723182530602/sanctuary.png?ex=67d2b875&is=67d166f5&hm=6b3e55d682872fd2e3ecc7f4e37044752462b8c427807a416f354fd4ae2c10d2&=&format=webp&quality=lossless&width=458&height=642'
     };
 
     static readonly emoteNotFound = { name: 'nope', id: '698945285094637688' };
@@ -1745,5 +1746,11 @@ export abstract class Constants {
             hp: 4,
             def: 2
         },
+    }
+
+    static readonly sanctuary = {
+        CAPACITY: 1250000,
+        BASE_SANCTUARY_SAVE_RATE: 0.8,
+        EXTENDED_SANCTUARY_SAVE_RATE: 0.6,
     }
 }

@@ -89,6 +89,20 @@
                             "name": "type"
                         }
                     }
+                },
+                "sanctuary": {
+                    "name": "sanctuaire",
+                    "description": "Calcule le nombre de troupes sauvées par votre sanctuaire à vide",
+                    "options": {
+                        "amount": {
+                            "name": "quantité",
+                            "description": "La quantité de troupes tuées par l'attaque"
+                        },
+                        "awaiting": {
+                            "name": "en-attente",
+                            "description": "Le nombre de troupes déjà présentes dans votre sanctuaire"
+                        }
+                    }
                 }
             },
             "text": {
@@ -106,7 +120,13 @@
                 "trainEmbedTimeCost": "__Durée nécessaire:__",
                 "trainEmbedTitle": "Calculateur de troupes",
                 "trainEmbedTrainSpeed": "__Vitesse d'entraînement:__",
-                "trainEmbedTroopAmount": "__Nombre de troupe à former:__"
+                "trainEmbedTroopAmount": "__Nombre de troupe à former:__",
+
+                "sanctuaryEmbedTitle": "Calculateur de Sanctuaire",
+                "sanctuaryEmbedBaseSaved": "__Troupes sauvées par le sanctuaire classique:__",
+                "sanctuaryEmbedExtendSaved": "__Troupes sauvées par le sanctuaire étendu:__",
+                "sanctuaryEmbedLost": "__Troupes perdues:__",
+                "sanctuaryEmbedBaseKilled": "__Troupes tuées initialement:__"
             }
         },
         "contact": {

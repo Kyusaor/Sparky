@@ -1,10 +1,10 @@
-import {APIEmbedField, RestOrArray, SlashCommandIntegerOption, SlashCommandStringOption} from 'discord.js';
-import {CommandInterface} from '../constants/types.js';
-import {Command, CommandManager} from '../managers/commands.js';
-import {Constants, DiscordValues} from '../constants/values.js';
-import {Utils} from '../utils.js';
-import {Translations} from '../constants/translations.js';
-import {TranslationsCache} from '../../main.js';
+import { APIEmbedField, RestOrArray, SlashCommandIntegerOption, SlashCommandStringOption } from 'discord.js';
+import { CommandInterface } from '../constants/types.js';
+import { Command, CommandManager } from '../managers/commands.js';
+import { Constants, DiscordValues } from '../constants/values.js';
+import { Utils } from '../utils.js';
+import { Translations } from '../constants/translations.js';
+import { TranslationsCache } from '../../main.js';
 
 export const calculator: CommandInterface = {
     permissionLevel: 1,
@@ -59,6 +59,19 @@ export const calculator: CommandInterface = {
                     (Command.generateCommandOptionBuilder("calculator", "train", "string", true, "tier") as SlashCommandStringOption)
                         .setRequired(true)
                         .addChoices(...Command.getChoices("calculator", "tier"))
+                )
+        )
+        .addSubcommand(
+            Command.generateSubcommandBuilder("calculator", "sanctuary")
+                .addIntegerOption(
+                    (Command.generateCommandOptionBuilder("calculator", "sanctuary", "integer", true, "amount") as SlashCommandIntegerOption)
+                        .setRequired(true)
+                        .setMinValue(0)
+                )
+                .addIntegerOption(
+                    (Command.generateCommandOptionBuilder("calculator", "sanctuary", "integer", true, "awaiting") as SlashCommandIntegerOption)
+                        .setMinValue(1)
+                        .setMaxValue(Constants.sanctuary.CAPACITY)
                 )
         ),
 
@@ -155,6 +168,38 @@ export const calculator: CommandInterface = {
                     ])
 
                 Command.prototype.reply({ embeds: [trainEmbed] }, intera);
+                break;
+
+            case 'sanctuary':
+                const amountKilled = intera.options.getInteger('amount')!;
+                const awaiting = intera.options.getInteger('awaiting') || 0;
+                const baseCapacity = Constants.sanctuary.CAPACITY - awaiting;
+                let capacityRemaining = baseCapacity;
+                let remainingTroops = amountKilled;
+
+                let baseSanctuarySaved = Math.floor(Math.min(
+                    remainingTroops * Constants.sanctuary.BASE_SANCTUARY_SAVE_RATE,
+                    capacityRemaining
+                ));
+                let lostTroops = Math.ceil(baseSanctuarySaved / Constants.sanctuary.BASE_SANCTUARY_SAVE_RATE - baseSanctuarySaved);
+                remainingTroops -= baseSanctuarySaved + lostTroops;
+
+                let extendSanctuarySaved = Math.floor(remainingTroops * Constants.sanctuary.EXTENDED_SANCTUARY_SAVE_RATE);
+                lostTroops += Math.ceil(remainingTroops * (1 - Constants.sanctuary.EXTENDED_SANCTUARY_SAVE_RATE));
+
+
+                const embed = Utils.EmbedBaseBuilder(language)
+                    .setTitle(commandText.sanctuaryEmbedTitle)
+                    .setColor(0)
+                    .setThumbnail(DiscordValues.embedThumbnails.sanctuary)
+                    .addFields(
+                        { name: commandText.sanctuaryEmbedBaseKilled, value: Utils.format3DigitsSeparation(amountKilled)},
+                        { name: commandText.sanctuaryEmbedBaseSaved, value: Utils.format3DigitsSeparation(baseSanctuarySaved) },
+                        { name: commandText.sanctuaryEmbedExtendSaved, value: Utils.format3DigitsSeparation(extendSanctuarySaved) },
+                        { name: commandText.sanctuaryEmbedLost, value: Utils.format3DigitsSeparation(lostTroops) },
+                    )
+
+                Command.prototype.reply({ embeds: [embed] }, intera);
                 break;
         }
     },
